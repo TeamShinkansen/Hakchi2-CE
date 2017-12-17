@@ -59,6 +59,7 @@
             this.modulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.installModulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uninstallModulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openExtraModuleLibraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consoleTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -345,7 +346,8 @@
             // 
             this.modulesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.installModulesToolStripMenuItem,
-            this.uninstallModulesToolStripMenuItem});
+            this.uninstallModulesToolStripMenuItem,
+            this.openExtraModuleLibraryToolStripMenuItem});
             this.modulesToolStripMenuItem.Name = "modulesToolStripMenuItem";
             resources.ApplyResources(this.modulesToolStripMenuItem, "modulesToolStripMenuItem");
             // 
@@ -360,6 +362,12 @@
             this.uninstallModulesToolStripMenuItem.Name = "uninstallModulesToolStripMenuItem";
             resources.ApplyResources(this.uninstallModulesToolStripMenuItem, "uninstallModulesToolStripMenuItem");
             this.uninstallModulesToolStripMenuItem.Click += new System.EventHandler(this.uninstallModulesToolStripMenuItem_Click);
+            // 
+            // openExtraModuleLibraryToolStripMenuItem
+            // 
+            this.openExtraModuleLibraryToolStripMenuItem.Name = "openExtraModuleLibraryToolStripMenuItem";
+            resources.ApplyResources(this.openExtraModuleLibraryToolStripMenuItem, "openExtraModuleLibraryToolStripMenuItem");
+            this.openExtraModuleLibraryToolStripMenuItem.Click += new System.EventHandler(this.openExtraModuleLibraryToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -1201,6 +1209,7 @@
         private System.Windows.Forms.ToolStripMenuItem dumpNANDCPartitionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flashNANDCPartitionToolStripMenuItem;
         private System.Windows.Forms.FolderBrowserDialog exportFolderDialog;
+        private System.Windows.Forms.ToolStripMenuItem openExtraModuleLibraryToolStripMenuItem;
     }
 }
 

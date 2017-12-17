@@ -143,6 +143,13 @@
     <Compile Include="GameGenie\GameGenieFormatException.cs" />
     <Compile Include="GameGenie\GameGenieNotFoundException.cs" />
     <Compile Include="GameGenie\GameGeniePatcherSnes.cs" />
+    <Compile Include="Module.cs" />
+    <Compile Include="ModuleLibraryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModuleLibraryForm.Designer.cs">
+      <DependentUpon>ModuleLibraryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectConsoleDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -564,6 +571,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.ro-RO.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModuleLibraryForm.resx">
+      <DependentUpon>ModuleLibraryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.hu-HU.resx" />
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
