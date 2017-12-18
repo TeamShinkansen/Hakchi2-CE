@@ -49,6 +49,9 @@ namespace com.clusterrr.hakchi_gui
             if (config.Repositories.Count == 0)
             {
                 //Ask user if they want to add default repos
+                var addDefRepoMsgBox = MessageBox.Show("Do you want to add the default repositories?", "Add Default Repositories", MessageBoxButtons.YesNo);
+                if (addDefRepoMsgBox == DialogResult.Yes)
+                    addRepo("https://raw.githubusercontent.com/CompCom/hmrepo/master/repo.xml");
             }
             else if ((DateTime.Now - config.LastUpdate).TotalDays >= 1.0)
             {
