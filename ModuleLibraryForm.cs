@@ -317,6 +317,25 @@ namespace com.clusterrr.hakchi_gui
                         File.Delete(tempFileName);
                     }
                     break;
+                case ModuleType.list:
+                    using (var wc = new WebClient())
+                    {
+                        installedModule = module.Clone();
+                        installedModule.Path = Path.Combine(userModDir, installedModule.IdHmod);
+                        if (Directory.Exists(installedModule.Path)) Directory.Delete(installedModule.Path, true);
+                        Directory.CreateDirectory(installedModule.Path);
+                        var fileList = wc.DownloadString(module.Path).Replace("\r","").Split(new char[] { '\n' });
+                        var downloadFolder = fileList[0];
+                        for(int i = 1; i < fileList.Length; ++i)
+                        {
+                            var destFile = Path.Combine(installedModule.Path, fileList[i]);
+                            if (!Directory.Exists(Path.GetDirectoryName(destFile)))
+                                Directory.CreateDirectory(Path.GetDirectoryName(destFile));
+                            wc.DownloadFile(Path.Combine(downloadFolder, fileList[i]), destFile);
+                        }
+                        config.InstalledModules.Add(installedModule);
+                    }
+                    break;
             }
         }
 

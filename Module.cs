@@ -5,7 +5,7 @@ using System.Text;
 
 namespace com.clusterrr.hakchi_gui.module_library
 {
-    public enum ModuleType { hmod = 0, zippedfolder, zippedfiles }
+    public enum ModuleType { hmod = 0, zippedfolder, zippedfiles, list }
     public class Module
     {
         public string Name;
