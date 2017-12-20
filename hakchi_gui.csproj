@@ -150,6 +150,12 @@
     <Compile Include="ModuleLibraryForm.Designer.cs">
       <DependentUpon>ModuleLibraryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ProgressBarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgressBarForm.Designer.cs">
+      <DependentUpon>ProgressBarForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelectConsoleDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -574,6 +580,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ModuleLibraryForm.resx">
       <DependentUpon>ModuleLibraryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgressBarForm.resx">
+      <DependentUpon>ProgressBarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.hu-HU.resx" />
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />

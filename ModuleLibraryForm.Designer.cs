@@ -39,6 +39,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.moduleDownloadButton = new System.Windows.Forms.Button();
             this.moduleDescriptionBrowser = new System.Windows.Forms.WebBrowser();
+            this.moduleLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -99,6 +100,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.moduleLabel);
             this.panel1.Controls.Add(this.moduleDownloadButton);
             this.panel1.Controls.Add(this.moduleDescriptionBrowser);
             resources.ApplyResources(this.panel1, "panel1");
@@ -119,6 +121,11 @@
             this.moduleDescriptionBrowser.Name = "moduleDescriptionBrowser";
             this.moduleDescriptionBrowser.WebBrowserShortcutsEnabled = false;
             // 
+            // moduleLabel
+            // 
+            resources.ApplyResources(this.moduleLabel, "moduleLabel");
+            this.moduleLabel.Name = "moduleLabel";
+            // 
             // ModuleLibraryForm
             // 
             resources.ApplyResources(this, "$this");
@@ -133,6 +140,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -149,5 +157,6 @@
         private System.Windows.Forms.Button moduleDownloadButton;
         private System.Windows.Forms.WebBrowser moduleDescriptionBrowser;
         private System.Windows.Forms.Button updateRepoButton;
+        private System.Windows.Forms.Label moduleLabel;
     }
 }
