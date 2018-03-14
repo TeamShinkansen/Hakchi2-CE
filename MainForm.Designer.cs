@@ -33,6 +33,7 @@
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addMoreGamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addCustomAppToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.presetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.addPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +74,7 @@
             this.positionAtTheTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.positionAtTheBottomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.positionSortedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.positionHiddenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupByAppTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,14 +108,12 @@
             this.usePCMPatchWhenAvailableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compressGamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compressBoxArtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.separateGamesForMultibootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.centerBoxArtThumbnailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableHakchi2PopupsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bootImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.changeBootImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.disableBootImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetDefaultBootImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripSeparator();
+            this.separateGamesForMultibootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.useExtendedFontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.useLinkedSyncToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.epilepsyProtectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.globalCommandLineArgumentsexpertsOnluToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
@@ -128,6 +128,10 @@
             this.shellToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openTelnetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
+            this.bootImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeBootImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disableBootImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetDefaultBootImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.takeScreenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gitHubPageWithActualReleasesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -157,6 +161,7 @@
             this.editROMHeaderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
             this.resetROMHeaderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectEmulationCoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogImage = new System.Windows.Forms.OpenFileDialog();
             this.buttonStart = new System.Windows.Forms.Button();
             this.timerCalculateGames = new System.Windows.Forms.Timer(this.components);
@@ -196,7 +201,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownSaveCount = new System.Windows.Forms.NumericUpDown();
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
-            this.centerBoxArtThumbnailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.prepareArtDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripSeparator();
+            this.formatNANDCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.contextMenuStrip.SuspendLayout();
@@ -223,6 +230,7 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addMoreGamesToolStripMenuItem,
+            this.addCustomAppToolStripMenuItem,
             this.presetsToolStripMenuItem,
             this.toolStripMenuItem13,
             this.exportGamesToolStripMenuItem,
@@ -241,6 +249,12 @@
             this.addMoreGamesToolStripMenuItem.Name = "addMoreGamesToolStripMenuItem";
             resources.ApplyResources(this.addMoreGamesToolStripMenuItem, "addMoreGamesToolStripMenuItem");
             this.addMoreGamesToolStripMenuItem.Click += new System.EventHandler(this.buttonAddGames_Click);
+            // 
+            // addCustomAppToolStripMenuItem
+            // 
+            this.addCustomAppToolStripMenuItem.Name = "addCustomAppToolStripMenuItem";
+            resources.ApplyResources(this.addCustomAppToolStripMenuItem, "addCustomAppToolStripMenuItem");
+            this.addCustomAppToolStripMenuItem.Click += new System.EventHandler(this.addCustomAppToolStripMenuItem_Click);
             // 
             // presetsToolStripMenuItem
             // 
@@ -397,7 +411,8 @@
             this.toolFlashTheWholeNANDStripMenuItem,
             this.dumpNANDBToolStripMenuItem,
             this.dumpNANDCPartitionToolStripMenuItem,
-            this.flashNANDCPartitionToolStripMenuItem});
+            this.flashNANDCPartitionToolStripMenuItem,
+            this.formatNANDCToolStripMenuItem});
             this.advancedToolStripMenuItem.Name = "advancedToolStripMenuItem";
             resources.ApplyResources(this.advancedToolStripMenuItem, "advancedToolStripMenuItem");
             // 
@@ -481,7 +496,8 @@
             this.originalGamesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.positionAtTheTopToolStripMenuItem,
             this.positionAtTheBottomToolStripMenuItem,
-            this.positionSortedToolStripMenuItem});
+            this.positionSortedToolStripMenuItem,
+            this.positionHiddenToolStripMenuItem});
             this.originalGamesToolStripMenuItem.Name = "originalGamesToolStripMenuItem";
             resources.ApplyResources(this.originalGamesToolStripMenuItem, "originalGamesToolStripMenuItem");
             // 
@@ -502,6 +518,12 @@
             this.positionSortedToolStripMenuItem.Name = "positionSortedToolStripMenuItem";
             resources.ApplyResources(this.positionSortedToolStripMenuItem, "positionSortedToolStripMenuItem");
             this.positionSortedToolStripMenuItem.Click += new System.EventHandler(this.positionSortedInListToolStripMenuItem_Click);
+            // 
+            // positionHiddenToolStripMenuItem
+            // 
+            this.positionHiddenToolStripMenuItem.Name = "positionHiddenToolStripMenuItem";
+            resources.ApplyResources(this.positionHiddenToolStripMenuItem, "positionHiddenToolStripMenuItem");
+            this.positionHiddenToolStripMenuItem.Click += new System.EventHandler(this.positionHiddenToolStripMenuItem_Click);
             // 
             // groupByAppTypeToolStripMenuItem
             // 
@@ -525,7 +547,7 @@
             this.toolStripMenuItem16,
             this.separateGamesForMultibootToolStripMenuItem,
             this.useExtendedFontToolStripMenuItem,
-            this.bootImageToolStripMenuItem,
+            this.useLinkedSyncToolStripMenuItem,
             this.epilepsyProtectionToolStripMenuItem,
             this.globalCommandLineArgumentsexpertsOnluToolStripMenuItem,
             this.toolStripMenuItem5,
@@ -767,6 +789,25 @@
             resources.ApplyResources(this.compressBoxArtToolStripMenuItem, "compressBoxArtToolStripMenuItem");
             this.compressBoxArtToolStripMenuItem.Click += new System.EventHandler(this.compressBoxArtToolStripMenuItem_Click);
             // 
+            // centerBoxArtThumbnailToolStripMenuItem
+            // 
+            this.centerBoxArtThumbnailToolStripMenuItem.CheckOnClick = true;
+            this.centerBoxArtThumbnailToolStripMenuItem.Name = "centerBoxArtThumbnailToolStripMenuItem";
+            resources.ApplyResources(this.centerBoxArtThumbnailToolStripMenuItem, "centerBoxArtThumbnailToolStripMenuItem");
+            this.centerBoxArtThumbnailToolStripMenuItem.Click += new System.EventHandler(this.centerBoxArtThumbnailToolStripMenuItem_Click);
+            // 
+            // disableHakchi2PopupsToolStripMenuItem
+            // 
+            this.disableHakchi2PopupsToolStripMenuItem.CheckOnClick = true;
+            this.disableHakchi2PopupsToolStripMenuItem.Name = "disableHakchi2PopupsToolStripMenuItem";
+            resources.ApplyResources(this.disableHakchi2PopupsToolStripMenuItem, "disableHakchi2PopupsToolStripMenuItem");
+            this.disableHakchi2PopupsToolStripMenuItem.Click += new System.EventHandler(this.disableHakchi2PopupsToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem16
+            // 
+            this.toolStripMenuItem16.Name = "toolStripMenuItem16";
+            resources.ApplyResources(this.toolStripMenuItem16, "toolStripMenuItem16");
+            // 
             // separateGamesForMultibootToolStripMenuItem
             // 
             this.separateGamesForMultibootToolStripMenuItem.Checked = true;
@@ -776,45 +817,6 @@
             resources.ApplyResources(this.separateGamesForMultibootToolStripMenuItem, "separateGamesForMultibootToolStripMenuItem");
             this.separateGamesForMultibootToolStripMenuItem.Click += new System.EventHandler(this.separateGamesForMultibootToolStripMenuItem_Click);
             // 
-            // disableHakchi2PopupsToolStripMenuItem
-            // 
-            this.disableHakchi2PopupsToolStripMenuItem.CheckOnClick = true;
-            this.disableHakchi2PopupsToolStripMenuItem.Name = "disableHakchi2PopupsToolStripMenuItem";
-            resources.ApplyResources(this.disableHakchi2PopupsToolStripMenuItem, "disableHakchi2PopupsToolStripMenuItem");
-            this.disableHakchi2PopupsToolStripMenuItem.Click += new System.EventHandler(this.disableHakchi2PopupsToolStripMenuItem_Click);
-            // 
-            // bootImageToolStripMenuItem
-            // 
-            this.bootImageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.changeBootImageToolStripMenuItem,
-            this.disableBootImageToolStripMenuItem,
-            this.resetDefaultBootImageToolStripMenuItem});
-            this.bootImageToolStripMenuItem.Name = "bootImageToolStripMenuItem";
-            resources.ApplyResources(this.bootImageToolStripMenuItem, "bootImageToolStripMenuItem");
-            // 
-            // changeBootImageToolStripMenuItem
-            // 
-            this.changeBootImageToolStripMenuItem.Name = "changeBootImageToolStripMenuItem";
-            resources.ApplyResources(this.changeBootImageToolStripMenuItem, "changeBootImageToolStripMenuItem");
-            this.changeBootImageToolStripMenuItem.Click += new System.EventHandler(this.changeBootImageToolStripMenuItem_Click);
-            // 
-            // disableBootImageToolStripMenuItem
-            // 
-            this.disableBootImageToolStripMenuItem.Name = "disableBootImageToolStripMenuItem";
-            resources.ApplyResources(this.disableBootImageToolStripMenuItem, "disableBootImageToolStripMenuItem");
-            this.disableBootImageToolStripMenuItem.Click += new System.EventHandler(this.disableBootImageToolStripMenuItem_Click);
-            // 
-            // resetDefaultBootImageToolStripMenuItem
-            // 
-            this.resetDefaultBootImageToolStripMenuItem.Name = "resetDefaultBootImageToolStripMenuItem";
-            resources.ApplyResources(this.resetDefaultBootImageToolStripMenuItem, "resetDefaultBootImageToolStripMenuItem");
-            this.resetDefaultBootImageToolStripMenuItem.Click += new System.EventHandler(this.resetDefaultBootImageToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem16
-            // 
-            this.toolStripMenuItem16.Name = "toolStripMenuItem16";
-            resources.ApplyResources(this.toolStripMenuItem16, "toolStripMenuItem16");
-            // 
             // useExtendedFontToolStripMenuItem
             // 
             this.useExtendedFontToolStripMenuItem.Checked = true;
@@ -823,6 +825,13 @@
             this.useExtendedFontToolStripMenuItem.Name = "useExtendedFontToolStripMenuItem";
             resources.ApplyResources(this.useExtendedFontToolStripMenuItem, "useExtendedFontToolStripMenuItem");
             this.useExtendedFontToolStripMenuItem.Click += new System.EventHandler(this.useExtendedFontToolStripMenuItem_Click);
+            // 
+            // useLinkedSyncToolStripMenuItem
+            // 
+            this.useLinkedSyncToolStripMenuItem.CheckOnClick = true;
+            this.useLinkedSyncToolStripMenuItem.Name = "useLinkedSyncToolStripMenuItem";
+            resources.ApplyResources(this.useLinkedSyncToolStripMenuItem, "useLinkedSyncToolStripMenuItem");
+            this.useLinkedSyncToolStripMenuItem.Click += new System.EventHandler(this.useLinkedSyncToolStripMenuItem_Click);
             // 
             // epilepsyProtectionToolStripMenuItem
             // 
@@ -860,7 +869,10 @@
             this.shellToolStripMenuItem,
             this.openTelnetToolStripMenuItem,
             this.toolStripMenuItem8,
-            this.takeScreenshotToolStripMenuItem});
+            this.bootImageToolStripMenuItem,
+            this.takeScreenshotToolStripMenuItem,
+            this.toolStripMenuItem18,
+            this.prepareArtDirectoryToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             resources.ApplyResources(this.toolsToolStripMenuItem, "toolsToolStripMenuItem");
             // 
@@ -916,6 +928,33 @@
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
             resources.ApplyResources(this.toolStripMenuItem8, "toolStripMenuItem8");
+            // 
+            // bootImageToolStripMenuItem
+            // 
+            this.bootImageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.changeBootImageToolStripMenuItem,
+            this.disableBootImageToolStripMenuItem,
+            this.resetDefaultBootImageToolStripMenuItem});
+            this.bootImageToolStripMenuItem.Name = "bootImageToolStripMenuItem";
+            resources.ApplyResources(this.bootImageToolStripMenuItem, "bootImageToolStripMenuItem");
+            // 
+            // changeBootImageToolStripMenuItem
+            // 
+            this.changeBootImageToolStripMenuItem.Name = "changeBootImageToolStripMenuItem";
+            resources.ApplyResources(this.changeBootImageToolStripMenuItem, "changeBootImageToolStripMenuItem");
+            this.changeBootImageToolStripMenuItem.Click += new System.EventHandler(this.changeBootImageToolStripMenuItem_Click);
+            // 
+            // disableBootImageToolStripMenuItem
+            // 
+            this.disableBootImageToolStripMenuItem.Name = "disableBootImageToolStripMenuItem";
+            resources.ApplyResources(this.disableBootImageToolStripMenuItem, "disableBootImageToolStripMenuItem");
+            this.disableBootImageToolStripMenuItem.Click += new System.EventHandler(this.disableBootImageToolStripMenuItem_Click);
+            // 
+            // resetDefaultBootImageToolStripMenuItem
+            // 
+            this.resetDefaultBootImageToolStripMenuItem.Name = "resetDefaultBootImageToolStripMenuItem";
+            resources.ApplyResources(this.resetDefaultBootImageToolStripMenuItem, "resetDefaultBootImageToolStripMenuItem");
+            this.resetDefaultBootImageToolStripMenuItem.Click += new System.EventHandler(this.resetDefaultBootImageToolStripMenuItem_Click);
             // 
             // takeScreenshotToolStripMenuItem
             // 
@@ -1029,7 +1068,8 @@
             this.decompressSelectedGamesToolStripMenuItem,
             this.deleteSelectedGamesToolStripMenuItem,
             this.toolStripMenuItem17,
-            this.sFROMToolToolStripMenuItem1});
+            this.sFROMToolToolStripMenuItem1,
+            this.selectEmulationCoreToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
             resources.ApplyResources(this.contextMenuStrip, "contextMenuStrip");
             // 
@@ -1116,6 +1156,12 @@
             resources.ApplyResources(this.resetROMHeaderToolStripMenuItem, "resetROMHeaderToolStripMenuItem");
             this.resetROMHeaderToolStripMenuItem.Click += new System.EventHandler(this.resetROMHeaderToolStripMenuItem_Click);
             // 
+            // selectEmulationCoreToolStripMenuItem
+            // 
+            this.selectEmulationCoreToolStripMenuItem.Name = "selectEmulationCoreToolStripMenuItem";
+            resources.ApplyResources(this.selectEmulationCoreToolStripMenuItem, "selectEmulationCoreToolStripMenuItem");
+            this.selectEmulationCoreToolStripMenuItem.Click += new System.EventHandler(this.selectEmulationCoreToolStripMenuItem_Click);
+            // 
             // openFileDialogImage
             // 
             resources.ApplyResources(this.openFileDialogImage, "openFileDialogImage");
@@ -1195,6 +1241,7 @@
             resources.ApplyResources(this.textBoxName, "textBoxName");
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
+            this.textBoxName.Leave += new System.EventHandler(this.textBoxName_Leave);
             // 
             // radioButtonOne
             // 
@@ -1386,12 +1433,22 @@
             this.groupBoxOptions.Name = "groupBoxOptions";
             this.groupBoxOptions.TabStop = false;
             // 
-            // centerBoxArtThumbnailToolStripMenuItem
+            // prepareArtDirectoryToolStripMenuItem
             // 
-            this.centerBoxArtThumbnailToolStripMenuItem.CheckOnClick = true;
-            this.centerBoxArtThumbnailToolStripMenuItem.Name = "centerBoxArtThumbnailToolStripMenuItem";
-            resources.ApplyResources(this.centerBoxArtThumbnailToolStripMenuItem, "centerBoxArtThumbnailToolStripMenuItem");
-            this.centerBoxArtThumbnailToolStripMenuItem.Click += new System.EventHandler(this.centerBoxArtThumbnailToolStripMenuItem_Click);
+            this.prepareArtDirectoryToolStripMenuItem.Name = "prepareArtDirectoryToolStripMenuItem";
+            resources.ApplyResources(this.prepareArtDirectoryToolStripMenuItem, "prepareArtDirectoryToolStripMenuItem");
+            this.prepareArtDirectoryToolStripMenuItem.Click += new System.EventHandler(this.prepareArtDirectoryToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem18
+            // 
+            this.toolStripMenuItem18.Name = "toolStripMenuItem18";
+            resources.ApplyResources(this.toolStripMenuItem18, "toolStripMenuItem18");
+            // 
+            // formatNANDCToolStripMenuItem
+            // 
+            this.formatNANDCToolStripMenuItem.Name = "formatNANDCToolStripMenuItem";
+            resources.ApplyResources(this.formatNANDCToolStripMenuItem, "formatNANDCToolStripMenuItem");
+            this.formatNANDCToolStripMenuItem.Click += new System.EventHandler(this.formatNANDCToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1560,10 +1617,6 @@
         private System.Windows.Forms.ToolStripMenuItem dumpNANDBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dumpNANDCPartitionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flashNANDCPartitionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem bootImageToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem changeBootImageToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem disableBootImageToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem resetDefaultBootImageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usePCMPatchWhenAvailableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sFROMToolToolStripMenuItem1;
@@ -1601,6 +1654,17 @@
         private System.Windows.Forms.NumericUpDown numericUpDownSaveCount;
         private System.Windows.Forms.GroupBox groupBoxOptions;
         private System.Windows.Forms.ToolStripMenuItem centerBoxArtThumbnailToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem positionHiddenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectEmulationCoreToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addCustomAppToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem useLinkedSyncToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bootImageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeBootImageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem disableBootImageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resetDefaultBootImageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem18;
+        private System.Windows.Forms.ToolStripMenuItem prepareArtDirectoryToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem formatNANDCToolStripMenuItem;
     }
 }
 

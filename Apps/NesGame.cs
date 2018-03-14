@@ -13,7 +13,7 @@ using System.Xml.XPath;
 
 namespace com.clusterrr.hakchi_gui
 {
-    public class NesGame : NesMiniApplication, ICloverAutofill, ISupportsGameGenie
+    public class NesGame : NesApplication, ICloverAutofill, ISupportsGameGenie
     {
         public const char Prefix = 'H';
         public static bool? IgnoreMapper;
@@ -22,19 +22,11 @@ namespace com.clusterrr.hakchi_gui
 
         private static byte[] supportedMappers = new byte[] { 0, 1, 2, 3, 4, 5, 7, 9, 10, 86, 87, 184 };
 
-        public override string GoogleSuffix
+        public NesGame(string path, AppMetadata metadata = null, bool ignoreEmptyConfig = false)
+            : base(path, metadata, ignoreEmptyConfig)
         {
-            get
-            {
-                return "(nes | famicom)";
-            }
         }
 
-        public NesGame(string path, bool ignoreEmptyConfig = false)
-            : base(path, ignoreEmptyConfig)
-        {
-        }
-        
         public static bool Patch(string inputFileName, ref byte[] rawRomData, ref char prefix, ref string application, ref string outputFileName, ref string args, ref Image cover, ref byte saveCount, ref uint crc32)
         {
             // Try to patch before mapper check, maybe it will patch mapper
@@ -46,7 +38,7 @@ namespace com.clusterrr.hakchi_gui
             }
             catch
             {
-                application = "/bin/nes";
+                //application = "/bin/nes";
                 return true;
             }
             crc32 = nesFile.CRC32;
@@ -65,7 +57,7 @@ namespace com.clusterrr.hakchi_gui
             }
             else
             {
-                application = "/bin/nes";
+                //application = "/bin/nes";
             }
 
             //if (nesFile.Mapper == 71) nesFile.Mapper = 2; // games by Codemasters/Camerica - this is UNROM clone. One exception - Fire Hawk
@@ -122,12 +114,13 @@ namespace com.clusterrr.hakchi_gui
             {
                 Name = gameinfo.Name;
                 Name = Name.Replace("_", " ").Replace("  ", " ").Trim();
-                Players = gameinfo.Players;
-                if (Players > 1) Simultaneous = true; // actually unknown...
-                ReleaseDate = gameinfo.ReleaseDate;
-                if (ReleaseDate.Length == 4) ReleaseDate += "-01";
-                if (ReleaseDate.Length == 7) ReleaseDate += "-01";
-                Publisher = gameinfo.Publisher.ToUpper();
+                desktop.Players = gameinfo.Players;
+                if (desktop.Players > 1) desktop.Simultaneous = true; // actually unknown...
+                string releaseDate = gameinfo.ReleaseDate;
+                    if (releaseDate.Length == 4) releaseDate += "-01";
+                    if (releaseDate.Length == 7) releaseDate += "-01";
+                desktop.ReleaseDate = releaseDate;
+                desktop.Publisher = gameinfo.Publisher.ToUpper();
                 return true;
             }
             return false;
@@ -191,7 +184,7 @@ namespace com.clusterrr.hakchi_gui
             if (!string.IsNullOrEmpty(GameGenie))
             {
                 var codes = GameGenie.Split(new char[] { ',', '\t', ' ', ';' }, StringSplitOptions.RemoveEmptyEntries);
-                var nesFiles = Directory.GetFiles(this.GamePath, "*.nes", SearchOption.TopDirectoryOnly);
+                var nesFiles = Directory.GetFiles(this.basePath, "*.nes", SearchOption.TopDirectoryOnly);
                 foreach (var f in nesFiles)
                 {
                     var nesFile = new NesFile(f);

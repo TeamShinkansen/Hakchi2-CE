@@ -127,7 +127,7 @@ namespace com.clusterrr.hakchi_gui
                                 "art", "folder_images", "patches", "user_mods", "sfrom_tool"
                             };
                             foreach (var dir in externalDirs)
-                                Shared.DirectoryCopy(Path.Combine(BaseDirectoryInternal, dir), Path.Combine(BaseDirectoryExternal, dir), true, false, true);
+                                Shared.DirectoryCopy(Path.Combine(BaseDirectoryInternal, dir), Path.Combine(BaseDirectoryExternal, dir), true, false, true, false);
                         }
 
                         string languagesDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "languages");
@@ -155,6 +155,7 @@ namespace com.clusterrr.hakchi_gui
 
                         Debug.WriteLine("Starting, version: " + Shared.AppDisplayVersion);
 
+                        System.Net.ServicePointManager.SecurityProtocol = (System.Net.SecurityProtocolType)4080; // set default security protocol
                         Application.EnableVisualStyles();
                         Application.SetCompatibleTextRenderingDefault(false);
                         Application.Run(new MainForm());

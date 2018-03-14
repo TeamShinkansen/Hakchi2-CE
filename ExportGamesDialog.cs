@@ -80,6 +80,7 @@ namespace com.clusterrr.hakchi_gui
                     }
                 }
             }
+            checkLinked.Checked = ConfigIni.ExportLinked;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -141,7 +142,7 @@ namespace com.clusterrr.hakchi_gui
                     ExportPath = Shared.PathCombine(SelectedDrive.RootDirectory.FullName, "hakchi", "games");
                 }
 
-                LinkedExport = checkLinked.Checked;
+                LinkedExport = checkLinked.Enabled && checkLinked.Checked;
 
                 DialogResult = DialogResult.OK;
                 this.Close();
@@ -159,7 +160,6 @@ namespace com.clusterrr.hakchi_gui
             }
             else
             {
-                checkLinked.Checked = false;
                 checkLinked.Enabled = false;
             }
         }
@@ -167,6 +167,11 @@ namespace com.clusterrr.hakchi_gui
         private void Region_CheckedChanged(object sender, EventArgs e)
         {
             if(((RadioButton)sender).Checked) ConfigIni.ExportRegion = ((RadioButton)sender).Text;
+        }
+
+        private void checkLinked_CheckedChanged(object sender, EventArgs e)
+        {
+            ConfigIni.ExportLinked = ((CheckBox)sender).Checked;
         }
     }
 }

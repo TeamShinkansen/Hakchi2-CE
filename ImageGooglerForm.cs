@@ -21,7 +21,7 @@ namespace com.clusterrr.hakchi_gui
             get { return result; }
         }
 
-        public ImageGooglerForm(NesMiniApplication app)
+        public ImageGooglerForm(NesApplication app)
         {
             InitializeComponent();
             if (!string.IsNullOrEmpty(app.Name))
@@ -30,10 +30,10 @@ namespace com.clusterrr.hakchi_gui
             searchThread.Start(app);
         }
 
-        public static string[] GetImageUrls(NesMiniApplication app)
+        public static string[] GetImageUrls(NesApplication app)
         {
             string query = app.Name ?? "";
-            query += " " + app.GoogleSuffix + " (box|cover) art";
+            query += " " + app.Metadata.AppInfo.GoogleSuffix + " (box|cover) art";
             var url = string.Format("https://www.google.com/search?q={0}&source=lnms&tbm=isch", HttpUtility.UrlEncode(query));
             Debug.WriteLine("Web request: " + url);
             var request = WebRequest.Create(url);
@@ -73,7 +73,7 @@ namespace com.clusterrr.hakchi_gui
         {
             try
             {
-                var urls = GetImageUrls(o as NesMiniApplication);
+                var urls = GetImageUrls(o as NesApplication);
                 foreach (var url in urls)
                 {
                     //new Thread(DownloadImageThread).Start(url);

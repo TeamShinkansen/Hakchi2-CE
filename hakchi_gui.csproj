@@ -142,21 +142,34 @@
     </Compile>
     <Compile Include="ApplicationFileInfo.cs" />
     <Compile Include="Apps\AppTypeCollection.cs" />
-    <Compile Include="Apps\ArcadeGame.cs" />
-    <Compile Include="Apps\Atari2600Game.cs" />
+    <Compile Include="Apps\CoreCommands.cs" />
+    <Compile Include="Apps\DesktopFile.cs" />
     <Compile Include="Apps\ICloverAutofill.cs" />
     <Compile Include="Apps\ISupportsGameGenie.cs" />
-    <Compile Include="Apps\Sega32XGame.cs" />
-    <Compile Include="Apps\GenesisGame.cs" />
-    <Compile Include="Apps\PceGame.cs" />
-    <Compile Include="Apps\GbaGame.cs" />
-    <Compile Include="Apps\GbcGame.cs" />
-    <Compile Include="Apps\GbGame.cs" />
-    <Compile Include="Apps\N64Game.cs" />
-    <Compile Include="Apps\GameGearGame.cs" />
-    <Compile Include="Apps\SmsGame.cs" />
+    <Compile Include="Apps\CoreCollection.cs" />
+    <Compile Include="Apps\LibretroGame.cs" />
+    <Compile Include="Apps\NesApplication.cs" />
+    <Compile Include="Apps\NesMenuElementBase.cs" />
     <Compile Include="Apps\SnesGame.cs" />
-    <Compile Include="Apps\NesUGame.cs" />
+    <Compile Include="Apps\UnknownGame.cs" />
+    <Compile Include="NewCustomGameForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewCustomGameForm.Designer.cs">
+      <DependentUpon>NewCustomGameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectCoreDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectCoreDialog.Designer.cs">
+      <DependentUpon>SelectCoreDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SelectSystemDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelectSystemDialog.Designer.cs">
+      <DependentUpon>SelectSystemDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="SfromToolWrapper.cs" />
     <Compile Include="ExportGamesDialog.cs">
       <SubType>Form</SubType>
@@ -164,9 +177,48 @@
     <Compile Include="ExportGamesDialog.Designer.cs">
       <DependentUpon>ExportGamesDialog.cs</DependentUpon>
     </Compile>
-    <Content Include="mods\mod_general\etc\group">
+    <None Include="folder_images\retropie_amiga.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_famicom_classic.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_gameandwatch.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_msx.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_msx2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_nes_classic.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_odyssey2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_pc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_pce_cd.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_sfc_classic.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_snes_classic.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="mods\mod_format\bin\mke2fs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="mods\mod_format\hakchi\transfer\earlybird">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="mods\mod_general\etc\group">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -381,7 +433,7 @@
     <Compile Include="SelectModsForm.Designer.cs">
       <DependentUpon>SelectModsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NesDefaultGame.cs" />
+    <Compile Include="Apps\NesDefaultGame.cs" />
     <Compile Include="FelLib\AWFELMessage.cs" />
     <Compile Include="FelLib\AWFELStandardRequest.cs" />
     <Compile Include="FelLib\AWFELStatusResponse.cs" />
@@ -408,10 +460,9 @@
     </Compile>
     <Compile Include="Apps\FdsGame.cs" />
     <Compile Include="NesMenuCollection.cs" />
-    <Compile Include="NesMenuFolder.cs" />
-    <Compile Include="NesFile.cs" />
+    <Compile Include="Apps\NesMenuFolder.cs" />
+    <Compile Include="Apps\NesFile.cs" />
     <Compile Include="Apps\NesGame.cs" />
-    <Compile Include="Apps\NesMiniApplication.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SearchForm.cs">
@@ -553,270 +604,750 @@
     <EmbeddedResource Include="images\flags\hu.png" />
     <EmbeddedResource Include="images\flags\jp.png" />
     <EmbeddedResource Include="images\flags\ro.png" />
-    <Content Include="data\ubootSD.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="data\ubootSD.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\2048_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\3dengine_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\4do_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\81_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\advanced_tests_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\atari800_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\blastem_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\bluemsx_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\bnes_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\bsnes_accuracy_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\bsnes_balanced_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\bsnes_cplusplus98_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\bsnes_mercury_accuracy_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\bsnes_mercury_balanced_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\bsnes_mercury_performance_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\bsnes_performance_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\cap32_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\chailove_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\citra_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\craft_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\crocods_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\cruzes_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\desmume_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\dinothawr_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\dolphin_launcher_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\dolphin_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\dosbox_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\easyrpg_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\emux_chip8_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\emux_gb_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\emux_nes_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\emux_sms_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\fbalpha2012_cps1_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\fbalpha2012_cps2_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\fbalpha2012_cps3_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\fbalpha2012_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\fbalpha2012_neogeo_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\fb_alpha_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\fceumm_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\ffmpeg_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\fmsx_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\freeintv_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\freej2me_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\fsuae_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\fuse_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\gambatte_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\gearboy_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\genesis_plus_gx_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\glupen64_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\gme_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\gpsp_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\gw_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\handy_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\hatari_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\higan_sfc_balanced_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\higan_sfc_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\imageviewer_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\lutro_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mame2000_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mame2003_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mame2003_midway_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mame2009_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mame2010_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mame2014_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mame2016_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mame_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mednafen_gba_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mednafen_lynx_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mednafen_ngp_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mednafen_pce_fast_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mednafen_pcfx_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mednafen_psx_hw_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mednafen_psx_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mednafen_saturn_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mednafen_snes_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mednafen_supergrafx_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mednafen_vb_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mednafen_wswan_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\melonds_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mess2014_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\meteor_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mgba_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mrboom_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mupen64plus_gles3_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\mupen64plus_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\nekop2_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\nestopia_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\np2kai_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\nxengine_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\o2em_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\openlara_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\opentyrian_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\parallel_n64_debug_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\parallel_n64_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\pascal_pong_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\pcem_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\pcsx1_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\pcsx_rearmed_interpreter_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\pcsx_rearmed_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\pcsx_rearmed_libretro_neon.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\pcsx_rearmed_neon_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\picodrive_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\pocketcdg_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\pokemini_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\ppsspp_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\prboom_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\prosystem_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\puae_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\px68k_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\quicknes_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\redream_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\reicast_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\reicast_naomi_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\remotejoy_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\rustation_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\sameboy_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\scummvm_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\snes9x2002_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\snes9x2005_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\snes9x2005_plus_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\snes9x2010_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\snes9x_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\stella_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\stonesoup_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\tempgba_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\testaudio_callback_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\testaudio_no_callback_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\testaudio_playback_wav_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\testgl_compute_shaders_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\testgl_ff_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\testgl_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\testinput_buttontest_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\testretroluxury_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\testsw_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\testsw_vram_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\testvulkan_async_compute_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\testvulkan_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\test_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\test_netplay_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\tgbdual_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\tyrquake_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\uae4arm_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\ume2014_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\uzem_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\vbam_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\vba_next_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\vecx_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\vice_x128_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\vice_x64_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\vice_xplus4_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\vice_xvic_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\virtualjaguar_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\xrick_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\libretro_cores\yabause_libretro.info">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="data\zImageMemboot">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="FodyWeavers.xml" />
-    <Content Include="data\blankBoot.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_2600.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_2600jr.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_2600_darth_vader.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_32x_genesis2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_32x_megadrive2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_32x_megadrive2_jp.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_arcade.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_cps.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_gamegear.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_gba.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_gbc_green.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_gbc_purple.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_gbc_red.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_gbc_turquoise.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_gbc_yellow.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_gb_dmg.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_gb_play_it_loud_black.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_gb_play_it_loud_blue.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_gb_play_it_loud_green.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_gb_play_it_loud_red.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_gb_play_it_loud_white.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_gb_play_it_loud_yellow.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_genesis2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_megadrive2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_megadrive2_jp.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_n64.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_neogeo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_nes.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_pce.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_sms.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_snes_eu_jp.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\console_snes_usa.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_arcade.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_atari2600.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_atari5200.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_atari7800.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_atarilynx.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_auto_allgames.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_auto_favorites.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_auto_lastplayed.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_c64.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_colecovision.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_custom_collections.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_daphne.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_dreamcast.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_famicom.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_fba.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_fds.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_gamegear.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_gb.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_gba.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_gbc.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_genesis.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_intellivision.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_mame.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_mastersystem.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_megadrive.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_n64.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_nds.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_neogeo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_nes.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_ngp.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_ngpc.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_pcengine.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_ports.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_psp.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_psx.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_retropie.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_sega32x.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_segacd.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_sfc.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_sg_1000.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_snes.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_tg16.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_vectrex.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_videopac.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_virtualboy.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_wonderswan.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_wonderswancolor.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\retropie_zxspectrum.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="images\noboxart.png" />
+    <None Include="data\blankBoot.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_2600.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_2600jr.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_2600_darth_vader.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_32x_genesis2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_32x_megadrive2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_32x_megadrive2_jp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_arcade.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_cps.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_gamegear.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_gba.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_gbc_green.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_gbc_purple.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_gbc_red.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_gbc_turquoise.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_gbc_yellow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_gb_dmg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_gb_play_it_loud_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_gb_play_it_loud_blue.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_gb_play_it_loud_green.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_gb_play_it_loud_red.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_gb_play_it_loud_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_gb_play_it_loud_yellow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_genesis2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_megadrive2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_megadrive2_jp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_n64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_neogeo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_nes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_pce.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_sms.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_snes_eu_jp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\console_snes_usa.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_arcade.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_atari2600.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_atari5200.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_atari7800.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_atarilynx.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_auto_allgames.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_auto_favorites.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_auto_lastplayed.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_c64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_colecovision.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_custom_collections.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_daphne.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_dreamcast.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_famicom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_fba.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_fds.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_gamegear.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_gb.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_gba.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_gbc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_genesis.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_intellivision.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_mame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_mastersystem.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_megadrive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_n64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_nds.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_neogeo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_nes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_ngp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_ngpc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_pcengine.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_ports.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_psp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_psx.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_retropie.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_sega32x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_segacd.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_sfc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_sg_1000.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_snes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_tg16.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_vectrex.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_videopac.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_virtualboy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_wonderswan.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_wonderswancolor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\retropie_zxspectrum.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <EmbeddedResource Include="images\noboxart.png" />
+    <Content Include="images\blank_dos.png" />
     <Content Include="readmeTemplate.css" />
     <Content Include="readmeTemplate.html" />
-    <Content Include="sfrom_tool\README.txt">
+    <Content Include="retroarch-systems-blacklist.txt" />
+    <Content Include="retroarch-whitelist.txt" />
+    <None Include="sfrom_tool\README.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="tools\arm\kexec.static">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="tools\xz.exe">
+    <Content Include="tools\arm\unpackbootimg.static">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="tools\xz.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\hmods\font_remount-0352cb4.hmod">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\1c3848c0-Illusion of Gaia %28U%29 [!].ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="user_mods\extra_space.hmod\readme.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\gamepath-cleanup.hmod">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="user_mods\snes_custom_filters.hmod\readme.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
@@ -856,6 +1387,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.ro-RO.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewCustomGameForm.resx">
+      <DependentUpon>NewCustomGameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.hu-HU.resx" />
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />
@@ -1468,6 +2002,9 @@
     <EmbeddedResource Include="SelectIconForm.ro-RO.resx">
       <DependentUpon>SelectIconForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SelectCoreDialog.resx">
+      <DependentUpon>SelectCoreDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SelectNesButtonsForm.hu-HU.resx">
       <DependentUpon>SelectNesButtonsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -1780,6 +2317,9 @@
     <EmbeddedResource Include="SelectIconForm.ru-RU.resx">
       <DependentUpon>SelectIconForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SelectSystemDialog.resx">
+      <DependentUpon>SelectSystemDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SnesPresetEditor.resx">
       <DependentUpon>SnesPresetEditor.cs</DependentUpon>
     </EmbeddedResource>
@@ -1963,18 +2503,18 @@
     <Content Include="art\README.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="data\fes1.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\snescarts.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\splash.gz">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\uboot.bin">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="data\fes1.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\snescarts.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\splash.gz">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\uboot.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <EmbeddedResource Include="images\flags\ar.png" />
     <EmbeddedResource Include="images\flags\bg.png" />
     <EmbeddedResource Include="images\flags\de.png" />
@@ -1997,675 +2537,672 @@
     <EmbeddedResource Include="images\flags\ua.png" />
     <EmbeddedResource Include="images\flags\dk.png" />
     <EmbeddedResource Include="images\gamepad_snes.png" />
-    <Content Include="LICENSE">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\hmods\clovershell.hmod">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\hmods\copyleft.hmod">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\hmods\fontfix.hmod">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_uninstall\bin\busybox">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_uninstall\hakchi\init">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_uninstall\sbin\init">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\1dac6208-Snow Bros. %28U%29 [!] - NES Mini patch.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\279710dc-Battletoads %28U%29 [bugfix].ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\2caae01c-Felix the cat noDim hack %28for U [!] version%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\46fd7843-Splatter House - Wanpaku Graffiti %28J%29 [!] - MMC3 patch.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\4ec0fecc-Ufouria - The Saga %28E%29 [NTSC hack].ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\61179bfa-Jungle Book %28no dim%29 .ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\6dc28b5a-Bio Miracle Bokutte Upa - MMC5 patch.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\75b3eb37-Saiyuuki World 2 - MMC3 patch.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\8889c564-Immortal, The %28U%29 [!] %28bright hack%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\96087988-RoboCop 3 %28U%29 [!] - NES Mini patch.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\9ab274ae-Cheetahmen II - MMC1 patch.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\ac8dcdea-Cybernoid - The Fighting Machine %28U%29 [!] %28fix%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\ba51ac6f-Holy Diver %28J%29 - MMC1 patch.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\c4b6ed3c-Bill &amp; Ted%27s Excellent Video Game Adventure %28U%29 - NES Mini patch.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\ca033b3a-Dragon%27s Lair %28U%29 [!] %28no dim%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\d054ffb0-Startropics II - Zoda%27s Revenge %28U%29 [!] - MMC3 patch.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\f6898a59-James Bond Jr %28no dim%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\music_hack.hmod\install">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\music_hack.hmod\pb223_music_hack">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\music_hack.hmod\uninstall">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\password.hmod\install">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\password.hmod\password.raw.gz">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\password.hmod\password_fail.raw.gz">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\password.hmod\password_ok.raw.gz">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\password.hmod\S810password">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\password.hmod\uninstall">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\remove_thumbnails.hmod\install">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\remove_thumbnails.hmod\uninstall">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\hmods\tiny7zx.hmod">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\hmods\clovercon.hmod">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\hmods\modules-3.4.112.madmonkey.hmod">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\hmods\ntfs-3g.hmod">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\0354f4b1-Dirt Racer %28Europe%29 %28En,Fr,De%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\09097b2b-ActRaiser %28Europe%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\0ce626ba-Hebereke%27s Popoitto %28Europe%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\0f8378a6-Winter Gold %28Europe%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\17f946c5-K.H. Rummenigge%27s Player Manager %28Germany, Germany Sample%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\1ac7f523-Kick Off 3 - European Challenge %28Europe%29 %28En,Fr,De,Es,It%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\1ad61bd0-90 Minutes - European Prime Goal %28Europe, Europe Beta%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\29a78af9-ActRaiser %28Germany%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\2a9966c0-Soccer Kid %28Europe%29 %28En,Fr,De,Es,It%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\2ae148d6-Smurfs, The %28Europe%29 %28En,Fr,De,Es,It%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\2e9985bc-Super International Cricket %28Europe%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\44a9db5c-Mega-lo-Mania %28Europe%29 %28En,Fr,De%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\4ee9ee99-Castlevania - Vampire%27s Kiss %28Europe%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\588a9707-Pop%27n TwinBee %28Europe%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\60b2d4a8-Striker %28Europe%29 %28En,Fr,De,Es,It,Nl,Sv%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\630e16a1-Actraiser 2 %28Europe%29 %28En,Fr,De%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\797e2e82-Spirou %28Europe%29 %28En,Fr,De,Es%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\7a313722-Hebereke%27s Popoon %28Europe%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\7e2c7143-Lucky Luke %28Europe%29 %28En,Fr,De,Es%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\83af6152-Asterix &amp; Obelix %28Europe%29 %28En,Fr,De,Es%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\8d2596a7-Manchester United Championship Soccer %28Europe%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\91a03035-Pop%27n TwinBee - Rainbow Bell Adventures %28Europe, Germany%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\96dec679-Lothar Matthaeus Super Soccer %28Germany%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\9b1ea779-Fever Pitch Soccer %28Europe%29 %28En,Fr,De,Es,It%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\a27e2664-ActRaiser %28France%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\b9d6269d-Joe &amp; Mac 3 - Lost in the Tropics %28Europe%29 %28En,Fr,De%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\bbcd16f4-Soccer Shootout %28Europe%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\d190cf58-Eric Cantona Football Challenge %28France%29 %28En,Fr,De,Es,It,Nl,Sv%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\d56c21a1-Donald in Maui Mallard %28Europe%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\e4925f15-Adventures of Dr. Franken, The %28Europe%29 %28En,Fr,De,Es,It,Nl,Sv%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\f1dce2b7-Tintin in Tibet %28Europe%29 %28En,Fr,De,Nl%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\fabff8bd-Zombies %28Europe%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\fb1d16c4-Super Ice Hockey %28Europe%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\fce7bade-Kevin Keegan%27s Player Manager %28Europe%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\4824a630-Marko%27s Magic Football %28Europe%29 %28En,Fr,De,Es%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\6d16f5e7-World Cup Striker %28Europe%29 %28En,Fr,De%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\6f7d1745-Smash Tennis %28Europe%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="patches\974523ff-Terranigma %28Europe, France, Germany, Spain%29.ips">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\bin\busybox">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\bin\rsync">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\bin\aplay">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\bin\decodepng">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\etc\filesystems">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\init">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\bin\chmenu">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\bin\clover-canoe-shvc-wr">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\bin\clover-kachikachi-wr">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\bin\gameover">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\bin\hakchi">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\bin\hsqs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\bin\remote-exec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\bin\test-menu">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\bin\uistart">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\bin\uistop">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\init.d\S82remote-exec">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\inittab">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0000_defines">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0010_functions">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0020_backup">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0030_package">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7000_preinit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7070_firmware">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7080_hmods">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7100_preinit">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\pa100_games">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\pffff_config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p0000_version">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\profile">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\hakchi.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\init.d\S78clvcon">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\script\base">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\script\install">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\script\reflash">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\script\removed">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\script\transfer">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\sbin\init">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="desktop_entries\CLV-P-HAAAJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HAACJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HAADJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HAAEJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HAAHJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HAAMJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HAANJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HAAPJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HAAQJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HAARJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HAASJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HAAUJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HAAWJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HAAXJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HABBJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HABCJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HABLJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HABMJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HABNJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HABQJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HABRJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HABVJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HACAJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HACBJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HACCJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HACEJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HACHJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HACJJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HACLJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-HACPJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAAAE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAACE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAADE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAAEE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAAFE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAAHE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAANE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAAPE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAAQE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAARE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAASE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAATE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAAUE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAAVE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAAWE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAAXE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NAAZE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NABBE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NABCE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NABJE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NABKE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NABME.desktop" />
-    <Content Include="desktop_entries\CLV-P-NABNE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NABQE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NABRE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NABVE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NABXE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NACBE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NACDE.desktop" />
-    <Content Include="desktop_entries\CLV-P-NACHE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SAAAE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SAABE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SAAEE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SAAFE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SAAHE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SAAJE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SAAKE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SAALE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SAAQE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SAAXE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SABCE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SABDE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SABHE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SABQE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SABRE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SABTE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SACBE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SACCE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SADGE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SADJE.desktop" />
-    <Content Include="desktop_entries\CLV-P-SADKE.desktop" />
-    <Content Include="desktop_entries\CLV-P-VAAAJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VAABJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VAAEJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VAAFJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VAAGJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VAAHJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VAALJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VAAQJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VABBJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VABCJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VABDJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VABQJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VABRJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VABTJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VACCJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VACDJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VADFJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VADGJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VADJJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VADKJ.desktop" />
-    <Content Include="desktop_entries\CLV-P-VADZJ.desktop" />
+    <None Include="LICENSE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\hmods\clovershell.hmod">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\hmods\copyleft.hmod">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_uninstall\bin\busybox">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_uninstall\hakchi\init">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_uninstall\sbin\init">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\1dac6208-Snow Bros. %28U%29 [!] - NES Mini patch.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\279710dc-Battletoads %28U%29 [bugfix].ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\2caae01c-Felix the cat noDim hack %28for U [!] version%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\46fd7843-Splatter House - Wanpaku Graffiti %28J%29 [!] - MMC3 patch.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\4ec0fecc-Ufouria - The Saga %28E%29 [NTSC hack].ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\61179bfa-Jungle Book %28no dim%29 .ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\6dc28b5a-Bio Miracle Bokutte Upa - MMC5 patch.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\75b3eb37-Saiyuuki World 2 - MMC3 patch.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\8889c564-Immortal, The %28U%29 [!] %28bright hack%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\96087988-RoboCop 3 %28U%29 [!] - NES Mini patch.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\9ab274ae-Cheetahmen II - MMC1 patch.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\ac8dcdea-Cybernoid - The Fighting Machine %28U%29 [!] %28fix%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\ba51ac6f-Holy Diver %28J%29 - MMC1 patch.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\c4b6ed3c-Bill &amp; Ted%27s Excellent Video Game Adventure %28U%29 - NES Mini patch.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\ca033b3a-Dragon%27s Lair %28U%29 [!] %28no dim%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\d054ffb0-Startropics II - Zoda%27s Revenge %28U%29 [!] - MMC3 patch.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\f6898a59-James Bond Jr %28no dim%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\music_hack.hmod\install">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\music_hack.hmod\pb223_music_hack">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\music_hack.hmod\uninstall">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\password.hmod\install">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\password.hmod\password.raw.gz">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\password.hmod\password_fail.raw.gz">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\password.hmod\password_ok.raw.gz">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\password.hmod\S810password">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\password.hmod\uninstall">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\remove_thumbnails.hmod\install">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\remove_thumbnails.hmod\uninstall">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\hmods\tiny7zx.hmod">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\hmods\clovercon.hmod">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\hmods\modules-3.4.112.madmonkey.hmod">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\hmods\ntfs-3g.hmod">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\0354f4b1-Dirt Racer %28Europe%29 %28En,Fr,De%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\09097b2b-ActRaiser %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\0ce626ba-Hebereke%27s Popoitto %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\0f8378a6-Winter Gold %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\17f946c5-K.H. Rummenigge%27s Player Manager %28Germany, Germany Sample%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\1ac7f523-Kick Off 3 - European Challenge %28Europe%29 %28En,Fr,De,Es,It%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\1ad61bd0-90 Minutes - European Prime Goal %28Europe, Europe Beta%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\29a78af9-ActRaiser %28Germany%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\2a9966c0-Soccer Kid %28Europe%29 %28En,Fr,De,Es,It%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\2ae148d6-Smurfs, The %28Europe%29 %28En,Fr,De,Es,It%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\2e9985bc-Super International Cricket %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\44a9db5c-Mega-lo-Mania %28Europe%29 %28En,Fr,De%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\4ee9ee99-Castlevania - Vampire%27s Kiss %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\588a9707-Pop%27n TwinBee %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\60b2d4a8-Striker %28Europe%29 %28En,Fr,De,Es,It,Nl,Sv%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\630e16a1-Actraiser 2 %28Europe%29 %28En,Fr,De%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\797e2e82-Spirou %28Europe%29 %28En,Fr,De,Es%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\7a313722-Hebereke%27s Popoon %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\7e2c7143-Lucky Luke %28Europe%29 %28En,Fr,De,Es%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\83af6152-Asterix &amp; Obelix %28Europe%29 %28En,Fr,De,Es%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\8d2596a7-Manchester United Championship Soccer %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\91a03035-Pop%27n TwinBee - Rainbow Bell Adventures %28Europe, Germany%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\96dec679-Lothar Matthaeus Super Soccer %28Germany%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\9b1ea779-Fever Pitch Soccer %28Europe%29 %28En,Fr,De,Es,It%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\a27e2664-ActRaiser %28France%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\b9d6269d-Joe &amp; Mac 3 - Lost in the Tropics %28Europe%29 %28En,Fr,De%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\bbcd16f4-Soccer Shootout %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\d190cf58-Eric Cantona Football Challenge %28France%29 %28En,Fr,De,Es,It,Nl,Sv%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\d56c21a1-Donald in Maui Mallard %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\e4925f15-Adventures of Dr. Franken, The %28Europe%29 %28En,Fr,De,Es,It,Nl,Sv%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\f1dce2b7-Tintin in Tibet %28Europe%29 %28En,Fr,De,Nl%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\fabff8bd-Zombies %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\fb1d16c4-Super Ice Hockey %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\fce7bade-Kevin Keegan%27s Player Manager %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\4824a630-Marko%27s Magic Football %28Europe%29 %28En,Fr,De,Es%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\6d16f5e7-World Cup Striker %28Europe%29 %28En,Fr,De%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\6f7d1745-Smash Tennis %28Europe%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="patches\974523ff-Terranigma %28Europe, France, Germany, Spain%29.ips">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\bin\busybox">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\bin\rsync">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\bin\aplay">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\bin\decodepng">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\etc\filesystems">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\init">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\chmenu">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\clover-canoe-shvc-wr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\clover-kachikachi-wr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\gameover">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\hakchi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\hsqs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\remote-exec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\test-menu">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\uistart">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\uistop">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\init.d\S82remote-exec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\inittab">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0000_defines">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0010_functions">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0020_backup">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0030_package">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7000_preinit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7070_firmware">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7080_hmods">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7100_preinit">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\pa100_games">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\pffff_config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p0000_version">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\profile">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\hakchi.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\init.d\S78clvcon">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\script\base">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\script\install">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\script\reflash">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\script\removed">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\script\transfer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\sbin\init">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="data\desktop_entries\CLV-P-HAAAJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HAACJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HAADJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HAAEJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HAAHJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HAAMJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HAANJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HAAPJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HAAQJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HAARJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HAASJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HAAUJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HAAWJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HAAXJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HABBJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HABCJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HABLJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HABMJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HABNJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HABQJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HABRJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HABVJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HACAJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HACBJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HACCJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HACEJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HACHJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HACJJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HACLJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-HACPJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAAAE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAACE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAADE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAAEE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAAFE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAAHE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAANE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAAPE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAAQE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAARE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAASE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAATE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAAUE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAAVE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAAWE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAAXE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NAAZE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NABBE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NABCE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NABJE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NABKE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NABME.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NABNE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NABQE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NABRE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NABVE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NABXE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NACBE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NACDE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-NACHE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SAAAE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SAABE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SAAEE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SAAFE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SAAHE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SAAJE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SAAKE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SAALE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SAAQE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SAAXE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SABCE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SABDE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SABHE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SABQE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SABRE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SABTE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SACBE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SACCE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SADGE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SADJE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-SADKE.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VAAAJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VAABJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VAAEJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VAAFJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VAAGJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VAAHJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VAALJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VAAQJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VABBJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VABCJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VABDJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VABQJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VABRJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VABTJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VACCJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VACDJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VADFJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VADGJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VADJJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VADKJ.desktop" />
+    <Content Include="data\desktop_entries\CLV-P-VADZJ.desktop" />
     <None Include="app.config" />
     <None Include="data\desktop_entries.7z">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0040_usb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p0000_config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7010_bootlogo">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7020_usb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\zImage">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0040_usb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p0000_config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7010_bootlogo">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7020_usb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\zImage">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="hakchi-nonportable.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Content Include="mods\mod_general\bin\busybox">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_general\bin\rsync">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_general\sbin\init">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_general\bin\clovershell">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_general\etc\passwd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_reset\hakchi\transfer\earlybird">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="mods\mod_general\bin\busybox">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_general\bin\rsync">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_general\sbin\init">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_general\bin\clovershell">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_general\etc\passwd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="mods\mod_reset\hakchi\transfer\earlybird">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
-    <Content Include="user_mods\snes_custom_filters.hmod\canoe-custom-filters">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\snes_custom_filters.hmod\install">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\snes_custom_filters.hmod\p8030_snes_filters">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\snes_custom_filters.hmod\uninstall">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\extra_space.hmod\etc\preinit.d\p7110_extra_space">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\extra_space.hmod\install">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\extra_space.hmod\uninstall">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="user_mods\snes_custom_filters.hmod\canoe-custom-filters">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\snes_custom_filters.hmod\install">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\snes_custom_filters.hmod\p8030_snes_filters">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\snes_custom_filters.hmod\uninstall">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\extra_space.hmod\etc\preinit.d\p7110_extra_space">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\extra_space.hmod\install">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="user_mods\extra_space.hmod\uninstall">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="data\GameGenieDB.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\nescarts.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="driver\nesmini_driver.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_number.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_a.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_b.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_c.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_d.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_e.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_f.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_g.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_h.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_i.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_j.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_k.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_l.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_m.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_n.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_o.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_p.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_q.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_r.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_s.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_2600.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_32x.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_arcade.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_famicom.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_fds.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_gb.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_gba.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_gbc.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_genesis.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_gg.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_n64.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_neogeo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_nes.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_nes_org.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_pce.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_sms.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_snes_eu_jp.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_system_snes_usa.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_t.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_u.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_v.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_w.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_x.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_y.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="folder_images\folder_z.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="data\GameGenieDB.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="data\nescarts.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="driver\nesmini_driver.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_number.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_a.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_b.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_c.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_d.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_e.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_f.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_g.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_h.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_i.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_j.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_k.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_l.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_m.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_n.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_o.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_p.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_q.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_r.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_s.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_2600.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_32x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_arcade.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_famicom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_fds.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_gb.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_gba.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_gbc.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_genesis.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_gg.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_n64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_neogeo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_nes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_nes_org.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_pce.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_sms.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_snes_eu_jp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_system_snes_usa.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_t.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_u.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_v.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_w.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_x.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_y.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="folder_images\folder_z.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <EmbeddedResource Include="images\2600_sm.png" />
     <EmbeddedResource Include="images\2600_sm_tr.png" />
     <EmbeddedResource Include="images\32x_sm.png" />
@@ -2721,72 +3258,72 @@
     <EmbeddedResource Include="images\snes-eu-jp_sm_tr.png" />
     <EmbeddedResource Include="images\snes-us_sm.png" />
     <EmbeddedResource Include="images\snes-us_sm_tr.png" />
-    <Content Include="user_mods\music_hack.hmod\music.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="user_mods\music_hack.hmod\music.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="user_mods\music_hack.hmod\readme.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="user_mods\password.hmod\readme.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="user_mods\README.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="user_mods\README.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="user_mods\remove_thumbnails.hmod\readme.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="folder_images\README.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="folder_images\README.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="icon.ico" />
-    <Content Include="folder_images\folder_back.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="folder_images\folder_back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <EmbeddedResource Include="images\blank_fds.png" />
     <EmbeddedResource Include="images\blank_jp.png" />
     <EmbeddedResource Include="images\nes_sm.png" />
     <EmbeddedResource Include="images\folder_sm.png" />
     <EmbeddedResource Include="images\gamepad.png" />
     <EmbeddedResource Include="images\original_sm.png" />
-    <Content Include="patches\README.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tools\7z.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tools\7z64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="patches\README.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\7z.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\7z64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="SevenZip\gpl.txt" />
     <Content Include="SevenZip\lgpl.txt" />
-    <Content Include="tools\cpio.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tools\cyggcc_s-1.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tools\cygiconv-2.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tools\cygintl-8.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tools\cygwin1.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tools\lzop.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tools\mkbootfs.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tools\mkbootimg.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tools\unpackbootimg.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="tools\cpio.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\cyggcc_s-1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\cygiconv-2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\cygintl-8.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\cygwin1.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\lzop.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\mkbootfs.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\mkbootimg.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\unpackbootimg.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

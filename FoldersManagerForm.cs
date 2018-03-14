@@ -132,7 +132,43 @@ namespace com.clusterrr.hakchi_gui
         {
             if (nesElement == null || nesElement is NesMenuFolder || nesElement is NesMenuCollection)
                 return 12;
-            
+
+            if (nesElement is FdsGame)
+                return 10;
+            if (nesElement is NesGame)
+                return 28;
+            if (nesElement is SnesGame)
+                return 36;
+            if (nesElement is NesApplication)
+            {
+                var system = (nesElement as NesApplication).Metadata.AppInfo.Name;
+                switch (system)
+                {
+                    case "Sega - 32X":
+                        return 0;
+                    case "Atari - 2600":
+                        return 2;
+                    case "Nintendo - Game Boy":
+                        return 14;
+                    case "Nintendo - Game Boy Advance":
+                        return 16;
+                    case "Nintendo - Game Boy Color":
+                        return 18;
+                    case "Sega - Mega Drive - Genesis":
+                        return 20;
+                    case "Sega - Game Gear":
+                        return 22;
+                    case "Nintendo - Nintendo 64":
+                        return 24;
+                    case "NEC - PC Engine - TurboGrafx 16":
+                        return 32;
+                    case "Sega - Master System - Mark III":
+                        return 34;
+                }
+            }
+            /*
+            if (nesElement is NesDefaultGame)
+                return 30;
             if (nesElement is Sega32XGame)
                 return 0;
             if (nesElement is Atari2600Game)
@@ -141,8 +177,6 @@ namespace com.clusterrr.hakchi_gui
                 return 6;
             if (nesElement is NesUGame)
                 return 8;
-            if (nesElement is FdsGame)
-                return 10;
             if (nesElement is GbGame)
                 return 14;
             if (nesElement is GbaGame)
@@ -155,17 +189,12 @@ namespace com.clusterrr.hakchi_gui
                 return 22;
             if (nesElement is N64Game)
                 return 24;
-            if (nesElement is NesGame)
-                return 28;
-            if (nesElement is NesDefaultGame)
-                return 30;
             if (nesElement is PceGame)
                 return 32;
             if (nesElement is SmsGame)
                 return 34;
-            if (nesElement is SnesGame)
-                return 36;
-            
+            */
+
             return 4;
         }
 
@@ -263,9 +292,9 @@ namespace com.clusterrr.hakchi_gui
             }
             else
             {
-                if (node != null && node.Tag is NesMiniApplication)
+                if (node != null && node.Tag is NesApplication)
                 {
-                    var game = node.Tag as NesMiniApplication;
+                    var game = node.Tag as NesApplication;
                     pictureBoxArt.Image = game.Image;
                     groupBoxArt.Enabled = true;
                     listViewContent.Enabled = false;
@@ -274,6 +303,12 @@ namespace com.clusterrr.hakchi_gui
                 groupBoxSplitModes.Enabled = false;
                 pictureBoxArt.Cursor = Cursors.Default;
             }
+
+            if (pictureBoxArt.Image != null)
+            {
+                pictureBoxArt.SizeMode = (pictureBoxArt.Image.Width > 204 || pictureBoxArt.Image.Height > 204) ? PictureBoxSizeMode.Zoom : PictureBoxSizeMode.CenterImage;
+            }
+
             ShowFolderStats();
         }
 
@@ -527,7 +562,7 @@ namespace com.clusterrr.hakchi_gui
         {
             if (destinationNode == null)
                 destinationNode = treeView.Nodes[0]; // Root
-            if (destinationNode.Tag is NesMiniApplication || destinationNode.Tag is NesDefaultGame)
+            if (destinationNode.Tag is NesApplication || destinationNode.Tag is NesDefaultGame)
                 destinationNode = destinationNode.Parent;
             foreach (var newNode in newNodes)
             {
@@ -840,7 +875,7 @@ namespace com.clusterrr.hakchi_gui
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     folder.ImageId = form.listBox.SelectedItem.ToString();
-                    pictureBoxArt.Image = folder.Image;
+                    ShowSelected();
                 }
             }
         }
@@ -867,7 +902,7 @@ namespace com.clusterrr.hakchi_gui
             {
                 for (int i = 1; i < mainForm.listViewGames.Items.Count; i++)
                 {
-                    if (deletedGames.Contains(mainForm.listViewGames.Items[i].Tag as NesMiniApplication))
+                    if (deletedGames.Contains(mainForm.listViewGames.Items[i].Tag as NesApplication))
                         mainForm.listViewGames.Items[i].Checked = false;
                 }
                 ConfigIni.Save();
@@ -906,22 +941,14 @@ namespace com.clusterrr.hakchi_gui
                     element.AppendChild(subElement);
                     NodeToXml(xml, subElement, child);
                 }
-                else if (child.Tag is NesMiniApplication)
+                else if (child.Tag is NesApplication)
                 {
                     var subElement = xml.CreateElement("Game");
-                    var game = child.Tag as NesMiniApplication;
+                    var game = child.Tag as NesApplication;
                     subElement.SetAttribute("code", game.Code);
                     subElement.SetAttribute("name", game.Name);
                     element.AppendChild(subElement);
                 }
-                //else if (child.Tag is NesDefaultGame)
-                //{
-                //    var subElement = xml.CreateElement("OriginalGame");
-                //    var game = child.Tag as NesDefaultGame;
-                //    subElement.SetAttribute("code", game.Code);
-                //    subElement.SetAttribute("name", game.Name);
-                //    element.AppendChild(subElement);
-                //}
             }
         }
         void XmlToTree(string xmlString)
@@ -971,7 +998,7 @@ namespace com.clusterrr.hakchi_gui
                     case "Game":
                     //case "OriginalGame":
                         var code = element.Attributes["code"].Value;
-                        var games = from n in rootMenuCollection where ((n is NesMiniApplication/* || n is NesDefaultGame*/) && (n.Code == code)) select n;
+                        var games = from n in rootMenuCollection where ((n is NesApplication/* || n is NesDefaultGame*/) && (n.Code == code)) select n;
                         if (games.Count() > 0)
                         {
                             var game = games.First();

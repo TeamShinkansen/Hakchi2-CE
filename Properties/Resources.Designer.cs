@@ -19,7 +19,7 @@ namespace com.clusterrr.hakchi_gui.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -84,6 +84,24 @@ namespace com.clusterrr.hakchi_gui.Properties {
         internal static string AllFiles {
             get {
                 return ResourceManager.GetString("AllFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply changes.
+        /// </summary>
+        internal static string ApplyChanges {
+            get {
+                return ResourceManager.GetString("ApplyChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to apply your changes?.
+        /// </summary>
+        internal static string ApplyChangesQ {
+            get {
+                return ResourceManager.GetString("ApplyChangesQ", resourceCulture);
             }
         }
         
@@ -170,6 +188,16 @@ namespace com.clusterrr.hakchi_gui.Properties {
         internal static System.Drawing.Bitmap blank_arcade {
             get {
                 object obj = ResourceManager.GetObject("blank_arcade", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap blank_dos {
+            get {
+                object obj = ResourceManager.GetObject("blank_dos", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -352,6 +380,15 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calculating differential....
+        /// </summary>
+        internal static string CalculatingDiff {
+            get {
+                return ResourceManager.GetString("CalculatingDiff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error deleting temp folder. Please try again..
         /// </summary>
         internal static string CannotDeleteTempFolder {
@@ -412,6 +449,24 @@ namespace com.clusterrr.hakchi_gui.Properties {
         internal static string Cover {
             get {
                 return ResourceManager.GetString("Cover", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App code already exists, please use a different code!.
+        /// </summary>
+        internal static string CustomGameCodeAlreadyExists {
+            get {
+                return ResourceManager.GetString("CustomGameCodeAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to enter a valid app code and name!.
+        /// </summary>
+        internal static string CustomGameNeedValidData {
+            get {
+                return ResourceManager.GetString("CustomGameNeedValidData", resourceCulture);
             }
         }
         
@@ -539,6 +594,24 @@ namespace com.clusterrr.hakchi_gui.Properties {
         internal static string DetectedConsole {
             get {
                 return ResourceManager.GetString("DetectedConsole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard changes.
+        /// </summary>
+        internal static string DiscardChanges {
+            get {
+                return ResourceManager.GetString("DiscardChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to discard your changes?.
+        /// </summary>
+        internal static string DiscardChangesQ {
+            get {
+                return ResourceManager.GetString("DiscardChangesQ", resourceCulture);
             }
         }
         
@@ -1176,6 +1249,15 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to format NAND-C? It will erase all user data..
+        /// </summary>
+        internal static string FormatNandCQ {
+            get {
+                return ResourceManager.GetString("FormatNandCQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Oops, {0} uses four-screen mode (i.e. the game has additional VRAM memory in the cartridge), and this feature is not supported by the NES Mini. The game will probably not start. But it should work if other emulator&apos;s module installed. Do you want to add this game anyway?.
         /// </summary>
         internal static string FourScreenNotSupported {
@@ -1297,7 +1379,7 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 6ea61d4 (dirty).
+        ///   Looks up a localized string similar to 5025636 (dirty).
         /// </summary>
         internal static string gitCommit {
             get {
@@ -1484,6 +1566,51 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Games.
+        /// </summary>
+        internal static string ListCategoryAll {
+            get {
+                return ResourceManager.GetString("ListCategoryAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom Games.
+        /// </summary>
+        internal static string ListCategoryCustom {
+            get {
+                return ResourceManager.GetString("ListCategoryCustom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Apps.
+        /// </summary>
+        internal static string ListCategoryNew {
+            get {
+                return ResourceManager.GetString("ListCategoryNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Original Games.
+        /// </summary>
+        internal static string ListCategoryOriginal {
+            get {
+                return ResourceManager.GetString("ListCategoryOriginal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown Apps.
+        /// </summary>
+        internal static string ListCategoryUnknown {
+            get {
+                return ResourceManager.GetString("ListCategoryUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loading games....
         /// </summary>
         internal static string LoadingGames {
@@ -1588,6 +1715,15 @@ namespace com.clusterrr.hakchi_gui.Properties {
         internal static string Need3rdPartyEmulator {
             get {
                 return ResourceManager.GetString("Need3rdPartyEmulator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New custom game.
+        /// </summary>
+        internal static string NewCustomGame {
+            get {
+                return ResourceManager.GetString("NewCustomGame", resourceCulture);
             }
         }
         
@@ -1720,6 +1856,24 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kernel out of date.
+        /// </summary>
+        internal static string OutdatedKernel {
+            get {
+                return ResourceManager.GetString("OutdatedKernel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scripts out of date.
+        /// </summary>
+        internal static string OutdatedScripts {
+            get {
+                return ResourceManager.GetString("OutdatedScripts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Patch available.
         /// </summary>
         internal static string PatchAvailable {
@@ -1766,6 +1920,15 @@ namespace com.clusterrr.hakchi_gui.Properties {
         internal static string PleaseTryAgainUSB {
             get {
                 return ResourceManager.GetString("PleaseTryAgainUSB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Until you install the necessary updates, you will likely experience errors while attempting to use this program. Please update to receive full compatibility..
+        /// </summary>
+        internal static string PleaseUpdate {
+            get {
+                return ResourceManager.GetString("PleaseUpdate", resourceCulture);
             }
         }
         
@@ -1918,6 +2081,82 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bandai - WonderSwan Color
+        ///Microsoft - MSX2
+        ///NEC - PC Engine CD - TurboGrafx-CD
+        ///Nintendo - Game Boy Advance (e-Cards)
+        ///Nintendo - Nintendo 64DD
+        ///Nintendo - Sufami Turbo
+        ///Nintendo - Super Nintendo Entertainment System Hacks
+        ///Sega - PICO
+        ///Sinclair - ZX Spectrum +3
+        ///SNK - Neo Geo Pocket Color
+        ///.
+        /// </summary>
+        internal static string retroarch_systems_blacklist {
+            get {
+                return ResourceManager.GetString("retroarch_systems_blacklist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2048
+        ///4do
+        ///atari800
+        ///bluemsx
+        ///bsnes_mercury_performance
+        ///cap32
+        ///dinothawr
+        ///dosbox
+        ///81
+        ///emux_chip8
+        ///fbalpha2012
+        ///fbalpha2012_cps1
+        ///fbalpha2012_cps2
+        ///fbalpha2012_cps3
+        ///fbalpha2012_neogeo
+        ///fb_alpha
+        ///fmsx
+        ///freeintv
+        ///fuse
+        ///gambatte
+        ///genesis_plus_gx
+        ///glupen64
+        ///gme
+        ///gpsp
+        ///gw
+        ///handy
+        ///imageviewer
+        ///lutro
+        ///mame2000
+        ///mame2003_standard
+        ///mame2003_ffight
+        ///mame2003_sys32
+        ///mame2010
+        ///mame2014
+        ///mednafen_ngp
+        ///mednafen_pce_fast
+        ///mednafen_pcfx
+        ///mednafen_supergrafx
+        ///mednafen_vb
+        ///mednafen_wswan
+        ///mgba
+        ///mrboom
+        ///mupen64plus
+        ///np2kai
+        ///nekop2
+        ///nxengine
+        ///o2em
+        ///pcsx_rearmed_neon
+        ///picod [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string retroarch_whitelist {
+            get {
+                return ResourceManager.GetString("retroarch_whitelist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap ro {
@@ -2057,6 +2296,33 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your system&apos;s kernel scripts are out of date and can be updated. Would you like to update the custom kernel scripts now?.
+        /// </summary>
+        internal static string SystemEligibleForRootfsUpdate {
+            get {
+                return ResourceManager.GetString("SystemEligibleForRootfsUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your system&apos;s custom kernel is out of date and requires a reflash before you can use this program. Would you like to flash the custom kernel now?.
+        /// </summary>
+        internal static string SystemRequiresReflash {
+            get {
+                return ResourceManager.GetString("SystemRequiresReflash", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your system&apos;s kernel scripts are out of date and it requires a memboot before you can use this program. Would you like to memboot the custom kernel now?.
+        /// </summary>
+        internal static string SystemRequiresRootfsUpdate {
+            get {
+                return ResourceManager.GetString("SystemRequiresRootfsUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Warning! It&apos;s not recommended to store so many games per folder..
         /// </summary>
         internal static string TooManyPerFolder {
@@ -2091,6 +2357,15 @@ namespace com.clusterrr.hakchi_gui.Properties {
         internal static string UbootFlashed {
             get {
                 return ResourceManager.GetString("UbootFlashed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unassigned.
+        /// </summary>
+        internal static string Unassigned {
+            get {
+                return ResourceManager.GetString("Unassigned", resourceCulture);
             }
         }
         

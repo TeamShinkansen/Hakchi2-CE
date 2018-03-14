@@ -147,6 +147,8 @@
             // 
             this.checkLinked.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkLinked.AutoSize = true;
+            this.checkLinked.Checked = true;
+            this.checkLinked.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkLinked.Enabled = false;
             this.checkLinked.Location = new System.Drawing.Point(204, 76);
             this.checkLinked.Name = "checkLinked";
@@ -154,6 +156,7 @@
             this.checkLinked.TabIndex = 6;
             this.checkLinked.Text = "Linked export";
             this.checkLinked.UseVisualStyleBackColor = true;
+            this.checkLinked.CheckedChanged += new System.EventHandler(this.checkLinked_CheckedChanged);
             // 
             // ExportGamesDialog
             // 
@@ -170,6 +173,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ExportGamesDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Export Games";

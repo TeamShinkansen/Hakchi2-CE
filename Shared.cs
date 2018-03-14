@@ -2,6 +2,8 @@
 using com.clusterrr.util;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -12,7 +14,135 @@ namespace com.clusterrr.hakchi_gui
 {
     static class Shared
     {
-        public const string squashFsPath = "/var/squashfs";
+        public const string SquashFsPath = "/var/squashfs";
+
+        public static Bitmap LoadBitmapCopy(string path)
+        {
+            Bitmap bmp;
+            using (var img = Image.FromFile(path))
+            {
+                bmp = new Bitmap(img);
+            }
+            return bmp;
+        }
+
+        public static Bitmap ResizeImage(Image inImage, PixelFormat? pixelFormat, int targetWidth, int targetHeight, bool upscale, bool keepProportions, bool expandWidth, bool expandHeight)
+        {
+            int X, Y;
+            if (!upscale && inImage.Width <= targetWidth && inImage.Height <= targetHeight)
+            {
+                X = inImage.Width;
+                Y = inImage.Height;
+            }
+            else if (!keepProportions)
+            {
+                X = targetWidth;
+                Y = targetHeight;
+            }
+            else if ((double)inImage.Width / (double)inImage.Height > (double)targetWidth / (double)targetHeight)
+            {
+                X = targetWidth;
+                Y = (int)Math.Round((double)targetWidth * (double)inImage.Height / (double)inImage.Width);
+                if (Y % 2 == 1) ++Y;
+            }
+            else
+            {
+                X = (int)Math.Round((double)targetHeight * (double)inImage.Width / (double)inImage.Height);
+                if (X % 2 == 1) ++X;
+                Y = targetHeight;
+            }
+
+            Bitmap outImage = pixelFormat == null ?
+                new Bitmap(expandWidth ? targetWidth : X, expandHeight ? targetHeight : Y) :
+                new Bitmap(expandWidth ? targetWidth : X, expandHeight ? targetHeight : Y, (PixelFormat)pixelFormat);
+            var outRect = new Rectangle((int)((double)(outImage.Width - X) / 2), (int)((double)(outImage.Height - Y) / 2), X, Y);
+            using (Graphics gr = Graphics.FromImage(outImage))
+            {
+                gr.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+                gr.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+                gr.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+                using (ImageAttributes ia = new ImageAttributes())
+                {
+                    ia.SetWrapMode(System.Drawing.Drawing2D.WrapMode.TileFlipXY); // Fix first line and column alpha shit
+                    gr.DrawImage(inImage, outRect, 0, 0, inImage.Width, inImage.Height, GraphicsUnit.Pixel, ia);
+                }
+                gr.Flush();
+            }
+            return outImage;
+        }
+
+        public static uint CRC32(byte[] data)
+        {
+            uint poly = 0xedb88320;
+            uint[] table = new uint[256];
+            uint temp = 0;
+            for (uint i = 0; i < table.Length; ++i)
+            {
+                temp = i;
+                for (int j = 8; j > 0; --j)
+                {
+                    if ((temp & 1) == 1)
+                    {
+                        temp = (uint)((temp >> 1) ^ poly);
+                    }
+                    else
+                    {
+                        temp >>= 1;
+                    }
+                }
+                table[i] = temp;
+            }
+            uint crc = 0xffffffff;
+            for (int i = 0; i < data.Length; ++i)
+            {
+                byte index = (byte)(((crc) & 0xff) ^ data[i]);
+                crc = (uint)((crc >> 8) ^ table[index]);
+            }
+            return ~crc;
+        }
+
+        public static uint CRC32(FileStream stream)
+        {
+            uint poly = 0xedb88320;
+            uint[] table = new uint[256];
+            uint temp = 0;
+            for (uint i = 0; i < table.Length; ++i)
+            {
+                temp = i;
+                for (int j = 8; j > 0; --j)
+                {
+                    if ((temp & 1) == 1)
+                    {
+                        temp = (uint)((temp >> 1) ^ poly);
+                    }
+                    else
+                    {
+                        temp >>= 1;
+                    }
+                }
+                table[i] = temp;
+            }
+
+            long bytesToRead = stream.Length;
+            int bytesRead = 0;
+            int bufferSize = 1048576;
+            byte[] buffer = new byte[bufferSize];
+
+            uint crc = 0xffffffff;
+            while (bytesToRead > 0)
+            {
+                int chunk = bytesToRead < bufferSize ? (int)bytesToRead : bufferSize;
+                int n = stream.Read(buffer, 0, chunk);
+                for (int i = 0; i < n; ++i)
+                {
+                    byte index = (byte)(((crc) & 0xff) ^ buffer[i]);
+                    crc = (uint)((crc >> 8) ^ table[index]);
+                }
+                bytesToRead -= n;
+                bytesRead += n;
+            }
+            return ~crc;
+        }
 
         public static Stream GenerateStreamFromString(string s)
         {
@@ -39,7 +169,6 @@ namespace com.clusterrr.hakchi_gui
         
         public static bool isFirstRun()
         {
-
             if (AppVersion > (new Version(Settings.Default.LastNonPortableVersion)))
             {
                 Settings.Default.LastNonPortableVersion = AppVersion.ToString();
@@ -62,10 +191,14 @@ namespace com.clusterrr.hakchi_gui
             get
             {
                 Version version = AppVersion;
-                string v = $"{version.Major - 2}.{version.Minor}.{version.Build}";
                 if (version.Revision > 0)
-                    v += $".{version.Revision}";
-                return v;
+                {
+                    return $"{version.Major - 2}.{version.Minor + 1}.0RC{version.Revision}";
+                }
+                else
+                {
+                    return $"{version.Major - 2}.{version.Minor}.{version.Build}";
+                }
             }
         }
 
@@ -147,39 +280,38 @@ namespace com.clusterrr.hakchi_gui
                 SizeSuffixes[mag]);
         }
 
-        public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs, bool skipExistingFiles = false, bool overwriteExistingFiles = false)
+        public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs, bool skipExistingFiles, bool overwriteExistingFiles, bool pseudoLinks, string[] skipFiles = null)
         {
             // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
 
             if (!dir.Exists)
-            {
-                throw new DirectoryNotFoundException(
-                    "Source directory does not exist or could not be found: "
-                    + sourceDirName);
-            }
+                throw new DirectoryNotFoundException("Source directory does not exist or could not be found: " + sourceDirName);
 
             DirectoryInfo[] dirs = dir.GetDirectories();
             // If the destination directory doesn't exist, create it.
             if (!Directory.Exists(destDirName))
-            {
                 Directory.CreateDirectory(destDirName);
-            }
 
             // Get the files in the directory and copy them to the new location.
             FileInfo[] files = dir.GetFiles();
             foreach (FileInfo file in files)
             {
-                string temppath = new FileInfo(Path.Combine(destDirName, file.Name)).FullName;
-                if (File.Exists(temppath) && skipExistingFiles)
-                {
+                if (skipFiles != null && skipFiles.Contains(Path.GetFileName(file.Name)))
+                    continue; // same behavior as TarStream
+
+                string tempPath = new FileInfo(Path.Combine(destDirName, file.Name)).FullName;
+                if (skipExistingFiles && File.Exists(tempPath))
                     continue;
+
+                if (pseudoLinks)
+                {
+                    File.WriteAllText(tempPath + TarStream.refExt, file.FullName);
                 }
                 else
                 {
-                    file.CopyTo(temppath, overwriteExistingFiles);
+                    file.CopyTo(tempPath, overwriteExistingFiles);
                 }
-
             }
 
             // If copying subdirectories, copy them and their contents to new location.
@@ -188,7 +320,7 @@ namespace com.clusterrr.hakchi_gui
                 foreach (DirectoryInfo subdir in dirs)
                 {
                     string temppath = Path.Combine(destDirName, subdir.Name);
-                    DirectoryCopy(subdir.FullName, temppath, copySubDirs, skipExistingFiles, overwriteExistingFiles);
+                    DirectoryCopy(subdir.FullName, temppath, copySubDirs, skipExistingFiles, overwriteExistingFiles, pseudoLinks, skipFiles);
                 }
             }
         }
@@ -216,6 +348,29 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
+        public static long DirectorySize(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+                throw new ArgumentNullException($"Null path cannot be used with this method.");
+
+            long size = 0;
+            DirectoryInfo dir = new DirectoryInfo(path);
+            if (!dir.Exists)
+                return 0;
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                size += file.Length;
+            }
+            foreach (DirectoryInfo subdir in dirs)
+            {
+                size += DirectorySize(subdir.FullName);
+            }
+            return size;
+        }
+
         // concatenate an arbitrary number of arrays
         public static T[] ConcatArrays<T>(params T[][] list)
         {
@@ -239,46 +394,6 @@ namespace com.clusterrr.hakchi_gui
         public static bool IsVersionGreaterOrEqual(string given, string minimum)
         {
             return new Version(given).CompareTo(new Version(minimum)) > -1;
-        }
-
-        public static HashSet<ApplicationFileInfo> GetApplicationFileInfoForDirectory(string rootDirectory, bool recursive = true)
-        {
-            var fileInfoSet = new HashSet<ApplicationFileInfo>();
-            var filepaths = Directory.GetFiles(rootDirectory, "*", recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-
-            foreach (string path in filepaths)
-            {
-                // follow through on tarstreamref files
-                string pathToRead = path;
-                bool isRefFile = false;
-
-                if (TarStream.refRegex.IsMatch(path))
-                {
-                    pathToRead = File.ReadAllText(path);
-                    isRefFile = true;
-                }
-
-                // make the filepath match what we'd get back from the console
-                string canonicalPath = "." + path.Remove(0, rootDirectory.Length).Replace("\\", "/").Replace(".tarstreamref", "");
-                FileInfo f = new FileInfo(pathToRead);
-                fileInfoSet.Add(new ApplicationFileInfo(canonicalPath, f.Length, f.LastWriteTimeUtc, isRefFile));
-            }
-
-            return fileInfoSet;
-        }
-
-        public static HashSet<ApplicationFileInfo> GetApplicationFileInfoFromConsoleOutput(string output)
-        {
-            var fileInfoSet = new HashSet<ApplicationFileInfo>();
-
-            foreach (Match infoMatch in Regex.Matches(output, "^(.*?) (\\d+) (\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?)?$", RegexOptions.Multiline))
-            {
-                long filesize = long.Parse(infoMatch.Groups[2].Value);
-                DateTime lastWriteTime = DateTime.Parse(infoMatch.Groups[3].Value);
-                fileInfoSet.Add(new ApplicationFileInfo(infoMatch.Groups[1].Value, filesize, lastWriteTime, false));
-            }
-
-            return fileInfoSet;
         }
 
         public static string GetRemoteGameSyncPath()

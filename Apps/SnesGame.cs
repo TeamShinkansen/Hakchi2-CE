@@ -12,7 +12,7 @@ using System.Xml.XPath;
 
 namespace com.clusterrr.hakchi_gui
 {
-    public class SnesGame : NesMiniApplication, ICloverAutofill /*, ISupportsGameGenie*/
+    public class SnesGame : NesApplication, ICloverAutofill /*, ISupportsGameGenie*/
     {
         public enum SnesRomType { LoRom = 0x14, HiRom = 0x15 };
 
@@ -145,16 +145,8 @@ namespace com.clusterrr.hakchi_gui
 
         private static Dictionary<uint, CachedGameInfo> gameInfoCache = null;
 
-        public override string GoogleSuffix
-        {
-            get
-            {
-                return "(snes | super nintendo)";
-            }
-        }
-
-        public SnesGame(string path, bool ignoreEmptyConfig = false)
-            : base(path, ignoreEmptyConfig)
+        public SnesGame(string path, AppMetadata metadata = null, bool ignoreEmptyConfig = false)
+            : base(path, metadata, ignoreEmptyConfig)
         {
         }
 
@@ -180,7 +172,7 @@ namespace com.clusterrr.hakchi_gui
                 var stripped = new byte[rawRomData.Length - 512];
                 Array.Copy(rawRomData, 512, stripped, 0, stripped.Length);
                 rawRomData = stripped;
-                crc32 = CRC32(rawRomData);
+                crc32 = Shared.CRC32(rawRomData);
             }
 
             // check if we can use sfrom tool
@@ -190,7 +182,7 @@ namespace com.clusterrr.hakchi_gui
 
             if (isSnesSystem && ConfigIni.UseSFROMTool && SfromToolWrapper.IsInstalled)
             {
-                Debug.WriteLine($"Trying to convert {inputFileName} with SFROM Tool");
+                Debug.WriteLine($"Convert with SFROM Tool: {inputFileName}");
                 if (SfromToolWrapper.ConvertROMtoSFROM(ref rawRomData))
                 {
                     outputFileName = Path.GetFileNameWithoutExtension(outputFileName) + ".sfrom";
@@ -211,8 +203,6 @@ namespace com.clusterrr.hakchi_gui
                 FindPatch(ref rawRomData, inputFileName, crc32);
                 if (isSnesSystem)
                 {
-                    application = "/bin/clover-canoe-shvc-wr -rom";
-                    args = DefaultCanoeArgs;
                     Debug.WriteLine($"Trying to convert {inputFileName}");
                     bool problemGame = false;
                     MakeSfrom(ref rawRomData, ref saveCount, out problemGame);
@@ -237,13 +227,18 @@ namespace com.clusterrr.hakchi_gui
                     }
                     if (problemGame)
                     {
-                        application = "/bin/snes";
-                        args = "";
+                        //application = "/bin/snes";
+                        //args = "";
+                    }
+                    else
+                    {
+                        application = "/bin/clover-canoe-shvc-wr -rom";
+                        args = DefaultCanoeArgs;
                     }
                 }
                 else
                 {
-                    application = "/bin/snes";
+                    //application = "/bin/snes";
                 }
             }
 
@@ -371,7 +366,7 @@ namespace com.clusterrr.hakchi_gui
 
         public SfromHeader1 ReadSfromHeader1()
         {
-            foreach (var f in Directory.GetFiles(GamePath, "*.sfrom"))
+            foreach (var f in Directory.GetFiles(basePath, "*.sfrom"))
             {
                 var sfrom = File.ReadAllBytes(f);
                 var sfromHeader1 = SfromHeader1.Read(sfrom, 0);
@@ -382,7 +377,7 @@ namespace com.clusterrr.hakchi_gui
 
         public SfromHeader2 ReadSfromHeader2()
         {
-            foreach (var f in Directory.GetFiles(GamePath, "*.sfrom"))
+            foreach (var f in Directory.GetFiles(basePath, "*.sfrom"))
             {
                 var sfrom = File.ReadAllBytes(f);
                 var sfromHeader1 = SfromHeader1.Read(sfrom, 0);
@@ -394,7 +389,7 @@ namespace com.clusterrr.hakchi_gui
 
         public void WriteSfromHeader1(SfromHeader1 sfromHeader1)
         {
-            foreach (var f in Directory.GetFiles(GamePath, "*.sfrom"))
+            foreach (var f in Directory.GetFiles(basePath, "*.sfrom"))
             {
                 var sfrom = File.ReadAllBytes(f);
                 var data = sfromHeader1.GetBytes();
@@ -407,7 +402,7 @@ namespace com.clusterrr.hakchi_gui
 
         public void WriteSfromHeader2(SfromHeader2 sfromHeader2)
         {
-            foreach (var f in Directory.GetFiles(GamePath, "*.sfrom"))
+            foreach (var f in Directory.GetFiles(basePath, "*.sfrom"))
             {
                 var sfrom = File.ReadAllBytes(f);
                 var sfromHeader1 = SfromHeader1.Read(sfrom, 0);
@@ -706,14 +701,17 @@ namespace com.clusterrr.hakchi_gui
             {
                 if (!string.IsNullOrEmpty(gameinfo.Name))
                     Name = gameinfo.Name;
-                Players = gameinfo.Players;
-                Simultaneous = gameinfo.Simultaneous;
+                desktop.Players = gameinfo.Players;
+                desktop.Simultaneous = gameinfo.Simultaneous;
                 if (!string.IsNullOrEmpty(gameinfo.ReleaseDate))
-                    ReleaseDate = gameinfo.ReleaseDate;
-                if (ReleaseDate.Length == 4) ReleaseDate += "-01";
-                if (ReleaseDate.Length == 7) ReleaseDate += "-01";
+                {
+                    string releaseDate = gameinfo.ReleaseDate;
+                    if (releaseDate.Length == 4) releaseDate += "-01";
+                    if (releaseDate.Length == 7) releaseDate += "-01";
+                    desktop.ReleaseDate = releaseDate;
+                }
                 if (!string.IsNullOrEmpty(gameinfo.Publisher))
-                    Publisher = gameinfo.Publisher.ToUpper();
+                    desktop.Publisher = gameinfo.Publisher.ToUpper();
 
                 /*
                 if (!string.IsNullOrEmpty(gameinfo.CoverUrl))
@@ -757,7 +755,7 @@ namespace com.clusterrr.hakchi_gui
             if (!string.IsNullOrEmpty(GameGenie))
             {
                 var codes = GameGenie.Split(new char[] { ',', '\t', ' ', ';' }, StringSplitOptions.RemoveEmptyEntries);
-                var nesFiles = Directory.GetFiles(this.GamePath, "*.*", SearchOption.TopDirectoryOnly);
+                var nesFiles = Directory.GetFiles(this.basePath, "*.*", SearchOption.TopDirectoryOnly);
                 foreach (var f in nesFiles)
                 {
                     byte[] data;
