@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using System.IO;
@@ -12,6 +7,7 @@ using System.Net;
 using com.clusterrr.hakchi_gui.Properties;
 using com.clusterrr.hakchi_gui.module_library;
 using SevenZip;
+using Newtonsoft.Json.Linq;
 
 namespace com.clusterrr.hakchi_gui
 {
@@ -19,14 +15,13 @@ namespace com.clusterrr.hakchi_gui
     {
         public class LibraryConfig
         {
-            public List<Repository> Repositories = new List<Repository>();
+            public List<Module> AvailableModules = new List<Module>();
             public List<Module> InstalledModules = new List<Module>();
             public DateTime LastUpdate = new DateTime();
         }
 
         private LibraryConfig config = new LibraryConfig();
         private string configPath { get { return Path.Combine(Program.BaseDirectoryExternal, "config\\libraryConfig.xml"); } }
-        private Repository currentRepo { get; set; }
         private Module currentModule { get; set; }
 
         public ModuleLibraryForm()
@@ -46,41 +41,67 @@ namespace com.clusterrr.hakchi_gui
                 }
             }
 
-            if (config.Repositories.Count == 0)
-            {
-                //Ask user if they want to add default repos
-                var addDefRepoMsgBox = MessageBox.Show("Do you want to add the default repositories?", "Add Default Repositories", MessageBoxButtons.YesNo);
-                if (addDefRepoMsgBox == DialogResult.Yes)
-                {
-                    addRepo("https://raw.githubusercontent.com/CompCom/hmrepo/master/repo.xml");
-                    config.LastUpdate = DateTime.Now;
-                }
-            }
-            else if ((DateTime.Now - config.LastUpdate).TotalDays >= 1.0)
+            //if (config.AvailableModules.Count == 0 || (DateTime.Now - config.LastUpdate).TotalDays >= 1.0)
             {
                 //Ask user to update repository information
-                var updateMsgBox = MessageBox.Show("Do you want to update the repositories?", "Update Repository Information", MessageBoxButtons.YesNo);
-                if (updateMsgBox == DialogResult.Yes)
-                    updateRepos();
+                updateModuleList();
             }
-            loadRepositoryList();
+            loadModuleList();
         }
 
-        private void updateRepos()
+        private void updateModuleList()
         {
-            var progressBarForm = new ProgressBarForm("Updating Repositories", config.Repositories.Count);
-            progressBarForm.Run(() =>
+            try
             {
-                for (int i = 0; i < config.Repositories.Count; ++i)
+                JObject json;
+                using (var wc = new WebClient())
                 {
-                    var updatedRepo = getRepoFromUrl(config.Repositories[i].Url);
-                    if (updatedRepo != null)
-                        config.Repositories[i] = updatedRepo;
-                    progressBarForm.UpdateProgress();
+                    json = JObject.Parse(wc.DownloadString("https://hakchiresources.com/api/get_posts/?count=10000"));
                 }
-            });
+                config.AvailableModules.Clear();
+                foreach (var post in json["posts"])
+                {
+                    bool skip = false;
+                    foreach (var tag in post["tags"])
+                    {
+                        if (tag["slug"].ToString().Equals("non_hmod"))
+                        {
+                            skip = true;
+                            break;
+                        }
+                    }
+                    if (skip)
+                        continue;
+
+                    try
+                    {
+                        Module module = new Module
+                        {
+                            Name = System.Web.HttpUtility.HtmlDecode(post["title"].ToString()),
+                            Id = System.Web.HttpUtility.HtmlDecode(post["title"].ToString()), //Temporary ID need to replace
+                            Author = post["custom_fields"]["user_submit_name"][0].ToString(),
+                            Description = post["url"].ToString() + "?mode=mod_store",
+                            Version = post["custom_fields"]["usp_custom_field"][0].ToString(),
+                            Path = post["custom_fields"]["user_submit_url"][0].ToString()
+                        };
+                        var extention = module.Path.Substring(module.Path.LastIndexOf('.') + 1).ToLower();
+                        if (extention.Equals("hmod"))
+                            module.Type = ModuleType.hmod;
+                        else if (extention.Equals("zip") || extention.Equals("7z") || extention.Equals("rar"))
+                            module.Type = ModuleType.compressedFile;
+                        else
+                            continue; //Unknown File Type
+                        config.AvailableModules.Add(module);
+                    }
+                    catch { }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, "Critical error: " + ex.Message + ex.StackTrace, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             config.LastUpdate = DateTime.Now;
-            MessageBox.Show(this, "Finished updating repositories.", "Update complete");
             updateModules();
         }
 
@@ -88,25 +109,21 @@ namespace com.clusterrr.hakchi_gui
         {
             List<Module> modulesToUpdate = new List<Module>();
             //For each installed module find the matching repo entry
-            foreach(var module in config.InstalledModules)
+            foreach (var module in config.InstalledModules)
             {
                 Module repoModule = null;
-                foreach(var repo in config.Repositories)
+                foreach (var rModule in config.AvailableModules)
                 {
-                    foreach(var rModule in repo.Modules)
+                    if (rModule.Id == module.Id)
                     {
-                        if(rModule.Id == module.Id)
-                        {
-                            repoModule = rModule;
-                            break;
-                        }
+                        repoModule = rModule;
+                        break;
                     }
-                    if (repoModule != null) break;
                 }
                 if (repoModule != null && repoModule.Version != module.Version)
                     modulesToUpdate.Add(repoModule);
             }
-            if(modulesToUpdate.Count != 0)
+            if (modulesToUpdate.Count != 0)
             {
                 var updateMsgBox = MessageBox.Show("Do you want to update all out of date modules?", "Update Modules", MessageBoxButtons.YesNo);
                 if (updateMsgBox == DialogResult.Yes)
@@ -125,15 +142,6 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        private void loadRepositoryList()
-        {
-            repositoryListBox.Items.Clear();
-            foreach (var repo in config.Repositories)
-            {
-                repositoryListBox.Items.Add(repo.Author + "'s Repository");
-            }
-        }
-
         private Module getInstalledModule(Module repoModule)
         {
             foreach (var module in config.InstalledModules)
@@ -144,82 +152,10 @@ namespace com.clusterrr.hakchi_gui
             return null;
         }
 
-        private void addRepoButton_Click(object sender, EventArgs e)
-        {
-            var form = new StringInputForm();
-            form.Text = "Add repository";
-            form.labelComments.Text = "Enter repository url:";
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                if (addRepo(form.textBox.Text))
-                {
-                    repositoryListBox.SelectedIndex = config.Repositories.Count - 1;
-                    saveConfig();
-                }
-            }
-        }
-
-        private Repository getRepoFromUrl(string url)
-        {
-            Repository r = null;
-            try
-            {
-                using (var wc = new WebClient())
-                {
-                    using (var ws = wc.OpenRead(url))
-                    {
-                        XmlSerializer xs = new XmlSerializer(typeof(Repository));
-                        r = (Repository)xs.Deserialize(ws);
-                    }
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Error could not download repository at: " + url, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return r;
-        }
-
-        private bool addRepo(string url)
-        {
-            try
-            {
-                var newRepo = getRepoFromUrl(url);
-                if (newRepo == null)
-                    return false;
-                config.Repositories.Add(newRepo);
-                loadRepositoryList();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(this, "Critical error: " + ex.Message + ex.StackTrace, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-        }
-
-        private void repositoryListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int index = repositoryListBox.SelectedIndex;
-            if (index != -1)
-            {
-                if (currentRepo != config.Repositories[index])
-                {
-                    currentRepo = config.Repositories[index];
-                    loadModuleList();
-                }
-            }
-            else
-            {
-                currentRepo = null;
-                currentModule = null;
-            }
-        }
-
         private void loadModuleList()
         {
             moduleListBox.Items.Clear();
-            foreach (var module in currentRepo.Modules)
+            foreach (var module in config.AvailableModules)
             {
                 moduleListBox.Items.Add(module.Name);
             }
@@ -231,9 +167,9 @@ namespace com.clusterrr.hakchi_gui
             int index = moduleListBox.SelectedIndex;
             if (index != -1)
             {
-                if (currentModule != currentRepo.Modules[index])
+                if (currentModule != config.AvailableModules[index])
                 {
-                    currentModule = currentRepo.Modules[index];
+                    currentModule = config.AvailableModules[index];
                     loadModuleDescription();
                 }
             }
@@ -243,9 +179,7 @@ namespace com.clusterrr.hakchi_gui
 
         private void loadModuleDescription()
         {
-            moduleDescriptionBrowser.DocumentText = String.Format(
-                "<b>Module Name:</b> {0}<br /><b>Author:</b> {1}<br /><b>Version:</b> {2} <br /><b>Description:</b><br />{3}",
-                currentModule.Name, currentRepo.Author, currentModule.Version, currentModule.Description);
+            moduleDescriptionBrowser.Url = new Uri(currentModule.Description, UriKind.Absolute);
             var installedModule = getInstalledModule(currentModule);
             if (installedModule != null)
             {
@@ -297,7 +231,7 @@ namespace com.clusterrr.hakchi_gui
                 {
                     case ModuleType.hmod:
                         {
-                            string fileLocation = Path.Combine(userModDir, module.IdHmod);
+                            string fileLocation = Path.Combine(userModDir, module.Path.Substring(module.Path.LastIndexOf('/')+1));
 
                             using (var wc = new WebClient())
                             {
@@ -308,59 +242,39 @@ namespace com.clusterrr.hakchi_gui
                             }
                         }
                         break;
-                    case ModuleType.zippedfolder:
-                    case ModuleType.zippedfiles:
-                        SevenZipExtractor.SetLibraryPath(Path.Combine(Program.BaseDirectoryInternal, IntPtr.Size == 8 ? @"tools\7z64.dll" : @"tools\7z.dll"));
-                        using (var wc = new WebClient())
-                        {
-                            var tempFileName = Path.GetTempFileName();
-                            wc.DownloadFile(module.Path, tempFileName);
-                            using (var szExtractor = new SevenZipExtractor(tempFileName))
-                            {
-                                installedModule = module.Clone();
-                                installedModule.Path = Path.Combine(userModDir, installedModule.IdHmod);
-                                if (Directory.Exists(installedModule.Path)) Directory.Delete(installedModule.Path, true);
-                                if (module.Type == ModuleType.zippedfolder)
-                                {
-                                    var tempPath = Path.Combine(Path.GetTempPath(), "hmod");
-                                    if (szExtractor.ArchiveFileData[0].IsDirectory == false)
-                                        throw new Exception("Cannot find folder in module zip.");
-                                    szExtractor.ExtractArchive(tempPath);
-                                    Directory.Move(Path.Combine(tempPath, szExtractor.ArchiveFileData[0].FileName), installedModule.Path);
-                                    Directory.Delete(tempPath, true);
-                                }
-                                else
-                                {
-                                    Directory.CreateDirectory(installedModule.Path);
-                                    szExtractor.ExtractArchive(installedModule.Path);
-                                }
-                                config.InstalledModules.Add(installedModule);
-                            }
-                            File.Delete(tempFileName);
-                        }
-                        break;
-                    case ModuleType.list:
-                        using (var wc = new WebClient())
-                        {
-                            installedModule = module.Clone();
-                            installedModule.Path = Path.Combine(userModDir, installedModule.IdHmod);
-                            if (Directory.Exists(installedModule.Path)) Directory.Delete(installedModule.Path, true);
-                            Directory.CreateDirectory(installedModule.Path);
-                            var fileList = wc.DownloadString(module.Path).Replace("\r", "").Split(new char[] { '\n' });
-                            var downloadFolder = fileList[0];
-                            for (int i = 1; i < fileList.Length; ++i)
-                            {
-                                var destFile = Path.Combine(installedModule.Path, fileList[i]);
-                                if (!Directory.Exists(Path.GetDirectoryName(destFile)))
-                                    Directory.CreateDirectory(Path.GetDirectoryName(destFile));
-                                wc.DownloadFile(Path.Combine(downloadFolder, fileList[i]), destFile);
-                            }
-                            config.InstalledModules.Add(installedModule);
-                        }
-                        break;
+                    //case ModuleType.compressedFile:
+                    //    SevenZipExtractor.SetLibraryPath(Path.Combine(Program.BaseDirectoryInternal, IntPtr.Size == 8 ? @"tools\7z64.dll" : @"tools\7z.dll"));
+                    //    using (var wc = new WebClient())
+                    //    {
+                    //        var tempFileName = Path.GetTempFileName();
+                    //        wc.DownloadFile(module.Path, tempFileName);
+                    //        using (var szExtractor = new SevenZipExtractor(tempFileName))
+                    //        {
+                    //            installedModule = module.Clone();
+                    //            installedModule.Path = Path.Combine(userModDir, installedModule.IdHmod);
+                    //            if (Directory.Exists(installedModule.Path)) Directory.Delete(installedModule.Path, true);
+                    //            if (module.Type == ModuleType.zippedfolder)
+                    //            {
+                    //                var tempPath = Path.Combine(Path.GetTempPath(), "hmod");
+                    //                if (szExtractor.ArchiveFileData[0].IsDirectory == false)
+                    //                    throw new Exception("Cannot find folder in module zip.");
+                    //                szExtractor.ExtractArchive(tempPath);
+                    //                Directory.Move(Path.Combine(tempPath, szExtractor.ArchiveFileData[0].FileName), installedModule.Path);
+                    //                Directory.Delete(tempPath, true);
+                    //            }
+                    //            else
+                    //            {
+                    //                Directory.CreateDirectory(installedModule.Path);
+                    //                szExtractor.ExtractArchive(installedModule.Path);
+                    //            }
+                    //            config.InstalledModules.Add(installedModule);
+                    //        }
+                    //        File.Delete(tempFileName);
+                    //    }
+                    //    break;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(this, "Critical error: " + ex.Message + ex.StackTrace, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -380,14 +294,6 @@ namespace com.clusterrr.hakchi_gui
             {
                 x.Serialize(fs, config);
             }
-        }
-
-        private void updateRepoButton_Click(object sender, EventArgs e)
-        {
-            int selectedRepo = repositoryListBox.SelectedIndex;
-            updateRepos();
-            loadRepositoryList();
-            repositoryListBox.SelectedIndex = selectedRepo;
         }
     }
 }
