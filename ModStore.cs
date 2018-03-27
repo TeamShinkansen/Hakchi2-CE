@@ -8,6 +8,7 @@ using System.Text;
 using System.Reflection;
 using System.Windows.Forms;
 using com.clusterrr.hakchi_gui.Properties;
+using System.Diagnostics;
 
 namespace com.clusterrr.hakchi_gui
 {
@@ -18,6 +19,7 @@ namespace com.clusterrr.hakchi_gui
             InitializeComponent();
             this.Icon = Resources.icon;
             this.Text = String.Format("About {0}", AssemblyTitle);
+            PoweredByLinkS.Text = "Powered By HakchiResources.com";
         }
 
         #region Assembly Attribute Accessors
@@ -41,9 +43,14 @@ namespace com.clusterrr.hakchi_gui
 
         #endregion
 
-        private void ModStore_Load(object sender, EventArgs e)
+        private void PoweredByLinkS_Click(object sender, EventArgs e)
         {
+            Process.Start("https://www.hakchiresources.com");
+        }
 
+        private void visitWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.hakchiresources.com");
         }
     }
 }
