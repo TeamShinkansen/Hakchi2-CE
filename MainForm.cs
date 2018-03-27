@@ -2739,5 +2739,12 @@ namespace com.clusterrr.hakchi_gui
             }
 
         }
+
+        private void modStoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var modStore = new ModStore();
+            modStore.Text = modStoreToolStripMenuItem.Text.Replace("&", "");
+            modStore.ShowDialog();
+        }
     }
 }

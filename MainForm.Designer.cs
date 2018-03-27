@@ -67,6 +67,7 @@
             this.flashNANDBPartitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dumpNANDCPartitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flashNANDCPartitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.formatNANDCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.installModulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uninstallModulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -195,7 +196,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.numericUpDownSaveCount = new System.Windows.Forms.NumericUpDown();
             this.groupBoxOptions = new System.Windows.Forms.GroupBox();
-            this.formatNANDCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.structureButton = new System.Windows.Forms.Button();
             this.foldersContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.disablePagefoldersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -212,6 +212,7 @@
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.maximumGamesPerFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gamesConsoleComboBox = new System.Windows.Forms.ComboBox();
+            this.modStoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.contextMenuStrip.SuspendLayout();
@@ -230,6 +231,7 @@
             this.modulesToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.settingsToolStripMenuItem,
+            this.modStoreToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.helpToolStripMenuItem});
             resources.ApplyResources(this.menuStrip, "menuStrip");
@@ -478,6 +480,12 @@
             this.flashNANDCPartitionToolStripMenuItem.Name = "flashNANDCPartitionToolStripMenuItem";
             resources.ApplyResources(this.flashNANDCPartitionToolStripMenuItem, "flashNANDCPartitionToolStripMenuItem");
             this.flashNANDCPartitionToolStripMenuItem.Click += new System.EventHandler(this.flashNANDCPartitionToolStripMenuItem_Click);
+            // 
+            // formatNANDCToolStripMenuItem
+            // 
+            this.formatNANDCToolStripMenuItem.Name = "formatNANDCToolStripMenuItem";
+            resources.ApplyResources(this.formatNANDCToolStripMenuItem, "formatNANDCToolStripMenuItem");
+            this.formatNANDCToolStripMenuItem.Click += new System.EventHandler(this.formatNANDCToolStripMenuItem_Click);
             // 
             // modulesToolStripMenuItem
             // 
@@ -1401,22 +1409,6 @@
             this.groupBoxOptions.Name = "groupBoxOptions";
             this.groupBoxOptions.TabStop = false;
             // 
-            // prepareArtDirectoryToolStripMenuItem
-            // 
-            this.prepareArtDirectoryToolStripMenuItem.Name = "prepareArtDirectoryToolStripMenuItem";
-            resources.ApplyResources(this.prepareArtDirectoryToolStripMenuItem, "prepareArtDirectoryToolStripMenuItem");
-            this.prepareArtDirectoryToolStripMenuItem.Click += new System.EventHandler(this.prepareArtDirectoryToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem18
-            // 
-            this.toolStripMenuItem18.Name = "toolStripMenuItem18";
-            resources.ApplyResources(this.toolStripMenuItem18, "toolStripMenuItem18");
-            // 
-            // formatNANDCToolStripMenuItem
-            // 
-            this.formatNANDCToolStripMenuItem.Name = "formatNANDCToolStripMenuItem";
-            resources.ApplyResources(this.formatNANDCToolStripMenuItem, "formatNANDCToolStripMenuItem");
-            this.formatNANDCToolStripMenuItem.Click += new System.EventHandler(this.formatNANDCToolStripMenuItem_Click);
             // structureButton
             // 
             resources.ApplyResources(this.structureButton, "structureButton");
@@ -1537,6 +1529,12 @@
             resources.ApplyResources(this.gamesConsoleComboBox, "gamesConsoleComboBox");
             this.gamesConsoleComboBox.Name = "gamesConsoleComboBox";
             this.gamesConsoleComboBox.SelectedIndexChanged += new System.EventHandler(this.gamesConsoleComboBox_SelectedIndexChanged);
+            // 
+            // modStoreToolStripMenuItem
+            // 
+            this.modStoreToolStripMenuItem.Name = "modStoreToolStripMenuItem";
+            resources.ApplyResources(this.modStoreToolStripMenuItem, "modStoreToolStripMenuItem");
+            this.modStoreToolStripMenuItem.Click += new System.EventHandler(this.modStoreToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1764,6 +1762,7 @@
         private System.Windows.Forms.ToolStripMenuItem canoeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem retroarchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flashNANDBPartitionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modStoreToolStripMenuItem;
     }
 }
 
