@@ -357,6 +357,12 @@
   <data name="modulesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 20</value>
   </data>
+  <data name="openExtraModuleLibraryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>211, 22</value>
+  </data>
+  <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 20</value>
+  </data>
   <data name="modulesToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;Modules</value>
   </data>
@@ -401,6 +407,9 @@
   </data>
   <data name="viewToolStripMenuItem.Text" xml:space="preserve">
     <value>&amp;View</value>
+  </data>
+  <data name="openExtraModuleLibraryToolStripMenuItem.Text" xml:space="preserve">
+    <value>Open extra module library</value>
   </data>
   <data name="languageToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -2343,6 +2352,12 @@
     <value>groupByAppTypeToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;groupByAppTypeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openExtraModuleLibraryToolStripMenuItem.Name" xml:space="preserve">
+    <value>openExtraModuleLibraryToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;openExtraModuleLibraryToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;settingsToolStripMenuItem.Name" xml:space="preserve">

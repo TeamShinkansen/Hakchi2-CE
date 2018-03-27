@@ -78,6 +78,7 @@
             this.positionSortedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.positionHiddenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupByAppTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openExtraModuleLibraryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sFROMToolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -491,7 +492,8 @@
             // 
             this.modulesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.installModulesToolStripMenuItem,
-            this.uninstallModulesToolStripMenuItem});
+            this.uninstallModulesToolStripMenuItem,
+            this.openExtraModuleLibraryToolStripMenuItem});
             this.modulesToolStripMenuItem.Name = "modulesToolStripMenuItem";
             resources.ApplyResources(this.modulesToolStripMenuItem, "modulesToolStripMenuItem");
             // 
@@ -559,6 +561,12 @@
             this.groupByAppTypeToolStripMenuItem.Name = "groupByAppTypeToolStripMenuItem";
             resources.ApplyResources(this.groupByAppTypeToolStripMenuItem, "groupByAppTypeToolStripMenuItem");
             this.groupByAppTypeToolStripMenuItem.Click += new System.EventHandler(this.groupByAppTypeToolStripMenuItem_Click);
+            // 
+            // openExtraModuleLibraryToolStripMenuItem
+            // 
+            this.openExtraModuleLibraryToolStripMenuItem.Name = "openExtraModuleLibraryToolStripMenuItem";
+            resources.ApplyResources(this.openExtraModuleLibraryToolStripMenuItem, "openExtraModuleLibraryToolStripMenuItem");
+            this.openExtraModuleLibraryToolStripMenuItem.Click += new System.EventHandler(this.openExtraModuleLibraryToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -1762,6 +1770,7 @@
         private System.Windows.Forms.ToolStripMenuItem canoeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem retroarchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flashNANDBPartitionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openExtraModuleLibraryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem modStoreToolStripMenuItem;
     }
 }
