@@ -37,15 +37,19 @@
             this.PoweredByLinkS = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.moduleListBox = new System.Windows.Forms.ListBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.moduleDownloadInstallButton = new System.Windows.Forms.Button();
+            this.moduleDescriptionBrowser = new System.Windows.Forms.WebBrowser();
+            this.moduleDownloadButton = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -122,7 +126,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.listBox1);
+            this.tabPage1.Controls.Add(this.moduleListBox);
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Controls.Add(this.webBrowser1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -131,6 +135,25 @@
             this.tabPage1.Size = new System.Drawing.Size(744, 388);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
+            // 
+            // moduleListBox
+            // 
+            this.moduleListBox.FormattingEnabled = true;
+            this.moduleListBox.Location = new System.Drawing.Point(3, 4);
+            this.moduleListBox.Name = "moduleListBox";
+            this.moduleListBox.Size = new System.Drawing.Size(183, 381);
+            this.moduleListBox.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.moduleDownloadButton);
+            this.panel1.Controls.Add(this.moduleDescriptionBrowser);
+            this.panel1.Controls.Add(this.moduleDownloadInstallButton);
+            this.panel1.Location = new System.Drawing.Point(190, 4);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(215, 381);
+            this.panel1.TabIndex = 2;
             // 
             // webBrowser1
             // 
@@ -156,21 +179,43 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // panel1
+            // moduleDownloadInstallButton
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Location = new System.Drawing.Point(190, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(215, 381);
-            this.panel1.TabIndex = 2;
+            this.moduleDownloadInstallButton.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.moduleDownloadInstallButton.Enabled = false;
+            this.moduleDownloadInstallButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.moduleDownloadInstallButton.Location = new System.Drawing.Point(0, 333);
+            this.moduleDownloadInstallButton.Name = "moduleDownloadInstallButton";
+            this.moduleDownloadInstallButton.Size = new System.Drawing.Size(213, 46);
+            this.moduleDownloadInstallButton.TabIndex = 5;
+            this.moduleDownloadInstallButton.Text = "Download and Install Module";
+            this.moduleDownloadInstallButton.UseVisualStyleBackColor = true;
             // 
-            // listBox1
+            // moduleDescriptionBrowser
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(6, 4);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(181, 381);
-            this.listBox1.TabIndex = 3;
+            this.moduleDescriptionBrowser.AllowWebBrowserDrop = false;
+            this.moduleDescriptionBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.moduleDescriptionBrowser.IsWebBrowserContextMenuEnabled = false;
+            this.moduleDescriptionBrowser.Location = new System.Drawing.Point(0, 0);
+            this.moduleDescriptionBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.moduleDescriptionBrowser.Name = "moduleDescriptionBrowser";
+            this.moduleDescriptionBrowser.ScriptErrorsSuppressed = true;
+            this.moduleDescriptionBrowser.ScrollBarsEnabled = false;
+            this.moduleDescriptionBrowser.Size = new System.Drawing.Size(213, 333);
+            this.moduleDescriptionBrowser.TabIndex = 6;
+            this.moduleDescriptionBrowser.WebBrowserShortcutsEnabled = false;
+            // 
+            // moduleDownloadButton
+            // 
+            this.moduleDownloadButton.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.moduleDownloadButton.Enabled = false;
+            this.moduleDownloadButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.moduleDownloadButton.Location = new System.Drawing.Point(0, 287);
+            this.moduleDownloadButton.Name = "moduleDownloadButton";
+            this.moduleDownloadButton.Size = new System.Drawing.Size(213, 46);
+            this.moduleDownloadButton.TabIndex = 7;
+            this.moduleDownloadButton.Text = "Download Module";
+            this.moduleDownloadButton.UseVisualStyleBackColor = true;
             // 
             // ModStore
             // 
@@ -193,6 +238,7 @@
             this.statusStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -211,8 +257,11 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.FontDialog fontDialog1;
+        private System.Windows.Forms.ListBox moduleListBox;
+        private System.Windows.Forms.Button moduleDownloadInstallButton;
+        private System.Windows.Forms.WebBrowser moduleDescriptionBrowser;
+        private System.Windows.Forms.Button moduleDownloadButton;
     }
 }

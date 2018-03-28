@@ -193,13 +193,13 @@ namespace com.clusterrr.hakchi_gui
                     moduleDownloadButton.Enabled = false;
                     moduleDownloadButton.Text = "Module Up-To-Date";
                 }
-                moduleLabel.Text = "Downloaded version: " + installedModule.Version;
+                //moduleLabel.Text = "Downloaded version: " + installedModule.Version;
             }
             else
             {
                 moduleDownloadButton.Enabled = true;
                 moduleDownloadButton.Text = "Download Module";
-                moduleLabel.Text = "";
+                //moduleLabel.Text = "";
             }
         }
 
