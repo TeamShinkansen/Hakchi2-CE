@@ -37,19 +37,24 @@
             this.PoweredByLinkS = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.moduleListBox = new System.Windows.Forms.ListBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.moduleDownloadButton = new System.Windows.Forms.Button();
-            this.moduleDescriptionBrowser = new System.Windows.Forms.WebBrowser();
-            this.moduleDownloadInstallButton = new System.Windows.Forms.Button();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.modStoreTabControl1 = new com.clusterrr.hakchi_gui.ModStoreTabControl();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.modStoreTabControl4 = new com.clusterrr.hakchi_gui.ModStoreTabControl();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.modStoreTabControl5 = new com.clusterrr.hakchi_gui.ModStoreTabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.modStoreTabControl3 = new com.clusterrr.hakchi_gui.ModStoreTabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.modStoreTabControl2 = new com.clusterrr.hakchi_gui.ModStoreTabControl();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.menuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -115,6 +120,9 @@
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(0, 27);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(0);
@@ -126,100 +134,104 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage1.Controls.Add(this.moduleListBox);
-            this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Controls.Add(this.webBrowser1);
+            this.tabPage1.Controls.Add(this.modStoreTabControl1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(744, 388);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Additional Functionality";
             // 
-            // moduleListBox
+            // modStoreTabControl1
             // 
-            this.moduleListBox.FormattingEnabled = true;
-            this.moduleListBox.Location = new System.Drawing.Point(3, 4);
-            this.moduleListBox.Name = "moduleListBox";
-            this.moduleListBox.Size = new System.Drawing.Size(183, 381);
-            this.moduleListBox.TabIndex = 0;
-            this.moduleListBox.SelectedIndexChanged += new System.EventHandler(this.moduleListBox_SelectedIndexChanged);
+            this.modStoreTabControl1.Category = "additional_functionality";
+            this.modStoreTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.modStoreTabControl1.Location = new System.Drawing.Point(3, 3);
+            this.modStoreTabControl1.Name = "modStoreTabControl1";
+            this.modStoreTabControl1.Size = new System.Drawing.Size(738, 382);
+            this.modStoreTabControl1.TabIndex = 0;
             // 
-            // panel1
+            // tabPage4
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.moduleDownloadButton);
-            this.panel1.Controls.Add(this.moduleDescriptionBrowser);
-            this.panel1.Controls.Add(this.moduleDownloadInstallButton);
-            this.panel1.Location = new System.Drawing.Point(190, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(215, 381);
-            this.panel1.TabIndex = 2;
+            this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage4.Controls.Add(this.modStoreTabControl4);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(744, 388);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Retroarch";
             // 
-            // moduleDownloadButton
+            // modStoreTabControl4
             // 
-            this.moduleDownloadButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.moduleDownloadButton.Enabled = false;
-            this.moduleDownloadButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.moduleDownloadButton.Location = new System.Drawing.Point(0, 287);
-            this.moduleDownloadButton.Name = "moduleDownloadButton";
-            this.moduleDownloadButton.Size = new System.Drawing.Size(213, 46);
-            this.moduleDownloadButton.TabIndex = 7;
-            this.moduleDownloadButton.Text = "Download Module";
-            this.moduleDownloadButton.UseVisualStyleBackColor = true;
-            this.moduleDownloadButton.Click += new System.EventHandler(this.moduleDownloadButton_Click);
+            this.modStoreTabControl4.Category = "retroarch";
+            this.modStoreTabControl4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.modStoreTabControl4.Location = new System.Drawing.Point(3, 3);
+            this.modStoreTabControl4.Name = "modStoreTabControl4";
+            this.modStoreTabControl4.Size = new System.Drawing.Size(738, 382);
+            this.modStoreTabControl4.TabIndex = 0;
             // 
-            // moduleDescriptionBrowser
+            // tabPage5
             // 
-            this.moduleDescriptionBrowser.AllowWebBrowserDrop = false;
-            this.moduleDescriptionBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.moduleDescriptionBrowser.IsWebBrowserContextMenuEnabled = false;
-            this.moduleDescriptionBrowser.Location = new System.Drawing.Point(0, 0);
-            this.moduleDescriptionBrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.moduleDescriptionBrowser.Name = "moduleDescriptionBrowser";
-            this.moduleDescriptionBrowser.ScriptErrorsSuppressed = true;
-            this.moduleDescriptionBrowser.ScrollBarsEnabled = false;
-            this.moduleDescriptionBrowser.Size = new System.Drawing.Size(213, 333);
-            this.moduleDescriptionBrowser.TabIndex = 6;
-            this.moduleDescriptionBrowser.WebBrowserShortcutsEnabled = false;
+            this.tabPage5.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage5.Controls.Add(this.modStoreTabControl5);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(744, 388);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Retroarch Cores";
             // 
-            // moduleDownloadInstallButton
+            // modStoreTabControl5
             // 
-            this.moduleDownloadInstallButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.moduleDownloadInstallButton.Enabled = false;
-            this.moduleDownloadInstallButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.moduleDownloadInstallButton.Location = new System.Drawing.Point(0, 333);
-            this.moduleDownloadInstallButton.Name = "moduleDownloadInstallButton";
-            this.moduleDownloadInstallButton.Size = new System.Drawing.Size(213, 46);
-            this.moduleDownloadInstallButton.TabIndex = 5;
-            this.moduleDownloadInstallButton.Text = "Download and Install Module";
-            this.moduleDownloadInstallButton.UseVisualStyleBackColor = true;
+            this.modStoreTabControl5.Category = "retroarch_cores";
+            this.modStoreTabControl5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.modStoreTabControl5.Location = new System.Drawing.Point(3, 3);
+            this.modStoreTabControl5.Name = "modStoreTabControl5";
+            this.modStoreTabControl5.Size = new System.Drawing.Size(738, 382);
+            this.modStoreTabControl5.TabIndex = 0;
             // 
-            // webBrowser1
+            // tabPage3
             // 
-            this.webBrowser1.AllowNavigation = false;
-            this.webBrowser1.AllowWebBrowserDrop = false;
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.webBrowser1.Location = new System.Drawing.Point(409, 3);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(332, 382);
-            this.webBrowser1.TabIndex = 0;
-            this.webBrowser1.Url = new System.Uri("https://hakchiresources.com/2018/03/19/hakchi-advanced-music-hack/?mode=mod_store" +
-        "", System.UriKind.Absolute);
-            this.webBrowser1.WebBrowserShortcutsEnabled = false;
-            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
+            this.tabPage3.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage3.Controls.Add(this.modStoreTabControl3);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(744, 388);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "USB-Host";
+            // 
+            // modStoreTabControl3
+            // 
+            this.modStoreTabControl3.BackColor = System.Drawing.SystemColors.Control;
+            this.modStoreTabControl3.Category = "usb-host";
+            this.modStoreTabControl3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.modStoreTabControl3.Location = new System.Drawing.Point(3, 3);
+            this.modStoreTabControl3.Name = "modStoreTabControl3";
+            this.modStoreTabControl3.Size = new System.Drawing.Size(738, 382);
+            this.modStoreTabControl3.TabIndex = 1;
             // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.modStoreTabControl2);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(744, 388);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.Text = "User Interface Mods";
+            // 
+            // modStoreTabControl2
+            // 
+            this.modStoreTabControl2.BackColor = System.Drawing.SystemColors.Control;
+            this.modStoreTabControl2.Category = "interface_mods";
+            this.modStoreTabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.modStoreTabControl2.Location = new System.Drawing.Point(3, 3);
+            this.modStoreTabControl2.Name = "modStoreTabControl2";
+            this.modStoreTabControl2.Size = new System.Drawing.Size(738, 382);
+            this.modStoreTabControl2.TabIndex = 0;
             // 
             // ModStore
             // 
@@ -236,6 +248,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ModStore";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ModStore_FormClosing);
             this.Load += new System.EventHandler(this.ModStore_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
@@ -243,7 +256,10 @@
             this.statusStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,12 +277,14 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.FontDialog fontDialog1;
-        private System.Windows.Forms.ListBox moduleListBox;
-        private System.Windows.Forms.Button moduleDownloadInstallButton;
-        private System.Windows.Forms.WebBrowser moduleDescriptionBrowser;
-        private System.Windows.Forms.Button moduleDownloadButton;
+        private ModStoreTabControl modStoreTabControl2;
+        private ModStoreTabControl modStoreTabControl1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private ModStoreTabControl modStoreTabControl3;
+        private System.Windows.Forms.TabPage tabPage4;
+        private ModStoreTabControl modStoreTabControl4;
+        private System.Windows.Forms.TabPage tabPage5;
+        private ModStoreTabControl modStoreTabControl5;
     }
 }

@@ -160,6 +160,12 @@
     <Compile Include="ModStore.Designer.cs">
       <DependentUpon>ModStore.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModStoreTabControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ModStoreTabControl.Designer.cs">
+      <DependentUpon>ModStoreTabControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewCustomGameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1440,6 +1446,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ModStore.resx">
       <DependentUpon>ModStore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModStoreTabControl.resx">
+      <DependentUpon>ModStoreTabControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewCustomGameForm.resx">
       <DependentUpon>NewCustomGameForm.cs</DependentUpon>

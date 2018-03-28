@@ -14,6 +14,7 @@ namespace com.clusterrr.hakchi_gui.module_library
         public string Path;
         public string Description;
         public string Version;
+        public List<string> Categories = new List<string>();
         public ModuleType Type;
         public Module Clone()
         {
