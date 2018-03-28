@@ -6,7 +6,6 @@ using System.IO;
 using System.Net;
 using com.clusterrr.hakchi_gui.Properties;
 using com.clusterrr.hakchi_gui.module_library;
-using SevenZip;
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 
@@ -21,10 +20,101 @@ namespace com.clusterrr.hakchi_gui
             public List<Module> AvailableModules = new List<Module>();
             public List<Module> InstalledModules = new List<Module>();
             public DateTime LastUpdate = new DateTime();
+            public string ConfigPath { get { return Path.Combine(Program.BaseDirectoryExternal, "config\\libraryConfig.xml"); } }
+
+            public void DownloadModule(Module module)
+            {
+                try
+                {
+                    var installedModule = GetInstalledModule(module);
+                    //If module is installed remove it
+                    if (installedModule != null)
+                    {
+                        if (installedModule.Type == ModuleType.hmod)
+                            File.Delete(installedModule.Path);
+                        else
+                            Directory.Delete(installedModule.Path, true);
+
+                        InstalledModules.Remove(installedModule);
+                        installedModule = null;
+                    }
+                    string userModDir = Path.Combine(Program.BaseDirectoryExternal, "user_mods");
+                    switch (module.Type)
+                    {
+                        case ModuleType.hmod:
+                            {
+                                string fileLocation = Path.Combine(userModDir, module.Path.Substring(module.Path.LastIndexOf('/') + 1));
+
+                                using (var wc = new WebClient())
+                                {
+                                    wc.DownloadFile(module.Path, fileLocation);
+                                    installedModule = module.Clone();
+                                    installedModule.Path = fileLocation;
+                                    InstalledModules.Add(installedModule);
+                                }
+                            }
+                            break;
+                            //case ModuleType.compressedFile:
+                            //    SevenZipExtractor.SetLibraryPath(Path.Combine(Program.BaseDirectoryInternal, IntPtr.Size == 8 ? @"tools\7z64.dll" : @"tools\7z.dll"));
+                            //    using (var wc = new WebClient())
+                            //    {
+                            //        var tempFileName = Path.GetTempFileName();
+                            //        wc.DownloadFile(module.Path, tempFileName);
+                            //        using (var szExtractor = new SevenZipExtractor(tempFileName))
+                            //        {
+                            //            installedModule = module.Clone();
+                            //            installedModule.Path = Path.Combine(userModDir, installedModule.IdHmod);
+                            //            if (Directory.Exists(installedModule.Path)) Directory.Delete(installedModule.Path, true);
+                            //            if (module.Type == ModuleType.zippedfolder)
+                            //            {
+                            //                var tempPath = Path.Combine(Path.GetTempPath(), "hmod");
+                            //                if (szExtractor.ArchiveFileData[0].IsDirectory == false)
+                            //                    throw new Exception("Cannot find folder in module zip.");
+                            //                szExtractor.ExtractArchive(tempPath);
+                            //                Directory.Move(Path.Combine(tempPath, szExtractor.ArchiveFileData[0].FileName), installedModule.Path);
+                            //                Directory.Delete(tempPath, true);
+                            //            }
+                            //            else
+                            //            {
+                            //                Directory.CreateDirectory(installedModule.Path);
+                            //                szExtractor.ExtractArchive(installedModule.Path);
+                            //            }
+                            //            config.InstalledModules.Add(installedModule);
+                            //        }
+                            //        File.Delete(tempFileName);
+                            //    }
+                            //    break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Critical error: " + ex.Message + ex.StackTrace, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            public Module GetInstalledModule(Module repoModule)
+            {
+                foreach (var module in InstalledModules)
+                {
+                    if (module.Id == repoModule.Id)
+                        return module;
+                }
+                return null;
+            }
+
+            public void SaveConfig()
+            {
+                if (!Directory.Exists(Path.GetDirectoryName(ConfigPath)))
+                    Directory.CreateDirectory(Path.GetDirectoryName(ConfigPath));
+                XmlSerializer x = new XmlSerializer(typeof(LibraryConfig));
+                using (var fs = new FileStream(ConfigPath, FileMode.Create))
+                {
+                    x.Serialize(fs, this);
+                }
+            }
         }
 
         private LibraryConfig config = new LibraryConfig();
-        private string configPath { get { return Path.Combine(Program.BaseDirectoryExternal, "config\\libraryConfig.xml"); } }
         private Module currentModule { get; set; }
 
         
@@ -39,9 +129,9 @@ namespace com.clusterrr.hakchi_gui
         {
             //Load Config
             XmlSerializer xs = new XmlSerializer(typeof(LibraryConfig));
-            if (File.Exists(configPath))
+            if (File.Exists(config.ConfigPath))
             {
-                using (var fs = File.Open(configPath, FileMode.Open))
+                using (var fs = File.Open(config.ConfigPath, FileMode.Open))
                 {
                     config = (LibraryConfig)xs.Deserialize(fs);
                 }
@@ -52,7 +142,12 @@ namespace com.clusterrr.hakchi_gui
                 //Ask user to update repository information
                 updateModuleList();
             }
-            loadModuleList();
+
+            //Set Control Config
+            foreach(TabPage tabPage in tabControl1.Controls)
+            {
+                ((ModStoreTabControl)tabPage.Controls[0]).Config = config;
+            }
         }
         #endregion
 
@@ -66,14 +161,8 @@ namespace com.clusterrr.hakchi_gui
         {
             Process.Start("https://www.hakchiresources.com");
         }
-
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            //Web Browser Navigation Fix
-            webBrowser1.AllowNavigation = false;
-        }
-
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+		
+		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var modStoreAbout = new ModStoreAbout();
             modStoreAbout.ShowDialog();
@@ -116,6 +205,8 @@ namespace com.clusterrr.hakchi_gui
                             Version = post["custom_fields"]["usp_custom_field"][0].ToString(),
                             Path = post["custom_fields"]["user_submit_url"][0].ToString()
                         };
+
+                        //Set Module Type
                         var extention = module.Path.Substring(module.Path.LastIndexOf('.') + 1).ToLower();
                         if (extention.Equals("hmod"))
                             module.Type = ModuleType.hmod;
@@ -123,6 +214,13 @@ namespace com.clusterrr.hakchi_gui
                             module.Type = ModuleType.compressedFile;
                         else
                             continue; //Unknown File Type
+
+                        //Set Categories
+                        foreach(var category in post["categories"])
+                        {
+                            module.Categories.Add(category["slug"].ToString());
+                        }
+
                         config.AvailableModules.Add(module);
                     }
                     catch { }
@@ -165,7 +263,7 @@ namespace com.clusterrr.hakchi_gui
                     {
                         for (int i = 0; i < modulesToUpdate.Count; ++i)
                         {
-                            downloadModule(modulesToUpdate[i]);
+                            config.DownloadModule(modulesToUpdate[i]);
                             progressBarForm.UpdateProgress();
                         }
                     });
@@ -174,159 +272,9 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        private Module getInstalledModule(Module repoModule)
+        private void ModStore_FormClosing(object sender, FormClosingEventArgs e)
         {
-            foreach (var module in config.InstalledModules)
-            {
-                if (module.Id == repoModule.Id)
-                    return module;
-            }
-            return null;
-        }
-
-        private void loadModuleList()
-        {
-            moduleListBox.Items.Clear();
-            foreach (var module in config.AvailableModules)
-            {
-                moduleListBox.Items.Add(module.Name);
-            }
-            moduleListBox.SelectedIndex = 0;
-        }
-
-        private void moduleListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int index = moduleListBox.SelectedIndex;
-            if (index != -1)
-            {
-                if (currentModule != config.AvailableModules[index])
-                {
-                    currentModule = config.AvailableModules[index];
-                    loadModuleDescription();
-                }
-            }
-            else
-                currentModule = null;
-        }
-
-        private void loadModuleDescription()
-        {
-            webBrowser1.AllowNavigation = true;
-            webBrowser1.Url = new Uri(currentModule.Description, UriKind.Absolute);
-            var installedModule = getInstalledModule(currentModule);
-            if (installedModule != null)
-            {
-                if (installedModule.Version != currentModule.Version)
-                {
-                    moduleDownloadButton.Enabled = true;
-                    moduleDownloadButton.Text = "Update Module";
-                }
-                else
-                {
-                    moduleDownloadButton.Enabled = false;
-                    moduleDownloadButton.Text = "Module Up-To-Date";
-                }
-                //moduleLabel.Text = "Downloaded version: " + installedModule.Version;
-            }
-            else
-            {
-                moduleDownloadButton.Enabled = true;
-                moduleDownloadButton.Text = "Download Module";
-                //moduleLabel.Text = "";
-            }
-        }
-
-        private void moduleDownloadButton_Click(object sender, EventArgs e)
-        {
-            downloadModule(currentModule);
-            loadModuleDescription();
-            saveConfig();
-        }
-
-        private void downloadModule(Module module)
-        {
-            try
-            {
-                var installedModule = getInstalledModule(module);
-                //If module is installed remove it
-                if (installedModule != null)
-                {
-                    if (installedModule.Type == ModuleType.hmod)
-                        File.Delete(installedModule.Path);
-                    else
-                        Directory.Delete(installedModule.Path, true);
-
-                    config.InstalledModules.Remove(installedModule);
-                    installedModule = null;
-                }
-                string userModDir = Path.Combine(Program.BaseDirectoryExternal, "user_mods");
-                switch (module.Type)
-                {
-                    case ModuleType.hmod:
-                        {
-                            string fileLocation = Path.Combine(userModDir, module.Path.Substring(module.Path.LastIndexOf('/') + 1));
-
-                            using (var wc = new WebClient())
-                            {
-                                wc.DownloadFile(module.Path, fileLocation);
-                                installedModule = module.Clone();
-                                installedModule.Path = fileLocation;
-                                config.InstalledModules.Add(installedModule);
-                            }
-                        }
-                        break;
-                        //case ModuleType.compressedFile:
-                        //    SevenZipExtractor.SetLibraryPath(Path.Combine(Program.BaseDirectoryInternal, IntPtr.Size == 8 ? @"tools\7z64.dll" : @"tools\7z.dll"));
-                        //    using (var wc = new WebClient())
-                        //    {
-                        //        var tempFileName = Path.GetTempFileName();
-                        //        wc.DownloadFile(module.Path, tempFileName);
-                        //        using (var szExtractor = new SevenZipExtractor(tempFileName))
-                        //        {
-                        //            installedModule = module.Clone();
-                        //            installedModule.Path = Path.Combine(userModDir, installedModule.IdHmod);
-                        //            if (Directory.Exists(installedModule.Path)) Directory.Delete(installedModule.Path, true);
-                        //            if (module.Type == ModuleType.zippedfolder)
-                        //            {
-                        //                var tempPath = Path.Combine(Path.GetTempPath(), "hmod");
-                        //                if (szExtractor.ArchiveFileData[0].IsDirectory == false)
-                        //                    throw new Exception("Cannot find folder in module zip.");
-                        //                szExtractor.ExtractArchive(tempPath);
-                        //                Directory.Move(Path.Combine(tempPath, szExtractor.ArchiveFileData[0].FileName), installedModule.Path);
-                        //                Directory.Delete(tempPath, true);
-                        //            }
-                        //            else
-                        //            {
-                        //                Directory.CreateDirectory(installedModule.Path);
-                        //                szExtractor.ExtractArchive(installedModule.Path);
-                        //            }
-                        //            config.InstalledModules.Add(installedModule);
-                        //        }
-                        //        File.Delete(tempFileName);
-                        //    }
-                        //    break;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(this, "Critical error: " + ex.Message + ex.StackTrace, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void ModuleLibraryForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            saveConfig();
-        }
-
-        private void saveConfig()
-        {
-            if (!Directory.Exists(Path.GetDirectoryName(configPath)))
-                Directory.CreateDirectory(Path.GetDirectoryName(configPath));
-            XmlSerializer x = new XmlSerializer(typeof(LibraryConfig));
-            using (var fs = new FileStream(configPath, FileMode.Create))
-            {
-                x.Serialize(fs, config);
-            }
+            config.SaveConfig();
         }
         #endregion
 
