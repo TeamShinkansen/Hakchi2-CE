@@ -57,9 +57,6 @@ namespace com.clusterrr.hakchi_gui
         #endregion
 
         #region Non Essential GUI code
-
-
-
         private void PoweredByLinkS_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.hakchiresources.com");
@@ -74,6 +71,12 @@ namespace com.clusterrr.hakchi_gui
         {
             //Web Browser Navigation Fix
             webBrowser1.AllowNavigation = false;
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var modStoreAbout = new ModStoreAbout();
+            modStoreAbout.ShowDialog();
         }
         #endregion
 
@@ -326,5 +329,6 @@ namespace com.clusterrr.hakchi_gui
             }
         }
         #endregion
+
     }
 }

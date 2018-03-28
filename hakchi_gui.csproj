@@ -160,6 +160,12 @@
     <Compile Include="ModStore.Designer.cs">
       <DependentUpon>ModStore.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModStoreAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModStoreAbout.Designer.cs">
+      <DependentUpon>ModStoreAbout.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewCustomGameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1346,6 +1352,7 @@
     <Content Include="images\blank_dos.png" />
     <Content Include="readmeTemplate.css" />
     <Content Include="readmeTemplate.html" />
+    <None Include="Resources\info.png" />
     <Content Include="retroarch-systems-blacklist.txt" />
     <Content Include="retroarch-whitelist.txt" />
     <None Include="mods\mod_general\generalmemboot.flag">
@@ -1440,6 +1447,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ModStore.resx">
       <DependentUpon>ModStore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModStoreAbout.resx">
+      <DependentUpon>ModStoreAbout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewCustomGameForm.resx">
       <DependentUpon>NewCustomGameForm.cs</DependentUpon>

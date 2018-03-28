@@ -19,7 +19,7 @@ namespace com.clusterrr.hakchi_gui.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -1388,7 +1388,7 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to b053b61 (dirty).
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string gitCommit {
             get {
@@ -1479,6 +1479,16 @@ namespace com.clusterrr.hakchi_gui.Properties {
         internal static string ImageTooLarge {
             get {
                 return ResourceManager.GetString("ImageTooLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap info {
+            get {
+                object obj = ResourceManager.GetObject("info", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -1992,7 +2002,7 @@ namespace com.clusterrr.hakchi_gui.Properties {
         /// * Bootstrap v3.3.7 (http://getbootstrap.com)
         /// * Copyright 2011-2016 Twitter, Inc.
         /// * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-        /// *//*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-align:b [rest of string was truncated]&quot;;.
+        /// *//*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}body{margin:0}article,aside,details,figcaption,figure,footer,header,hgroup,main,menu,nav,section,summary{display:block}audio,canvas,progress,video{display:inline-block;vertical-ali [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string readmeTemplateCSS {
             get {
@@ -2172,13 +2182,7 @@ namespace com.clusterrr.hakchi_gui.Properties {
         ///nekop2
         ///nxengine
         ///o2em
-        ///pcsx_rearmed_neon
-        ///picodrive
-        ///pocketcdg
-        ///pokemini
-        ///ppsspp
-        ///prboom
-        ///pr [rest of string was truncated]&quot;;.
+        ///pcsx_rearmed_neon        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string retroarch_whitelist {
             get {
