@@ -47,7 +47,7 @@ namespace com.clusterrr.hakchi_gui
                 }
             }
 
-            //if (config.AvailableModules.Count == 0 || (DateTime.Now - config.LastUpdate).TotalDays >= 1.0)
+            if (config.AvailableModules.Count == 0 || (DateTime.Now - config.LastUpdate).TotalDays >= 1.0)
             {
                 //Ask user to update repository information
                 updateModuleList();
@@ -70,6 +70,11 @@ namespace com.clusterrr.hakchi_gui
             Process.Start("https://www.hakchiresources.com");
         }
 
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            //Web Browser Navigation Fix
+            webBrowser1.AllowNavigation = false;
+        }
         #endregion
 
         #region Main Mod Store Code
@@ -203,7 +208,8 @@ namespace com.clusterrr.hakchi_gui
 
         private void loadModuleDescription()
         {
-            moduleDescriptionBrowser.Url = new Uri(currentModule.Description, UriKind.Absolute);
+            webBrowser1.AllowNavigation = true;
+            webBrowser1.Url = new Uri(currentModule.Description, UriKind.Absolute);
             var installedModule = getInstalledModule(currentModule);
             if (installedModule != null)
             {

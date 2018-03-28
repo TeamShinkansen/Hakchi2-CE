@@ -39,12 +39,12 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.moduleListBox = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.moduleDownloadButton = new System.Windows.Forms.Button();
+            this.moduleDescriptionBrowser = new System.Windows.Forms.WebBrowser();
+            this.moduleDownloadInstallButton = new System.Windows.Forms.Button();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.moduleDownloadInstallButton = new System.Windows.Forms.Button();
-            this.moduleDescriptionBrowser = new System.Windows.Forms.WebBrowser();
-            this.moduleDownloadButton = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -143,6 +143,7 @@
             this.moduleListBox.Name = "moduleListBox";
             this.moduleListBox.Size = new System.Drawing.Size(183, 381);
             this.moduleListBox.TabIndex = 0;
+            this.moduleListBox.SelectedIndexChanged += new System.EventHandler(this.moduleListBox_SelectedIndexChanged);
             // 
             // panel1
             // 
@@ -155,41 +156,18 @@
             this.panel1.Size = new System.Drawing.Size(215, 381);
             this.panel1.TabIndex = 2;
             // 
-            // webBrowser1
+            // moduleDownloadButton
             // 
-            this.webBrowser1.AllowNavigation = false;
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.webBrowser1.Location = new System.Drawing.Point(409, 3);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(332, 382);
-            this.webBrowser1.TabIndex = 0;
-            this.webBrowser1.Url = new System.Uri("https://hakchiresources.com/2018/03/19/hakchi-advanced-music-hack/?mode=mod_store" +
-        "", System.UriKind.Absolute);
-            this.webBrowser1.WebBrowserShortcutsEnabled = false;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(744, 388);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // moduleDownloadInstallButton
-            // 
-            this.moduleDownloadInstallButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.moduleDownloadInstallButton.Enabled = false;
-            this.moduleDownloadInstallButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.moduleDownloadInstallButton.Location = new System.Drawing.Point(0, 333);
-            this.moduleDownloadInstallButton.Name = "moduleDownloadInstallButton";
-            this.moduleDownloadInstallButton.Size = new System.Drawing.Size(213, 46);
-            this.moduleDownloadInstallButton.TabIndex = 5;
-            this.moduleDownloadInstallButton.Text = "Download and Install Module";
-            this.moduleDownloadInstallButton.UseVisualStyleBackColor = true;
+            this.moduleDownloadButton.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.moduleDownloadButton.Enabled = false;
+            this.moduleDownloadButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.moduleDownloadButton.Location = new System.Drawing.Point(0, 287);
+            this.moduleDownloadButton.Name = "moduleDownloadButton";
+            this.moduleDownloadButton.Size = new System.Drawing.Size(213, 46);
+            this.moduleDownloadButton.TabIndex = 7;
+            this.moduleDownloadButton.Text = "Download Module";
+            this.moduleDownloadButton.UseVisualStyleBackColor = true;
+            this.moduleDownloadButton.Click += new System.EventHandler(this.moduleDownloadButton_Click);
             // 
             // moduleDescriptionBrowser
             // 
@@ -205,17 +183,43 @@
             this.moduleDescriptionBrowser.TabIndex = 6;
             this.moduleDescriptionBrowser.WebBrowserShortcutsEnabled = false;
             // 
-            // moduleDownloadButton
+            // moduleDownloadInstallButton
             // 
-            this.moduleDownloadButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.moduleDownloadButton.Enabled = false;
-            this.moduleDownloadButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.moduleDownloadButton.Location = new System.Drawing.Point(0, 287);
-            this.moduleDownloadButton.Name = "moduleDownloadButton";
-            this.moduleDownloadButton.Size = new System.Drawing.Size(213, 46);
-            this.moduleDownloadButton.TabIndex = 7;
-            this.moduleDownloadButton.Text = "Download Module";
-            this.moduleDownloadButton.UseVisualStyleBackColor = true;
+            this.moduleDownloadInstallButton.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.moduleDownloadInstallButton.Enabled = false;
+            this.moduleDownloadInstallButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.moduleDownloadInstallButton.Location = new System.Drawing.Point(0, 333);
+            this.moduleDownloadInstallButton.Name = "moduleDownloadInstallButton";
+            this.moduleDownloadInstallButton.Size = new System.Drawing.Size(213, 46);
+            this.moduleDownloadInstallButton.TabIndex = 5;
+            this.moduleDownloadInstallButton.Text = "Download and Install Module";
+            this.moduleDownloadInstallButton.UseVisualStyleBackColor = true;
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.AllowNavigation = false;
+            this.webBrowser1.AllowWebBrowserDrop = false;
+            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.webBrowser1.Location = new System.Drawing.Point(409, 3);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.ScriptErrorsSuppressed = true;
+            this.webBrowser1.Size = new System.Drawing.Size(332, 382);
+            this.webBrowser1.TabIndex = 0;
+            this.webBrowser1.Url = new System.Uri("https://hakchiresources.com/2018/03/19/hakchi-advanced-music-hack/?mode=mod_store" +
+        "", System.UriKind.Absolute);
+            this.webBrowser1.WebBrowserShortcutsEnabled = false;
+            this.webBrowser1.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser1_DocumentCompleted);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(744, 388);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // ModStore
             // 
@@ -232,6 +236,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "ModStore";
+            this.Load += new System.EventHandler(this.ModStore_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.statusStrip1.ResumeLayout(false);

@@ -2123,12 +2123,6 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        private void openExtraModuleLibraryToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var libraryForm = new ModuleLibraryForm();
-            libraryForm.ShowDialog();
-        }
-
         private void timerConnectionCheck_Tick(object sender, EventArgs e)
         {
             toolStripStatusConnectionIcon.Image = Clovershell.IsOnline ? Resources.green : Resources.red;

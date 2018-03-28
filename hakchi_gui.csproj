@@ -256,12 +256,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Module.cs" />
-    <Compile Include="ModuleLibraryForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ModuleLibraryForm.Designer.cs">
-      <DependentUpon>ModuleLibraryForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="ProgressBarForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1449,9 +1443,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewCustomGameForm.resx">
       <DependentUpon>NewCustomGameForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ModuleLibraryForm.resx">
-      <DependentUpon>ModuleLibraryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProgressBarForm.resx">
       <DependentUpon>ProgressBarForm.cs</DependentUpon>
