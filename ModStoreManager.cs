@@ -60,8 +60,8 @@ namespace com.clusterrr.hakchi_gui.module_library
                         using (var wc = new WebClient())
                         {
                             var tempFileName = Path.GetTempFileName();
-                            //wc.DownloadFile(module.Path, tempFileName);
-                            using (var szExtractor = new SevenZipExtractor("C:\\Users\\User\\AppData\\Local\\Temp\\tmp9BC5.tmp"))
+                            wc.DownloadFile(module.Path, tempFileName);
+                            using (var szExtractor = new SevenZipExtractor(tempFileName))
                             {
                                 installedModule = module.CreateInstalledModule();
                                 var data = szExtractor.ArchiveFileData;
