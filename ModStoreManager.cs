@@ -5,13 +5,14 @@ using System.Net;
 using System.Windows.Forms;
 using System.Xml.Serialization;
 using com.clusterrr.hakchi_gui.Properties;
+using SevenZip;
 
 namespace com.clusterrr.hakchi_gui.module_library
 {
     public class ModStoreManager
     {
         public List<Module> AvailableModules = new List<Module>();
-        public List<Module> InstalledModules = new List<Module>();
+        public List<InstalledModule> InstalledModules = new List<InstalledModule>();
         public DateTime LastUpdate = new DateTime();
         public string ConfigPath { get { return Path.Combine(Program.BaseDirectoryExternal, "config\\ModStoreConfig.xml"); } }
 
@@ -19,19 +20,26 @@ namespace com.clusterrr.hakchi_gui.module_library
         {
             try
             {
+                string userModDir = Path.Combine(Program.BaseDirectoryExternal, "user_mods");
                 var installedModule = GetInstalledModule(module);
                 //If module is installed remove it
                 if (installedModule != null)
                 {
-                    if (installedModule.Type == ModuleType.hmod)
-                        File.Delete(installedModule.Path);
-                    else
-                        Directory.Delete(installedModule.Path, true);
+                    foreach(var file in installedModule.InstalledFiles)
+                    {
+                        try
+                        {
+                            if (file.EndsWith("\\"))
+                                Directory.Delete(Path.Combine(userModDir, file), true);
+                            else
+                                File.Delete(Path.Combine(userModDir, file));
+                        }
+                        catch { }
+                    }
 
                     InstalledModules.Remove(installedModule);
                     installedModule = null;
                 }
-                string userModDir = Path.Combine(Program.BaseDirectoryExternal, "user_mods");
                 switch (module.Type)
                 {
                     case ModuleType.hmod:
@@ -41,42 +49,45 @@ namespace com.clusterrr.hakchi_gui.module_library
                             using (var wc = new WebClient())
                             {
                                 wc.DownloadFile(module.Path, fileLocation);
-                                installedModule = module.Clone();
-                                installedModule.Path = fileLocation;
+                                installedModule = module.CreateInstalledModule();
+                                installedModule.InstalledFiles.Add(module.Path.Substring(module.Path.LastIndexOf('/') + 1));
                                 InstalledModules.Add(installedModule);
                             }
                         }
                         break;
-                        //case ModuleType.compressedFile:
-                        //    SevenZipExtractor.SetLibraryPath(Path.Combine(Program.BaseDirectoryInternal, IntPtr.Size == 8 ? @"tools\7z64.dll" : @"tools\7z.dll"));
-                        //    using (var wc = new WebClient())
-                        //    {
-                        //        var tempFileName = Path.GetTempFileName();
-                        //        wc.DownloadFile(module.Path, tempFileName);
-                        //        using (var szExtractor = new SevenZipExtractor(tempFileName))
-                        //        {
-                        //            installedModule = module.Clone();
-                        //            installedModule.Path = Path.Combine(userModDir, installedModule.IdHmod);
-                        //            if (Directory.Exists(installedModule.Path)) Directory.Delete(installedModule.Path, true);
-                        //            if (module.Type == ModuleType.zippedfolder)
-                        //            {
-                        //                var tempPath = Path.Combine(Path.GetTempPath(), "hmod");
-                        //                if (szExtractor.ArchiveFileData[0].IsDirectory == false)
-                        //                    throw new Exception("Cannot find folder in module zip.");
-                        //                szExtractor.ExtractArchive(tempPath);
-                        //                Directory.Move(Path.Combine(tempPath, szExtractor.ArchiveFileData[0].FileName), installedModule.Path);
-                        //                Directory.Delete(tempPath, true);
-                        //            }
-                        //            else
-                        //            {
-                        //                Directory.CreateDirectory(installedModule.Path);
-                        //                szExtractor.ExtractArchive(installedModule.Path);
-                        //            }
-                        //            config.InstalledModules.Add(installedModule);
-                        //        }
-                        //        File.Delete(tempFileName);
-                        //    }
-                        //    break;
+                    case ModuleType.compressedFile:
+                        SevenZipExtractor.SetLibraryPath(Path.Combine(Program.BaseDirectoryInternal, IntPtr.Size == 8 ? @"tools\7z64.dll" : @"tools\7z.dll"));
+                        using (var wc = new WebClient())
+                        {
+                            var tempFileName = Path.GetTempFileName();
+                            //wc.DownloadFile(module.Path, tempFileName);
+                            using (var szExtractor = new SevenZipExtractor("C:\\Users\\User\\AppData\\Local\\Temp\\tmp9BC5.tmp"))
+                            {
+                                installedModule = module.CreateInstalledModule();
+                                var data = szExtractor.ArchiveFileData;
+                                foreach(var file in data)
+                                {
+                                    int index = file.FileName.IndexOf('\\');
+                                    if (index != -1)
+                                    {
+                                        var folder = file.FileName.Substring(0, index + 1);
+                                        if (!installedModule.InstalledFiles.Contains(folder))
+                                        {
+                                            installedModule.InstalledFiles.Add(folder);
+                                            var localFolder = Path.Combine(userModDir, folder);
+                                            if (Directory.Exists(localFolder))
+                                                Directory.Delete(localFolder, true);
+                                        }
+                                    }
+                                    else
+                                        installedModule.InstalledFiles.Add(file.FileName);
+                                }
+                                szExtractor.ExtractArchive(userModDir);
+                                InstalledModules.Add(installedModule);
+                            }
+                            File.Delete(tempFileName);
+                        }
+                        break;
                 }
             }
             catch (Exception ex)
@@ -85,7 +96,7 @@ namespace com.clusterrr.hakchi_gui.module_library
             }
         }
 
-        public Module GetInstalledModule(Module repoModule)
+        public InstalledModule GetInstalledModule(Module repoModule)
         {
             foreach (var module in InstalledModules)
             {

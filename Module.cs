@@ -16,11 +16,17 @@ namespace com.clusterrr.hakchi_gui.module_library
         public string Version;
         public List<string> Categories = new List<string>();
         public ModuleType Type;
-        public Module Clone()
+
+        public InstalledModule CreateInstalledModule()
         {
-            var newObject = (Module)this.MemberwiseClone();
-            newObject.Description = null;
-            return newObject;
+            return new InstalledModule { Id = Id, Name = Name, Version = Version};
         }
+    }
+    public class InstalledModule
+    {
+        public string Id;
+        public string Name; //Temporary - incase of ID issues
+        public string Version;
+        public List<string> InstalledFiles = new List<string>();
     }
 }

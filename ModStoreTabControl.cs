@@ -1,16 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Net;
 using System.Windows.Forms;
 using com.clusterrr.hakchi_gui.module_library;
-using com.clusterrr.hakchi_gui.Properties;
-using SevenZip;
 
 namespace com.clusterrr.hakchi_gui
 {
@@ -78,7 +70,7 @@ namespace com.clusterrr.hakchi_gui
         }
         #endregion
 
-        #region Mod Store Code
+        #region Mod Manager Code
         private void loadModuleList()
         {
             moduleListBox.Items.Clear();
