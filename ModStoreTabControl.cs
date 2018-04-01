@@ -18,10 +18,10 @@ namespace com.clusterrr.hakchi_gui
     {
         [Category("Data")]
         public string Category { get; set; }
-        public ModStore.LibraryConfig Config { set { config = value; loadModuleList(); } }
+        public ModStoreManager Manager { set { manager = value; loadModuleList(); } }
 
         private Module currentModule { get; set; }
-        private ModStore.LibraryConfig config;
+        private ModStoreManager manager;
         private List<Module> moduleList = new List<Module>();
 
         public ModStoreTabControl()
@@ -30,18 +30,11 @@ namespace com.clusterrr.hakchi_gui
         }
 
         #region GUI
-        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        {
-            webBrowser1.AllowNavigation = false;
-        }
-        #endregion
-
-        #region Mod Store Code
         private void loadModuleDescription()
         {
             webBrowser1.AllowNavigation = true;
             webBrowser1.Url = new Uri(currentModule.Description, UriKind.Absolute);
-            var installedModule = config.GetInstalledModule(currentModule);
+            var installedModule = manager.GetInstalledModule(currentModule);
             if (installedModule != null)
             {
                 if (installedModule.Version != currentModule.Version)
@@ -64,21 +57,6 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        private void loadModuleList()
-        {
-            moduleListBox.Items.Clear();
-            moduleList.Clear();
-            foreach (var module in config.AvailableModules)
-            {
-                if (module.Categories.Contains(Category))
-                {
-                    moduleListBox.Items.Add(module.Name);
-                    moduleList.Add(module);
-                }
-            }
-            moduleListBox.SelectedIndex = 0;
-        }
-
         private void moduleListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = moduleListBox.SelectedIndex;
@@ -94,11 +72,33 @@ namespace com.clusterrr.hakchi_gui
                 currentModule = null;
         }
 
+        private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+            webBrowser1.AllowNavigation = false;
+        }
+        #endregion
+
+        #region Mod Store Code
+        private void loadModuleList()
+        {
+            moduleListBox.Items.Clear();
+            moduleList.Clear();
+            foreach (var module in manager.AvailableModules)
+            {
+                if (module.Categories.Contains(Category))
+                {
+                    moduleListBox.Items.Add(module.Name);
+                    moduleList.Add(module);
+                }
+            }
+            moduleListBox.SelectedIndex = 0;
+        }
+
         private void moduleDownloadButton_Click(object sender, EventArgs e)
         {
-            config.DownloadModule(currentModule);
+            manager.DownloadModule(currentModule);
             loadModuleDescription();
-            config.SaveConfig();
+            manager.SaveConfig();
         }
         #endregion
     }

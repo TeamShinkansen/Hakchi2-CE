@@ -165,7 +165,8 @@
     </Compile>
     <Compile Include="ModStoreAbout.Designer.cs">
       <DependentUpon>ModStoreAbout.cs</DependentUpon>
-	</Compile>
+    </Compile>
+    <Compile Include="ModStoreManager.cs" />
     <Compile Include="ModStoreTabControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1456,7 +1457,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ModStoreAbout.resx">
       <DependentUpon>ModStoreAbout.cs</DependentUpon>
-	</EmbeddedResource>
+    </EmbeddedResource>
     <EmbeddedResource Include="ModStoreTabControl.resx">
       <DependentUpon>ModStoreTabControl.cs</DependentUpon>
     </EmbeddedResource>
