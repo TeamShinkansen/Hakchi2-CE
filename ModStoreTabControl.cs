@@ -24,9 +24,16 @@ namespace com.clusterrr.hakchi_gui
         #region GUI
         private void loadModuleDescription()
         {
+            var installedModule = manager.GetInstalledModule(currentModule);
             webBrowser1.AllowNavigation = true;
             webBrowser1.Url = new Uri(currentModule.Description, UriKind.Absolute);
-            var installedModule = manager.GetInstalledModule(currentModule);
+
+            moduleDescriptionBrowser.DocumentText = String.Format("<b>Module Name:</b> {0}<br /><b>Author:</b> {1}<br /><b>Latest Version:</b> {2}<br /><b>Installed Version:</b> {3}",
+                                                                  currentModule.Name,
+                                                                  currentModule.Author,
+                                                                  currentModule.Version,
+                                                                  (installedModule != null) ? installedModule.Version : "N/A");
+            
             if (installedModule != null)
             {
                 if (installedModule.Version != currentModule.Version)
