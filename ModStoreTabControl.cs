@@ -40,19 +40,20 @@ namespace com.clusterrr.hakchi_gui
                 {
                     moduleDownloadButton.Enabled = true;
                     moduleDownloadButton.Text = "Update Module";
+                    moduleDownloadInstallButton.Text = "Update and Install Module";
                 }
                 else
                 {
                     moduleDownloadButton.Enabled = false;
                     moduleDownloadButton.Text = "Module Up-To-Date";
+                    moduleDownloadInstallButton.Text = "Install Module";
                 }
-                //moduleLabel.Text = "Downloaded version: " + installedModule.Version;
             }
             else
             {
                 moduleDownloadButton.Enabled = true;
                 moduleDownloadButton.Text = "Download Module";
-                //moduleLabel.Text = "";
+                moduleDownloadInstallButton.Text = "Download and Install Module";
             }
         }
 
@@ -97,7 +98,36 @@ namespace com.clusterrr.hakchi_gui
         {
             manager.DownloadModule(currentModule);
             loadModuleDescription();
-            manager.SaveConfig();
+        }
+
+        private void moduleDownloadInstallButton_Click(object sender, EventArgs e)
+        {
+            InstalledModule installedModule = manager.GetInstalledModule(currentModule);
+
+            //Download or update module
+            if(installedModule == null || installedModule.Version != currentModule.Version)
+            {
+                moduleDownloadButton_Click(this, new EventArgs());
+                installedModule = manager.GetInstalledModule(currentModule);
+            }
+
+            if(installedModule != null)
+            {
+                List<string> mods = new List<string>();
+                foreach (var file in installedModule.InstalledFiles)
+                {
+                    if(file.EndsWith(".hmod"))
+                    {
+                        mods.Add(file.Substring(0, file.Length - 5));
+                    }
+                    else if(file.EndsWith(".hmod\\"))
+                    {
+                        mods.Add(file.Substring(0, file.Length - 6));
+                    }
+                }
+                MainForm mainForm = Application.OpenForms[0] as MainForm;
+                mainForm.InstallMods(mods.ToArray());
+            }
         }
         #endregion
     }

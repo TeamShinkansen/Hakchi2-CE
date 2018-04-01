@@ -1596,7 +1596,7 @@ namespace com.clusterrr.hakchi_gui
             return workerForm.DialogResult == DialogResult.OK;
         }
 
-        bool InstallMods(string[] mods)
+        public bool InstallMods(string[] mods)
         {
             var workerForm = new WorkerForm(this);
             workerForm.Text = Resources.InstallingMods;

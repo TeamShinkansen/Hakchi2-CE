@@ -109,7 +109,6 @@
             // moduleDownloadInstallButton
             // 
             this.moduleDownloadInstallButton.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.moduleDownloadInstallButton.Enabled = false;
             this.moduleDownloadInstallButton.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.moduleDownloadInstallButton.Location = new System.Drawing.Point(0, 360);
             this.moduleDownloadInstallButton.Name = "moduleDownloadInstallButton";
@@ -117,6 +116,7 @@
             this.moduleDownloadInstallButton.TabIndex = 8;
             this.moduleDownloadInstallButton.Text = "Download and Install Module";
             this.moduleDownloadInstallButton.UseVisualStyleBackColor = true;
+            this.moduleDownloadInstallButton.Click += new System.EventHandler(this.moduleDownloadInstallButton_Click);
             // 
             // moduleDescriptionBrowser
             // 

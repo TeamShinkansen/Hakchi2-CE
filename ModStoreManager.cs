@@ -94,6 +94,7 @@ namespace com.clusterrr.hakchi_gui.module_library
             {
                 MessageBox.Show("Critical error: " + ex.Message + ex.StackTrace, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            SaveConfig();
         }
 
         public InstalledModule GetInstalledModule(Module repoModule)
