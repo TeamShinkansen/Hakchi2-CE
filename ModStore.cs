@@ -164,15 +164,10 @@ namespace com.clusterrr.hakchi_gui
                 var updateMsgBox = MessageBox.Show("Do you want to update all out of date modules?", "Update Modules", MessageBoxButtons.YesNo);
                 if (updateMsgBox == DialogResult.Yes)
                 {
-                    var progressBarForm = new ProgressBarForm("Updating Modules", modulesToUpdate.Count);
-                    progressBarForm.Run(() =>
+                    for (int i = 0; i < modulesToUpdate.Count; ++i)
                     {
-                        for (int i = 0; i < modulesToUpdate.Count; ++i)
-                        {
-                            config.DownloadModule(modulesToUpdate[i]);
-                            progressBarForm.UpdateProgress();
-                        }
-                    });
+                        config.DownloadModule(modulesToUpdate[i]);
+                    }
                     MessageBox.Show(this, "Finished updating modules.");
                 }
             }
