@@ -46,47 +46,43 @@ namespace com.clusterrr.hakchi_gui.module_library
                         {
                             string fileLocation = Path.Combine(userModDir, module.Path.Substring(module.Path.LastIndexOf('/') + 1));
 
-                            using (var wc = new WebClient())
-                            {
-                                wc.DownloadFile(module.Path, fileLocation);
-                                installedModule = module.CreateInstalledModule();
-                                installedModule.InstalledFiles.Add(module.Path.Substring(module.Path.LastIndexOf('/') + 1));
-                                InstalledModules.Add(installedModule);
-                            }
+                            if (!ProgressBarForm.DownloadFile(module.Path, fileLocation))
+                                throw new Exception("Cannot download file: " + module.Path);
+                            installedModule = module.CreateInstalledModule();
+                            installedModule.InstalledFiles.Add(module.Path.Substring(module.Path.LastIndexOf('/') + 1));
+                            InstalledModules.Add(installedModule);
                         }
                         break;
                     case ModuleType.compressedFile:
                         SevenZipExtractor.SetLibraryPath(Path.Combine(Program.BaseDirectoryInternal, IntPtr.Size == 8 ? @"tools\7z64.dll" : @"tools\7z.dll"));
-                        using (var wc = new WebClient())
+                        var tempFileName = Path.GetTempFileName();
+                        if(!ProgressBarForm.DownloadFile(module.Path, tempFileName))
+                            throw new Exception("Cannot download file: " + module.Path);
+                        using (var szExtractor = new SevenZipExtractor(tempFileName))
                         {
-                            var tempFileName = Path.GetTempFileName();
-                            wc.DownloadFile(module.Path, tempFileName);
-                            using (var szExtractor = new SevenZipExtractor(tempFileName))
+                            installedModule = module.CreateInstalledModule();
+                            var data = szExtractor.ArchiveFileData;
+                            foreach (var file in data)
                             {
-                                installedModule = module.CreateInstalledModule();
-                                var data = szExtractor.ArchiveFileData;
-                                foreach(var file in data)
+                                int index = file.FileName.IndexOf('\\');
+                                if (index != -1)
                                 {
-                                    int index = file.FileName.IndexOf('\\');
-                                    if (index != -1)
+                                    var folder = file.FileName.Substring(0, index + 1);
+                                    if (!installedModule.InstalledFiles.Contains(folder))
                                     {
-                                        var folder = file.FileName.Substring(0, index + 1);
-                                        if (!installedModule.InstalledFiles.Contains(folder))
-                                        {
-                                            installedModule.InstalledFiles.Add(folder);
-                                            var localFolder = Path.Combine(userModDir, folder);
-                                            if (Directory.Exists(localFolder))
-                                                Directory.Delete(localFolder, true);
-                                        }
+                                        installedModule.InstalledFiles.Add(folder);
+                                        var localFolder = Path.Combine(userModDir, folder);
+                                        if (Directory.Exists(localFolder))
+                                            Directory.Delete(localFolder, true);
                                     }
-                                    else
-                                        installedModule.InstalledFiles.Add(file.FileName);
                                 }
-                                szExtractor.ExtractArchive(userModDir);
-                                InstalledModules.Add(installedModule);
+                                else
+                                    installedModule.InstalledFiles.Add(file.FileName);
                             }
-                            File.Delete(tempFileName);
+                            szExtractor.ExtractArchive(userModDir);
+                            InstalledModules.Add(installedModule);
                         }
+                        File.Delete(tempFileName);
                         break;
                 }
             }
