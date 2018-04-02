@@ -30,6 +30,7 @@
         {
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.refreshContentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.submitYourOwnModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visitWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,6 +48,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.modStoreTabControl2 = new com.clusterrr.hakchi_gui.ModStoreTabControl();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
+            this.discordLinkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -61,6 +63,7 @@
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.refreshContentToolStripMenuItem,
+            this.submitYourOwnModToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -73,10 +76,18 @@
             this.refreshContentToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
             this.refreshContentToolStripMenuItem.Text = "Refresh";
             // 
+            // submitYourOwnModToolStripMenuItem
+            // 
+            this.submitYourOwnModToolStripMenuItem.Name = "submitYourOwnModToolStripMenuItem";
+            this.submitYourOwnModToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+            this.submitYourOwnModToolStripMenuItem.Text = "Submit Mod";
+            this.submitYourOwnModToolStripMenuItem.Click += new System.EventHandler(this.submitYourOwnModToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
+            this.discordLinkToolStripMenuItem,
             this.visitWebsiteToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -85,14 +96,14 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // visitWebsiteToolStripMenuItem
             // 
             this.visitWebsiteToolStripMenuItem.Name = "visitWebsiteToolStripMenuItem";
-            this.visitWebsiteToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.visitWebsiteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.visitWebsiteToolStripMenuItem.Text = "Visit Website";
             this.visitWebsiteToolStripMenuItem.Click += new System.EventHandler(this.visitWebsiteToolStripMenuItem_Click);
             // 
@@ -234,6 +245,13 @@
             this.modStoreTabControl2.Size = new System.Drawing.Size(738, 382);
             this.modStoreTabControl2.TabIndex = 0;
             // 
+            // discordLinkToolStripMenuItem
+            // 
+            this.discordLinkToolStripMenuItem.Name = "discordLinkToolStripMenuItem";
+            this.discordLinkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.discordLinkToolStripMenuItem.Text = "Discord Link";
+            this.discordLinkToolStripMenuItem.Click += new System.EventHandler(this.discordLinkToolStripMenuItem_Click);
+            // 
             // ModStore
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -287,5 +305,7 @@
         private ModStoreTabControl modStoreTabControl4;
         private System.Windows.Forms.TabPage tabPage5;
         private ModStoreTabControl modStoreTabControl5;
+        private System.Windows.Forms.ToolStripMenuItem submitYourOwnModToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem discordLinkToolStripMenuItem;
     }
 }

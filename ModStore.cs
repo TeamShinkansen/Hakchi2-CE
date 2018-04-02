@@ -63,6 +63,16 @@ namespace com.clusterrr.hakchi_gui
             Process.Start("https://www.hakchiresources.com");
         }
 
+        private void submitYourOwnModToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://hakchiresources.com/submit-mod/");
+        }
+
+        private void discordLinkToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://discord.gg/ETe3ecx");
+        }
+
         private void visitWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.hakchiresources.com");
@@ -178,6 +188,7 @@ namespace com.clusterrr.hakchi_gui
             config.SaveConfig();
         }
         #endregion
+
 
     }
 }
