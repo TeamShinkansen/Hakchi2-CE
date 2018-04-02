@@ -42,6 +42,13 @@ namespace com.clusterrr.hakchi_gui
                 updateModuleList();
             }
 
+            //If no modules, update failed so close mod store
+            if(config.AvailableModules.Count == 0)
+            {
+                Close();
+                return;
+            }
+
             //Set Control Config
             foreach(TabPage tabPage in tabControl1.Controls)
             {
