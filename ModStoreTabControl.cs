@@ -28,7 +28,16 @@ namespace com.clusterrr.hakchi_gui
             webBrowser1.AllowNavigation = true;
             webBrowser1.Url = new Uri(currentModule.Description, UriKind.Absolute);
 
-            moduleDescriptionBrowser.DocumentText = String.Format("<b>Module Name:</b> {0}<br /><b>Author:</b> {1}<br /><b>Latest Version:</b> {2}<br /><b>Installed Version:</b> {3}",
+            moduleDescriptionBrowser.DocumentText = String.Format("<html style='background-color:#d20014;color:#ffffff;'>" +
+                                                                    "<body background='https://hakchiresources.com/wp-content/uploads/2018/04/bg.png' style='width:273px;'>" +
+                                                                         "<span style='font-family: Arial, Helvetica, sans-serif;'>" +
+                                                                              "<b>Module Name:</b><br /><span style='font-size:75%;'>{0}</span><br />" +
+                                                                              "<b>Author:</b><br /><span style='font-size:75%;'>{1}</span><br />" +
+                                                                              "<b>Latest Version:</b><br /><span style='font-size:75%;'>{2}</span><br />" +
+                                                                              "<b>Installed Version:</b><br /><span style='font-size:75%;'>{3}</span>" +
+                                                                          "</span>" +
+                                                                    "</body>" +
+                                                                  "</html>",
                                                                   currentModule.Name,
                                                                   currentModule.Author,
                                                                   currentModule.Version,
@@ -64,6 +73,7 @@ namespace com.clusterrr.hakchi_gui
             {
                 if (currentModule != moduleList[index])
                 {
+                    webBrowser1.Navigate(new Uri("about:blank"));
                     currentModule = moduleList[index];
                     loadModuleDescription();
                 }
