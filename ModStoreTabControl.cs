@@ -29,7 +29,7 @@ namespace com.clusterrr.hakchi_gui
             webBrowser1.Url = new Uri(currentModule.Description, UriKind.Absolute);
 
             moduleDescriptionBrowser.DocumentText = String.Format("<html style='background-color:#d20014;color:#ffffff;'>" +
-                                                                    "<body background='https://hakchiresources.com/wp-content/uploads/2018/04/bg.png' style='width:273px;'>" +
+                                                                    "<body background='https://hakchiresources.com/wp-content/uploads/2018/04/bg-1.png' style='width:273px;'>" +
                                                                          "<span style='font-family: Arial, Helvetica, sans-serif;'>" +
                                                                               "<b>Module Name:</b><br /><span style='font-size:75%;'>{0}</span><br />" +
                                                                               "<b>Author:</b><br /><span style='font-size:75%;'>{1}</span><br />" +

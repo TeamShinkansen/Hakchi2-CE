@@ -67,7 +67,7 @@
             this.webBrowser1.MinimumSize = new System.Drawing.Size(27, 25);
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.ScriptErrorsSuppressed = true;
-            this.webBrowser1.Size = new System.Drawing.Size(457, 502);
+            this.webBrowser1.Size = new System.Drawing.Size(454, 502);
             this.webBrowser1.TabIndex = 2;
             this.webBrowser1.Url = new System.Uri("https://www.hakchiresources.com/", System.UriKind.Absolute);
             this.webBrowser1.WebBrowserShortcutsEnabled = false;
@@ -77,6 +77,7 @@
             // 
             this.moduleListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.moduleListBox.FormattingEnabled = true;
+            this.moduleListBox.IntegralHeight = false;
             this.moduleListBox.ItemHeight = 16;
             this.moduleListBox.Location = new System.Drawing.Point(4, 4);
             this.moduleListBox.Margin = new System.Windows.Forms.Padding(4);
