@@ -50,9 +50,13 @@ namespace com.clusterrr.hakchi_gui
             }
 
             //Set Control Config
-            foreach(TabPage tabPage in tabControl1.Controls)
+            foreach (Control c in tabControl1.Controls)
             {
-                ((ModStoreTabControl)tabPage.Controls[0]).Manager = config;
+                TabPage tabPage = c as TabPage;
+                if (tabPage != null)
+                {
+                    ((ModStoreTabControl)tabPage.Controls[0]).Manager = config;
+                }
             }
         }
         #endregion
