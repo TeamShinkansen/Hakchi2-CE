@@ -26,6 +26,11 @@ namespace com.clusterrr.hakchi_gui
 
         private void ModStore_Load(object sender, EventArgs e)
         {
+            ModStore_Initialise();
+        }
+
+        private void ModStore_Initialise()
+        {
             //Load Config
             XmlSerializer xs = new XmlSerializer(typeof(ModStoreManager));
             if (File.Exists(config.ConfigPath))
@@ -43,7 +48,7 @@ namespace com.clusterrr.hakchi_gui
             }
 
             //If no modules, update failed so close mod store
-            if(config.AvailableModules.Count == 0)
+            if (config.AvailableModules.Count == 0)
             {
                 Close();
                 return;
@@ -53,13 +58,20 @@ namespace com.clusterrr.hakchi_gui
             foreach (TabPage tabPage in tabControl1.Controls)
             {
                 ModStoreTabControl modStoreTabControl = tabPage.Controls[0] as ModStoreTabControl;
-                if(modStoreTabControl != null)
+                if (modStoreTabControl != null)
                     modStoreTabControl.Manager = config;
             }
         }
         #endregion
 
         #region Non Essential GUI code
+
+        private void refreshContentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ModStore_Initialise();
+            MessageBox.Show("Refreshed Mod Store!", "Hakchi Mod Store", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void PoweredByLinkS_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.hakchiresources.com");

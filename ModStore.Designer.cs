@@ -80,6 +80,7 @@
             this.refreshContentToolStripMenuItem.Name = "refreshContentToolStripMenuItem";
             this.refreshContentToolStripMenuItem.Size = new System.Drawing.Size(70, 24);
             this.refreshContentToolStripMenuItem.Text = "Refresh";
+            this.refreshContentToolStripMenuItem.Click += new System.EventHandler(this.refreshContentToolStripMenuItem_Click);
             // 
             // submitYourOwnModToolStripMenuItem
             // 
