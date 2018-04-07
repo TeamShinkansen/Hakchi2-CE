@@ -189,8 +189,8 @@ namespace com.clusterrr.hakchi_gui
         {
             config.SaveConfig();
         }
-        #endregion
 
+        #endregion
 
     }
 }
