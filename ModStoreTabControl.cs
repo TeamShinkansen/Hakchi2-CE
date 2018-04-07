@@ -27,6 +27,7 @@ namespace com.clusterrr.hakchi_gui
             var installedModule = manager.GetInstalledModule(currentModule);
             webBrowser1.AllowNavigation = true;
             webBrowser1.Url = new Uri(currentModule.Description, UriKind.Absolute);
+            Cursor.Current = Cursors.WaitCursor;
 
             moduleDescriptionBrowser.DocumentText = String.Format("<html style='background-color:#d20014;color:#ffffff;'>" +
                                                                     "<body background='https://hakchiresources.com/wp-content/uploads/2018/04/bg-1.png' style='width:273px;'>" +
@@ -81,8 +82,11 @@ namespace com.clusterrr.hakchi_gui
                 currentModule = null;
         }
 
+
+
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
+            Cursor.Current = Cursors.Default;
             webBrowser1.AllowNavigation = false;
         }
         #endregion
