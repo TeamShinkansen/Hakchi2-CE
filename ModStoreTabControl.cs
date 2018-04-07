@@ -73,7 +73,6 @@ namespace com.clusterrr.hakchi_gui
             {
                 if (currentModule != moduleList[index])
                 {
-                    webBrowser1.Navigate(new Uri("about:blank"));
                     currentModule = moduleList[index];
                     loadModuleDescription();
                 }
