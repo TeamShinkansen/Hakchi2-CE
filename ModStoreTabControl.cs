@@ -49,21 +49,21 @@ namespace com.clusterrr.hakchi_gui
                 if (installedModule.Version != currentItem.Version)
                 {
                     moduleDownloadButton.Enabled = true;
-                    moduleDownloadButton.Text = "Update Module";
-                    moduleDownloadInstallButton.Text = "Update and Install Module";
+                    moduleDownloadButton.Text = "Update " + currentItem.Type;
+                    moduleDownloadInstallButton.Text = "Update and Install" + currentItem.Type;
                 }
                 else
                 {
                     moduleDownloadButton.Enabled = false;
-                    moduleDownloadButton.Text = "Module Up-To-Date";
-                    moduleDownloadInstallButton.Text = "Install Module";
+                    moduleDownloadButton.Text = currentItem.Type + " Up-To-Date";
+                    moduleDownloadInstallButton.Text = "Install " + currentItem.Type;
                 }
             }
             else
             {
                 moduleDownloadButton.Enabled = true;
-                moduleDownloadButton.Text = "Download Module";
-                moduleDownloadInstallButton.Text = "Download and Install Module";
+                moduleDownloadButton.Text = "Download " + currentItem.Type;
+                moduleDownloadInstallButton.Text = "Download and Install " + currentItem.Type;
             }
         }
 
@@ -109,6 +109,7 @@ namespace com.clusterrr.hakchi_gui
                     }
                     moduleDownloadInstallButton.Enabled = false;
                     moduleDownloadInstallButton.Visible = false;
+                    moduleDescriptionBrowser.Size = new System.Drawing.Size(moduleDescriptionBrowser.Size.Width, moduleDescriptionBrowser.Size.Height + 14);
                     break;
                 default:
                     foreach (var item in manager.AvailableItems)

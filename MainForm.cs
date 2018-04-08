@@ -1496,7 +1496,7 @@ namespace com.clusterrr.hakchi_gui
             return workerForm.DialogResult == DialogResult.OK;
         }
 
-        void AddGames(IEnumerable<string> files)
+        public void AddGames(IEnumerable<string> files)
         {
             SaveConfig();
             ICollection<NesApplication> addedApps;

@@ -23,7 +23,36 @@ namespace com.clusterrr.hakchi_gui.module_library
                 case "Module":
                     DownloadModule(item as Module);
                     break;
+                case "Game":
+                    DownloadGame(item as ModStoreGame);
+                    break;
             }
+        }
+
+        public void DownloadGame(ModStoreGame game)
+        {
+            try
+            {
+                var installedGame = GetInstalledModule(game);
+                //If game is installed remove it
+                if (installedGame != null)
+                    InstalledItems.Remove(installedGame);
+
+                string tempFileName = Path.GetTempPath() + game.Path.Substring(game.Path.LastIndexOf("/") + 1);
+                if (!ProgressBarForm.DownloadFile(game.Path, tempFileName))
+                    throw new Exception("Cannot download file: " + game.Path);
+
+                MainForm mainForm = Application.OpenForms[0] as MainForm;
+                mainForm.AddGames(new string[] { tempFileName });
+                File.Delete(tempFileName);
+
+                //InstalledItems.Add(game.CreateInstalledItem());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Critical error: " + ex.Message + ex.StackTrace, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            SaveConfig();
         }
 
         public void DownloadModule(Module module)
