@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>com.clusterrr.hakchi_gui</RootNamespace>
     <AssemblyName>hakchi</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NoStdLib>False</NoStdLib>
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
@@ -17,6 +17,7 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
     <PublishUrl>ftp://ftp.h710140844.nichost.ru/software.clusterrr.com/docs/hakchi2/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -50,6 +51,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -61,6 +63,7 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <DebugSymbols>false</DebugSymbols>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>icon_app.ico</ApplicationIcon>
@@ -105,33 +108,41 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ArxOne.Ftp, Version=1.12.1.0, Culture=neutral, PublicKeyToken=da7223da01d9ab51, processorArchitecture=MSIL">
+      <HintPath>packages\ArxOne.Ftp.1.12.1\lib\net40-Client\ArxOne.Ftp.dll</HintPath>
+    </Reference>
     <Reference Include="AutoUpdater.NET, Version=1.4.7.0, Culture=neutral, PublicKeyToken=942f95247e354701, processorArchitecture=MSIL">
-      <HintPath>packages\Autoupdater.NET.Official.1.4.7\lib\net35\AutoUpdater.NET.dll</HintPath>
+      <HintPath>packages\Autoupdater.NET.Official.1.4.7\lib\net452\AutoUpdater.NET.dll</HintPath>
     </Reference>
     <Reference Include="CommonMark, Version=0.1.0.0, Culture=neutral, PublicKeyToken=001ef8810438905d, processorArchitecture=MSIL">
-      <HintPath>packages\CommonMark.NET.0.15.1\lib\net35-client\CommonMark.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>packages\CommonMark.NET.0.15.1\lib\net45\CommonMark.dll</HintPath>
     </Reference>
     <Reference Include="Costura, Version=1.6.2.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
-      <HintPath>packages\Costura.Fody.1.6.2\lib\portable-net+sl+win+wpa+wp\Costura.dll</HintPath>
+      <HintPath>packages\Costura.Fody.1.6.2\lib\dotnet\Costura.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.11.0.1\lib\net35\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nQuant.Core, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\nQuant.1.0.3\lib\net20\nQuant.Core.dll</HintPath>
+      <HintPath>packages\nQuant.1.0.3\lib\net40\nQuant.Core.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDeploymentWrapper.cs" />
@@ -143,6 +154,7 @@
     </Compile>
     <Compile Include="ApplicationFileInfo.cs" />
     <Compile Include="Apps\AppTypeCollection.cs" />
+    <Compile Include="Apps\BuiltInCores.cs" />
     <Compile Include="Apps\CoreCommands.cs" />
     <Compile Include="Apps\DesktopFile.cs" />
     <Compile Include="Apps\ICloverAutofill.cs" />
@@ -152,7 +164,10 @@
     <Compile Include="Apps\NesApplication.cs" />
     <Compile Include="Apps\NesMenuElementBase.cs" />
     <Compile Include="Apps\SnesGame.cs" />
+    <Compile Include="Apps\SystemCollection.cs" />
     <Compile Include="Apps\UnknownGame.cs" />
+    <Compile Include="Ftp\ArxOneFtpWrapper.cs" />
+    <None Include="Ftp\FluentFtpWrapper.cs" />
     <Compile Include="hakchi.cs" />
     <Compile Include="ModStore.cs">
       <SubType>Form</SubType>
@@ -175,11 +190,20 @@
     <Compile Include="ModStoreTabControl.Designer.cs">
       <DependentUpon>ModStoreTabControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="INetworkShell.cs" />
+    <Compile Include="ISystemShell.cs" />
+    <Compile Include="MemoryStats.cs" />
     <Compile Include="NewCustomGameForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="NewCustomGameForm.Designer.cs">
       <DependentUpon>NewCustomGameForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScreenshotForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScreenshotForm.Designer.cs">
+      <DependentUpon>ScreenshotForm.cs</DependentUpon>
     </Compile>
     <Compile Include="SelectCoreDialog.cs">
       <SubType>Form</SubType>
@@ -206,6 +230,10 @@
     <Compile Include="ExportGamesDialog.Designer.cs">
       <DependentUpon>ExportGamesDialog.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ScreenshotForm.resx">
+      <DependentUpon>ScreenshotForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="basehmods.tar" />
     <None Include="folder_images\retropie_amiga.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -239,18 +267,13 @@
     <None Include="folder_images\retropie_snes_classic.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="mods\mod_format\bin\mke2fs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="mods\mod_format\hakchi\transfer\earlybird">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="mods\hmods\gamepath-cleanup.hmod">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_general\etc\group">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="images\sign-check.png" />
+    <None Include="images\sign-down.png" />
+    <None Include="images\sign-error.png" />
+    <None Include="images\sign-info.png" />
+    <None Include="images\sign-question.png" />
+    <None Include="images\sign-up.png" />
+    <None Include="images\sign-warning.png" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -459,7 +482,6 @@
     <Compile Include="LibWinUsb\WinUsb\PowerPolicyType.cs" />
     <Compile Include="LibWinUsb\WinUsb\WinUsbDevice.cs" />
     <Compile Include="LibWinUsb\WinUsb\WinUsbRegistry.cs" />
-    <Compile Include="MessageBoxManager.cs" />
     <Compile Include="SaveStateManager.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -576,6 +598,9 @@
     <Compile Include="SnesPresetEditor.Designer.cs">
       <DependentUpon>SnesPresetEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="SplitterStream.cs" />
+    <Compile Include="Ssh\SshClientException.cs" />
+    <Compile Include="Ssh\SshClientWrapper.cs" />
     <Compile Include="StringInputForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -590,9 +615,46 @@
     <Compile Include="FoldersManagerForm.Designer.cs">
       <DependentUpon>FoldersManagerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Tasks\AddGamesTask.cs" />
+    <Compile Include="Tasks\GameCacheTask.cs" />
+    <Compile Include="Tasks\GameTask.cs" />
+    <Compile Include="Tasks\ITaskerView.cs" />
+    <Compile Include="Tasks\ErrorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tasks\ErrorForm.Designer.cs">
+      <DependentUpon>ErrorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\MembootTasks.cs" />
+    <Compile Include="Tasks\ModTasks.cs" />
+    <Compile Include="Tasks\ShellTasks.cs" />
+    <Compile Include="Tasks\LoadGamesTask.cs" />
+    <Compile Include="Tasks\MessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tasks\MessageForm.Designer.cs">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\SyncTask.cs" />
+    <Compile Include="Tasks\Tasker.cs" />
+    <Compile Include="Tasks\TaskerDebug.cs" />
+    <Compile Include="Tasks\TaskerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Tasks\TaskerForm.Designer.cs">
+      <DependentUpon>TaskerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Tasks\TaskerTaskbar.cs" />
     <Compile Include="TrackableFileStream.cs" />
+    <Compile Include="TrackableStream.cs" />
     <Compile Include="UnsupportedFourScreenException.cs" />
     <Compile Include="UnsupportedMapperException.cs" />
+    <Compile Include="UploadGamesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UploadGamesDialog.Designer.cs">
+      <DependentUpon>UploadGamesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="WaitingClovershellForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -604,12 +666,6 @@
     </Compile>
     <Compile Include="WaitingFelForm.Designer.cs">
       <DependentUpon>WaitingFelForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WorkerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WorkerForm.Designer.cs">
-      <DependentUpon>WorkerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="XMLSerialization.cs" />
     <EmbeddedResource Include="FoldersManagerForm.hu-HU.resx">
@@ -643,9 +699,7 @@
     <EmbeddedResource Include="images\flags\hu.png" />
     <EmbeddedResource Include="images\flags\jp.png" />
     <EmbeddedResource Include="images\flags\ro.png" />
-    <None Include="data\ubootSD.bin">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="data\ubootSD.bin" />
     <None Include="data\libretro_cores\2048_libretro.info">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1108,9 +1162,6 @@
     <None Include="data\libretro_cores\yabause_libretro.info">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="data\zImageMemboot">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="FodyWeavers.xml" />
     <None Include="data\blankBoot.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1356,63 +1407,40 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <EmbeddedResource Include="images\noboxart.png" />
+    <Content Include="folder_images\console_famicom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="icon_app.ico" />
     <Content Include="icon_window.ico" />
-    <Content Include="images\blank_dos.png" />
+    <None Include="images\blank_dos.png" />
+    <None Include="images\sign-brick.png" />
+    <None Include="images\sign-cogs.png" />
+    <None Include="images\sign-database.png" />
+    <None Include="images\sign-file-picture.png" />
+    <None Include="images\sign-keyring.png" />
+    <None Include="images\sign-trashcan.png" />
     <Content Include="readmeTemplate.css" />
     <Content Include="readmeTemplate.html" />
     <None Include="Resources\info.png" />
     <Content Include="retroarch-systems-blacklist.txt" />
     <Content Include="retroarch-whitelist.txt" />
-    <None Include="mods\mod_general\generalmemboot.flag">
+    <None Include="packages.config" />
+    <None Include="sfrom_tool\README.TXT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="tools\arm\sntool.static">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="sfrom_tool\README.txt">
+    <None Include="tools\arm\kexec.static">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="tools\arm\kexec.static">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="tools\arm\unpackbootimg.static">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="tools\xz.exe">
+    <None Include="tools\arm\unpackbootimg.static">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="mods\hmods\font_remount.hmod">
+    <None Include="tools\arm\mke2fs.static">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\rsyncpass">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="patches\1c3848c0-Illusion of Gaia %28U%29 [!].ips">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <Content Include="user_mods\advanced_music_hack.hmod\etc\preinit.d\bb223_advanced_music_hack">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\advanced_music_hack.hmod\etc\preinit.d\pb223_advanced_music_hack">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\advanced_music_hack.hmod\readme.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="user_mods\extra_space.hmod\readme.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <Content Include="user_mods\advanced_music_hack.hmod\usr\share\advanced_music_hack\bgm_boot.wav">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\gamepath-cleanup.hmod\install">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\gamepath-cleanup.hmod\readme.md">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="user_mods\gamepath-cleanup.hmod\uninstall">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="user_mods\snes_custom_filters.hmod\readme.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <EmbeddedResource Include="AboutBox.resx">
@@ -1484,81 +1512,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SearchForm.pt-BR.resx">
       <DependentUpon>SearchForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.bg-BG.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.ca-ES.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.da-DK.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.de-DE.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.el-GR.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.en-GB.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.es-AR.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.es-ES.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.fi-FI.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.fr-FR.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.id-ID.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.it-IT.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.ja-JP.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.nl.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.pl-PL.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.pt-BR.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.pt-PT.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.ru-RU.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.sk-SK.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.sv-SE.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.uk-UA.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.zh-CHS.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.zh-CHT.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SelectConsoleDialog.zh-TW.resx">
-      <DependentUpon>SelectConsoleDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FoldersManagerForm.bg-BG.resx">
       <DependentUpon>FoldersManagerForm.cs</DependentUpon>
@@ -2416,6 +2369,18 @@
     <EmbeddedResource Include="FoldersManagerForm.ru-RU.resx">
       <DependentUpon>FoldersManagerForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\ErrorForm.resx">
+      <DependentUpon>ErrorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\MessageForm.resx">
+      <DependentUpon>MessageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tasks\TaskerForm.resx">
+      <DependentUpon>TaskerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UploadGamesDialog.resx">
+      <DependentUpon>UploadGamesDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WaitingClovershellForm.bg-BG.resx">
       <DependentUpon>WaitingClovershellForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -2578,24 +2543,15 @@
     <EmbeddedResource Include="WaitingFelForm.zh-TW.resx">
       <DependentUpon>WaitingFelForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkerForm.resx">
-      <DependentUpon>WorkerForm.cs</DependentUpon>
-    </EmbeddedResource>
     <Content Include="art\README.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="data\fes1.bin">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="data\fes1.bin" />
     <None Include="data\snescarts.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="data\splash.gz">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\uboot.bin">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="data\splash.gz" />
+    <None Include="data\uboot.bin" />
     <EmbeddedResource Include="images\flags\ar.png" />
     <EmbeddedResource Include="images\flags\bg.png" />
     <EmbeddedResource Include="images\flags\de.png" />
@@ -2619,21 +2575,6 @@
     <EmbeddedResource Include="images\flags\dk.png" />
     <EmbeddedResource Include="images\gamepad_snes.png" />
     <None Include="LICENSE">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\hmods\clovershell.hmod">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\hmods\copyleft.hmod">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_uninstall\bin\busybox">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_uninstall\hakchi\init">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_uninstall\sbin\init">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="patches\1dac6208-Snow Bros. %28U%29 [!] - NES Mini patch.ips">
@@ -2685,42 +2626,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="patches\f6898a59-James Bond Jr %28no dim%29.ips">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\password.hmod\install">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\password.hmod\password.raw.gz">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\password.hmod\password_fail.raw.gz">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\password.hmod\password_ok.raw.gz">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\password.hmod\S810password">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\password.hmod\uninstall">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\remove_thumbnails.hmod\install">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\remove_thumbnails.hmod\uninstall">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\hmods\tiny7zx.hmod">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\hmods\clovercon.hmod">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\hmods\modules-3.4.112.madmonkey.hmod">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\hmods\ntfs-3g.hmod">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="patches\0354f4b1-Dirt Racer %28Europe%29 %28En,Fr,De%29.ips">
@@ -2837,294 +2742,116 @@
     <None Include="patches\974523ff-Terranigma %28Europe, France, Germany, Spain%29.ips">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="mods\mod_hakchi\bin\busybox">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\bin\rsync">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\bin\aplay">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\bin\decodepng">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\etc\filesystems">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\init">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\chmenu">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\clover-canoe-shvc-wr">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\clover-kachikachi-wr">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\gameover">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\hakchi">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\hsqs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\remote-exec">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\test-menu">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\uistart">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\bin\uistop">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\init.d\S82remote-exec">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\inittab">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0000_defines">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0010_functions">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0020_backup">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0030_package">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7000_preinit">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7070_firmware">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7080_hmods">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7100_preinit">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\pa100_games">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\pffff_config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p0000_version">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\profile">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\hakchi.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\init.d\S78clvcon">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\script\base">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\script\install">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\script\reflash">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\script\removed">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\script\transfer">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\sbin\init">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <Content Include="data\desktop_entries\CLV-P-HAAAJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HAACJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HAADJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HAAEJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HAAHJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HAAMJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HAANJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HAAPJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HAAQJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HAARJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HAASJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HAAUJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HAAWJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HAAXJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HABBJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HABCJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HABLJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HABMJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HABNJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HABQJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HABRJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HABVJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HACAJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HACBJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HACCJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HACEJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HACHJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HACJJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HACLJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-HACPJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAAAE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAACE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAADE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAAEE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAAFE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAAHE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAANE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAAPE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAAQE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAARE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAASE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAATE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAAUE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAAVE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAAWE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAAXE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NAAZE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NABBE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NABCE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NABJE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NABKE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NABME.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NABNE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NABQE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NABRE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NABVE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NABXE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NACBE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NACDE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-NACHE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SAAAE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SAABE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SAAEE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SAAFE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SAAHE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SAAJE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SAAKE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SAALE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SAAQE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SAAXE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SABCE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SABDE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SABHE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SABQE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SABRE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SABTE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SACBE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SACCE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SADGE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SADJE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-SADKE.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VAAAJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VAABJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VAAEJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VAAFJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VAAGJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VAAHJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VAALJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VAAQJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VABBJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VABCJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VABDJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VABQJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VABRJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VABTJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VACCJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VACDJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VADFJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VADGJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VADJJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VADKJ.desktop" />
-    <Content Include="data\desktop_entries\CLV-P-VADZJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HAAAJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HAACJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HAADJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HAAEJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HAAHJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HAAMJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HAANJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HAAPJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HAAQJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HAARJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HAASJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HAAUJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HAAWJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HAAXJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HABBJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HABCJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HABLJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HABMJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HABNJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HABQJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HABRJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HABVJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HACAJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HACBJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HACCJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HACEJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HACHJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HACJJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HACLJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-HACPJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAAAE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAACE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAADE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAAEE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAAFE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAAHE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAANE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAAPE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAAQE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAARE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAASE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAATE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAAUE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAAVE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAAWE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAAXE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NAAZE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NABBE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NABCE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NABJE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NABKE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NABME.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NABNE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NABQE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NABRE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NABVE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NABXE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NACBE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NACDE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-NACHE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SAAAE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SAABE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SAAEE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SAAFE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SAAHE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SAAJE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SAAKE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SAALE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SAAQE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SAAXE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SABCE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SABDE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SABHE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SABQE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SABRE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SABTE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SACBE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SACCE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SADGE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SADJE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-SADKE.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VAAAJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VAABJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VAAEJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VAAFJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VAAGJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VAAHJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VAALJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VAAQJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VABBJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VABCJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VABDJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VABQJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VABRJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VABTJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VACCJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VACDJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VADFJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VADGJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VADJJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VADKJ.desktop" />
+    <None Include="data\desktop_entries\CLV-P-VADZJ.desktop" />
     <None Include="app.config" />
     <None Include="data\desktop_entries.7z">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\b0040_usb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p0000_config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7010_bootlogo">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_hakchi\hakchi\rootfs\etc\preinit.d\p7020_usb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="data\zImage">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="hakchi-nonportable.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="mods\mod_general\bin\busybox">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_general\bin\rsync">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_general\sbin\init">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_general\bin\clovershell">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_general\etc\passwd">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="mods\mod_reset\hakchi\transfer\earlybird">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
-    <None Include="user_mods\snes_custom_filters.hmod\canoe-custom-filters">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\snes_custom_filters.hmod\install">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\snes_custom_filters.hmod\p8030_snes_filters">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\snes_custom_filters.hmod\uninstall">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\extra_space.hmod\etc\preinit.d\p7110_extra_space">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\extra_space.hmod\install">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\extra_space.hmod\uninstall">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\hakchi-v1.0.3-110.hmod">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -3286,22 +3013,22 @@
     <EmbeddedResource Include="images\app_sm_tr.png" />
     <EmbeddedResource Include="images\arcade_sm.png" />
     <EmbeddedResource Include="images\arcade_sm_tr.png" />
-    <EmbeddedResource Include="images\blank_2600.png" />
-    <EmbeddedResource Include="images\blank_32x.png" />
-    <EmbeddedResource Include="images\blank_app.png" />
-    <EmbeddedResource Include="images\blank_arcade.png" />
-    <EmbeddedResource Include="images\blank_gb.png" />
-    <EmbeddedResource Include="images\blank_gba.png" />
-    <EmbeddedResource Include="images\blank_gbc.png" />
-    <EmbeddedResource Include="images\blank_genesis.png" />
-    <EmbeddedResource Include="images\blank_gg.png" />
-    <EmbeddedResource Include="images\blank_n64.png" />
-    <EmbeddedResource Include="images\blank_neogeo.png" />
-    <EmbeddedResource Include="images\blank_nes.png" />
-    <EmbeddedResource Include="images\blank_pce.png" />
-    <EmbeddedResource Include="images\blank_sms.png" />
-    <EmbeddedResource Include="images\blank_snes-eu-jp.png" />
-    <EmbeddedResource Include="images\blank_snes-us.png" />
+    <None Include="images\blank_2600.png" />
+    <None Include="images\blank_32x.png" />
+    <None Include="images\blank_app.png" />
+    <None Include="images\blank_arcade.png" />
+    <None Include="images\blank_gb.png" />
+    <None Include="images\blank_gba.png" />
+    <None Include="images\blank_gbc.png" />
+    <None Include="images\blank_genesis.png" />
+    <None Include="images\blank_gg.png" />
+    <None Include="images\blank_n64.png" />
+    <None Include="images\blank_neogeo.png" />
+    <None Include="images\blank_nes.png" />
+    <None Include="images\blank_pce.png" />
+    <None Include="images\blank_sms.png" />
+    <None Include="images\blank_snes-eu-jp.png" />
+    <None Include="images\blank_snes-us.png" />
     <EmbeddedResource Include="images\gba_sm.png" />
     <EmbeddedResource Include="images\gba_sm_tr.png" />
     <EmbeddedResource Include="images\gbc_sm.png" />
@@ -3333,13 +3060,7 @@
     <EmbeddedResource Include="images\snes-eu-jp_sm_tr.png" />
     <EmbeddedResource Include="images\snes-us_sm.png" />
     <EmbeddedResource Include="images\snes-us_sm_tr.png" />
-    <None Include="user_mods\password.hmod\readme.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="user_mods\README.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="user_mods\remove_thumbnails.hmod\readme.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="folder_images\README.txt">
@@ -3348,8 +3069,8 @@
     <None Include="folder_images\folder_back.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <EmbeddedResource Include="images\blank_fds.png" />
-    <EmbeddedResource Include="images\blank_jp.png" />
+    <None Include="images\blank_fds.png" />
+    <None Include="images\blank_jp.png" />
     <EmbeddedResource Include="images\nes_sm.png" />
     <EmbeddedResource Include="images\folder_sm.png" />
     <EmbeddedResource Include="images\gamepad.png" />
@@ -3365,33 +3086,6 @@
     </None>
     <Content Include="SevenZip\gpl.txt" />
     <Content Include="SevenZip\lgpl.txt" />
-    <None Include="tools\cpio.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="tools\cyggcc_s-1.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="tools\cygiconv-2.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="tools\cygintl-8.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="tools\cygwin1.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="tools\lzop.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="tools\mkbootfs.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="tools\mkbootimg.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="tools\unpackbootimg.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -3442,20 +3136,25 @@
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="ProgressODoom\ProgressODoom.csproj">
+      <Project>{8dd1e84b-0b03-4c0b-9b42-1e49f75e7cb1}</Project>
+      <Name>ProgressODoom</Name>
+    </ProjectReference>
+    <ProjectReference Include="SSH.NET\src\Renci.SshNet\Renci.SshNet.csproj">
+      <Project>{2f5f8c90-0bd1-424f-997c-7bc6280919d1}</Project>
+      <Name>Renci.SshNet</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>echo. &gt; NUL 2&gt; "$(ProjectDir)commit.txt"
-
-git --version &amp;&amp; (
-  for /f %25%25i in ('git rev-parse --short HEAD') do (
-    git diff-index --quiet HEAD -- &amp;&amp; (
-      echo|set /p="%25%25i" &gt;&gt; "$(ProjectDir)commit.txt"
-      SET ERRORLEVEL=0
-    ) || (
-      echo|set /p="%25%25i (dirty)" &gt;&gt; "$(ProjectDir)commit.txt"
-    )
-  )
-) || SET ERRORLEVEL=0</PreBuildEvent>
+    <PreBuildEvent>cd /D "$(ProjectDir)tools/" || cd "$(ProjectDir)tools/"
+"./busybox" sh -e "./downloadfiles" ../
+"./busybox" tar -cvf "../basehmods.tar" -C "../mods/hmods" "."
+"./busybox" sh -e "./copypackedhmods" "../mods/hmods" "../$(OutDir)user_mods"
+"./busybox" rm -rf "../$(OutDir)user_mods/hakchi.hmod"
+"./busybox" cp -R "../user_mods/" "../$(OutDir)/"
+"./busybox" sh -e "./gitcommit" &gt; "../commit.txt"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>
@@ -3478,13 +3177,13 @@ git --version &amp;&amp; (
     <Copy SourceFiles="@(LanguageResourceFiles)" DestinationFolder="$(OutDir)languages\%(RecursiveDir)" SkipUnchangedFiles="true" />
     <RemoveDir Directories="$(OutDir)%(LanguageResourceFiles.RecursiveDir);" />
   </Target>
+  <Import Project="packages\Fody.2.4.6\build\Fody.targets" Condition="Exists('packages\Fody.2.4.6\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Costura.Fody.1.6.2\build\portable-net+sl+win+wpa+wp\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.1.6.2\build\portable-net+sl+win+wpa+wp\Costura.Fody.targets'))" />
-    <Error Condition="!Exists('packages\Fody.2.4.2\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Fody.2.4.2\build\Fody.targets'))" />
+    <Error Condition="!Exists('packages\Fody.2.4.6\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Fody.2.4.6\build\Fody.targets'))" />
+    <Error Condition="!Exists('packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets'))" />
   </Target>
-  <Import Project="packages\Costura.Fody.1.6.2\build\portable-net+sl+win+wpa+wp\Costura.Fody.targets" Condition="Exists('packages\Costura.Fody.1.6.2\build\portable-net+sl+win+wpa+wp\Costura.Fody.targets')" />
-  <Import Project="packages\Fody.2.4.2\build\Fody.targets" Condition="Exists('packages\Fody.2.4.2\build\Fody.targets')" />
+  <Import Project="packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets" Condition="Exists('packages\Costura.Fody.1.6.2\build\dotnet\Costura.Fody.targets')" />
 </Project>

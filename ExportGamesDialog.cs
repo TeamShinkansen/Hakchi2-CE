@@ -1,4 +1,5 @@
-﻿using System;
+﻿using com.clusterrr.hakchi_gui.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -53,30 +54,32 @@ namespace com.clusterrr.hakchi_gui
                 comboDriveLetters.Items.Add(new DriveLetterItem(drive));
             }
 
-            if(comboDriveLetters.Items.Count > 0) comboDriveLetters.SelectedIndex = 0;
+            if (comboDriveLetters.Items.Count > 0) comboDriveLetters.SelectedIndex = 0;
 
-            if (ConfigIni.Instance.ConsoleType == MainForm.ConsoleType.SNES && ConfigIni.Instance.SeparateGameStorage)
+            if (ConfigIni.Instance.ConsoleType == hakchi.ConsoleType.SNES_EUR)
+                radioEUR.Checked = true;
+            if (ConfigIni.Instance.ConsoleType == hakchi.ConsoleType.SNES_USA)
+                radioUSA.Checked = true;
+
+            if (!string.IsNullOrEmpty(ConfigIni.Instance.ExportDrive))
             {
-                radioEUR.Enabled = true;
-                radioUSA.Enabled = true;
-                switch (ConfigIni.Instance.ExportRegion)
+                foreach (DriveLetterItem drive in comboDriveLetters.Items)
                 {
-                    case "EUR":
-                        radioEUR.Checked = true;
+                    if (ConfigIni.Instance.ExportDrive == Path.GetPathRoot(drive.info.RootDirectory.FullName).ToLower())
+                    {
+                        comboDriveLetters.SelectedItem = drive;
                         break;
-
-                    case "USA":
-                        radioUSA.Checked = true;
-                        break;
+                    }
                 }
             }
-            if (Program.isPortable)
+            else if (Program.isPortable)
             {
                 foreach (DriveLetterItem drive in comboDriveLetters.Items)
                 {
                     if (baseDrive == Path.GetPathRoot(drive.info.RootDirectory.FullName).ToLower())
                     {
                         comboDriveLetters.SelectedItem = drive;
+                        break;
                     }
                 }
             }
@@ -93,7 +96,7 @@ namespace com.clusterrr.hakchi_gui
         {
             if (comboDriveLetters.SelectedItem == null)
             {
-                MessageBox.Show(this, Properties.Resources.NoDriveSelected, Properties.Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Tasks.MessageForm.Show(Resources.ExportGames, Resources.NoDriveSelected, Resources.sign_error);
             }
             else
             {
@@ -103,26 +106,19 @@ namespace com.clusterrr.hakchi_gui
                 {
                     switch (ConfigIni.Instance.ConsoleType)
                     {
-                        case MainForm.ConsoleType.Famicom:
+                        case hakchi.ConsoleType.Famicom:
                             systemCode = "nes-jpn";
                             break;
-
-                        case MainForm.ConsoleType.NES:
+                        case hakchi.ConsoleType.NES:
                             systemCode = "nes-usa";
                             break;
-
-                        case MainForm.ConsoleType.SNES:
-                            systemCode = "snes";
-                            if (radioEUR.Checked) systemCode += "-eur";
-                            if (radioUSA.Checked) systemCode += "-usa";
-                            if (radioEUR.Checked == false && radioUSA.Checked == false)
-                            {
-                                MessageBox.Show(this, Properties.Resources.SelectRegion, Properties.Resources.SelectRegion, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
+                        case hakchi.ConsoleType.SNES_EUR:
+                            systemCode = "snes-eur";
                             break;
-
-                        case MainForm.ConsoleType.SuperFamicom:
+                        case hakchi.ConsoleType.SNES_USA:
+                            systemCode = "snes-usa";
+                            break;
+                        case hakchi.ConsoleType.SuperFamicom:
                             systemCode = "snes-jpn";
                             break;
 
@@ -142,6 +138,7 @@ namespace com.clusterrr.hakchi_gui
                     ExportPath = Shared.PathCombine(SelectedDrive.RootDirectory.FullName, "hakchi", "games");
                 }
 
+                ConfigIni.Instance.ExportDrive = Path.GetPathRoot(SelectedDrive.RootDirectory.FullName).ToLower();
                 LinkedExport = checkLinked.Enabled && checkLinked.Checked;
 
                 DialogResult = DialogResult.OK;
@@ -166,7 +163,6 @@ namespace com.clusterrr.hakchi_gui
 
         private void Region_CheckedChanged(object sender, EventArgs e)
         {
-            if(((RadioButton)sender).Checked) ConfigIni.Instance.ExportRegion = ((RadioButton)sender).Text;
         }
 
         private void checkLinked_CheckedChanged(object sender, EventArgs e)

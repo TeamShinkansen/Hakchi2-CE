@@ -9,3 +9,9 @@ commit.txt
 packages/**/*
 !packages/repositories.config
 Web Installer/*.exe
+ProgressODoom/bin/
+mods/hmods/kernel.hmod
+mods/hmods/font_remount.hmod
+basehmods.tar
+downloadedFiles.txt
+mods/hmods/hakchi.hmod

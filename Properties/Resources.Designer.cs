@@ -1491,6 +1491,16 @@ namespace com.clusterrr.hakchi_gui.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+		
+		/// <summary>
+		///   Looks up a localized resource of type System.Drawing.Bitmap.
+		/// </summary>
+		internal static System.Drawing.Bitmap ar {
+			get {
+				object obj = ResourceManager.GetObject("ar", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+			}
+		}
         
         /// <summary>
         ///   Looks up a localized string similar to Please input a preset name for the current games selection..
@@ -2182,7 +2192,8 @@ namespace com.clusterrr.hakchi_gui.Properties {
         ///nekop2
         ///nxengine
         ///o2em
-        ///pcsx_rearmed_neon        /// [rest of string was truncated]&quot;;.
+        ///pcsx_rearmed_neon
+        /// [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string retroarch_whitelist {
             get {

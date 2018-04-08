@@ -177,10 +177,25 @@ namespace com.clusterrr.hakchi_gui
 
             // check if we can use sfrom tool
             bool convertedSuccessfully = false;
-            bool isSnesSystem = ConfigIni.Instance.ConsoleType == MainForm.ConsoleType.SNES || ConfigIni.Instance.ConsoleType == MainForm.ConsoleType.SuperFamicom;
+            bool isSnesSystem = hakchi.IsSnes(ConfigIni.Instance.ConsoleType);
 
             if (isSnesSystem && ConfigIni.Instance.UseSFROMTool && SfromToolWrapper.IsInstalled)
             {
+                try
+                {
+                    SnesRomType romType;
+                    string gameTitle;
+                    SnesRomHeader romHeader = GetCorrectHeader(rawRomData, out romType, out gameTitle);
+                    if (romHeader.SramSize > 0)
+                        saveCount = 3;
+                    else
+                        saveCount = 0;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Error reading ROM header: " + ex.Message + ex.StackTrace);
+                }
+
                 Debug.WriteLine($"Convert with SFROM Tool: {inputFileName}");
                 if (SfromToolWrapper.ConvertROMtoSFROM(ref rawRomData))
                 {
@@ -212,14 +227,14 @@ namespace com.clusterrr.hakchi_gui
                     {
                         if (Need3rdPartyEmulator != false)
                         {
-                            var r = WorkerForm.MessageBoxFromThread(ParentForm,
+                            var result = Tasks.MessageForm.Show(ParentForm, Resources.AreYouSure,
                                 string.Format(Resources.Need3rdPartyEmulator, Path.GetFileName(inputFileName)),
-                                    Resources.AreYouSure,
-                                    MessageBoxButtons.AbortRetryIgnore,
-                                    MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, true);
-                            if (r == DialogResult.Abort)
+                                Resources.sign_warning,
+                                new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.YesToAll, Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No },
+                                Tasks.MessageForm.DefaultButton.Button2);
+                            if (result == Tasks.MessageForm.Button.YesToAll)
                                 Need3rdPartyEmulator = true;
-                            if (r == DialogResult.Ignore)
+                            if (result == Tasks.MessageForm.Button.No)
                                 problemGame = false;
                         }
                         else problemGame = false;
@@ -712,77 +727,68 @@ namespace com.clusterrr.hakchi_gui
                 if (!string.IsNullOrEmpty(gameinfo.Publisher))
                     desktop.Publisher = gameinfo.Publisher.ToUpper();
 
-                /*
-                if (!string.IsNullOrEmpty(gameinfo.CoverUrl))
+                return true;
+            }
+            return false;
+        }
+
+        public bool ApplyGameGenie(out byte[] gameFileData)
+        {
+            gameFileData = null;
+            if (!string.IsNullOrEmpty(GameGenie))
+            {
+                var codes = GameGenie.Split(new char[] { ',', '\t', ' ', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                string gameFilePath = GameFilePath;
+                if (gameFilePath != null)
                 {
-                    if (NeedAutoDownloadCover != true)
+                    gameFilePath = gameFilePath.ToLower();
+                    byte[] data = null;
+                    int offset = 0;
+                    if (gameFilePath.Contains(".sfrom"))
                     {
-                        if (NeedAutoDownloadCover != false)
-                        {
-                            var r = WorkerForm.MessageBoxFromThread(ParentForm,
-                                string.Format(Resources.DownloadCoverQ, Name),
-                                Resources.Cover,
-                                MessageBoxButtons.AbortRetryIgnore,
-                                MessageBoxIcon.Question,
-                                MessageBoxDefaultButton.Button2, true);
-                            if (r == DialogResult.Abort)
-                                NeedAutoDownloadCover = true;
-                            if (r == DialogResult.Ignore)
-                                return true;
-                        }
-                        else return true;
+                        data = GameFileData;
+                        offset = 48;
+                    }
+                    else if (gameFilePath.Contains(".sfc") || gameFilePath.Contains(".smc"))
+                    {
+                        data = GameFileData;
+                        if ((data.Length % 1024) != 0)
+                            offset = 512;
+                        else
+                            offset = 0;
                     }
 
-                    try
+                    if (data != null)
                     {
-                        var cover = ImageGooglerForm.DownloadImage(gameinfo.CoverUrl);
-                        Image = cover;
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex.Message + ex.StackTrace);
+                        byte[] rawData = new byte[data.Length - offset];
+                        Array.Copy(data, offset, rawData, 0, rawData.Length);
+
+                        foreach (var code in codes)
+                        {
+                            rawData = GameGeniePatcherSnes.Patch(rawData, code);
+                        }
+
+                        Array.Copy(rawData, 0, data, offset, rawData.Length);
+                        gameFileData = data;
+                        return true;
                     }
                 }
-                */
-                return true;
             }
             return false;
         }
 
         public void ApplyGameGenie()
         {
-            if (!string.IsNullOrEmpty(GameGenie))
+            if (GameFilePath != null)
             {
-                var codes = GameGenie.Split(new char[] { ',', '\t', ' ', ';' }, StringSplitOptions.RemoveEmptyEntries);
-                var nesFiles = Directory.GetFiles(this.basePath, "*.*", SearchOption.TopDirectoryOnly);
-                foreach (var f in nesFiles)
-                {
-                    byte[] data;
-                    var ext = Path.GetExtension(f).ToLower();
-                    int offset;
-                    if (ext == ".sfrom")
-                    {
-                        data = File.ReadAllBytes(f);
-                        offset = 48;
-                    }  else if (ext == ".sfc" || ext == ".smc")
-                    {
-                        data = File.ReadAllBytes(f);
-                        if ((data.Length % 1024) != 0)
-                            offset = 512;
-                        else
-                            offset = 0;
-                    }
-                    else continue;
-
-                    var rawData = new byte[data.Length - offset];
-                    Array.Copy(data, offset, rawData, 0, rawData.Length);
-
-                    foreach (var code in codes)
-                        rawData = GameGeniePatcherSnes.Patch(rawData, code);
-
-                    Array.Copy(rawData, 0, data, offset, rawData.Length);
-                    File.WriteAllBytes(f, data);                        
-                }
+                bool wasCompressed = DecompressPossible().Length > 0;
+                if (wasCompressed)
+                    Decompress();
+                byte[] gameFileData;
+                ApplyGameGenie(out gameFileData);
+                File.WriteAllBytes(GameFilePath, gameFileData);
+                if (wasCompressed)
+                    Compress();
             }
         }
     }

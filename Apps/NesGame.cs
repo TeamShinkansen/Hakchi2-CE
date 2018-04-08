@@ -42,6 +42,7 @@ namespace com.clusterrr.hakchi_gui
                 return true;
             }
             crc32 = nesFile.CRC32;
+
             // Also search for patch using internal CRC32
             if (!patched)
             {
@@ -50,7 +51,7 @@ namespace com.clusterrr.hakchi_gui
             }
             nesFile.CorrectRom();
 
-            if (ConfigIni.Instance.ConsoleType == MainForm.ConsoleType.NES || ConfigIni.Instance.ConsoleType == MainForm.ConsoleType.Famicom)
+            if (hakchi.IsNes(ConfigIni.Instance.ConsoleType))
             {
                 application = "/bin/clover-kachikachi-wr";
                 args = DefaultArgs;
@@ -64,36 +65,35 @@ namespace com.clusterrr.hakchi_gui
             //if (nesFile.Mapper == 88) nesFile.Mapper = 4; // Compatible with MMC3... sometimes
             //if (nesFile.Mapper == 95) nesFile.Mapper = 4; // Compatible with MMC3
             //if (nesFile.Mapper == 206) nesFile.Mapper = 4; // Compatible with MMC3
-            if (!supportedMappers.Contains(nesFile.Mapper) && 
-                (ConfigIni.Instance.ConsoleType == MainForm.ConsoleType.NES || ConfigIni.Instance.ConsoleType == MainForm.ConsoleType.Famicom)
+            if (!supportedMappers.Contains(nesFile.Mapper) &&  (hakchi.IsNes(ConfigIni.Instance.ConsoleType))
                 && (IgnoreMapper != true))
             {
                 if (IgnoreMapper != false)
                 {
-                    var r = WorkerForm.MessageBoxFromThread(ParentForm,
+                    var result = Tasks.MessageForm.Show(ParentForm, Resources.AreYouSure,
                         string.Format(Resources.MapperNotSupported, System.IO.Path.GetFileName(inputFileName), nesFile.Mapper),
-                            Resources.AreYouSure,
-                            MessageBoxButtons.AbortRetryIgnore,
-                            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, true);
-                    if (r == DialogResult.Abort)
+                        Resources.sign_warning,
+                        new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.YesToAll, Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No },
+                        Tasks.MessageForm.DefaultButton.Button2);
+                    if (result == Tasks.MessageForm.Button.YesToAll)
                         IgnoreMapper = true;
-                    if (r == DialogResult.Ignore)
+                    if (result == Tasks.MessageForm.Button.No)
                         return false;
                 }
                 else return false;
             }
             if ((nesFile.Mirroring == NesFile.MirroringType.FourScreenVram) &&
-                (ConfigIni.Instance.ConsoleType == MainForm.ConsoleType.NES || ConfigIni.Instance.ConsoleType == MainForm.ConsoleType.Famicom) &&
+                (ConfigIni.Instance.ConsoleType == hakchi.ConsoleType.NES || ConfigIni.Instance.ConsoleType == hakchi.ConsoleType.Famicom) &&
                 (IgnoreMapper != true))
             {
-                var r = WorkerForm.MessageBoxFromThread(ParentForm,
+                var result = Tasks.MessageForm.Show(ParentForm, Resources.AreYouSure,
                     string.Format(Resources.FourScreenNotSupported, System.IO.Path.GetFileName(inputFileName)),
-                        Resources.AreYouSure,
-                        MessageBoxButtons.AbortRetryIgnore,
-                        MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2, true);
-                if (r == DialogResult.Abort)
+                    Resources.sign_warning,
+                    new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.YesToAll, Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No },
+                    Tasks.MessageForm.DefaultButton.Button2);
+                if (result == Tasks.MessageForm.Button.YesToAll)
                     IgnoreMapper = true;
-                if (r == DialogResult.No)
+                if (result == Tasks.MessageForm.Button.No)
                     return false;
             }
 
@@ -179,10 +179,39 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
+        public bool ApplyGameGenie(out byte[] gameFileData)
+        {
+            gameFileData = null;
+            if (!string.IsNullOrEmpty(GameGenie))
+            {
+                var codes = GameGenie.Split(new char[] { ',', '\t', ' ', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                string gameFilePath = GameFilePath;
+                if (gameFilePath != null)
+                {
+                    byte[] data = GameFileData;
+                    if (data != null)
+                    {
+                        var nesFile = new NesFile(data);
+                        foreach (var code in codes)
+                        {
+                            nesFile.PRG = GameGeniePatcherNes.Patch(nesFile.PRG, code.Trim());
+                        }
+                        gameFileData = nesFile.GetRaw();
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public void ApplyGameGenie()
         {
             if (!string.IsNullOrEmpty(GameGenie))
             {
+                bool wasCompressed = DecompressPossible().Length > 0;
+                if (wasCompressed)
+                    Decompress();
+
                 var codes = GameGenie.Split(new char[] { ',', '\t', ' ', ';' }, StringSplitOptions.RemoveEmptyEntries);
                 var nesFiles = Directory.GetFiles(this.basePath, "*.nes", SearchOption.TopDirectoryOnly);
                 foreach (var f in nesFiles)
@@ -194,6 +223,9 @@ namespace com.clusterrr.hakchi_gui
                     }
                     nesFile.Save(f);
                 }
+
+                if(wasCompressed)
+                    Compress();
             }
         }
     }
