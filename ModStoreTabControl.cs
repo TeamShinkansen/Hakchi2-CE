@@ -12,9 +12,9 @@ namespace com.clusterrr.hakchi_gui
         public string Category { get; set; }
         public ModStoreManager Manager { set { manager = value; loadModuleList(); } }
 
-        private Module currentModule { get; set; }
+        private ModStoreItem currentItem { get; set; }
         private ModStoreManager manager;
-        private List<Module> moduleList = new List<Module>();
+        private List<ModStoreItem> itemList = new List<ModStoreItem>();
 
         public ModStoreTabControl()
         {
@@ -24,9 +24,9 @@ namespace com.clusterrr.hakchi_gui
         #region GUI
         private void loadModuleDescription()
         {
-            var installedModule = manager.GetInstalledModule(currentModule);
+            var installedModule = manager.GetInstalledModule(currentItem);
             webBrowser1.AllowNavigation = true;
-            webBrowser1.Url = new Uri(currentModule.Description, UriKind.Absolute);
+            webBrowser1.Url = new Uri(currentItem.Description, UriKind.Absolute);
             Cursor.Current = Cursors.WaitCursor;
 
             moduleDescriptionBrowser.DocumentText = String.Format("<html style='background-color:#d20014;color:#ffffff;'>" +
@@ -39,14 +39,14 @@ namespace com.clusterrr.hakchi_gui
                                                                           "</span>" +
                                                                     "</body>" +
                                                                   "</html>",
-                                                                  currentModule.Name,
-                                                                  currentModule.Author,
-                                                                  currentModule.Version,
+                                                                  currentItem.Name,
+                                                                  currentItem.Author,
+                                                                  currentItem.Version,
                                                                   (installedModule != null) ? installedModule.Version : "N/A");
             
             if (installedModule != null)
             {
-                if (installedModule.Version != currentModule.Version)
+                if (installedModule.Version != currentItem.Version)
                 {
                     moduleDownloadButton.Enabled = true;
                     moduleDownloadButton.Text = "Update Module";
@@ -72,14 +72,14 @@ namespace com.clusterrr.hakchi_gui
             int index = moduleListBox.SelectedIndex;
             if (index != -1)
             {
-                if (currentModule != moduleList[index])
+                if (currentItem != itemList[index])
                 {
-                    currentModule = moduleList[index];
+                    currentItem = itemList[index];
                     loadModuleDescription();
                 }
             }
             else
-                currentModule = null;
+                currentItem = null;
         }
 
 
@@ -95,33 +95,50 @@ namespace com.clusterrr.hakchi_gui
         private void loadModuleList()
         {
             moduleListBox.Items.Clear();
-            moduleList.Clear();
-            foreach (var module in manager.AvailableModules)
+            itemList.Clear();
+            switch (Category)
             {
-                if (module.Categories.Contains(Category))
-                {
-                    moduleListBox.Items.Add(module.Name);
-                    moduleList.Add(module);
-                }
+                case "game":
+                    foreach (var item in manager.AvailableItems)
+                    {
+                        if (item is ModStoreGame)
+                        {
+                            moduleListBox.Items.Add(item.Name);
+                            itemList.Add(item);
+                        }
+                    }
+                    moduleDownloadInstallButton.Enabled = false;
+                    moduleDownloadInstallButton.Visible = false;
+                    break;
+                default:
+                    foreach (var item in manager.AvailableItems)
+                    {
+                        if (item is Module && (item as Module).Categories.Contains(Category))
+                        {
+                            moduleListBox.Items.Add(item.Name);
+                            itemList.Add(item);
+                        }
+                    }
+                    break;
             }
             moduleListBox.SelectedIndex = 0;
         }
 
         private void moduleDownloadButton_Click(object sender, EventArgs e)
         {
-            manager.DownloadModule(currentModule);
+            manager.DownloadItem(currentItem);
             loadModuleDescription();
         }
 
         private void moduleDownloadInstallButton_Click(object sender, EventArgs e)
         {
-            InstalledModule installedModule = manager.GetInstalledModule(currentModule);
+            InstalledModItem installedModule = manager.GetInstalledModule(currentItem);
 
             //Download or update module
-            if(installedModule == null || installedModule.Version != currentModule.Version)
+            if(installedModule == null || installedModule.Version != currentItem.Version)
             {
                 moduleDownloadButton_Click(this, new EventArgs());
-                installedModule = manager.GetInstalledModule(currentModule);
+                installedModule = manager.GetInstalledModule(currentItem);
             }
 
             if(installedModule != null)

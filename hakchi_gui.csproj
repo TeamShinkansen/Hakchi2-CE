@@ -166,6 +166,8 @@
     <Compile Include="ModStoreAbout.Designer.cs">
       <DependentUpon>ModStoreAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModStoreGame.cs" />
+    <Compile Include="ModStoreItem.cs" />
     <Compile Include="ModStoreManager.cs" />
     <Compile Include="ModStoreTabControl.cs">
       <SubType>UserControl</SubType>

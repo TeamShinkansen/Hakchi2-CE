@@ -11,10 +11,20 @@ namespace com.clusterrr.hakchi_gui.module_library
 {
     public class ModStoreManager
     {
-        public List<Module> AvailableModules = new List<Module>();
-        public List<InstalledModule> InstalledModules = new List<InstalledModule>();
+        public List<ModStoreItem> AvailableItems = new List<ModStoreItem>();
+        public List<InstalledModItem> InstalledItems = new List<InstalledModItem>();
         public DateTime LastUpdate = new DateTime();
         public string ConfigPath { get { return Path.Combine(Program.BaseDirectoryExternal, "config\\ModStoreConfig.xml"); } }
+
+        public void DownloadItem(ModStoreItem item)
+        {
+            switch(item.Type)
+            {
+                case "Module":
+                    DownloadModule(item as Module);
+                    break;
+            }
+        }
 
         public void DownloadModule(Module module)
         {
@@ -37,10 +47,10 @@ namespace com.clusterrr.hakchi_gui.module_library
                         catch { }
                     }
 
-                    InstalledModules.Remove(installedModule);
+                    InstalledItems.Remove(installedModule);
                     installedModule = null;
                 }
-                switch (module.Type)
+                switch (module.ModType)
                 {
                     case ModuleType.hmod:
                         {
@@ -48,9 +58,9 @@ namespace com.clusterrr.hakchi_gui.module_library
 
                             if (!ProgressBarForm.DownloadFile(module.Path, fileLocation))
                                 throw new Exception("Cannot download file: " + module.Path);
-                            installedModule = module.CreateInstalledModule();
+                            installedModule = module.CreateInstalledItem();
                             installedModule.InstalledFiles.Add(module.Path.Substring(module.Path.LastIndexOf('/') + 1));
-                            InstalledModules.Add(installedModule);
+                            InstalledItems.Add(installedModule);
                         }
                         break;
                     case ModuleType.compressedFile:
@@ -60,7 +70,7 @@ namespace com.clusterrr.hakchi_gui.module_library
                             throw new Exception("Cannot download file: " + module.Path);
                         using (var szExtractor = new SevenZipExtractor(tempFileName))
                         {
-                            installedModule = module.CreateInstalledModule();
+                            installedModule = module.CreateInstalledItem();
                             var data = szExtractor.ArchiveFileData;
                             foreach (var file in data)
                             {
@@ -80,7 +90,7 @@ namespace com.clusterrr.hakchi_gui.module_library
                                     installedModule.InstalledFiles.Add(file.FileName);
                             }
                             szExtractor.ExtractArchive(userModDir);
-                            InstalledModules.Add(installedModule);
+                            InstalledItems.Add(installedModule);
                         }
                         File.Delete(tempFileName);
                         break;
@@ -93,9 +103,9 @@ namespace com.clusterrr.hakchi_gui.module_library
             SaveConfig();
         }
 
-        public InstalledModule GetInstalledModule(Module repoModule)
+        public InstalledModItem GetInstalledModule(ModStoreItem repoModule)
         {
-            foreach (var module in InstalledModules)
+            foreach (var module in InstalledItems)
             {
                 if (module.Id == repoModule.Id)
                     return module;

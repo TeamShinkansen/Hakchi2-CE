@@ -41,14 +41,14 @@ namespace com.clusterrr.hakchi_gui
                 }
             }
 
-            if (config.AvailableModules.Count == 0 || (DateTime.Now - config.LastUpdate).TotalDays >= 1.0)
+            if (config.AvailableItems.Count == 0 || (DateTime.Now - config.LastUpdate).TotalDays >= 1.0)
             {
                 //Ask user to update repository information
                 updateModuleList();
             }
 
             //If no modules, update failed so close mod store
-            if (config.AvailableModules.Count == 0)
+            if (config.AvailableItems.Count == 0)
             {
                 Close();
                 return;
@@ -109,49 +109,70 @@ namespace com.clusterrr.hakchi_gui
                 {
                     json = JObject.Parse(wc.DownloadString("https://hakchiresources.com/api/get_posts/?count=10000"));
                 }
-                config.AvailableModules.Clear();
+                config.AvailableItems.Clear();
                 foreach (var post in json["posts"])
                 {
-                    bool skip = false;
+                    string type = "Module";
                     foreach (var tag in post["tags"])
                     {
                         if (tag["slug"].ToString().Equals("non_hmod"))
                         {
-                            skip = true;
+                            type = "None";
+                        }
+                        else if (tag["slug"].ToString().Equals("game"))
+                        {
+                            type = "Game";
                             break;
                         }
                     }
-                    if (skip)
+                    if (type.Equals("None"))
                         continue;
 
                     try
                     {
-                        Module module = new Module
+                        switch(type)
                         {
-                            Name = System.Web.HttpUtility.HtmlDecode(post["title"].ToString()),
-                            Id = System.Web.HttpUtility.HtmlDecode(post["title"].ToString()), //Temporary ID need to replace
-                            Author = post["custom_fields"]["user_submit_name"][0].ToString(),
-                            Description = post["url"].ToString() + "?mode=mod_store",
-                            Version = post["custom_fields"]["usp_custom_field"][0].ToString(),
-                            Path = post["custom_fields"]["user_submit_url"][0].ToString()
-                        };
+                            case "Module":
+                                Module module = new Module
+                                {
+                                    Name = System.Web.HttpUtility.HtmlDecode(post["title"].ToString()),
+                                    Id = System.Web.HttpUtility.HtmlDecode(post["title"].ToString()), //Temporary ID need to replace
+                                    Author = post["custom_fields"]["user_submit_name"][0].ToString(),
+                                    Description = post["url"].ToString() + "?mode=mod_store",
+                                    Version = post["custom_fields"]["usp_custom_field"][0].ToString(),
+                                    Path = post["custom_fields"]["user_submit_url"][0].ToString()
+                                };
 
-                        //Set Module Type
-                        var extention = module.Path.Substring(module.Path.LastIndexOf('.') + 1).ToLower();
-                        if (extention.Equals("hmod"))
-                            module.Type = ModuleType.hmod;
-                        else if (extention.Equals("zip") || extention.Equals("7z") || extention.Equals("rar"))
-                            module.Type = ModuleType.compressedFile;
-                        else
-                            continue; //Unknown File Type
+                                //Set Module Type
+                                var extention = module.Path.Substring(module.Path.LastIndexOf('.') + 1).ToLower();
+                                if (extention.Equals("hmod"))
+                                    module.ModType = ModuleType.hmod;
+                                else if (extention.Equals("zip") || extention.Equals("7z") || extention.Equals("rar"))
+                                    module.ModType = ModuleType.compressedFile;
+                                else
+                                    continue; //Unknown File Type
 
-                        //Set Categories
-                        foreach(var category in post["categories"])
-                        {
-                            module.Categories.Add(category["slug"].ToString());
+                                //Set Categories
+                                foreach (var category in post["categories"])
+                                {
+                                    module.Categories.Add(category["slug"].ToString());
+                                }
+
+                                config.AvailableItems.Add(module);
+                                break;
+                            
+                            case "Game":
+                                config.AvailableItems.Add(new ModStoreGame
+                                {
+                                    Name = System.Web.HttpUtility.HtmlDecode(post["title"].ToString()),
+                                    Id = System.Web.HttpUtility.HtmlDecode(post["title"].ToString()), //Temporary ID need to replace
+                                    Author = post["custom_fields"]["user_submit_name"][0].ToString(),
+                                    Description = post["url"].ToString() + "?mode=mod_store",
+                                    Version = post["custom_fields"]["usp_custom_field"][0].ToString(),
+                                    Path = post["custom_fields"]["user_submit_url"][0].ToString()
+                                });
+                                break;
                         }
-
-                        config.AvailableModules.Add(module);
                     }
                     catch { }
                 }
@@ -162,37 +183,37 @@ namespace com.clusterrr.hakchi_gui
                 return;
             }
             config.LastUpdate = DateTime.Now;
-            updateModules();
+            updateModStoreItems();
         }
 
-        private void updateModules()
+        private void updateModStoreItems()
         {
-            List<Module> modulesToUpdate = new List<Module>();
-            //For each installed module find the matching repo entry
-            foreach (var module in config.InstalledModules)
+            List<ModStoreItem> itemsToUpdate = new List<ModStoreItem>();
+            //For each installed item find the matching repo entry
+            foreach (var item in config.InstalledItems)
             {
-                Module repoModule = null;
-                foreach (var rModule in config.AvailableModules)
+                ModStoreItem storeItem = null;
+                foreach (var rItem in config.AvailableItems)
                 {
-                    if (rModule.Id == module.Id)
+                    if (rItem.Id == item.Id)
                     {
-                        repoModule = rModule;
+                        storeItem = rItem;
                         break;
                     }
                 }
-                if (repoModule != null && repoModule.Version != module.Version)
-                    modulesToUpdate.Add(repoModule);
+                if (storeItem != null && storeItem.Version != item.Version)
+                    itemsToUpdate.Add(storeItem);
             }
-            if (modulesToUpdate.Count != 0)
+            if (itemsToUpdate.Count != 0)
             {
-                var updateMsgBox = MessageBox.Show("Do you want to update all out of date modules?", "Update Modules", MessageBoxButtons.YesNo);
+                var updateMsgBox = MessageBox.Show("Do you want to update all out of date mod store items?", "Update Items", MessageBoxButtons.YesNo);
                 if (updateMsgBox == DialogResult.Yes)
                 {
-                    for (int i = 0; i < modulesToUpdate.Count; ++i)
+                    for (int i = 0; i < itemsToUpdate.Count; ++i)
                     {
-                        config.DownloadModule(modulesToUpdate[i]);
+                        config.DownloadItem(itemsToUpdate[i]);
                     }
-                    MessageBox.Show(this, "Finished updating modules.");
+                    MessageBox.Show(this, "Finished updating items.");
                 }
             }
         }
