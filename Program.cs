@@ -42,6 +42,7 @@ namespace com.clusterrr.hakchi_gui
         public static string BaseDirectoryExternal;
         public static bool isPortable = false;
         public static List<Stream> debugStreams = new List<Stream>();
+        public static MultiFormContext FormContext = new MultiFormContext();
 
         /// <summary>
         /// The main entry point for the application.
@@ -104,7 +105,19 @@ namespace com.clusterrr.hakchi_gui
                             try
                             {
                                 if (!Directory.Exists(BaseDirectoryExternal))
+                                {
                                     BaseDirectoryExternal = Path.Combine(GetDocumentsLibraryPath(), "hakchi2");
+                                }
+
+                                // There are some folders which should be accessed by user
+                                // Moving them to "My documents"
+                                if (isFirstRun)
+                                {
+                                    var externalDirs = new string[]
+                                        { "art", "folder_images", "patches", "user_mods", "sfrom_tool" };
+                                    foreach (var dir in externalDirs)
+                                        Shared.DirectoryCopy(Path.Combine(BaseDirectoryInternal, dir), Path.Combine(BaseDirectoryExternal, dir), true, false, true, false);
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -114,7 +127,8 @@ namespace com.clusterrr.hakchi_gui
                         }
                         else
                             BaseDirectoryExternal = BaseDirectoryInternal;
-                        Debug.WriteLine("Base directory: " + BaseDirectoryExternal);
+
+                        Debug.WriteLine("Base directory: " + BaseDirectoryExternal + " (" + (isPortable ? "portable" : "non-portable") + " mode)");
                         ConfigIni.Load();
                         try
                         {
@@ -122,18 +136,6 @@ namespace com.clusterrr.hakchi_gui
                                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(ConfigIni.Instance.Language);
                         }
                         catch { }
-
-                        // There are some folders which should be accessed by user
-                        // Moving them to "My documents"
-                        if (!isPortable && isFirstRun)
-                        {
-                            var externalDirs = new string[]
-                            {
-                                "art", "folder_images", "patches", "user_mods", "sfrom_tool"
-                            };
-                            foreach (var dir in externalDirs)
-                                Shared.DirectoryCopy(Path.Combine(BaseDirectoryInternal, dir), Path.Combine(BaseDirectoryExternal, dir), true, false, true, false);
-                        }
 
                         string languagesDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "languages");
                         const string langFileNames = "hakchi.resources.dll";
@@ -163,7 +165,11 @@ namespace com.clusterrr.hakchi_gui
                         System.Net.ServicePointManager.SecurityProtocol = (System.Net.SecurityProtocolType)4080; // set default security protocol
                         Application.EnableVisualStyles();
                         Application.SetCompatibleTextRenderingDefault(false);
-                        Application.Run(new MainForm());
+
+                        FormContext.AllFormsClosed += Process.GetCurrentProcess().Kill; // Suicide! Just easy and dirty way to kill all threads.
+
+                        FormContext.AddForm(new MainForm());
+                        Application.Run(FormContext);
                         Debug.WriteLine("Done.");
                     }
                     else

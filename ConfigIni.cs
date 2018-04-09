@@ -20,7 +20,10 @@ namespace com.clusterrr.hakchi_gui
         {
             public List<string> SelectedGames = new List<string>();
             public List<string> OriginalGames = new List<string>();
+            public string FolderImagesSet = string.Empty;
             public byte MaxGamesPerFolder = 30;
+            public NesMenuFolder.Priority BackFolderPosition = NesMenuFolder.Priority.Back;
+            public bool HomeFolder = false;
             public NesMenuCollection.SplitStyle FoldersMode = NesMenuCollection.SplitStyle.Original_Auto;
             public Dictionary<string, List<string>> Presets = new Dictionary<string, List<string>>();
         };
@@ -52,10 +55,28 @@ namespace com.clusterrr.hakchi_gui
             get { return gamesCollectionSettings[consoleType].OriginalGames; }
         }
         [JsonIgnore]
+        public string FolderImagesSet
+        {
+            get { return gamesCollectionSettings[consoleType].FolderImagesSet; }
+            set { gamesCollectionSettings[consoleType].FolderImagesSet = value; }
+        }
+        [JsonIgnore]
         public byte MaxGamesPerFolder
         {
             get { return gamesCollectionSettings[consoleType].MaxGamesPerFolder; }
             set { gamesCollectionSettings[consoleType].MaxGamesPerFolder = value; }
+        }
+        [JsonIgnore]
+        public NesMenuFolder.Priority BackFolderPosition
+        {
+            get { return gamesCollectionSettings[consoleType].BackFolderPosition; }
+            set { gamesCollectionSettings[consoleType].BackFolderPosition = value; }
+        }
+        [JsonIgnore]
+        public bool HomeFolder
+        {
+            get { return gamesCollectionSettings[consoleType].HomeFolder; }
+            set { gamesCollectionSettings[consoleType].HomeFolder = value; }
         }
         [JsonIgnore]
         public NesMenuCollection.SplitStyle FoldersMode
@@ -77,6 +98,18 @@ namespace com.clusterrr.hakchi_gui
         public ICollection<string> SelectedOriginalGamesForConsole(hakchi.ConsoleType c)
         {
             return (c == hakchi.ConsoleType.Unknown) ? null : gamesCollectionSettings[c].OriginalGames;
+        }
+        public void SyncGamesCollectionsStructureSettings()
+        {
+            foreach (var pair in gamesCollectionSettings)
+            {
+                if (pair.Key == consoleType) continue;
+                pair.Value.FolderImagesSet = FolderImagesSet;
+                pair.Value.MaxGamesPerFolder = MaxGamesPerFolder;
+                pair.Value.BackFolderPosition = BackFolderPosition;
+                pair.Value.HomeFolder = HomeFolder;
+                pair.Value.FoldersMode = FoldersMode;
+            }
         }
 
         // base console type settings
@@ -247,7 +280,6 @@ namespace com.clusterrr.hakchi_gui
             if(instance != null)
             {
                 Debug.WriteLine("Saving configuration");
-                instance.LastVersion = Shared.AppVersion.ToString();
                 try
                 {
                     string configPath = Shared.PathCombine(Program.BaseDirectoryExternal, ConfigDir, ConfigFile);
@@ -258,7 +290,7 @@ namespace com.clusterrr.hakchi_gui
                     if (File.Exists(legacyConfigPath))
                     {
                         Debug.WriteLine("Legacy configuration file can be removed");
-                        //File.Delete(legacyConfigPath);
+                        // File.Delete(legacyConfigPath); // TODO : Eventually
                     }
                 }
                 catch (Exception ex)

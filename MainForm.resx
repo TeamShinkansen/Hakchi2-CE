@@ -318,6 +318,29 @@
   <data name="formatNANDCToolStripMenuItem.Text" xml:space="preserve">
     <value>Format NAND-C</value>
   </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>273, 6</value>
+  </data>
+  <data name="factoryResetToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAcxJREFUOE+Vk0uL01AAhW8fFEqhUKiBarUaq21SJ9MhQ2lnQtJMqTojLl00i8GF
+        P8KFCLMQdBaR0YUD4x9wI4ig+KK6VHAxgiIjxbULXdw/cMxJ6SPtbBr4yM0957vkhhvBq1ar+QFyQfxQ
+        1jTN13Vdep6HRaBDV1SrVdnr9dDtdkO2Nof349i8OhnToSvK5bLsdDogN70N/Oq3cWt7I3yehtmPt214
+        NyYZXaGqqnRdF9evuRh8dCAPHRy+coKCC84Tjr+8GGbf3zi4cnk4T1eUSiVp2zYOdoeFEXs7NjhPdu/Y
+        x2Z0RbFYlJZlYdCPLvDs8QouqAWo507i5VMzkn17bYMOXVEoFGTbbkUKxNBP4PendRy9X4OhKZHs31cH
+        rVYLdIWiKLLRaGCW06fy4QKD/hrOnlHmckJX5HI5aZomZlm6VMXF8/lgG3ksL2lzOaErstmsrNfrmOXR
+        TnP8yk/uNedyQldkMhlpGAamsdeX8efz5Mv/Dfa81a1HOoSuSKfTPNeY5uBBYyyPeL7fjHQIXZFKpXim
+        MaKma3h4dxVHH6yx/POdhfu3zUCa9AhdkUgk/GQyKSuVChaBDt3wj4zFYn48HpeLQEcIIf4D2MLKI9qj
+        SbwAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="factoryResetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="factoryResetToolStripMenuItem.Text" xml:space="preserve">
+    <value>Factory reset</value>
+  </data>
   <data name="advancedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>149, 22</value>
   </data>
@@ -635,11 +658,11 @@
   <data name="saveStateManagerToolStripMenuItem.Text" xml:space="preserve">
     <value>Save-State Manager</value>
   </data>
-  <data name="foldersManagerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="takeScreenshotToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>331, 22</value>
   </data>
-  <data name="foldersManagerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Folders Manager</value>
+  <data name="takeScreenshotToolStripMenuItem.Text" xml:space="preserve">
+    <value>Take screenshot</value>
   </data>
   <data name="toolStripMenuItem6.Size" type="System.Drawing.Size, System.Drawing">
     <value>328, 6</value>
@@ -704,11 +727,11 @@
   <data name="bootImageToolStripMenuItem.Text" xml:space="preserve">
     <value>Boot splash</value>
   </data>
-  <data name="takeScreenshotToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="rebootToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>331, 22</value>
   </data>
-  <data name="takeScreenshotToolStripMenuItem.Text" xml:space="preserve">
-    <value>Take screenshot</value>
+  <data name="rebootToolStripMenuItem.Text" xml:space="preserve">
+    <value>Reboot</value>
   </data>
   <data name="toolStripMenuItem18.Size" type="System.Drawing.Size, System.Drawing">
     <value>328, 6</value>
@@ -1944,7 +1967,7 @@
     <value>356, 22</value>
   </data>
   <data name="customToolStripMenuItem.Text" xml:space="preserve">
-    <value>Custom - use folders manager</value>
+    <value>Custom - Use folders manager (Click again to open)</value>
   </data>
   <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
     <value>353, 6</value>
@@ -2012,8 +2035,44 @@
   <data name="maximumGamesPerFolderToolStripMenuItem.Text" xml:space="preserve">
     <value>Maximum games per page/folder</value>
   </data>
+  <data name="leftmostToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 22</value>
+  </data>
+  <data name="leftmostToolStripMenuItem.Text" xml:space="preserve">
+    <value>Leftmost</value>
+  </data>
+  <data name="rightmostToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 22</value>
+  </data>
+  <data name="rightmostToolStripMenuItem.Text" xml:space="preserve">
+    <value>Rightmost</value>
+  </data>
+  <data name="backFolderButtonPositionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="backFolderButtonPositionToolStripMenuItem.Text" xml:space="preserve">
+    <value>Back folder button position</value>
+  </data>
+  <data name="folderImagesSetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="folderImagesSetToolStripMenuItem.Text" xml:space="preserve">
+    <value>Folder images set</value>
+  </data>
+  <data name="toolStripMenuItem20.Size" type="System.Drawing.Size, System.Drawing">
+    <value>353, 6</value>
+  </data>
+  <data name="syncStructureForAllGamesCollectionsToolStripMenuItem.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt, style=Bold</value>
+  </data>
+  <data name="syncStructureForAllGamesCollectionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="syncStructureForAllGamesCollectionsToolStripMenuItem.Text" xml:space="preserve">
+    <value>Sync structure settings for all games collections</value>
+  </data>
   <data name="foldersContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>357, 258</value>
+    <value>357, 330</value>
   </data>
   <data name="&gt;&gt;foldersContextMenuStrip.Name" xml:space="preserve">
     <value>foldersContextMenuStrip</value>
@@ -2284,6 +2343,18 @@
   </data>
   <data name="&gt;&gt;formatNANDCToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;factoryResetToolStripMenuItem.Name" xml:space="preserve">
+    <value>factoryResetToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;factoryResetToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;modulesToolStripMenuItem.Name" xml:space="preserve">
     <value>modulesToolStripMenuItem</value>
@@ -2567,10 +2638,10 @@
   <data name="&gt;&gt;saveStateManagerToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;foldersManagerToolStripMenuItem.Name" xml:space="preserve">
-    <value>foldersManagerToolStripMenuItem</value>
+  <data name="&gt;&gt;takeScreenshotToolStripMenuItem.Name" xml:space="preserve">
+    <value>takeScreenshotToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;foldersManagerToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;takeScreenshotToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem6.Name" xml:space="preserve">
@@ -2639,10 +2710,10 @@
   <data name="&gt;&gt;resetDefaultBootImageToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;takeScreenshotToolStripMenuItem.Name" xml:space="preserve">
-    <value>takeScreenshotToolStripMenuItem</value>
+  <data name="&gt;&gt;rebootToolStripMenuItem.Name" xml:space="preserve">
+    <value>rebootToolStripMenuItem</value>
   </data>
-  <data name="&gt;&gt;takeScreenshotToolStripMenuItem.Type" xml:space="preserve">
+  <data name="&gt;&gt;rebootToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolStripMenuItem18.Name" xml:space="preserve">
@@ -2944,6 +3015,42 @@
   </data>
   <data name="&gt;&gt;modStoreToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;backFolderButtonPositionToolStripMenuItem.Name" xml:space="preserve">
+    <value>backFolderButtonPositionToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;backFolderButtonPositionToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;leftmostToolStripMenuItem.Name" xml:space="preserve">
+    <value>leftmostToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;leftmostToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rightmostToolStripMenuItem.Name" xml:space="preserve">
+    <value>rightmostToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;rightmostToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;folderImagesSetToolStripMenuItem.Name" xml:space="preserve">
+    <value>folderImagesSetToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;folderImagesSetToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem20.Name" xml:space="preserve">
+    <value>toolStripMenuItem20</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem20.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;syncStructureForAllGamesCollectionsToolStripMenuItem.Name" xml:space="preserve">
+    <value>syncStructureForAllGamesCollectionsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;syncStructureForAllGamesCollectionsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>MainForm</value>

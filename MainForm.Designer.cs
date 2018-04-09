@@ -67,6 +67,8 @@
             this.dumpNANDCPartitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flashNANDCPartitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.formatNANDCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.factoryResetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.installModulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uninstallModulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -113,7 +115,7 @@
             this.saveSettingsToNESMiniNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveStateManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.foldersManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.takeScreenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.FTPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFTPInExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -125,7 +127,7 @@
             this.changeBootImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disableBootImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetDefaultBootImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.takeScreenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rebootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripSeparator();
             this.prepareArtDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -213,6 +215,12 @@
             this.foldersSplitByFirstLetterOriginalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.maximumGamesPerFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.backFolderButtonPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.leftmostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rightmostToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.folderImagesSetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem20 = new System.Windows.Forms.ToolStripSeparator();
+            this.syncStructureForAllGamesCollectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gamesConsoleComboBox = new System.Windows.Forms.ComboBox();
             this.modStoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
@@ -413,7 +421,9 @@
             this.flashNANDBPartitionToolStripMenuItem,
             this.dumpNANDCPartitionToolStripMenuItem,
             this.flashNANDCPartitionToolStripMenuItem,
-            this.formatNANDCToolStripMenuItem});
+            this.formatNANDCToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.factoryResetToolStripMenuItem});
             this.advancedToolStripMenuItem.Name = "advancedToolStripMenuItem";
             resources.ApplyResources(this.advancedToolStripMenuItem, "advancedToolStripMenuItem");
             // 
@@ -481,6 +491,17 @@
             this.formatNANDCToolStripMenuItem.Name = "formatNANDCToolStripMenuItem";
             resources.ApplyResources(this.formatNANDCToolStripMenuItem, "formatNANDCToolStripMenuItem");
             this.formatNANDCToolStripMenuItem.Click += new System.EventHandler(this.formatNANDCToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            resources.ApplyResources(this.toolStripSeparator1, "toolStripSeparator1");
+            // 
+            // factoryResetToolStripMenuItem
+            // 
+            resources.ApplyResources(this.factoryResetToolStripMenuItem, "factoryResetToolStripMenuItem");
+            this.factoryResetToolStripMenuItem.Name = "factoryResetToolStripMenuItem";
+            this.factoryResetToolStripMenuItem.Click += new System.EventHandler(this.factoryResetToolStripMenuItem_Click);
             // 
             // modulesToolStripMenuItem
             // 
@@ -838,7 +859,7 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveStateManagerToolStripMenuItem,
-            this.foldersManagerToolStripMenuItem,
+            this.takeScreenshotToolStripMenuItem,
             this.toolStripMenuItem6,
             this.FTPToolStripMenuItem,
             this.openFTPInExplorerToolStripMenuItem,
@@ -847,7 +868,7 @@
             this.openTelnetToolStripMenuItem,
             this.toolStripMenuItem8,
             this.bootImageToolStripMenuItem,
-            this.takeScreenshotToolStripMenuItem,
+            this.rebootToolStripMenuItem,
             this.toolStripMenuItem18,
             this.prepareArtDirectoryToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
@@ -859,11 +880,11 @@
             resources.ApplyResources(this.saveStateManagerToolStripMenuItem, "saveStateManagerToolStripMenuItem");
             this.saveStateManagerToolStripMenuItem.Click += new System.EventHandler(this.saveStateManagerToolStripMenuItem_Click);
             // 
-            // foldersManagerToolStripMenuItem
+            // takeScreenshotToolStripMenuItem
             // 
-            this.foldersManagerToolStripMenuItem.Name = "foldersManagerToolStripMenuItem";
-            resources.ApplyResources(this.foldersManagerToolStripMenuItem, "foldersManagerToolStripMenuItem");
-            this.foldersManagerToolStripMenuItem.Click += new System.EventHandler(this.foldersManagerToolStripMenuItem_Click);
+            this.takeScreenshotToolStripMenuItem.Name = "takeScreenshotToolStripMenuItem";
+            resources.ApplyResources(this.takeScreenshotToolStripMenuItem, "takeScreenshotToolStripMenuItem");
+            this.takeScreenshotToolStripMenuItem.Click += new System.EventHandler(this.takeScreenshotToolStripMenuItem_Click);
             // 
             // toolStripMenuItem6
             // 
@@ -933,11 +954,11 @@
             resources.ApplyResources(this.resetDefaultBootImageToolStripMenuItem, "resetDefaultBootImageToolStripMenuItem");
             this.resetDefaultBootImageToolStripMenuItem.Click += new System.EventHandler(this.resetDefaultBootImageToolStripMenuItem_Click);
             // 
-            // takeScreenshotToolStripMenuItem
+            // rebootToolStripMenuItem
             // 
-            this.takeScreenshotToolStripMenuItem.Name = "takeScreenshotToolStripMenuItem";
-            resources.ApplyResources(this.takeScreenshotToolStripMenuItem, "takeScreenshotToolStripMenuItem");
-            this.takeScreenshotToolStripMenuItem.Click += new System.EventHandler(this.takeScreenshotToolStripMenuItem_Click);
+            this.rebootToolStripMenuItem.Name = "rebootToolStripMenuItem";
+            resources.ApplyResources(this.rebootToolStripMenuItem, "rebootToolStripMenuItem");
+            this.rebootToolStripMenuItem.Click += new System.EventHandler(this.rebootToolStripMenuItem_Click);
             // 
             // toolStripMenuItem18
             // 
@@ -946,6 +967,7 @@
             // 
             // prepareArtDirectoryToolStripMenuItem
             // 
+            this.prepareArtDirectoryToolStripMenuItem.Image = global::com.clusterrr.hakchi_gui.Properties.Resources.folder_sm;
             this.prepareArtDirectoryToolStripMenuItem.Name = "prepareArtDirectoryToolStripMenuItem";
             resources.ApplyResources(this.prepareArtDirectoryToolStripMenuItem, "prepareArtDirectoryToolStripMenuItem");
             this.prepareArtDirectoryToolStripMenuItem.Click += new System.EventHandler(this.prepareArtDirectoryToolStripMenuItem_Click);
@@ -1457,7 +1479,11 @@
             this.foldersSplitByFirstLetterToolStripMenuItem,
             this.foldersSplitByFirstLetterOriginalToolStripMenuItem,
             this.toolStripMenuItem4,
-            this.maximumGamesPerFolderToolStripMenuItem});
+            this.maximumGamesPerFolderToolStripMenuItem,
+            this.backFolderButtonPositionToolStripMenuItem,
+            this.folderImagesSetToolStripMenuItem,
+            this.toolStripMenuItem20,
+            this.syncStructureForAllGamesCollectionsToolStripMenuItem});
             this.foldersContextMenuStrip.Name = "foldersContextMenuStrip";
             resources.ApplyResources(this.foldersContextMenuStrip, "foldersContextMenuStrip");
             // 
@@ -1548,6 +1574,43 @@
             this.maximumGamesPerFolderToolStripMenuItem.Name = "maximumGamesPerFolderToolStripMenuItem";
             resources.ApplyResources(this.maximumGamesPerFolderToolStripMenuItem, "maximumGamesPerFolderToolStripMenuItem");
             // 
+            // backFolderButtonPositionToolStripMenuItem
+            // 
+            this.backFolderButtonPositionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.leftmostToolStripMenuItem,
+            this.rightmostToolStripMenuItem});
+            this.backFolderButtonPositionToolStripMenuItem.Name = "backFolderButtonPositionToolStripMenuItem";
+            resources.ApplyResources(this.backFolderButtonPositionToolStripMenuItem, "backFolderButtonPositionToolStripMenuItem");
+            // 
+            // leftmostToolStripMenuItem
+            // 
+            this.leftmostToolStripMenuItem.Name = "leftmostToolStripMenuItem";
+            resources.ApplyResources(this.leftmostToolStripMenuItem, "leftmostToolStripMenuItem");
+            this.leftmostToolStripMenuItem.Click += new System.EventHandler(this.leftmostToolStripMenuItem_Click);
+            // 
+            // rightmostToolStripMenuItem
+            // 
+            this.rightmostToolStripMenuItem.Name = "rightmostToolStripMenuItem";
+            resources.ApplyResources(this.rightmostToolStripMenuItem, "rightmostToolStripMenuItem");
+            this.rightmostToolStripMenuItem.Click += new System.EventHandler(this.rightmostToolStripMenuItem_Click);
+            // 
+            // folderImagesSetToolStripMenuItem
+            // 
+            this.folderImagesSetToolStripMenuItem.Image = global::com.clusterrr.hakchi_gui.Properties.Resources.folder_sm;
+            this.folderImagesSetToolStripMenuItem.Name = "folderImagesSetToolStripMenuItem";
+            resources.ApplyResources(this.folderImagesSetToolStripMenuItem, "folderImagesSetToolStripMenuItem");
+            // 
+            // toolStripMenuItem20
+            // 
+            this.toolStripMenuItem20.Name = "toolStripMenuItem20";
+            resources.ApplyResources(this.toolStripMenuItem20, "toolStripMenuItem20");
+            // 
+            // syncStructureForAllGamesCollectionsToolStripMenuItem
+            // 
+            resources.ApplyResources(this.syncStructureForAllGamesCollectionsToolStripMenuItem, "syncStructureForAllGamesCollectionsToolStripMenuItem");
+            this.syncStructureForAllGamesCollectionsToolStripMenuItem.Name = "syncStructureForAllGamesCollectionsToolStripMenuItem";
+            this.syncStructureForAllGamesCollectionsToolStripMenuItem.Click += new System.EventHandler(this.syncStructureForAllGamesCollectionsToolStripMenuItem_Click);
+            // 
             // gamesConsoleComboBox
             // 
             this.gamesConsoleComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -1583,7 +1646,6 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.dragDrop);
@@ -1694,7 +1756,6 @@
         private System.Windows.Forms.ToolStripMenuItem positionAtTheTopToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem positionAtTheBottomToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem positionSortedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem foldersManagerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem separateGamesForMultibootToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sFROMToolToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem enableSFROMToolToolStripMenuItem;
@@ -1792,6 +1853,15 @@
         private System.Windows.Forms.ToolStripMenuItem repairGamesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem membootCustomKernelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uploadTotmpforTestingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem folderImagesSetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem factoryResetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rebootToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem backFolderButtonPositionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem leftmostToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rightmostToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem20;
+        private System.Windows.Forms.ToolStripMenuItem syncStructureForAllGamesCollectionsToolStripMenuItem;
     }
 }
 
