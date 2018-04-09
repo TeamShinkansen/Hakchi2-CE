@@ -28,7 +28,7 @@ namespace com.clusterrr.hakchi_gui
 
         static bool DeviceExists()
         {
-            return MainForm.Clovershell.IsOnline;
+            return hakchi.Shell.IsOnline;
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -44,9 +44,10 @@ namespace com.clusterrr.hakchi_gui
         {
             if (!DeviceExists())
             {
-                if (MessageBox.Show(this, Resources.DoYouWantCancel, Resources.AreYouSure, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-                    == System.Windows.Forms.DialogResult.No)
+                if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.DoYouWantCancel, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.No)
+                {
                     e.Cancel = true;
+                }
                 else
                 {
                     DialogResult = DialogResult.Abort;
@@ -65,7 +66,7 @@ namespace com.clusterrr.hakchi_gui
             }
             catch (Exception ex)
             {
-                MessageBox.Show(this, ex.Message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Tasks.ErrorForm.Show(this.Text, ex.Message, ex.StackTrace);
             }
         }
 

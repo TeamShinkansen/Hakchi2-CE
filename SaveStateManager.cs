@@ -33,7 +33,8 @@ namespace com.clusterrr.hakchi_gui
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message + ex.StackTrace);
-                MessageBox.Show(this, ex.Message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Tasks.ErrorForm.Show(this.Text, ex.Message, ex.StackTrace);
+                //MessageBox.Show(this, ex.Message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
         }
@@ -57,7 +58,6 @@ namespace com.clusterrr.hakchi_gui
                     return;
                 }
 
-                var clovershell = MainForm.Clovershell;
                 hakchi.ShowSplashScreen();
                 var listSavesScript =
                      "#!/bin/sh\n" +
@@ -89,7 +89,7 @@ namespace com.clusterrr.hakchi_gui
                 var listSavesScriptStream = new MemoryStream(Encoding.UTF8.GetBytes(listSavesScript));
                 listSavesScriptStream.Seek(0, SeekOrigin.Begin);
                 var output = new MemoryStream();
-                clovershell.Execute("sh", listSavesScriptStream, output, null, 10000, true);
+                hakchi.Shell.Execute("sh", listSavesScriptStream, output, null, 10000, true);
                 var lines = Encoding.UTF8.GetString(output.ToArray()).Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 Invoke(new Action(delegate
                 {
@@ -132,11 +132,7 @@ namespace com.clusterrr.hakchi_gui
                 Debug.WriteLine(ex.Message + ex.StackTrace);
                 try
                 {
-                    Invoke(new Action(delegate
-                    {
-                        MessageBox.Show(this, ex.Message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Close();
-                    }));
+                    Tasks.ErrorForm.Show(this, this.Text, ex.Message, ex.StackTrace);
                 }
                 catch { }
             }
@@ -144,8 +140,7 @@ namespace com.clusterrr.hakchi_gui
 
         private void buttonDelete_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show(this, Resources.DeleteSavesQ, Resources.AreYouSure, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-                != System.Windows.Forms.DialogResult.Yes)
+            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.DeleteSavesQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) != Tasks.MessageForm.Button.Yes)
                 return;
             var savesToDelete = new List<ListViewItem>();
             foreach (ListViewItem item in listViewSaves.SelectedItems)
@@ -166,8 +161,7 @@ namespace com.clusterrr.hakchi_gui
                 }))) return;
                 foreach (ListViewItem game in savesToDelete)
                 {
-                    var clovershell = MainForm.Clovershell;
-                    clovershell.ExecuteSimple("rm -rf /var/lib/clover/profiles/0/" + game.SubItems["colCode"].Text, 3000, true);
+                    hakchi.Shell.ExecuteSimple("rm -rf /var/lib/clover/profiles/0/" + game.SubItems["colCode"].Text, 3000, true);
                     Invoke(new Action(delegate
                     {
                         listViewSaves.Items.Remove(game);
@@ -181,10 +175,11 @@ namespace com.clusterrr.hakchi_gui
                 Debug.WriteLine(ex.Message + ex.StackTrace);
                 try
                 {
-                    Invoke(new Action(delegate
-                    {
-                        MessageBox.Show(this, ex.Message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }));
+                    Tasks.ErrorForm.Show(this, this.Text, ex.Message, ex.StackTrace);
+                    //Invoke(new Action(delegate
+                    //{
+                    //    MessageBox.Show(this, ex.Message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //}));
                 }
                 catch { }
             }
@@ -206,10 +201,9 @@ namespace com.clusterrr.hakchi_gui
                     {
                         if (!WaitingClovershellForm.WaitForDevice(this))
                             return;
-                        var clovershell = MainForm.Clovershell;
                         using (var save = new MemoryStream())
                         {
-                            clovershell.Execute("cd /var/lib/clover/profiles/0 && tar -cz " + game.SubItems["colCode"].Text, null, save, null, 10000, true);
+                            hakchi.Shell.Execute("cd /var/lib/clover/profiles/0 && tar -cz " + game.SubItems["colCode"].Text, null, save, null, 10000, true);
                             var buffer = save.ToArray();
                             File.WriteAllBytes(saveFileDialog.FileName, buffer);
                         }
@@ -222,10 +216,11 @@ namespace com.clusterrr.hakchi_gui
                 Debug.WriteLine(ex.Message + ex.StackTrace);
                 try
                 {
-                    Invoke(new Action(delegate
-                    {
-                        MessageBox.Show(this, ex.Message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }));
+                    Tasks.ErrorForm.Show(this, this.Text, ex.Message, ex.StackTrace);
+                    //Invoke(new Action(delegate
+                    //{
+                    //    MessageBox.Show(this, ex.Message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //}));
                 }
                 catch { }
             }
@@ -257,10 +252,9 @@ namespace com.clusterrr.hakchi_gui
                 }))) return;
                 foreach (var file in files)
                 {
-                    var clovershell = MainForm.Clovershell;
                     using (var f = new FileStream(file, FileMode.Open))
                     {
-                        clovershell.Execute("cd /var/lib/clover/profiles/0 && tar -xvz", f, null, null, 10000, true);
+                        hakchi.Shell.Execute("cd /var/lib/clover/profiles/0 && tar -xvz", f, null, null, 10000, true);
                     }
                 }
             }
@@ -271,10 +265,11 @@ namespace com.clusterrr.hakchi_gui
                 Debug.WriteLine(ex.Message + ex.StackTrace);
                 try
                 {
-                    Invoke(new Action(delegate
-                    {
-                        MessageBox.Show(this, ex.Message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }));
+                    Tasks.ErrorForm.Show(this, this.Text, ex.Message, ex.StackTrace);
+                    //Invoke(new Action(delegate
+                    //{
+                    //    MessageBox.Show(this, ex.Message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //}));
                 }
                 catch { }
             }
@@ -287,9 +282,8 @@ namespace com.clusterrr.hakchi_gui
                 imagesForm.Dispose();
             try
             {
-                var clovershell = MainForm.Clovershell;
-                if (clovershell.IsOnline)
-                    clovershell.ExecuteSimple("uistart", 100);
+                if (hakchi.Shell.IsOnline)
+                    hakchi.Shell.ExecuteSimple("uistart", 100);
             }
             catch { }
         }
@@ -300,13 +294,11 @@ namespace com.clusterrr.hakchi_gui
             var code = s.ToString();
             try
             {
-                var clovershell = MainForm.Clovershell;
                 var images = new List<Image>();
                 using (var save = new MemoryStream())
                 {
-                    clovershell.Execute("cd /var/lib/clover/profiles/0 && tar -cz " + code, null, save, null, 10000, true);
+                    hakchi.Shell.Execute("cd /var/lib/clover/profiles/0 && tar -cz " + code, null, save, null, 10000, true);
                     save.Seek(0, SeekOrigin.Begin);
-                    SevenZipExtractor.SetLibraryPath(Path.Combine(Program.BaseDirectoryInternal, IntPtr.Size == 8 ? @"tools\7z64.dll" : @"tools\7z.dll"));
                     using (var szExtractor = new SevenZipExtractor(save))
                     {
                         var tar = new MemoryStream();

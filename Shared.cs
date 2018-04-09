@@ -1,19 +1,39 @@
-﻿using com.clusterrr.hakchi_gui.Properties;
+﻿using com.clusterrr.clovershell;
+using com.clusterrr.hakchi_gui.Properties;
+using com.clusterrr.ssh;
 using com.clusterrr.util;
+using Renci.SshNet;
+using SevenZip;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace com.clusterrr.hakchi_gui
 {
     static class Shared
     {
+        public static readonly FelLib.Fel.VidPidPair ClassicUSB = new FelLib.Fel.VidPidPair(vid: 0x1F3A, pid: 0xEFE8);
+        public static string[] hmodDirectories {
+            get
+            {
+                return new string[]
+                {
+                    Shared.PathCombine(Program.BaseDirectoryExternal, "user_mods"),
+                    Shared.PathCombine(Program.BaseDirectoryInternal, "mods", "hmods")
+                };
+            }
+        }
+
         public static Bitmap LoadBitmapCopy(string path)
         {
             Bitmap bmp;
@@ -263,14 +283,7 @@ namespace com.clusterrr.hakchi_gui
                 if (skipExistingFiles && File.Exists(tempPath))
                     continue;
 
-                if (pseudoLinks)
-                {
-                    File.WriteAllText(tempPath + TarStream.refExt, file.FullName);
-                }
-                else
-                {
-                    file.CopyTo(tempPath, overwriteExistingFiles);
-                }
+                file.CopyTo(tempPath, overwriteExistingFiles);
             }
 
             // If copying subdirectories, copy them and their contents to new location.
@@ -282,6 +295,15 @@ namespace com.clusterrr.hakchi_gui
                     DirectoryCopy(subdir.FullName, temppath, copySubDirs, skipExistingFiles, overwriteExistingFiles, pseudoLinks, skipFiles);
                 }
             }
+        }
+
+        public static void EnsureEmptyDirectory(string dirName)
+        {
+            if (Directory.Exists(dirName))
+            {
+                Shared.DirectoryDeleteInside(dirName);
+            }
+            Directory.CreateDirectory(dirName);
         }
 
         public static void DirectoryDeleteInside(string dirName)
@@ -302,12 +324,25 @@ namespace com.clusterrr.hakchi_gui
             {
                 DirectoryDeleteInside(dir);
                 new DirectoryInfo(dir).Refresh();
-                System.Threading.Thread.Sleep(0);
+                Thread.Sleep(0);
                 Directory.Delete(dir);
             }
         }
 
-        public static long DirectorySize(string path)
+        public static void DirectoryDeleteEmptyDirectories(string dirName)
+        {
+            var directories = Directory.GetDirectories(dirName, "*.*", SearchOption.AllDirectories);
+            for (int i = directories.Length - 1; i > -1; --i) // backwards to catch deeper directories first
+            {
+                var dirInfo = new DirectoryInfo(directories[i]);
+                if (!dirInfo.EnumerateDirectories().Any() && !dirInfo.EnumerateFiles().Any())
+                {
+                    Directory.Delete(directories[i]);
+                }
+            }
+        }
+
+        public static long DirectorySize(string path, long blockSize = -1)
         {
             if (string.IsNullOrEmpty(path))
                 throw new ArgumentNullException($"Null path cannot be used with this method.");
@@ -321,13 +356,18 @@ namespace com.clusterrr.hakchi_gui
             FileInfo[] files = dir.GetFiles();
             foreach (FileInfo file in files)
             {
-                size += file.Length;
+                size += PadFileSize(file.Length, blockSize);
             }
             foreach (DirectoryInfo subdir in dirs)
             {
                 size += DirectorySize(subdir.FullName);
             }
             return size;
+        }
+
+        public static long PadFileSize(long size, long blockSize = -1)
+        {
+            return blockSize == -1 ? size : (size % blockSize == 0 ? size : (((long)Math.Floor((double)size / blockSize) + 1) * blockSize));
         }
 
         // concatenate an arbitrary number of arrays
@@ -404,6 +444,204 @@ namespace com.clusterrr.hakchi_gui
                 }
             }
             return number;
+        }
+
+        public static UInt32 CalcKernelSize(byte[] header)
+        {
+            if (Encoding.ASCII.GetString(header, 0, 8) != "ANDROID!") throw new Exception(Resources.InvalidKernelHeader);
+            UInt32 kernel_size = (UInt32)(header[8] | (header[9] * 0x100) | (header[10] * 0x10000) | (header[11] * 0x1000000));
+            UInt32 kernel_addr = (UInt32)(header[12] | (header[13] * 0x100) | (header[14] * 0x10000) | (header[15] * 0x1000000));
+            UInt32 ramdisk_size = (UInt32)(header[16] | (header[17] * 0x100) | (header[18] * 0x10000) | (header[19] * 0x1000000));
+            UInt32 ramdisk_addr = (UInt32)(header[20] | (header[21] * 0x100) | (header[22] * 0x10000) | (header[23] * 0x1000000));
+            UInt32 second_size = (UInt32)(header[24] | (header[25] * 0x100) | (header[26] * 0x10000) | (header[27] * 0x1000000));
+            UInt32 second_addr = (UInt32)(header[28] | (header[29] * 0x100) | (header[30] * 0x10000) | (header[31] * 0x1000000));
+            UInt32 tags_addr = (UInt32)(header[32] | (header[33] * 0x100) | (header[34] * 0x10000) | (header[35] * 0x1000000));
+            UInt32 page_size = (UInt32)(header[36] | (header[37] * 0x100) | (header[38] * 0x10000) | (header[39] * 0x1000000));
+            UInt32 dt_size = (UInt32)(header[40] | (header[41] * 0x100) | (header[42] * 0x10000) | (header[43] * 0x1000000));
+            UInt32 pages = 1;
+            pages += (kernel_size + page_size - 1) / page_size;
+            pages += (ramdisk_size + page_size - 1) / page_size;
+            pages += (second_size + page_size - 1) / page_size;
+            pages += (dt_size + page_size - 1) / page_size;
+            return pages * page_size;
+        }
+
+        public static bool CheckHsqs(string nandDump)
+        {
+            FileInfo hsqsInfo = new FileInfo(nandDump);
+            using (FileStream fStream = new FileStream(nandDump, FileMode.Open))
+            {
+                fStream.Seek(0, SeekOrigin.Begin);
+
+                byte[] hsqsMagic = new byte[] { 0x68, 0x73, 0x71, 0x73 };
+                byte[] fileMagic = new byte[4];
+
+                fStream.Read(fileMagic, 0, 4);
+                fStream.Seek(0, SeekOrigin.Begin);
+                fStream.Close();
+
+                if (!fileMagic.SequenceEqual(hsqsMagic))
+                    return false;
+
+                return true;
+            }
+        }
+
+        public static MemoryStream GetMembootImage()
+        {
+            var kernelHmodStream = new MemoryStream();
+
+            using (var baseHmods = new MemoryStream(Resources.baseHmods)) {
+                using (var szExtractor = new SevenZipExtractor(baseHmods))
+                {
+                    szExtractor.ExtractFile(".\\hakchi.hmod", kernelHmodStream);
+                }
+
+            }
+            using (var tar = new MemoryStream())
+            {
+                using (var szExtractor = new SevenZipExtractor(kernelHmodStream))
+                {
+                    szExtractor.ExtractFile(0, tar);
+                    tar.Seek(0, SeekOrigin.Begin);
+                    using (var szExtractorTar = new SevenZipExtractor(tar))
+                    {
+                        var o = new MemoryStream();
+                        szExtractorTar.ExtractFile("boot\\boot.img", o);
+                        return o;
+                    }
+                }
+            }
+        }
+
+        public static Dictionary<hakchi.ConsoleType, string[]> CorrectKeys()
+        {
+            Dictionary<hakchi.ConsoleType, string[]> correctKeys = new Dictionary<hakchi.ConsoleType, string[]>();
+            correctKeys[hakchi.ConsoleType.NES] =
+                correctKeys[hakchi.ConsoleType.Famicom] =
+                new string[] { "bb8f49e0ae5acc8d5f9b7fa40efbd3e7" };
+            correctKeys[hakchi.ConsoleType.SNES_EUR] =
+                correctKeys[hakchi.ConsoleType.SNES_USA] =
+                correctKeys[hakchi.ConsoleType.SuperFamicom] =
+                new string[] { "c5dbb6e29ea57046579cfd50b124c9e1" };
+            return correctKeys;
+        }
+
+        public static Dictionary<hakchi.ConsoleType, string[]> CorrectKernels()
+        {
+            Dictionary<hakchi.ConsoleType, string[]> correctKernels = new Dictionary<hakchi.ConsoleType, string[]>();
+            correctKernels[hakchi.ConsoleType.NES] = new string[] {
+                "5cfdca351484e7025648abc3b20032ff",
+                "07bfb800beba6ef619c29990d14b5158",
+            };
+            correctKernels[hakchi.ConsoleType.Famicom] = new string[] {
+                "ac8144c3ea4ab32e017648ee80bdc230",  // Famicom Mini
+            };
+            correctKernels[hakchi.ConsoleType.SNES_EUR] = new string[] {
+                "d76c2a091ebe7b4614589fc6954653a5", // SNES Mini (EUR)
+                "c2b57b550f35d64d1c6ce66f9b5180ce", // SNES Mini (EUR)
+                "0f890bc78cbd9ede43b83b015ba4c022", // SNES Mini (EUR)
+            };
+            correctKernels[hakchi.ConsoleType.SNES_USA] = new string[] {
+                "449b711238575763c6701f5958323d48", // SNES Mini (USA)
+                "5296e64818bf2d1dbdc6b594f3eefd17", // SNES Mini (USA)
+                "228967ab1035a347caa9c880419df487", // SNES Mini (USA)
+            };
+            correctKernels[hakchi.ConsoleType.SuperFamicom] = new string[]
+            {
+                "632e179db63d9bcd42281f776a030c14", // Super Famicom Mini (JAP)
+                "c3378edfc1b96a5268a066d5fbe12d89", // Super Famicom Mini (JAP)
+            };
+            return correctKernels;
+        }
+
+        public static string EscapeShellArgument(string unquotedArgument)
+        {
+            return Regex.Replace(unquotedArgument, "[^a-zA-Z0-9]", "\\$0");
+        }
+
+        public static void SocketTransfer(string server, int port, Stream dataStreamTo, Stream dataStreamFrom)
+        {
+            if (server is null)
+                throw new ArgumentNullException("server");
+
+            if (port < 1)
+                throw new ArgumentOutOfRangeException("port");
+
+            if (dataStreamTo is null && dataStreamFrom is null)
+                throw new ArgumentNullException("dataStreamIn, dataStreamOut");
+
+            // Create a TcpClient.
+            TcpClient client = new TcpClient(server, port);
+
+            // Get a client stream for reading and writing.
+            NetworkStream socketStream = client.GetStream();
+
+            // Copy the stream data into dataStream
+            Task transferFrom = null;
+            if (!(dataStreamFrom is null))
+            {
+                transferFrom = socketStream.CopyToAsync(dataStreamFrom);
+            }
+
+            // Copy dataStream into the stream data
+            Task transferTo = null;
+            if (!(dataStreamTo is null))
+            {
+                transferTo = dataStreamTo.CopyToAsync(socketStream);
+            }
+
+            // Wait for the streams to finish
+            try {
+                transferFrom.Wait();
+            }
+            catch { }
+
+            try {
+                transferTo.Wait();
+            }
+            catch { }
+
+            // Close everything.
+            socketStream.Close();
+            client.Close();
+        }
+
+        
+        public static int ShellPipe(string command, Stream stdin = null, Stream stdout = null, Stream stderr = null, int timeout = 0, bool throwOnNonZero = false)
+        {
+            if (hakchi.Shell is ClovershellConnection)
+                return hakchi.Shell.Execute(command, stdin, stdout, stderr, timeout, throwOnNonZero);
+
+            if (!(stderr is null))
+                throw new ArgumentException($"stderr is not valid for this connection type: {hakchi.Shell.GetType().ToString()}");
+
+            var stdErr = new MemoryStream();
+            SplitterStream splitStream = new SplitterStream(stdErr).AddStreams(Program.debugStreams);
+            var transferThread = new Thread(() =>
+            {
+                try
+                {
+                    Thread.Sleep(1000);
+                    stdErr.Seek(0, SeekOrigin.Begin);
+                    using (var sr = new StreamReader(stdErr))
+                    {
+                        var line = sr.ReadLine();
+                        var match = Regex.Match(line, "^listening on (\\d+\\.\\d+\\.\\d+\\.\\d+):(\\d+)");
+                        stdErr.Close();
+                        splitStream.RemoveStream(stdErr).AddStreams(stderr);
+                        if (match.Success)
+                        {
+                            SocketTransfer(hakchi.STATIC_IP, int.Parse(match.Groups[2].Value), stdin, stdout);
+                        }
+                    }
+                }
+                catch (ThreadAbortException) { }
+            });
+            transferThread.Start();
+            int returnValue = hakchi.Shell.Execute($"nc -lv -s 0.0.0.0 -e {command}", null, null, splitStream, timeout, throwOnNonZero);
+            transferThread.Abort();
+            return returnValue;
         }
     }
 }

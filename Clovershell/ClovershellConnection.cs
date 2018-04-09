@@ -9,10 +9,12 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using com.clusterrr.hakchi_gui;
+using System.Threading.Tasks;
 
 namespace com.clusterrr.clovershell
 {
-    public class ClovershellConnection : IDisposable
+    public class ClovershellConnection : IDisposable, ISystemShell
     {
         const UInt16 vid = 0x1F3A;
         const UInt16 pid = 0xEFE8;
@@ -31,10 +33,8 @@ namespace com.clusterrr.clovershell
         bool autoreconnect = false;
         byte[] lastPingResponse = null;
         DateTime lastAliveTime;
-        public delegate void OnClovershellConnected();
-        public event OnClovershellConnected OnConnected = delegate { };
-        public delegate void OnClovershellDisconnected();
-        public event OnClovershellDisconnected OnDisconnected = delegate { };
+        public event OnConnectedEventHandler OnConnected = delegate { }; //public delegate void OnClovershellConnected();
+        public event OnDisconnectedEventHandler OnDisconnected = delegate { }; //public delegate void OnClovershellDisconnected();
 
         internal enum ClovershellCommand
         {
@@ -257,7 +257,7 @@ namespace com.clusterrr.clovershell
                             epReader.DataReceivedEnabled = true;
                             lastAliveTime = DateTime.Now;
                             online = true;
-                            OnConnected();
+                            OnConnected(this);
                             while (device.mUsbRegistry.IsAlive)
                             {
                                 Thread.Sleep(100);
@@ -685,6 +685,22 @@ namespace com.clusterrr.clovershell
                         execConnections[c.id] = null;
                 }
             }
+        }
+
+        public Task<string> ExecuteSimpleAsync(string command, int timeout = 2000, bool throwOnNonZero = false)
+        {
+            return new Task<string>(() =>
+            {
+                return ExecuteSimple(command, timeout, throwOnNonZero);
+            });
+        }
+
+        public Task<int> ExecuteAsync(string command, Stream stdin = null, Stream stdout = null, Stream stderr = null, int timeout = 0, bool throwOnNonZero = false)
+        {
+            return new Task<int>(() =>
+            {
+                return Execute(command, stdin, stdout, stderr, timeout, throwOnNonZero);
+            });
         }
     }
 }

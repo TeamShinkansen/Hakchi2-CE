@@ -26,12 +26,14 @@ namespace com.clusterrr.hakchi_gui
                 {
                     if (filename.EndsWith(".7z"))
                         filename = filename.Substring(0, filename.Length - 3);
+                    if (filename.EndsWith(".zip"))
+                        filename = filename.Substring(0, filename.Length - 4);
                     var item = new ListViewItem(new string[] {
                         game.Name,
                         Path.GetFileNameWithoutExtension(filename),
                         Path.GetExtension(filename),
                         game.Metadata.System,
-                        "Default / no change" });
+                        Resources.DefaultNoChange });
                     item.Tag = game;
                     listViewGames.Items.Add(item);
                 }
@@ -75,7 +77,7 @@ namespace com.clusterrr.hakchi_gui
 
                 if (imageIndexes.ContainsKey(game.Metadata.AppInfo.Name))
                 {
-                    var item = new ListViewItem("Default / no change");
+                    var item = new ListViewItem(Resources.DefaultNoChange);
                     item.ImageIndex = imageIndexes[game.Metadata.AppInfo.Name];
                     listViewImages.Items.Add(item);
                 }
@@ -84,7 +86,7 @@ namespace com.clusterrr.hakchi_gui
                     var image = Shared.ResizeImage(game.Metadata.AppInfo.DefaultCover, null, listViewImages.BackColor, 114, 102, false, true, true, true);
                     imageList.Images.Add(image);
 
-                    var item = new ListViewItem("Default / no change");
+                    var item = new ListViewItem(Resources.DefaultNoChange);
                     imageIndexes.Add(game.Metadata.AppInfo.Name, item.ImageIndex = i++);
                     listViewImages.Items.Add(item);
                 }
@@ -137,7 +139,7 @@ namespace com.clusterrr.hakchi_gui
         {
             for (int i = 0; i < listViewGames.Items.Count; ++i)
             {
-                listViewGames.Items[i].SubItems[4].Text = "Default / no change";
+                listViewGames.Items[i].SubItems[4].Text = Resources.DefaultNoChange;
             }
             coverColumnHeader.Width = -2;
             ShowSelected();
@@ -158,44 +160,62 @@ namespace com.clusterrr.hakchi_gui
 
         private void buttonAccept_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < listViewGames.Items.Count; ++i)
+            using (var tasker = new Tasks.Tasker(this))
             {
-                var gameItem = listViewGames.Items[i];
-                if (gameItem.SubItems[4].Text != "Default / no change")
+                tasker.AttachView(new Tasks.TaskerTaskbar());
+                tasker.AttachView(new Tasks.TaskerForm());
+                var task = new Tasks.GameTask();
+                for (int i = 0; i < listViewGames.Items.Count; ++i)
                 {
-                    var game = gameItem.Tag as NesApplication;
-                    foreach (var coverMatch in game.CoverArtMatches)
+                    var gameItem = listViewGames.Items[i];
+                    if (gameItem.SubItems[4].Text != Resources.DefaultNoChange)
                     {
-                        if(Path.GetFileName(coverMatch) == gameItem.SubItems[4].Text)
+                        var game = gameItem.Tag as NesApplication;
+                        foreach (var coverMatch in game.CoverArtMatches)
                         {
-                            game.SetImageFile(coverMatch, ConfigIni.Instance.CompressCover);
-                            break;
+                            if(Path.GetFileName(coverMatch) == gameItem.SubItems[4].Text)
+                            {
+                                task.GamesChanged[game] = coverMatch;
+                                break;
+                            }
                         }
                     }
                 }
+                tasker.AddTask(task.SetCoverArtForMultipleGames);
+                var conclusion = tasker.Start();
             }
+
             DialogResult = DialogResult.OK;
             Close();
         }
 
         private void buttonDiscard_Click(object sender, EventArgs e)
         {
-            Close();
+            var result = Tasks.MessageForm.Show(Resources.DiscardChanges, Resources.DiscardChangesQ, Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1);
+            if (result == Tasks.MessageForm.Button.Yes)
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+            }
         }
 
         private void SelectCoverDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (DialogResult != DialogResult.OK)
             {
-                bool change = false;
-                for (int i = 0; i < listViewGames.Items.Count; ++i)
-                    if (listViewGames.Items[i].SubItems[4].Text != "Default / no change")
-                    {
-                        change = true;
-                        break;
-                    }
-                if (change && MessageBox.Show(Resources.DiscardChangesQ, Resources.DiscardChanges, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                var result = Tasks.MessageForm.Show(Resources.ApplyChanges, Resources.ApplyChangesQ, Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No, Tasks.MessageForm.Button.Cancel }, Tasks.MessageForm.DefaultButton.Button1);
+                if (result == Tasks.MessageForm.Button.Cancel)
+                {
                     e.Cancel = true;
+                    return;
+                }
+                if (result == Tasks.MessageForm.Button.Yes)
+                {
+                    buttonAccept_Click(sender, e);
+                    return;
+                }
+                DialogResult = DialogResult.OK;
+                Close();
             }
         }
         

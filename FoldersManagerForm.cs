@@ -21,13 +21,15 @@ namespace com.clusterrr.hakchi_gui
                 switch(ConfigIni.Instance.ConsoleType)
                 {
                     default:
-                    case MainForm.ConsoleType.NES:
+                    case hakchi.ConsoleType.NES:
                         return Path.Combine(Path.Combine(Program.BaseDirectoryExternal, ConfigIni.ConfigDir), "folders.xml");
-                    case MainForm.ConsoleType.Famicom:
+                    case hakchi.ConsoleType.Famicom:
                         return Path.Combine(Path.Combine(Program.BaseDirectoryExternal, ConfigIni.ConfigDir), "folders_famicom.xml");
-                    case MainForm.ConsoleType.SNES:
-                        return Path.Combine(Path.Combine(Program.BaseDirectoryExternal, ConfigIni.ConfigDir), "folders_snes.xml");
-                    case MainForm.ConsoleType.SuperFamicom:
+                    case hakchi.ConsoleType.SNES_EUR:
+                        return Path.Combine(Path.Combine(Program.BaseDirectoryExternal, ConfigIni.ConfigDir), "folders_snes_eur.xml");
+                    case hakchi.ConsoleType.SNES_USA:
+                        return Path.Combine(Path.Combine(Program.BaseDirectoryExternal, ConfigIni.ConfigDir), "folders_snes_usa.xml");
+                    case hakchi.ConsoleType.SuperFamicom:
                         return Path.Combine(Path.Combine(Program.BaseDirectoryExternal, ConfigIni.ConfigDir), "folders_super_famicom.xml");
                 }
             }
@@ -77,25 +79,32 @@ namespace com.clusterrr.hakchi_gui
                     catch (Exception ex)
                     {
                         Debug.WriteLine(ex.Message + ex.StackTrace);
+                        Tasks.ErrorForm.Show(mainForm, ex);
                         File.Delete(FoldersXmlPath);
-                        throw ex;
+                        return;
                     }
                 }
-                else DrawTree();
+                else
+                {
+                    DrawTree();
+                }
                 splitContainer.Panel2MinSize = 485;
-                comboBoxPosition.Left = labelPosition.Left + labelPosition.Width;
+                comboBoxPosition.Left = labelPosition1.Left + labelPosition1.Width;
                 treeView.TreeViewNodeSorter = new NodeSorter();
                 listViewContent.ListViewItemSorter = new NodeSorter();
                 pictureBoxLeft = pictureBoxArt.Left;
+
+                switch (ConfigIni.Instance.BackFolderPosition)
+                {
+                    case NesMenuFolder.Priority.LeftBack: comboBoxBackPosition.SelectedIndex = 0; break;
+                    case NesMenuFolder.Priority.Back: comboBoxBackPosition.SelectedIndex = 1; break;
+                }
+                checkBoxAddHome.Checked = ConfigIni.Instance.HomeFolder;
             }
             catch (Exception ex)
             {
-                var message = ex.Message;
-#if DEBUG
-                message += ex.StackTrace;
-#endif
                 Debug.WriteLine(ex.Message + ex.StackTrace);
-                MessageBox.Show(this, message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Tasks.ErrorForm.Show(mainForm, ex);
             }
         }
 
@@ -319,7 +328,7 @@ namespace com.clusterrr.hakchi_gui
             }
             if (node != null && node.Tag is NesMenuFolder) // Folder 
             {
-                labelPosition.Enabled = comboBoxPosition.Enabled = true;
+                labelPosition1.Enabled = comboBoxPosition.Enabled = true;
                 var folder = node.Tag as NesMenuFolder;
                 var position = (int)folder.Position;
                 if (position > 1) position--;
@@ -327,7 +336,7 @@ namespace com.clusterrr.hakchi_gui
             }
             else
             {
-                labelPosition.Enabled = comboBoxPosition.Enabled = false;
+                labelPosition1.Enabled = comboBoxPosition.Enabled = false;
                 comboBoxPosition.SelectedIndex = -1;
             }
         }
@@ -645,16 +654,12 @@ namespace com.clusterrr.hakchi_gui
         {
             if (nodes.Count() == 1)
             {
-                if (MessageBox.Show(this, string.Format(Resources.DeleteElement, nodes.First().Text),
-                    Resources.AreYouSure, MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning) != DialogResult.Yes)
+                if (Tasks.MessageForm.Show(Resources.AreYouSure, string.Format(Resources.DeleteElement, nodes.First().Text), Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) != Tasks.MessageForm.Button.Yes)
                     return;
             }
             else
             {
-                if (MessageBox.Show(this, string.Format(Resources.DeleteElements, nodes.Count()),
-                    Resources.AreYouSure, MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning) != DialogResult.Yes)
+                if (Tasks.MessageForm.Show(Resources.AreYouSure, string.Format(Resources.DeleteElement, nodes.Count()), Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) != Tasks.MessageForm.Button.Yes)
                     return;
             }
             bool needWarn = false;
@@ -710,7 +715,9 @@ namespace com.clusterrr.hakchi_gui
             if (parent != null)
                 treeView.SelectedNode = parent;
             if (needWarn && !ConfigIni.Instance.DisablePopups)
-                MessageBox.Show(this, Resources.FolderContent, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            {
+                Tasks.MessageForm.Show(this.Text, Resources.FolderContent);
+            }
             buttonOk.Enabled = treeView.Nodes[0].Nodes.Count > 0;
         }
 
@@ -873,13 +880,13 @@ namespace com.clusterrr.hakchi_gui
         private void TreeContructorForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason != CloseReason.UserClosing || DialogResult == DialogResult.OK) return;
-            var a = MessageBox.Show(this, Resources.FoldersSaveQ, this.Text, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            if (a == DialogResult.Cancel)
+            var a = Tasks.MessageForm.Show(this.Text, Resources.FoldersSaveQ, Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No, Tasks.MessageForm.Button.Cancel }, Tasks.MessageForm.DefaultButton.Button1);
+            if (a == Tasks.MessageForm.Button.Cancel)
             {
                 e.Cancel = true;
                 return;
             }
-            if (a == DialogResult.Yes)
+            if (a == Tasks.MessageForm.Button.Yes)
                 SaveTree();
             DialogResult = DialogResult.Cancel;
         }
@@ -895,12 +902,22 @@ namespace com.clusterrr.hakchi_gui
                     if (deletedGames.Contains(mainForm.listViewGames.Items[i].Tag as NesApplication))
                         mainForm.listViewGames.Items[i].Checked = false;
                 }
+
+                switch (comboBoxBackPosition.SelectedIndex)
+                {
+                    case 0: ConfigIni.Instance.BackFolderPosition = NesMenuFolder.Priority.LeftBack; break;
+                    case 1: ConfigIni.Instance.BackFolderPosition = NesMenuFolder.Priority.Back; break;
+                }
+                ConfigIni.Instance.HomeFolder = checkBoxAddHome.Checked;
                 ConfigIni.Save();
             }
         }
 
         private string TreeToXml()
         {
+            if (treeView.Nodes == null || treeView.Nodes.Count == 0)
+                return "";
+
             var root = treeView.Nodes[0];
             var xml = new XmlDocument();
             var treeNode = xml.CreateElement("Tree");
@@ -966,7 +983,7 @@ namespace com.clusterrr.hakchi_gui
                 foreach (var game in oldCollection)
                     unsorted.ChildMenuCollection.Add(game);
                 if (!ConfigIni.Instance.DisablePopups)
-                    MessageBox.Show(this, Resources.NewGamesUnsorted, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Tasks.MessageForm.Show(this.Text, Resources.NewGamesUnsorted);
             }
             DrawTree();
         }
@@ -988,7 +1005,7 @@ namespace com.clusterrr.hakchi_gui
                     case "Game":
                     //case "OriginalGame":
                         var code = element.Attributes["code"].Value;
-                        var games = from n in rootMenuCollection where ((n is NesApplication/* || n is NesDefaultGame*/) && (n.Code == code)) select n;
+                        var games = from n in rootMenuCollection where ((n is NesApplication) && (n.Code == code)) select n;
                         if (games.Count() > 0)
                         {
                             var game = games.First();

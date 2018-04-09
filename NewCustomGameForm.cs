@@ -56,12 +56,12 @@ namespace com.clusterrr.hakchi_gui
                 }
                 else
                 {
-                    MessageBox.Show(this, Resources.CustomGameCodeAlreadyExists, Resources.NewCustomGame, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                    Tasks.MessageForm.Show(Resources.NewCustomGame, Resources.CustomGameCodeAlreadyExists, Resources.sign_warning);
                 }
             }
             else
             {
-                MessageBox.Show(this, Resources.CustomGameNeedValidData, Resources.NewCustomGame, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                Tasks.MessageForm.Show(Resources.NewCustomGame, Resources.CustomGameNeedValidData, Resources.sign_warning);
             }
         }
 

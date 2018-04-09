@@ -2,6 +2,7 @@
 using com.clusterrr.hakchi_gui.Properties;
 using Microsoft.Win32.SafeHandles;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -40,6 +41,8 @@ namespace com.clusterrr.hakchi_gui
         public static readonly string BaseDirectoryInternal = Path.GetDirectoryName(Application.ExecutablePath);
         public static string BaseDirectoryExternal;
         public static bool isPortable = false;
+        public static List<Stream> debugStreams = new List<Stream>();
+        public static MultiFormContext FormContext = new MultiFormContext();
 
         /// <summary>
         /// The main entry point for the application.
@@ -47,23 +50,26 @@ namespace com.clusterrr.hakchi_gui
         [STAThread]
         static void Main(string[] args)
         {
+            SevenZip.SevenZipExtractor.SetLibraryPath(Path.Combine(Program.BaseDirectoryInternal, IntPtr.Size == 8 ? @"tools\7z64.dll" : @"tools\7z.dll"));
 #if DEBUG
             try
             {
                 AllocConsole();
                 IntPtr stdHandle = CreateFile("CONOUT$", GENERIC_WRITE, FILE_SHARE_WRITE, 0, OPEN_EXISTING, 0, 0);
                 SafeFileHandle safeFileHandle = new SafeFileHandle(stdHandle, true);
-                FileStream fileStream = new FileStream(safeFileHandle, FileAccess.Write);
+                FileStream consoleFileStream = new FileStream(safeFileHandle, FileAccess.Write);
                 Encoding encoding = System.Text.Encoding.GetEncoding(MY_CODE_PAGE);
-                StreamWriter standardOutput = new StreamWriter(fileStream, encoding);
+                StreamWriter standardOutput = new StreamWriter(consoleFileStream, encoding);
                 standardOutput.AutoFlush = true;
                 Console.SetOut(standardOutput);
+                debugStreams.Add(consoleFileStream);
                 Debug.Listeners.Add(new TextWriterTraceListener(System.Console.Out));
             }
             catch { }
             try
             {
                 Stream logFile = File.Create("debuglog.txt");
+                debugStreams.Add(logFile);
                 Debug.Listeners.Add(new TextWriterTraceListener(logFile));
             }
             catch (Exception ex)
@@ -99,7 +105,19 @@ namespace com.clusterrr.hakchi_gui
                             try
                             {
                                 if (!Directory.Exists(BaseDirectoryExternal))
+                                {
                                     BaseDirectoryExternal = Path.Combine(GetDocumentsLibraryPath(), "hakchi2");
+                                }
+
+                                // There are some folders which should be accessed by user
+                                // Moving them to "My documents"
+                                if (isFirstRun)
+                                {
+                                    var externalDirs = new string[]
+                                        { "art", "folder_images", "patches", "user_mods", "sfrom_tool" };
+                                    foreach (var dir in externalDirs)
+                                        Shared.DirectoryCopy(Path.Combine(BaseDirectoryInternal, dir), Path.Combine(BaseDirectoryExternal, dir), true, false, true, false);
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -109,7 +127,8 @@ namespace com.clusterrr.hakchi_gui
                         }
                         else
                             BaseDirectoryExternal = BaseDirectoryInternal;
-                        Debug.WriteLine("Base directory: " + BaseDirectoryExternal);
+
+                        Debug.WriteLine("Base directory: " + BaseDirectoryExternal + " (" + (isPortable ? "portable" : "non-portable") + " mode)");
                         ConfigIni.Load();
                         try
                         {
@@ -117,18 +136,6 @@ namespace com.clusterrr.hakchi_gui
                                 Thread.CurrentThread.CurrentUICulture = new CultureInfo(ConfigIni.Instance.Language);
                         }
                         catch { }
-
-                        // There are some folders which should be accessed by user
-                        // Moving them to "My documents"
-                        if (!isPortable && isFirstRun)
-                        {
-                            var externalDirs = new string[]
-                            {
-                                "art", "folder_images", "patches", "user_mods", "sfrom_tool"
-                            };
-                            foreach (var dir in externalDirs)
-                                Shared.DirectoryCopy(Path.Combine(BaseDirectoryInternal, dir), Path.Combine(BaseDirectoryExternal, dir), true, false, true, false);
-                        }
 
                         string languagesDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "languages");
                         const string langFileNames = "hakchi.resources.dll";
@@ -158,7 +165,11 @@ namespace com.clusterrr.hakchi_gui
                         System.Net.ServicePointManager.SecurityProtocol = (System.Net.SecurityProtocolType)4080; // set default security protocol
                         Application.EnableVisualStyles();
                         Application.SetCompatibleTextRenderingDefault(false);
-                        Application.Run(new MainForm());
+
+                        FormContext.AllFormsClosed += Process.GetCurrentProcess().Kill; // Suicide! Just easy and dirty way to kill all threads.
+
+                        FormContext.AddForm(new MainForm());
+                        Application.Run(FormContext);
                         Debug.WriteLine("Done.");
                     }
                     else

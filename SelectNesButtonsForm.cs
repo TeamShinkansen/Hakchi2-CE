@@ -56,7 +56,7 @@ namespace com.clusterrr.hakchi_gui
                     buttonCount++;
             if (buttonCount < 2)
             {
-                MessageBox.Show(this, Resources.SelectAtLeastTwo, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Tasks.MessageForm.Show(Resources.Error, Resources.SelectAtLeastTwo, Resources.sign_error);
                 return;
             }
             DialogResult = DialogResult.OK;

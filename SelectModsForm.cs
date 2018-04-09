@@ -12,6 +12,8 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Xml.Serialization;
 using System.Xml;
+using com.clusterrr.hakchi_gui.Tasks;
+using com.clusterrr.hakchi_gui.Properties;
 
 namespace com.clusterrr.hakchi_gui
 {
@@ -75,9 +77,15 @@ namespace com.clusterrr.hakchi_gui
         public readonly string RawName;
         public readonly string Category;
         public readonly string Creator;
+        public readonly bool isInstalled;
 
-        public Hmod(string mod)
+        public Hmod(string mod, string[] installedHmods = null)
         {
+            isInstalled = false;
+            if (installedHmods != null)
+            {
+                isInstalled = installedHmods.Contains(mod);
+            }
             RawName = mod;
             this.HmodPath = null;
             this.isFile = false;
@@ -131,7 +139,6 @@ namespace com.clusterrr.hakchi_gui
 
                     if (!skipExtraction)
                     {
-                        SevenZipExtractor.SetLibraryPath(Path.Combine(Program.BaseDirectoryInternal, IntPtr.Size == 8 ? @"tools\7z64.dll" : @"tools\7z.dll"));
                         using (var szExtractor = new SevenZipExtractor(dir))
                         {
                             var tar = new MemoryStream();
@@ -141,11 +148,14 @@ namespace com.clusterrr.hakchi_gui
                             {
                                 foreach (var f in szExtractorTar.ArchiveFileNames)
                                 {
-                                    if (readmeFiles.Contains(f.ToLower()))
+                                    foreach (var readmeFilename in readmeFiles)
                                     {
+                                        if (f.ToLower() != readmeFilename && f.ToLower() != $".\\{readmeFilename}")
+                                            continue;
+
                                         var o = new MemoryStream();
                                         szExtractorTar.ExtractFile(f, o);
-                                        readmeData.Add(f.ToLower(), Encoding.UTF8.GetString(o.ToArray()));
+                                        readmeData.Add(readmeFilename, Encoding.UTF8.GetString(o.ToArray()));
                                     }
                                 }
                             }
@@ -213,13 +223,17 @@ namespace com.clusterrr.hakchi_gui
     }
     public partial class SelectModsForm : Form
     {
+        private string hmodDisplayed = null;
         private readonly string usermodsDirectory;
         private List<Hmod> hmods = new List<Hmod>();
+        private string[] installedMods = new string[] { };
+        private bool loadInstalledMods;
 
         public SelectModsForm(bool loadInstalledMods, bool allowDropMods, string[] filesToAdd = null)
         {
 
             InitializeComponent();
+            this.loadInstalledMods = loadInstalledMods;
 
             switch (ConfigIni.Instance.hmodListSort)
             {
@@ -235,20 +249,15 @@ namespace com.clusterrr.hakchi_gui
             wbReadme.Document.BackColor = this.BackColor;
             usermodsDirectory = Path.Combine(Program.BaseDirectoryExternal, "user_mods");
             var modsList = new List<string>();
-            if (loadInstalledMods && MainForm.Clovershell.IsOnline)
+
+            if(hakchi.Shell.IsOnline)
+                installedMods = hakchi.Shell.ExecuteSimple("hakchi pack_list", 0, true).Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (loadInstalledMods && hakchi.Shell.IsOnline)
             {
-                var modsstr = MainForm.Clovershell.ExecuteSimple("ls /var/lib/hakchi/hmod/uninstall-*", 2000, true);
-                var installedMods = modsstr.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var mod in installedMods)
                 {
-                    var modname = mod;
-                    int pos;
-                    while ((pos = modname.IndexOf("/")) >= 0)
-                        modname = modname.Substring(pos + 1);
-                    modname = modname.Substring("uninstall-".Length);
-                    if (MainForm.InternalMods.Contains(modname))
-                        continue;
-                    modsList.Add(modname);
+                    modsList.Add(mod);
                 }
             }
             else
@@ -264,12 +273,18 @@ namespace com.clusterrr.hakchi_gui
                 }
             }
 
-            using(WorkerForm worker = new WorkerForm())
+            using(Tasker tasker = new Tasker(this))
             {
-                worker.Task = WorkerForm.Tasks.GetHmods;
-                worker.HmodsToLoad = modsList.ToArray();
-                worker.Start();
-                hmods = worker.LoadedHmods;
+                tasker.AttachView(new Tasks.TaskerForm());
+                var modObject = new ModTasks.ModObject();
+                modObject.HmodsToLoad = modsList;
+                modObject.InstalledHmods = installedMods;
+                tasker.SetTitle(Resources.LoadingHmods);
+                tasker.SetStatusImage(Resources.sign_brick);
+                tasker.SyncObject = modObject;
+                tasker.AddTask(ModTasks.GetHmods);
+                tasker.Start();
+                hmods = modObject.LoadedHmods;
             }
 
             populateList();
@@ -310,6 +325,12 @@ namespace com.clusterrr.hakchi_gui
                 item.SubItems.Add(hmod.Creator);
                 item.Tag = hmod;
                 item.Group = group;
+                if (!loadInstalledMods && installedMods.Contains(hmod.RawName))
+                {
+                    item.Checked = true;
+                    item.ForeColor = SystemColors.GrayText;
+                }
+
                 listViewHmods.Items.Add(item);
             }
 
@@ -329,6 +350,7 @@ namespace com.clusterrr.hakchi_gui
                 DialogResult = DialogResult.Cancel;
             Close();
         }
+
         static string getHmodPath(string hmod)
         {
             try
@@ -344,9 +366,7 @@ namespace com.clusterrr.hakchi_gui
                     return dir;
                 }
             }
-            catch
-            {
-            }
+            catch { }
 
             return null;
         }
@@ -378,9 +398,13 @@ namespace com.clusterrr.hakchi_gui
 
         void showReadMe(ref Hmod hmod)
         {
-                Color color = this.BackColor;
-                string html = String.Format(Properties.Resources.readmeTemplateHTML, Properties.Resources.readmeTemplateCSS, hmod.Name, formatReadme(ref hmod), $"rgb({color.R},{color.G},{color.B})");
-                wbReadme.DocumentText = html;
+            if (hmodDisplayed == hmod.RawName)
+                return;
+
+            hmodDisplayed = hmod.RawName;
+            Color color = this.BackColor;
+            string html = String.Format(Properties.Resources.readmeTemplateHTML, Properties.Resources.readmeTemplateCSS, hmod.Name, formatReadme(ref hmod), $"rgb({color.R},{color.G},{color.B})");
+            wbReadme.DocumentText = html;
         }
 
         private void SelectModsForm_DragEnter(object sender, DragEventArgs e)
@@ -409,7 +433,6 @@ namespace com.clusterrr.hakchi_gui
                 }
                 else if (ext == ".7z" || ext == ".zip" || ext == ".rar")
                 {
-                    SevenZipExtractor.SetLibraryPath(Path.Combine(Program.BaseDirectoryInternal, IntPtr.Size == 8 ? @"tools\7z64.dll" : @"tools\7z.dll"));
                     using (var szExtractor = new SevenZipExtractor(file))
                     {
                         foreach (var f in szExtractor.ArchiveFileNames)
@@ -441,16 +464,6 @@ namespace com.clusterrr.hakchi_gui
 
         private void listViewHmods_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listViewHmods.SelectedItems.Count > 0)
-            {
-
-                Hmod hmod = (Hmod)(listViewHmods.SelectedItems[0].Tag);
-                showReadMe(ref hmod);
-            }
-            else
-            {
-                wbReadme.Refresh();
-            }
         }
 
         private void categoryToolStripMenuItem_Click(object sender, EventArgs e)
@@ -467,6 +480,35 @@ namespace com.clusterrr.hakchi_gui
             categoryToolStripMenuItem.Checked = false;
             ConfigIni.Instance.hmodListSort = HmodListSort.Creator;
             populateList();
+        }
+
+        private void listViewHmods_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            if(!loadInstalledMods && e.Item.Checked == false && ((Hmod)e.Item.Tag).isInstalled)
+            {
+                e.Item.Checked = true;
+            }
+        }
+
+        private void listViewHmods_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            if (e.Item != null && listViewHmods.SelectedItems.Count > 0)
+            {
+                Hmod hmod = (Hmod)(listViewHmods.SelectedItems[0].Tag);
+                showReadMe(ref hmod);
+            }
+            else
+            {
+                Color color = this.BackColor;
+                string html = String.Format(Properties.Resources.readmeTemplateHTML, Properties.Resources.readmeTemplateCSS, "", "", $"rgb({color.R},{color.G},{color.B})");
+                wbReadme.DocumentText = html;
+                hmodDisplayed = null;
+            }
+
+            if (!loadInstalledMods && e.Item != null && e.Item.Selected == true && ((Hmod)e.Item.Tag).isInstalled)
+            {
+                e.Item.Selected = false;
+            }
         }
     }
 }
