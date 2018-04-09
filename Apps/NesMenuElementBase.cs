@@ -96,7 +96,7 @@ namespace com.clusterrr.hakchi_gui
         {
             try
             {
-                return Shared.DirectorySize(basePath, hakchi.BLOCK_SIZE);
+                return Shared.DirectorySize(basePath);
             }
             catch { }
             return 0;
@@ -137,51 +137,6 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        protected virtual void SetImage(Image img, bool EightBitCompression = false)
-        {
-            // full-size image ratio
-            int maxX = 204;
-            int maxY = 204;
-            if (ConfigIni.Instance.ConsoleType == hakchi.ConsoleType.SNES_EUR || ConfigIni.Instance.ConsoleType == hakchi.ConsoleType.SNES_USA || ConfigIni.Instance.ConsoleType == hakchi.ConsoleType.SuperFamicom)
-            {
-                maxX = 228;
-                maxY = 204;
-            }
-            ProcessImage(img, iconPath, maxX, maxY, false, true, EightBitCompression);
-
-            // thumbnail image ratio
-            maxX = 40;
-            maxY = 40;
-            ProcessImage(img, smallIconPath, maxX, maxY, ConfigIni.Instance.CenterThumbnail, false, EightBitCompression);
-        }
-
-        public virtual void SetImageFile(string path, bool EightBitCompression = false)
-        {
-            // full-size image ratio
-            int maxX = 204;
-            int maxY = 204;
-            if (ConfigIni.Instance.ConsoleType == hakchi.ConsoleType.SNES_EUR || ConfigIni.Instance.ConsoleType == hakchi.ConsoleType.SNES_USA || ConfigIni.Instance.ConsoleType == hakchi.ConsoleType.SuperFamicom)
-            {
-                maxX = 228;
-                maxY = 204;
-            }
-            ProcessImageFile(path, iconPath, maxX, maxY, false, true, EightBitCompression);
-
-            // check if a small image file might have accompanied the source image
-            string thumbnailPath = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + "_small" + Path.GetExtension(path));
-            if (File.Exists(thumbnailPath))
-                path = thumbnailPath;
-
-            // set thumbnail as well
-            SetThumbnailFile(path, EightBitCompression);
-        }
-
-        public virtual void SetThumbnailFile(string path, bool EightBitCompression = false)
-        {
-            // thumbnail image ratio
-            ProcessImageFile(path, smallIconPath, 40, 40, ConfigIni.Instance.CenterThumbnail, false, EightBitCompression);
-        }
-
         protected static void ProcessImage(Image inImage, string outPath, int targetWidth, int targetHeight, bool expandHeight, bool upscale, bool quantize)
         {
             var outImage = Shared.ResizeImage(inImage, null, null, targetWidth, targetHeight, upscale, true, false, expandHeight);
@@ -207,7 +162,7 @@ namespace com.clusterrr.hakchi_gui
                     ((inImage.Height == targetHeight && inImage.Width <= targetWidth) ||
                      (inImage.Width == targetWidth && inImage.Height <= targetHeight)))
                 {
-                    Debug.WriteLine($"\"{Path.GetFileName(inPath)}\" did not need resizing, no processing done");
+                    Debug.WriteLine($"NesMenuElementBase.ProcessImageFile: \"{Path.GetFileName(inPath)}\" did not need resizing. No processing done.");
                     File.Copy(inPath, outPath, true);
                     return;
                 }
@@ -215,46 +170,51 @@ namespace com.clusterrr.hakchi_gui
 
             // any other case, fully process image
             ProcessImage(inImage, outPath, targetWidth, targetHeight, expandHeight, upscale, quantize);
-            File.SetLastWriteTimeUtc(outPath, File.GetLastWriteTimeUtc(inPath));
         }
 
-        protected static Stream ProcessImageToStream(Image inImage, int targetWidth, int targetHeight, bool expandHeight, bool upscale, bool quantize)
+        protected void SetImage(Image img, bool EightBitCompression = false)
         {
-            var outImage = Shared.ResizeImage(inImage, null, null, targetWidth, targetHeight, upscale, true, false, expandHeight);
-            var stream = new MemoryStream();
-            if (quantize)
-                Quantize(ref outImage);
-            outImage.Save(stream, ImageFormat.Png);
-            outImage.Dispose();
-            stream.Position = 0;
-            return stream;
-        }
-
-        protected static Stream ProcessImageFileToStream(string inPath, int targetWidth, int targetHeight, bool expandHeight, bool upscale, bool quantize)
-        {
-            if (String.IsNullOrEmpty(inPath) || !File.Exists(inPath)) // failsafe
-                throw new FileNotFoundException($"Image file \"{inPath}\" doesn't exist.");
-
-            // load image
-            Bitmap inImage = new Bitmap(Image.FromFile(inPath));
-
-            // only file type candidate for direct copy is ".png"
-            if (Path.GetExtension(inPath).ToLower() == ".png")
+            // full-size image ratio
+            int maxX = 204;
+            int maxY = 204;
+            if (ConfigIni.Instance.ConsoleType == MainForm.ConsoleType.SNES || ConfigIni.Instance.ConsoleType == MainForm.ConsoleType.SuperFamicom)
             {
-                // if file is exactly the right aspect ratio, copy it
-                if (!quantize && (!expandHeight || inImage.Height == targetHeight) &&
-                    ((inImage.Height == targetHeight && inImage.Width <= targetWidth) ||
-                     (inImage.Width == targetWidth && inImage.Height <= targetHeight)))
-                {
-                    Debug.WriteLine($"\"{Path.GetFileName(inPath)}\" did not need resizing, no processing done");
-                    var stream = new MemoryStream(File.ReadAllBytes(inPath));
-                    stream.Position = 0;
-                    return stream;
-                }
+                maxX = 228;
+                maxY = 204;
             }
+            ProcessImage(img, iconPath, maxX, maxY, false, true, EightBitCompression);
 
-            // any other case, fully process image
-            return ProcessImageToStream(inImage, targetWidth, targetHeight, expandHeight, upscale, quantize);
+            // thumbnail image ratio
+            maxX = 40;
+            maxY = 40;
+            ProcessImage(img, smallIconPath, maxX, maxY, ConfigIni.Instance.CenterThumbnail, false, EightBitCompression);
+        }
+
+        public void SetImageFile(string path, bool EightBitCompression = false)
+        {
+            // full-size image ratio
+            int maxX = 204;
+            int maxY = 204;
+            if (ConfigIni.Instance.ConsoleType == MainForm.ConsoleType.SNES || ConfigIni.Instance.ConsoleType == MainForm.ConsoleType.SuperFamicom)
+            {
+                maxX = 228;
+                maxY = 204;
+            }
+            ProcessImageFile(path, iconPath, maxX, maxY, false, true, EightBitCompression);
+
+            // check if a small image file might have accompanied the source image
+            string thumbnailPath = Path.Combine(Path.GetDirectoryName(path), Path.GetFileNameWithoutExtension(path) + "_small" + Path.GetExtension(path));
+            if (File.Exists(thumbnailPath))
+                path = thumbnailPath;
+
+            // set thumbnail as well
+            SetThumbnailFile(path, EightBitCompression);
+        }
+
+        public void SetThumbnailFile(string path, bool EightBitCompression = false)
+        {
+            // thumbnail image ratio
+            ProcessImageFile(path, smallIconPath, 40, 40, ConfigIni.Instance.CenterThumbnail, false, EightBitCompression);
         }
 
         private static void Quantize(ref Bitmap img)

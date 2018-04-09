@@ -9,11 +9,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using com.clusterrr.hakchi_gui;
 
 namespace com.clusterrr.clovershell
 {
-    public class ClovershellConnection : IDisposable, ISystemShell
+    public class ClovershellConnection : IDisposable
     {
         const UInt16 vid = 0x1F3A;
         const UInt16 pid = 0xEFE8;
@@ -32,8 +31,10 @@ namespace com.clusterrr.clovershell
         bool autoreconnect = false;
         byte[] lastPingResponse = null;
         DateTime lastAliveTime;
-        public event OnConnectedEventHandler OnConnected = delegate { }; //public delegate void OnClovershellConnected();
-        public event OnDisconnectedEventHandler OnDisconnected = delegate { }; //public delegate void OnClovershellDisconnected();
+        public delegate void OnClovershellConnected();
+        public event OnClovershellConnected OnConnected = delegate { };
+        public delegate void OnClovershellDisconnected();
+        public event OnClovershellDisconnected OnDisconnected = delegate { };
 
         internal enum ClovershellCommand
         {
@@ -256,7 +257,7 @@ namespace com.clusterrr.clovershell
                             epReader.DataReceivedEnabled = true;
                             lastAliveTime = DateTime.Now;
                             online = true;
-                            OnConnected(this);
+                            OnConnected();
                             while (device.mUsbRegistry.IsAlive)
                             {
                                 Thread.Sleep(100);

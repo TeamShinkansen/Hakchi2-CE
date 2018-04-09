@@ -1,0 +1,3 @@
+createVersionFile
+overmount "/bin"
+overmount "/etc"

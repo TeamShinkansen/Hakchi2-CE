@@ -2,10 +2,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace com.clusterrr.hakchi_gui
 {
@@ -24,8 +29,6 @@ namespace com.clusterrr.hakchi_gui
                 {
                     if (filename.EndsWith(".7z"))
                         filename = filename.Substring(0, filename.Length - 3);
-                    if (filename.EndsWith(".zip"))
-                        filename = filename.Substring(0, filename.Length - 4);
                     var item = new ListViewItem(new string[] { game.Name, Path.GetExtension(filename), game.Metadata.System, core == null ? string.Empty : core.Name });
                     item.Tag = game;
                     listViewGames.Items.Add(item);
@@ -33,36 +36,15 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        private List<string> systemsCollection = null;
         private void fillSystems()
         {
-            if (systemsCollection == null)
-            {
-                systemsCollection = CoreCollection.Systems.ToList();
-                foreach(var appInfo in AppTypeCollection.Apps)
-                {
-                    if (!systemsCollection.Contains(appInfo.Name))
-                        systemsCollection.Add(appInfo.Name);
-                }
-                systemsCollection.Sort();
-            }
-
             listBoxSystem.BeginUpdate();
             listBoxSystem.Items.Clear();
             listBoxSystem.Items.Add(Resources.Unassigned);
-            var collection = showAllSystemsCheckBox.Checked || firstSelected == null ? (IEnumerable<string>)systemsCollection : CoreCollection.GetSystemsFromExtension(firstSelected.SubItems[1].Text.ToLower()).ToArray();
-            if (collection.Any())
+            var collection = showAllSystemsCheckBox.Checked || firstSelected == null ? CoreCollection.Systems : CoreCollection.GetSystemsFromExtension(firstSelected.SubItems[1].Text.ToLower()).ToArray();
+            foreach (var system in collection)
             {
-                foreach (var system in collection)
-                    listBoxSystem.Items.Add(system);
-            }
-            else
-            {
-                var appInfo = AppTypeCollection.GetAppByExtension(firstSelected.SubItems[1].Text.ToLower());
-                if (!appInfo.Unknown)
-                {
-                    listBoxSystem.Items.Add(appInfo.Name);
-                }
+                listBoxSystem.Items.Add(system);
             }
             listBoxSystem.Enabled = true;
             listBoxSystem.EndUpdate();
@@ -72,7 +54,6 @@ namespace com.clusterrr.hakchi_gui
         {
             listBoxCore.BeginUpdate();
             listBoxCore.Items.Clear();
-            listBoxCore.Items.Add(Resources.Unassigned);
             var collection = string.IsNullOrEmpty(system) ? CoreCollection.Cores : CoreCollection.GetCoresFromSystem(system);
             //var collection = firstSelected == null ? CoreCollection.Cores : CoreCollection.GetCoresFromExtension(firstSelected.SubItems[1].Text.ToLower()).ToArray();
             if (collection != null)
@@ -115,11 +96,7 @@ namespace com.clusterrr.hakchi_gui
                     var core = string.IsNullOrEmpty(game.Metadata.Core) ? AppTypeCollection.GetAppBySystem(system).DefaultCore : game.Metadata.Core;
                     for (int i = 0; i < listBoxCore.Items.Count; ++i)
                     {
-                        if (!(listBoxCore.Items[i] is CoreCollection.CoreInfo))
-                        {
-                            listBoxCore.SetSelected(i, true);
-                        }
-                        else if ((listBoxCore.Items[i] as CoreCollection.CoreInfo).Bin == core)
+                        if ((listBoxCore.Items[i] as CoreCollection.CoreInfo).Bin == core)
                         {
                             listBoxCore.SetSelected(i, true);
                             break;
@@ -169,18 +146,14 @@ namespace com.clusterrr.hakchi_gui
                     if (!string.IsNullOrEmpty(game.Metadata.System))
                     {
                         listBoxSystem.ClearSelected();
-                        bool foundSystem = false;
                         for (int i = 0; i < listBoxSystem.Items.Count; ++i)
                         {
                             if (listBoxSystem.Items[i].ToString() == game.Metadata.System)
                             {
                                 listBoxSystem.SetSelected(i, true);
-                                foundSystem = true;
                                 break;
                             }
                         }
-                        if (!foundSystem)
-                            listBoxSystem.SetSelected(0, true);
                     }
                     if (!string.IsNullOrEmpty(game.Metadata.Core))
                     {
@@ -214,23 +187,7 @@ namespace com.clusterrr.hakchi_gui
             }
 
             var core = listBoxCore.SelectedItem as CoreCollection.CoreInfo;
-            if (core == null)
-            {
-                if (items.Count == 1)
-                {
-                    var item = items[0];
-                    var game = item.Tag as NesApplication;
-
-                    commandTextBox.Text = game.Desktop.Exec.Trim();
-                    commandTextBox.Enabled = true;
-                }
-                else
-                {
-                    commandTextBox.Text = "";
-                    commandTextBox.Enabled = false;
-                }
-            }
-            else if (items.Count > 1)
+            if (items.Count > 1)
             {
                 string newCommand = core.QualifiedBin + " {rom}";
                 if (resetCheckBox.Checked)
@@ -306,7 +263,7 @@ namespace com.clusterrr.hakchi_gui
 
         private void showAllSystemsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //fillSystems();
+            fillSystems();
             ShowSelected();
         }
 
@@ -314,16 +271,11 @@ namespace com.clusterrr.hakchi_gui
         {
             if (buttonApply.Enabled)
             {
-                var result = Tasks.MessageForm.Show(Resources.ApplyChanges, Resources.ApplyChangesQ, Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No, Tasks.MessageForm.Button.Cancel }, Tasks.MessageForm.DefaultButton.Button3);
-                if (result == Tasks.MessageForm.Button.Cancel)
+                var result = MessageBox.Show(Resources.ApplyChangesQ, Resources.ApplyChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
+                if (result == DialogResult.Cancel)
                     return;
-                if (result == Tasks.MessageForm.Button.Yes)
+                if (result == DialogResult.Yes)
                     buttonApply_Click(sender, e);
-                //var result = MessageBox.Show(Resources.ApplyChangesQ, Resources.ApplyChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
-                //if (result == DialogResult.Cancel)
-                //    return;
-                //if (result == DialogResult.Yes)
-                //    buttonApply_Click(sender, e);
             }
 
             // save game changes
@@ -344,9 +296,7 @@ namespace com.clusterrr.hakchi_gui
 
         private void SelectCoreDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (buttonApply.Enabled && DialogResult != DialogResult.OK &&
-                Tasks.MessageForm.Show(Resources.DiscardChanges, Resources.DiscardChangesQ, Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.No)
-            //MessageBox.Show(Resources.DiscardChangesQ, Resources.DiscardChanges, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+            if (buttonApply.Enabled && DialogResult != DialogResult.OK && MessageBox.Show(Resources.DiscardChangesQ, Resources.DiscardChanges, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
             {
                 e.Cancel = true;
             }

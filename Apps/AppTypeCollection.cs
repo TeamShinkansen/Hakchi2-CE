@@ -239,10 +239,10 @@ namespace com.clusterrr.hakchi_gui
             {
                 Name = "SquashFS",
                 Class = typeof(UnknownGame),
-                DefaultCore = "hsqs",
+                DefaultCore = string.Empty,
                 LegacyApps = new string[] {"/bin/hsqs" },
                 Extensions = new string[] {".hsqs" },
-                Prefix = 'L',
+                Prefix = 'Z',
                 DefaultCover = Resources.blank_dos,
                 GoogleSuffix = "hsqs"
             },
@@ -250,23 +250,12 @@ namespace com.clusterrr.hakchi_gui
             {
                 Name = "Shell Script",
                 Class = typeof(UnknownGame),
-                DefaultCore = "sh",
+                DefaultCore = string.Empty,
                 LegacyApps = new string[] {"/bin/sh" },
                 Extensions = new string[] {".sh" },
-                Prefix = 'L',
+                Prefix = 'Z',
                 DefaultCover = Resources.blank_dos,
-                GoogleSuffix = "bash script"
-            },
-            new AppInfo
-            {
-                Name = "Nintendo - Super Nintendo Entertainment System (MSU-1)",
-                Class = typeof(LibretroGame),
-                DefaultCore = "msu",
-                LegacyApps = new string[] {"/bin/snes9x" },
-                Extensions = new string[] {".msu" },
-                Prefix = 'U',
-                DefaultCover = Resources.blank_snes_us,
-                GoogleSuffix = "(snes | super nintendo)"
+                GoogleSuffix = "sh"
             },
         };
 

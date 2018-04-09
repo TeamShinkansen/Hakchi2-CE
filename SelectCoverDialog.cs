@@ -26,14 +26,12 @@ namespace com.clusterrr.hakchi_gui
                 {
                     if (filename.EndsWith(".7z"))
                         filename = filename.Substring(0, filename.Length - 3);
-                    if (filename.EndsWith(".zip"))
-                        filename = filename.Substring(0, filename.Length - 4);
                     var item = new ListViewItem(new string[] {
                         game.Name,
                         Path.GetFileNameWithoutExtension(filename),
                         Path.GetExtension(filename),
                         game.Metadata.System,
-                        Resources.DefaultNoChange });
+                        "Default / no change" });
                     item.Tag = game;
                     listViewGames.Items.Add(item);
                 }
@@ -77,7 +75,7 @@ namespace com.clusterrr.hakchi_gui
 
                 if (imageIndexes.ContainsKey(game.Metadata.AppInfo.Name))
                 {
-                    var item = new ListViewItem(Resources.DefaultNoChange);
+                    var item = new ListViewItem("Default / no change");
                     item.ImageIndex = imageIndexes[game.Metadata.AppInfo.Name];
                     listViewImages.Items.Add(item);
                 }
@@ -86,7 +84,7 @@ namespace com.clusterrr.hakchi_gui
                     var image = Shared.ResizeImage(game.Metadata.AppInfo.DefaultCover, null, listViewImages.BackColor, 114, 102, false, true, true, true);
                     imageList.Images.Add(image);
 
-                    var item = new ListViewItem(Resources.DefaultNoChange);
+                    var item = new ListViewItem("Default / no change");
                     imageIndexes.Add(game.Metadata.AppInfo.Name, item.ImageIndex = i++);
                     listViewImages.Items.Add(item);
                 }
@@ -139,7 +137,7 @@ namespace com.clusterrr.hakchi_gui
         {
             for (int i = 0; i < listViewGames.Items.Count; ++i)
             {
-                listViewGames.Items[i].SubItems[4].Text = Resources.DefaultNoChange;
+                listViewGames.Items[i].SubItems[4].Text = "Default / no change";
             }
             coverColumnHeader.Width = -2;
             ShowSelected();
@@ -160,31 +158,22 @@ namespace com.clusterrr.hakchi_gui
 
         private void buttonAccept_Click(object sender, EventArgs e)
         {
-            using (var tasker = new Tasks.Tasker(this))
+            for (int i = 0; i < listViewGames.Items.Count; ++i)
             {
-                tasker.AttachView(new Tasks.TaskerTaskbar());
-                tasker.AttachView(new Tasks.TaskerForm());
-                var task = new Tasks.GameTask();
-                for (int i = 0; i < listViewGames.Items.Count; ++i)
+                var gameItem = listViewGames.Items[i];
+                if (gameItem.SubItems[4].Text != "Default / no change")
                 {
-                    var gameItem = listViewGames.Items[i];
-                    if (gameItem.SubItems[4].Text != Resources.DefaultNoChange)
+                    var game = gameItem.Tag as NesApplication;
+                    foreach (var coverMatch in game.CoverArtMatches)
                     {
-                        var game = gameItem.Tag as NesApplication;
-                        foreach (var coverMatch in game.CoverArtMatches)
+                        if(Path.GetFileName(coverMatch) == gameItem.SubItems[4].Text)
                         {
-                            if(Path.GetFileName(coverMatch) == gameItem.SubItems[4].Text)
-                            {
-                                task.GamesChanged[game] = coverMatch;
-                                break;
-                            }
+                            game.SetImageFile(coverMatch, ConfigIni.Instance.CompressCover);
+                            break;
                         }
                     }
                 }
-                tasker.AddTask(task.SetCoverArtForMultipleGames);
-                var conclusion = tasker.Start();
             }
-
             DialogResult = DialogResult.OK;
             Close();
         }
@@ -200,14 +189,12 @@ namespace com.clusterrr.hakchi_gui
             {
                 bool change = false;
                 for (int i = 0; i < listViewGames.Items.Count; ++i)
-                    if (listViewGames.Items[i].SubItems[4].Text != Resources.DefaultNoChange)
+                    if (listViewGames.Items[i].SubItems[4].Text != "Default / no change")
                     {
                         change = true;
                         break;
                     }
-                if (change &&
-                    Tasks.MessageForm.Show(Resources.DiscardChanges, Resources.DiscardChangesQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.No)
-                    //MessageBox.Show(Resources.DiscardChangesQ, Resources.DiscardChanges, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                if (change && MessageBox.Show(Resources.DiscardChangesQ, Resources.DiscardChanges, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
                     e.Cancel = true;
             }
         }

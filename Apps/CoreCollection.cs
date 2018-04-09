@@ -37,7 +37,13 @@ namespace com.clusterrr.hakchi_gui
             {
                 get
                 {
-                    return $"/bin/" + CoreCommands.GetCommand(Bin);
+                    switch (Kind) {
+                        case CoreKind.Libretro:
+                            return $"/bin/" + CoreCommands.GetCommand(Bin);
+                        case CoreKind.BuiltIn:
+                            return $"/bin/{Bin}";
+                    }
+                    return Bin;
                 }
             }
             public void DebugWrite()
@@ -91,6 +97,25 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
+        private static CoreInfo Canoe = new CoreInfo("clover-canoe-shvc-wr -rom")
+        {
+            DefaultArgs = "--volume 100 -rollback-snapshot-period 600",
+            Name = "Canoe",
+            DisplayName = "Nintendo - Super Nintendo Entertainment System (Canoe)",
+            SupportedExtensions = new string[] { ".sfrom", ".smc", ".sfc" },
+            Systems = new string[] { "Nintendo - Super Nintendo Entertainment System" },
+            Kind = CoreKind.BuiltIn
+        };
+        private static readonly CoreInfo Kachikachi = new CoreInfo("clover-kachikachi-wr")
+        {
+            DefaultArgs = "--guest-overscan-dimensions 0,0,9,3 --initial-fadein-durations 10,2 --volume 75 --enable-armet",
+            Name = "Kachikachi",
+            DisplayName = "Nintendo - Nintendo Entertainment System (Kachikachi)",
+            SupportedExtensions = new string[] { ".nes", ".fds", ".qd" },
+            Systems = new string[] { "Nintendo - Nintendo Entertainment System", "Nintendo - Family Computer Disk System" },
+            Kind = CoreKind.BuiltIn
+        };
+
         private static Dictionary<string, CoreInfo> cores = new Dictionary<string, CoreInfo>();
         private static SortedDictionary<string, List<CoreInfo>> extIndex = new SortedDictionary<string, List<CoreInfo>>();
         private static SortedDictionary<string, List<CoreInfo>> systemIndex = new SortedDictionary<string, List<CoreInfo>>();
@@ -120,7 +145,9 @@ namespace com.clusterrr.hakchi_gui
             }
 
             // clear and add default cores
-            cores = BuiltInCores.List.ToDictionary(pair => pair.Bin);
+            cores.Clear();
+            cores.Add(Canoe.Bin, Canoe);
+            cores.Add(Kachikachi.Bin, Kachikachi);
 
             // load info files
             Debug.WriteLine("Loading libretro core info files");

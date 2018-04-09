@@ -50,7 +50,7 @@
             this.comboDriveLetters.Location = new System.Drawing.Point(12, 25);
             this.comboDriveLetters.Name = "comboDriveLetters";
             this.comboDriveLetters.Size = new System.Drawing.Size(282, 21);
-            this.comboDriveLetters.TabIndex = 1;
+            this.comboDriveLetters.TabIndex = 0;
             this.comboDriveLetters.SelectedIndexChanged += new System.EventHandler(this.comboDriveLetters_SelectedIndexChanged);
             // 
             // lblSelectDrive
@@ -59,7 +59,7 @@
             this.lblSelectDrive.Location = new System.Drawing.Point(9, 9);
             this.lblSelectDrive.Name = "lblSelectDrive";
             this.lblSelectDrive.Size = new System.Drawing.Size(131, 13);
-            this.lblSelectDrive.TabIndex = 0;
+            this.lblSelectDrive.TabIndex = 1;
             this.lblSelectDrive.Text = "Select a drive to export to:";
             // 
             // tableLayoutPanel1
@@ -87,7 +87,7 @@
             this.btnOk.Location = new System.Drawing.Point(3, 3);
             this.btnOk.Name = "btnOk";
             this.btnOk.Size = new System.Drawing.Size(139, 23);
-            this.btnOk.TabIndex = 5;
+            this.btnOk.TabIndex = 0;
             this.btnOk.Text = "OK";
             this.btnOk.UseVisualStyleBackColor = true;
             this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
@@ -100,7 +100,7 @@
             this.btnCancel.Location = new System.Drawing.Point(148, 3);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(139, 23);
-            this.btnCancel.TabIndex = 6;
+            this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -108,10 +108,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(105, 55);
+            this.label1.Location = new System.Drawing.Point(13, 53);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 13);
-            this.label1.TabIndex = 0;
+            this.label1.TabIndex = 3;
             this.label1.Text = "Select region:";
             // 
             // radioEUR
@@ -122,7 +122,7 @@
             this.radioEUR.Location = new System.Drawing.Point(193, 53);
             this.radioEUR.Name = "radioEUR";
             this.radioEUR.Size = new System.Drawing.Size(48, 17);
-            this.radioEUR.TabIndex = 2;
+            this.radioEUR.TabIndex = 4;
             this.radioEUR.TabStop = true;
             this.radioEUR.Text = "EUR";
             this.radioEUR.UseVisualStyleBackColor = true;
@@ -136,7 +136,7 @@
             this.radioUSA.Location = new System.Drawing.Point(247, 53);
             this.radioUSA.Name = "radioUSA";
             this.radioUSA.Size = new System.Drawing.Size(47, 17);
-            this.radioUSA.TabIndex = 3;
+            this.radioUSA.TabIndex = 5;
             this.radioUSA.TabStop = true;
             this.radioUSA.Text = "USA";
             this.radioUSA.UseVisualStyleBackColor = true;
@@ -152,7 +152,7 @@
             this.checkLinked.Location = new System.Drawing.Point(204, 76);
             this.checkLinked.Name = "checkLinked";
             this.checkLinked.Size = new System.Drawing.Size(90, 17);
-            this.checkLinked.TabIndex = 4;
+            this.checkLinked.TabIndex = 6;
             this.checkLinked.Text = "Linked export";
             this.checkLinked.UseVisualStyleBackColor = true;
             this.checkLinked.CheckedChanged += new System.EventHandler(this.checkLinked_CheckedChanged);

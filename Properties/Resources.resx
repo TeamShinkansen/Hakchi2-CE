@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="UpdatingLocalCache" xml:space="preserve">
     <value>Updating local original games cache...</value>
@@ -241,10 +241,8 @@
   <data name="SelectAtLeastTwo" xml:space="preserve">
     <value>Select at least two buttons.</value>
   </data>
-  <data name="FirstRun" xml:space="preserve">
-    <value>Hello there! I'm very glad that you are using hakchi2!
-
-It's very simple to use. Just click "Add more games", select some ROMs, press "Synchronize" to upload games to the console internal memory, or press "Export" to use USB HOST mode, and follow the instructions. Good luck!</value>
+  <data name="hu" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\images\flags\hu.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="blank_gb" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\blank_gb.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -273,8 +271,8 @@ It's very simple to use. Just click "Add more games", select some ROMs, press "S
   <data name="SystemRequiresReflash" xml:space="preserve">
     <value>Your system's custom kernel is out of date and requires a reflash before you can use this program. Would you like to flash the custom kernel now?</value>
   </data>
-  <data name="UninstallQ2" xml:space="preserve">
-    <value>Do you want to flash the original kernel now?</value>
+  <data name="folder_f" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\folder_images\folder_f.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="blank_pce" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\blank_pce.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -309,9 +307,8 @@ It's very simple to use. Just click "Add more games", select some ROMs, press "S
   <data name="ua" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\flags\ua.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="gamepad" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\gamepad.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
   </data>
   <data name="folder_v" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\folder_images\folder_v.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -524,8 +521,8 @@ This process cannot be undone!</value>
   <data name="DeleteElement" xml:space="preserve">
     <value>Do you really want to delete "{0}"?</value>
   </data>
-  <data name="MemoryFull" xml:space="preserve">
-    <value>Sorry, there are {0} of games, it's too much.</value>
+  <data name="SelectModsInstall" xml:space="preserve">
+    <value>Select the modules to install on your NES/SNES Mini</value>
   </data>
   <data name="blank_app" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\blank_app.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -554,8 +551,15 @@ This process cannot be undone!</value>
   <data name="BuildingMenu" xml:space="preserve">
     <value>Building menu...</value>
   </data>
-  <data name="MemoryStats" xml:space="preserve">
-    <value>Total writable memory size: {0:F1}MB|Available memory for games: {1:F1}MB|Used by saves: {2:F1}MB|Used by other files: {3:F1}MB</value>
+  <data name="DownloadSfromTool" xml:space="preserve">
+    <value>In order to use SFROM Tool with hakchi2 CE, you need to:
+Visit /u/DarkAkuma's website
+Download the latest version of his tool
+Install the package in {0}\sfrom_tool
+
+Do you want to download the tool?
+
+http://darkakuma.z-net.us/p/sfromtool.html</value>
   </data>
   <data name="UploadingGames" xml:space="preserve">
     <value>Uploading games...</value>
@@ -839,8 +843,11 @@ This process cannot be undone!</value>
   <data name="ResettingOriginalGames" xml:space="preserve">
     <value>Restoring original games...</value>
   </data>
-  <data name="ApplyChanges" xml:space="preserve">
-    <value>Apply changes</value>
+  <data name="folder_n" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\folder_images\folder_n.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_b" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\folder_images\folder_b.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="blank_gg" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\blank_gg.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -923,173 +930,5 @@ This process cannot be undone!</value>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="info" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\info.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="consoleTypeFamicom" xml:space="preserve">
-    <value>Famicom (Japan)</value>
-  </data>
-  <data name="consoleTypeNes" xml:space="preserve">
-    <value>NES (USA/Europe)</value>
-  </data>
-  <data name="consoleTypeSnes" xml:space="preserve">
-    <value>SNES (USA/Europe)</value>
-  </data>
-  <data name="consoleTypeSuperFamicom" xml:space="preserve">
-    <value>Super Famicom (Japan)</value>
-  </data>
-  <data name="FTPServerOn" xml:space="preserve">
-    <value>FTP server on ftp://root@{0}</value>
-  </data>
-  <data name="TelnetServerOn" xml:space="preserve">
-    <value>Telnet server on telnet://{0} (login:root)</value>
-  </data>
-  <data name="sign_check" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\sign-check.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sign_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\sign-down.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sign_error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\sign-error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sign_info" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\sign-info.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sign_question" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\sign-question.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sign_up" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\sign-up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sign_warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\sign-warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ListCategoryNoCoverArt" xml:space="preserve">
-    <value>No custom box art</value>
-  </data>
-  <data name="CopyingGames" xml:space="preserve">
-    <value>Copying games...</value>
-  </data>
-  <data name="MemoryStatsExport" xml:space="preserve">
-    <value>Total space available on drive: {0}</value>
-  </data>
-  <data name="SelectDrive" xml:space="preserve">
-    <value>Select export drive...</value>
-  </data>
-  <data name="UploadGames" xml:space="preserve">
-    <value>Upload games</value>
-  </data>
-  <data name="Uploading" xml:space="preserve">
-    <value>Uploading {0}</value>
-  </data>
-  <data name="sign_brick" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\sign-brick.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sign_cogs" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\sign-cogs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sign_database" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\sign-database.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sign_file_picture" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\sign-file-picture.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sign_keyring" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\sign-keyring.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DefaultNoChange" xml:space="preserve">
-    <value>Default / no change</value>
-  </data>
-  <data name="baseHmods" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\basehmods.tar;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="BootingHakchi" xml:space="preserve">
-    <value>Booting hakchi...</value>
-  </data>
-  <data name="fes1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\data\fes1.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="InstallingHakchi" xml:space="preserve">
-    <value>Installing hakchi...</value>
-  </data>
-  <data name="PoweringOff" xml:space="preserve">
-    <value>Powering off...</value>
-  </data>
-  <data name="Rebooting" xml:space="preserve">
-    <value>Rebooting...</value>
-  </data>
-  <data name="ResettingHakchi" xml:space="preserve">
-    <value>Resetting hakchi</value>
-  </data>
-  <data name="TransferringMods" xml:space="preserve">
-    <value>Transferring mods...</value>
-  </data>
-  <data name="uboot" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\data\uboot.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ubootSD" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\data\ubootsd.bin;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="UninstallingHakchi" xml:space="preserve">
-    <value>Uninstalling hakchi...</value>
-  </data>
-  <data name="splash" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\data\splash.gz;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="DisableAutoRefresh" xml:space="preserve">
-    <value>Disable auto refresh</value>
-  </data>
-  <data name="EnableAutoRefresh" xml:space="preserve">
-    <value>Enable auto refresh</value>
-  </data>
-  <data name="RepairGames" xml:space="preserve">
-    <value>Repair games</value>
-  </data>
-  <data name="RepairingGame" xml:space="preserve">
-    <value>Repairing {0}</value>
-  </data>
-  <data name="Abort" xml:space="preserve">
-    <value>Abort</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="YesToAll" xml:space="preserve">
-    <value>Yes to all</value>
-  </data>
-  <data name="SelectFileFor" xml:space="preserve">
-    <value>Select file for {0}</value>
-  </data>
-  <data name="sign_trashcan" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\images\sign-trashcan.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="OK" xml:space="preserve">
-    <value>Ok</value>
-  </data>
-  <data name="CannotSyncToNonMultiBoot" xml:space="preserve">
-    <value>You cannot sync currently selected games collection with the currently detected NES/SNES mini.
-
-Current detected console: {0}
-Current games collection: {1}</value>
-  </data>
-  <data name="PleaseConnectYourDevice" xml:space="preserve">
-    <value>Please connect your NES/SNES mini in order to proceed. Note that you must also install the custom kernel, using the options in the Kernel menu.</value>
-  </data>
-  <data name="Starting" xml:space="preserve">
-    <value>Starting...</value>
-  </data>
-  <data name="AddingGame" xml:space="preserve">
-    <value>Processing game {0}</value>
-  </data>
-  <data name="RepairSelectedGamesQ" xml:space="preserve">
-    <value>Are you sure you want to attempt repair selected games? (This could break some games, especially if there weren't imported by hakchi2. Only attempt on broken games.)</value>
-  </data>
-  <data name="RunningFoldersManager" xml:space="preserve">
-    <value>Running folders manager...</value>
-  </data>
-  <data name="consoleTypeSnesEur" xml:space="preserve">
-    <value>Super NES (Europe)</value>
-  </data>
-  <data name="consoleTypeSnesUsa" xml:space="preserve">
-    <value>Super NES (USA)</value>
   </data>
 </root>

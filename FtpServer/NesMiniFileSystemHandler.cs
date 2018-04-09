@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.IO;
-using com.clusterrr.hakchi_gui;
+using com.clusterrr.clovershell;
 using System.Globalization;
 
 namespace mooftpserv
@@ -16,36 +16,31 @@ namespace mooftpserv
         private OS os;
         // current path as TVFS or unix-like
         private string currentPath;
-        // shell
-        private ISystemShell shell;
+        // clovershell
+        private ClovershellConnection clovershell;
 
-        public NesMiniFileSystemHandler(ISystemShell shell, string startPath)
+        public NesMiniFileSystemHandler(ClovershellConnection clovershell, string startPath)
         {
             os = OS.Unix;
             this.currentPath = startPath;
-            this.shell = shell;
+            this.clovershell = clovershell;
         }
 
-        public NesMiniFileSystemHandler(ISystemShell shell)
-            : this(shell, "/")
+        public NesMiniFileSystemHandler(ClovershellConnection clovershell)
+            : this(clovershell, "/")
         {
         }
 
-        private NesMiniFileSystemHandler(string path, OS os, ISystemShell shell)
+        private NesMiniFileSystemHandler(string path, OS os, ClovershellConnection clovershell)
         {
             this.currentPath = path;
             this.os = os;
-            this.shell = shell;
-        }
-
-        public void UpdateShell(ISystemShell shell)
-        {
-            this.shell = shell;
+            this.clovershell = clovershell;
         }
 
         public IFileSystemHandler Clone(IPEndPoint peer)
         {
-            return new NesMiniFileSystemHandler(currentPath, os, shell);
+            return new NesMiniFileSystemHandler(currentPath, os, clovershell);
         }
 
         public ResultOrError<string> GetCurrentDirectory()
@@ -58,7 +53,7 @@ namespace mooftpserv
             string newPath = ResolvePath(path);
             try
             {
-                shell.ExecuteSimple("cd \""+newPath+"\"", 1000 ,true);
+                clovershell.ExecuteSimple("cd \""+newPath+"\"", 1000 ,true);
                 currentPath = newPath;
             }
             catch (Exception ex)
@@ -81,7 +76,7 @@ namespace mooftpserv
                 foreach (var c in newPath)
                     if ((int)c > 255) throw new Exception("Invalid characters in directory name");
                 var newpath = DecodePath(newPath);
-                shell.ExecuteSimple("mkdir \"" + newpath + "\"");
+                clovershell.ExecuteSimple("mkdir \"" + newpath + "\"");
             }
             catch (Exception ex)
             {
@@ -98,7 +93,7 @@ namespace mooftpserv
             try
             {
                 var rpath = DecodePath(newPath);
-                shell.ExecuteSimple("rm -rf \"" + rpath + "\"");
+                clovershell.ExecuteSimple("rm -rf \"" + rpath + "\"");
             }
             catch (Exception ex)
             {
@@ -114,7 +109,7 @@ namespace mooftpserv
             try
             {
                 var data = new MemoryStream();
-                shell.Execute("cat \"" + newPath + "\"", null, data, null, 1000, true);
+                clovershell.Execute("cat \"" + newPath + "\"", null, data, null, 1000, true);
                 data.Seek(0, SeekOrigin.Begin);
                 return MakeResult<Stream>(data);
             }
@@ -149,7 +144,7 @@ namespace mooftpserv
                 int p = newPath.LastIndexOf("/");
                 if (p > 0)
                     directory = newPath.Substring(0, p);
-                shell.Execute("mkdir -p \"" + directory + "\" && cat > \"" + newPath + "\"", str, null, null, 1000, true);
+                clovershell.Execute("mkdir -p \"" + directory + "\" && cat > \"" + newPath + "\"", str, null, null, 1000, true);
                 str.Dispose();
                 return MakeResult<bool>(true);
             }
@@ -165,7 +160,7 @@ namespace mooftpserv
 
             try
             {
-                shell.ExecuteSimple("rm -rf \"" + newPath + "\"", 1000, true);
+                clovershell.ExecuteSimple("rm -rf \"" + newPath + "\"", 1000, true);
             }
             catch (Exception ex)
             {
@@ -181,7 +176,7 @@ namespace mooftpserv
             toPath = ResolvePath(toPath);
             try
             {
-                shell.ExecuteSimple("mv \"" + fromPath + "\" \"" + toPath + "\"", 1000, true);
+                clovershell.ExecuteSimple("mv \"" + fromPath + "\" \"" + toPath + "\"", 1000, true);
             }
             catch (Exception ex)
             {
@@ -197,7 +192,7 @@ namespace mooftpserv
             List<FileSystemEntry> result = new List<FileSystemEntry>();
             try
             {
-                var lines = shell.ExecuteSimple("ls -lAp \"" + newPath + "\"", 1000, true)
+                var lines = clovershell.ExecuteSimple("ls -lAp \"" + newPath + "\"", 1000, true)
                     .Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var line in lines)
                 {
@@ -237,7 +232,7 @@ namespace mooftpserv
             List<string> result = new List<string>();
             try
             {
-                var lines = shell.ExecuteSimple("ls " + newPath, 1000, true);
+                var lines = clovershell.ExecuteSimple("ls " + newPath, 1000, true);
                 return MakeResult<string>(lines);
             }
             catch (Exception ex)
@@ -251,7 +246,7 @@ namespace mooftpserv
             string newPath = ResolvePath(path);
             try
             {
-                var size = shell.ExecuteSimple("stat -c%s \"" + newPath + "\"", 1000, true);
+                var size = clovershell.ExecuteSimple("stat -c%s \"" + newPath + "\"", 1000, true);
                 return MakeResult<long>(long.Parse(size));
             }
             catch (Exception ex)
@@ -265,7 +260,7 @@ namespace mooftpserv
             string newPath = ResolvePath(path);
             try
             {
-                var time = shell.ExecuteSimple("stat -c%Z \"" + newPath + "\"", 1000, true);
+                var time = clovershell.ExecuteSimple("stat -c%Z \"" + newPath + "\"", 1000, true);
                 return MakeResult<DateTime>(DateTime.FromFileTime(long.Parse(time)));
             }
             catch (Exception ex)
@@ -345,7 +340,7 @@ namespace mooftpserv
             string newPath = ResolvePath(path);
             try
             {
-                shell.ExecuteSimple(string.Format("chmod {0} {1}", mode, newPath), 1000, true);
+                clovershell.ExecuteSimple(string.Format("chmod {0} {1}", mode, newPath), 1000, true);
                 return ResultOrError<bool>.MakeResult(true);
             }
             catch (Exception ex)
@@ -359,7 +354,7 @@ namespace mooftpserv
             string newPath = ResolvePath(path);
             try
             {
-                shell.ExecuteSimple(string.Format("touch -ct {0:yyyyMMddHHmm.ss} \"{1}\"", time, newPath), 1000, true);
+                clovershell.ExecuteSimple(string.Format("touch -ct {0:yyyyMMddHHmm.ss} \"{1}\"", time, newPath), 1000, true);
                 return ResultOrError<bool>.MakeResult(true);
             }
             catch (Exception ex)

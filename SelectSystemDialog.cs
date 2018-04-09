@@ -72,7 +72,7 @@ namespace com.clusterrr.hakchi_gui
                 }
             }
             if (!ConfigIni.Instance.DisablePopups)
-                Tasks.MessageForm.Show(Resources.Wow, Resources.Done, Resources.sign_check);
+                MessageBox.Show(Resources.Done, Resources.Wow, MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
         }
     }
