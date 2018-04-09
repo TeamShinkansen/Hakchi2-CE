@@ -74,9 +74,9 @@ namespace com.clusterrr.hakchi_gui
             FormInitialize();
 
             // setup system shell
+            hakchi.Initialize();
             hakchi.OnConnected += Shell_OnConnected;
             hakchi.OnDisconnected += Shell_OnDisconnected;
-            hakchi.Initialize();
 
             // setup ftp server for legacy system shell
             FtpServer = new mooftpserv.Server();
@@ -84,12 +84,9 @@ namespace com.clusterrr.hakchi_gui
             FtpServer.FileSystemHandler = new mooftpserv.NesMiniFileSystemHandler(hakchi.Shell);
             FtpServer.LogHandler = new mooftpserv.DebugLogHandler();
             FtpServer.LocalPort = 1021;
-
-            // setup shell menu items
-            setupShellMenuItems(null);
         }
 
-        void setWindowTitle()
+        void SetWindowTitle()
         {
             string title = $"hakchi2 CE v{Shared.AppDisplayVersion}";
 
@@ -152,6 +149,12 @@ namespace com.clusterrr.hakchi_gui
                 // Loading games database in background
                 new Thread(NesGame.LoadCache).Start();
                 new Thread(SnesGame.LoadCache).Start();
+
+                // servers menu settings
+                FTPToolStripMenuItem.Checked = ConfigIni.Instance.FtpServer;
+                openFTPInExplorerToolStripMenuItem.Enabled = false;
+                shellToolStripMenuItem.Checked = ConfigIni.Instance.TelnetServer;
+                openTelnetToolStripMenuItem.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -160,56 +163,47 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        void setupShellMenuItems(ISystemShell caller)
+        private Tasks.MessageForm.Button BackgroundThreadMessageBox(string title, string message, Image icon, Tasks.MessageForm.Button[] buttons, Tasks.MessageForm.DefaultButton defaultButton)
         {
-            if (Disposing) return;
-            if (InvokeRequired)
-            {
-                Invoke(new Action(() => { setupShellMenuItems(caller); }));
-                return;
-            }
-
-            if (caller == null || caller is UnknownShell)
-            {
-                FTPToolStripMenuItem.Text = string.Format(Resources.FTPServerOn, "127.0.0.1:21");
-                FTPToolStripMenuItem.Enabled = true;
-                FTPToolStripMenuItem.Checked = ConfigIni.Instance.FtpServer;
-                FTPToolStripMenuItem_Click(null, null);
-
-                shellToolStripMenuItem.Text = string.Format(Resources.TelnetServerOn, "127.0.0.1:1023");
-                shellToolStripMenuItem.Enabled = true;
-                shellToolStripMenuItem.Checked = ConfigIni.Instance.TelnetServer;
-                shellToolStripMenuItem_Click(null, null);
-            }
-            else if (caller is INetworkShell)
-            {
-                FTPToolStripMenuItem.Text = string.Format(Resources.FTPServerOn, (caller as ssh.SshClientWrapper).IPAddress + ":21");
-                FTPToolStripMenuItem.Enabled = false;
-                openFTPInExplorerToolStripMenuItem.Enabled = true;
-                changeFTPServerState();
-
-                shellToolStripMenuItem.Text = string.Format(Resources.TelnetServerOn, (caller as ssh.SshClientWrapper).IPAddress + ":" + caller.ShellPort);
-                shellToolStripMenuItem.Enabled = false;
-                openTelnetToolStripMenuItem.Enabled = true;
-            }
-            else
-            {
-                FTPToolStripMenuItem.Text = string.Format(Resources.FTPServerOn, "127.0.0.1:21");
-                FTPToolStripMenuItem.Enabled = true;
-                FTPToolStripMenuItem_Click(null, null);
-
-                shellToolStripMenuItem.Text = string.Format(Resources.TelnetServerOn, "127.0.0.1:1023");
-                shellToolStripMenuItem.Enabled = true;
-                shellToolStripMenuItem_Click(null, null);
-            }
+            return (Tasks.MessageForm.Button)this.Invoke(new Func<Tasks.MessageForm.Button>(
+                () => { return Tasks.MessageForm.Show(title, message, icon, buttons, defaultButton); }));
         }
 
         void Shell_OnConnected(ISystemShell caller)
         {
             try
             {
-                // setup shell menu items
-                setupShellMenuItems(caller);
+                // enable helper servers
+                if (caller is INetworkShell)
+                {
+                    Invoke(new Action(delegate {
+                        changeFTPServerState();
+                        FTPToolStripMenuItem.Text = string.Format(Resources.FTPServerOn, (caller as ssh.SshClientWrapper).IPAddress + ":21");
+                        FTPToolStripMenuItem.Checked = true;
+                        FTPToolStripMenuItem.Enabled = false;
+                        openFTPInExplorerToolStripMenuItem.Enabled = true;
+
+                        shellToolStripMenuItem.Text = string.Format(Resources.TelnetServerOn, (caller as ssh.SshClientWrapper).IPAddress + ":" + caller.ShellPort);
+                        shellToolStripMenuItem.Checked = true;
+                        shellToolStripMenuItem.Enabled = false;
+                        openTelnetToolStripMenuItem.Enabled = true;
+                    }));
+                }
+                else
+                {
+                    Invoke(new Action(delegate
+                    {
+                        FTPToolStripMenuItem.Text = string.Format(Resources.FTPServerOn, "127.0.0.1:21");
+                        FTPToolStripMenuItem.Checked = ConfigIni.Instance.FtpServer;
+                        FTPToolStripMenuItem.Enabled = true;
+                        FTPToolStripMenuItem_Click(null, null);
+
+                        shellToolStripMenuItem.Text = string.Format(Resources.TelnetServerOn, "127.0.0.1:1023");
+                        shellToolStripMenuItem.Checked = ConfigIni.Instance.TelnetServer;
+                        shellToolStripMenuItem.Enabled = true;
+                        shellToolStripMenuItem_Click(null, null);
+                    }));
+                }
 
                 // then skip on if in minimal memboot
                 if (hakchi.MinimalMemboot)
@@ -228,10 +222,12 @@ namespace com.clusterrr.hakchi_gui
 
                     if (hakchi.SystemEligibleForRootfsUpdate())
                     {
-                        if (Tasks.MessageForm.Show(this, Resources.OutdatedScripts, Resources.SystemEligibleForRootfsUpdate, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+                        if (BackgroundThreadMessageBox(Resources.OutdatedScripts, Resources.SystemEligibleForRootfsUpdate, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
                         {
                             if (MembootCustomKernel())
-                                Tasks.MessageForm.Show(this, Resources.UpdateComplete, Resources.DoneYouCanUpload, Resources.sign_check, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.OK }, Tasks.MessageForm.DefaultButton.Button1);
+                            {
+                                BackgroundThreadMessageBox(Resources.Wow, Resources.DoneYouCanUpload, Resources.sign_check, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.OK }, Tasks.MessageForm.DefaultButton.Button1);
+                            }
                             return;
                         }
                     }
@@ -241,26 +237,31 @@ namespace com.clusterrr.hakchi_gui
                 {
                     if (hakchi.SystemRequiresReflash())
                     {
-                        if (Tasks.MessageForm.Show(this, Resources.OutdatedKernel, Resources.SystemRequiresReflash, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+                        if (BackgroundThreadMessageBox(Resources.OutdatedKernel, Resources.SystemRequiresReflash, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
                         {
                             if (InstallHakchi())
-                                Tasks.MessageForm.Show(this, Resources.UpdateComplete, Resources.DoneYouCanUpload, Resources.sign_check, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.OK }, Tasks.MessageForm.DefaultButton.Button1);
+                            {
+                                BackgroundThreadMessageBox(Resources.Wow, Resources.DoneYouCanUpload, Resources.sign_check, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.OK }, Tasks.MessageForm.DefaultButton.Button1);
+                            }
                             return;
                         }
                     }
                     else if (hakchi.SystemRequiresRootfsUpdate())
                     {
-                        if (Tasks.MessageForm.Show(this, Resources.OutdatedScripts, Resources.SystemRequiresRootfsUpdate, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+                        if (BackgroundThreadMessageBox(Resources.OutdatedScripts, Resources.SystemRequiresRootfsUpdate, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
                         {
                             if (MembootCustomKernel())
-                                Tasks.MessageForm.Show(this, Resources.UpdateComplete, Resources.DoneYouCanUpload, Resources.sign_check, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.OK }, Tasks.MessageForm.DefaultButton.Button1);
+                            {
+                                BackgroundThreadMessageBox(Resources.Wow, Resources.DoneYouCanUpload, Resources.sign_check, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.OK }, Tasks.MessageForm.DefaultButton.Button1);
+                            }
                             return;
                         }
                     }
 
                     // show warning message that any interaction is ill-advised
-                    Tasks.MessageForm.Show(this, Resources.Warning, Resources.PleaseUpdate, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.OK }, Tasks.MessageForm.DefaultButton.Button1);
+                    BackgroundThreadMessageBox(Resources.Warning, Resources.PleaseUpdate, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.OK }, Tasks.MessageForm.DefaultButton.Button1);
                 }
+
             }
             catch (Exception ex)
             {
@@ -270,18 +271,45 @@ namespace com.clusterrr.hakchi_gui
 
         void Shell_OnDisconnected()
         {
-            Invoke(new Action(SyncConsoleType));
-            setupShellMenuItems(hakchi.Shell);
+            Invoke(new Action(delegate
+            {
+                SyncConsoleType();
+
+                FTPToolStripMenuItem.Text = string.Format(Resources.FTPServerOn, "127.0.0.1:21");
+                FTPToolStripMenuItem.Enabled = true;
+                FTPToolStripMenuItem_Click(null, null);
+                openFTPInExplorerToolStripMenuItem.Enabled = false;
+
+                shellToolStripMenuItem.Text = string.Format(Resources.TelnetServerOn, "127.0.0.1:1023");
+                shellToolStripMenuItem.Enabled = true;
+                shellToolStripMenuItem_Click(null, null);
+                openTelnetToolStripMenuItem.Enabled = false;
+            }));
         }
 
+        static hakchi.ConsoleType? lastConnectedConsoleType = null;
         static hakchi.ConsoleType lastConsoleType = hakchi.ConsoleType.Unknown;
         public void SyncConsoleType()
         {
-            setWindowTitle();
-            MemoryStats.DebugDisplay();
+            // update window title
+            SetWindowTitle();
 
-            // skip the rest if unchanged
-            if (ConfigIni.Instance.ConsoleType == lastConsoleType) return;
+            // action when connecting a console
+            if (hakchi.DetectedConsoleType != lastConnectedConsoleType)
+            {
+                lastConnectedConsoleType = hakchi.DetectedConsoleType;
+            }
+            else if (hakchi.DetectedConsoleType != null)
+            {
+                MemoryStats.DebugDisplay();
+            }
+
+            // skip if unchanged
+            if (ConfigIni.Instance.ConsoleType == lastConsoleType)
+            {
+                new Thread(RecalculateSelectedGamesThread).Start();
+                return;
+            }
             lastConsoleType = ConfigIni.Instance.ConsoleType;
 
             // select games collection
@@ -301,7 +329,7 @@ namespace com.clusterrr.hakchi_gui
             selectButtonCombinationToolStripMenuItem.Enabled = resetUsingCombinationOfButtonsToolStripMenuItem.Checked = ConfigIni.Instance.ResetHack;
             enableAutofireToolStripMenuItem.Checked = ConfigIni.Instance.AutofireHack;
             useXYOnClassicControllerAsAutofireABToolStripMenuItem.Checked = ConfigIni.Instance.AutofireXYHack;
-            upABStartOnSecondControllerToolStripMenuItem.Enabled = true;
+            upABStartOnSecondControllerToolStripMenuItem.Enabled = true; // hakchi.DetectedConsoleType == ConsoleType.Famicom;
             upABStartOnSecondControllerToolStripMenuItem.Checked = ConfigIni.Instance.FcStart && upABStartOnSecondControllerToolStripMenuItem.Enabled;
 
             // more settings
@@ -373,13 +401,7 @@ namespace com.clusterrr.hakchi_gui
                 maximumGamesPerFolderToolStripMenuItem.DropDownItems.Add(item);
             }
 
-            // back folder position
-            leftmostToolStripMenuItem.Checked = ConfigIni.Instance.BackFolderPosition == NesMenuFolder.Priority.LeftBack;
-            rightmostToolStripMenuItem.Checked = ConfigIni.Instance.BackFolderPosition == NesMenuFolder.Priority.Back;
-
-            // load lists
             LoadPresets();
-            LoadFolderImageSets();
             LoadGames();
         }
 
@@ -536,7 +558,7 @@ namespace com.clusterrr.hakchi_gui
                 deletePresetToolStripMenuItem.DropDownItems.Insert(i, new ToolStripMenuItem(preset, null,
                     delegate (object sender, EventArgs e)
                     {
-                        if (Tasks.MessageForm.Show(this, Resources.AreYouSure, string.Format(Resources.DeletePreset, preset), Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+                        if (Tasks.MessageForm.Show(Resources.AreYouSure, string.Format(Resources.DeletePreset, preset), Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
                         {
                             ConfigIni.Instance.Presets.Remove(preset);
                             LoadPresets();
@@ -589,7 +611,6 @@ namespace com.clusterrr.hakchi_gui
                         this.Controls.Clear();
                         this.InitializeComponent();
                         this.FormInitialize();
-                        this.setupShellMenuItems(hakchi.Shell);
                         this.SyncConsoleType();
                         this.Show();
                         //this.Invalidate(true);
@@ -607,38 +628,6 @@ namespace com.clusterrr.hakchi_gui
             }
             if (!found)
                 english.Checked = true;
-        }
-
-        private void LoadFolderImageSets()
-        {
-            folderImagesSetToolStripMenuItem.DropDownItems.Clear();
-            var newItem = new ToolStripMenuItem(Resources.Default, null, delegate (object sender, EventArgs e)
-            {
-                ConfigIni.Instance.FolderImagesSet = string.Empty;
-
-                folderImagesSetToolStripMenuItem.DropDownItems.OfType<ToolStripMenuItem>().ToList().ForEach(item => item.Checked = false);
-                (sender as ToolStripMenuItem).Checked = true;
-            });
-            if (string.IsNullOrEmpty(ConfigIni.Instance.FolderImagesSet))
-                newItem.Checked = true;
-            folderImagesSetToolStripMenuItem.DropDownItems.Add(newItem);
-            folderImagesSetToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
-
-            string imgPath = Path.Combine(Program.BaseDirectoryExternal, "folder_images");
-            foreach (var dir in Directory.GetDirectories(imgPath, "*.*", SearchOption.TopDirectoryOnly))
-            {
-                string name = Path.GetFileName(dir);
-                newItem = new ToolStripMenuItem(name, null, delegate (object sender, EventArgs e)
-                {
-                    ConfigIni.Instance.FolderImagesSet = name;
-
-                    folderImagesSetToolStripMenuItem.DropDownItems.OfType<ToolStripMenuItem>().ToList().ForEach(item => item.Checked = false);
-                    (sender as ToolStripMenuItem).Checked = true;
-                });
-                if (ConfigIni.Instance.FolderImagesSet == name)
-                    newItem.Checked = true;
-                folderImagesSetToolStripMenuItem.DropDownItems.Add(newItem);
-            }
         }
 
         private void SaveSelectedGames()
@@ -736,7 +725,6 @@ namespace com.clusterrr.hakchi_gui
                 sFROMToolToolStripMenuItem1.Enabled =
                     editROMHeaderToolStripMenuItem.Enabled =
                     resetROMHeaderToolStripMenuItem.Enabled =
-                        SfromToolWrapper.IsInstalled &&
                         (item.Tag is SnesGame &&
                         !(item.Tag as SnesGame).IsOriginalGame &&
                         ((item.Tag as SnesGame).GameFilePath ?? "").ToLower().Contains(".sfrom"));
@@ -752,12 +740,10 @@ namespace com.clusterrr.hakchi_gui
                     compressSelectedGamesToolStripMenuItem.Enabled =
                     decompressSelectedGamesToolStripMenuItem.Enabled =
                     deleteSelectedGamesToolStripMenuItem.Enabled =
+                    sFROMToolToolStripMenuItem1.Enabled =
+                    resetROMHeaderToolStripMenuItem.Enabled = 
                     repairGamesToolStripMenuItem.Enabled =
                     selectEmulationCoreToolStripMenuItem.Enabled = true;
-
-                sFROMToolToolStripMenuItem1.Enabled =
-                    resetROMHeaderToolStripMenuItem.Enabled = SfromToolWrapper.IsInstalled;
-
             }
 
             if (!e.IsSelected)
@@ -906,14 +892,12 @@ namespace com.clusterrr.hakchi_gui
             var app = GetSelectedGame();
             if (app == null) return;
 
-            using (var googler = new ImageGooglerForm(app))
+            var googler = new ImageGooglerForm(app);
+            if (googler.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                if (googler.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    app.Image = googler.Result;
-                    ShowSelected();
-                    timerCalculateGames.Enabled = true;
-                }
+                app.Image = googler.Result;
+                ShowSelected();
+                timerCalculateGames.Enabled = true;
             }
         }
 
@@ -1127,106 +1111,45 @@ namespace com.clusterrr.hakchi_gui
             LoadGames();
         }
 
-        private void structureButton_Click(object sender, EventArgs e)
+        DialogResult RequirePatchedKernel()
         {
-            var button = sender as Button;
-            Point ptLowerLeft = button.PointToScreen(new Point(1, button.Height));
-            foldersContextMenuStrip.Show(ptLowerLeft);
-        }
-
-        private void gamesConsoleComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string selected = gamesConsoleComboBox.SelectedItem as string;
-            foreach (hakchi.ConsoleType c in Enum.GetValues(typeof(hakchi.ConsoleType)))
-            {
-                if (GetConsoleTypeName(c) == selected)
-                {
-                    if (ConfigIni.Instance.ConsoleType != c)
-                    {
-                        SaveSelectedGames();
-
-                        ConfigIni.Instance.ConsoleType = c;
-                        SyncConsoleType();
-                        return;
-                    }
-                }
-            }
-
-        }
-
-        Tasks.MessageForm.Button RequirePatchedKernel()
-        {
-            if (hakchi.Shell.IsOnline) return Tasks.MessageForm.Button.OK; // OK - Shell is online
-            if (Tasks.MessageForm.Show(this, Resources.CustomKernel, Resources.CustomWarning, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+            if (hakchi.Shell.IsOnline) return DialogResult.OK; // OK - Shell is online
+            if (Tasks.MessageForm.Show(Resources.CustomKernel, Resources.CustomWarning, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
             {
                 if (InstallHakchi())
-                    return Tasks.MessageForm.Button.Yes; // Succesfully flashed
+                    return DialogResult.Yes; // Succesfully flashed
                 else
-                    return Tasks.MessageForm.Button.No; // Not flashed for some other reason
+                    return DialogResult.No; // Not flashed for some other reason
             }
-            else
-            {
-                return Tasks.MessageForm.Button.No;
-            }
+            else return DialogResult.No;
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
+            SaveConfig();
             if (listViewGames.CheckedItems.Count == 0)
             {
-                Tasks.MessageForm.Show(Resources.UploadGames, Resources.SelectAtLeast, Resources.sign_info);
+                Tasks.MessageForm.Show(Resources.UploadGames, Resources.SelectAtLeast, Resources.sign_warning);
                 return;
             }
-            if (RequirePatchedKernel() == Tasks.MessageForm.Button.No)
+            if (RequirePatchedKernel() == DialogResult.No)
             {
                 return;
             }
-            if (hakchi.MinimalMemboot)
+            if (!ConfigIni.Instance.SeparateGameStorage && hakchi.DetectedConsoleType != ConfigIni.Instance.ConsoleType)
             {
-                Tasks.MessageForm.Show(Resources.UploadGames, Resources.CannotProceedMinimalMemboot, Resources.sign_error);
+                Tasks.MessageForm.Show(
+                    Resources.UploadGames,
+                    string.Format(Resources.CannotSyncToNonMultiBoot,
+                        GetConsoleTypeName(), GetConsoleTypeName(ConfigIni.Instance.ConsoleType)),
+                    Resources.sign_database);
                 return;
             }
-            if (!hakchi.CanInteract)
-            {
-                Tasks.MessageForm.Show(Resources.UploadGames, Resources.CannotProceedCannotInteract, Resources.sign_error);
-                return;
-            }
-            if (ConfigIni.Instance.SeparateGameStorage)
-            {
-                if (MemoryStats.NonMultibootGamesSize > 0)
-                {
-                    if (Tasks.MessageForm.Show(
-                        Resources.UploadGames,
-                        string.Format(Resources.SyncMultibootWarning, Shared.SizeSuffix(MemoryStats.NonMultibootGamesSize)),
-                        Resources.sign_delete, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }) != Tasks.MessageForm.Button.Yes)
-                        return;
-                }
-            }
-            else
-            {
-                if (hakchi.DetectedConsoleType != ConfigIni.Instance.ConsoleType)
-                {
-                    Tasks.MessageForm.Show(
-                        Resources.UploadGames,
-                        string.Format(Resources.CannotSyncToNonMultiBoot, GetConsoleTypeName(ConfigIni.Instance.ConsoleType), GetConsoleTypeName()),
-                        Resources.sign_ban);
-                    return;
-                }
-                if (MemoryStats.AllGamesSize - MemoryStats.NonMultibootGamesSize > 0)
-                {
-                    if (Tasks.MessageForm.Show(
-                        Resources.UploadGames,
-                        string.Format(Resources.SyncNonMultibootWarning, Shared.SizeSuffix(MemoryStats.AllGamesSize - MemoryStats.NonMultibootGamesSize)),
-                        Resources.sign_delete, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }) != Tasks.MessageForm.Button.Yes)
-                    return;
-                }
-            }
-            SaveConfig();
             if (UploadGames())
             {
                 new Thread(RecalculateSelectedGamesThread).Start();
                 if (!ConfigIni.Instance.DisablePopups)
-                    Tasks.MessageForm.Show(Resources.UploadGames, Resources.Done, Resources.sign_check);
+                    Tasks.MessageForm.Show(Resources.Wow, Resources.Done, Resources.sign_check);
             }
         }
 
@@ -1236,12 +1159,12 @@ namespace com.clusterrr.hakchi_gui
             var stats = RecalculateSelectedGames();
             if (stats.Count == 0)
             {
-                Tasks.MessageForm.Show(Resources.ExportGames, Resources.SelectAtLeast, Resources.sign_info);
+                Tasks.MessageForm.Show(Resources.ExportGames, Resources.SelectAtLeast, Resources.sign_warning);
                 return;
             }
             if (UploadGames(true))
                 if (!ConfigIni.Instance.DisablePopups)
-                    Tasks.MessageForm.Show(Resources.ExportGames, Resources.Done, Resources.sign_check);
+                    Tasks.MessageForm.Show(Resources.Wow, Resources.Done, Resources.sign_check);
         }
 
         bool UploadGames(bool exportGames = false)
@@ -1293,13 +1216,12 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        bool DoNand(MembootTasks.NandTasks task, string title)
+        bool DoNand(MembootTasks.NandTasks task)
         {
             using (Tasker tasker = new Tasker(this))
             {
                 tasker.AttachViews(new Tasks.TaskerTaskbar(), new Tasks.TaskerForm());
                 tasker.SetStatusImage(Resources.sign_cogs);
-                tasker.SetTitle(title);
                 string dumpFilename = null;
                 switch (task)
                 {
@@ -1354,7 +1276,6 @@ namespace com.clusterrr.hakchi_gui
             using (var tasker = new Tasker(this))
             {
                 tasker.AttachViews(new Tasks.TaskerTaskbar(), new Tasks.TaskerForm());
-                tasker.SetTitle(reset ? Resources.ResettingHakchi : Resources.InstallingHakchi);
                 tasker.SetStatusImage(Resources.sign_keyring);
                 if (reset)
                 {
@@ -1374,7 +1295,6 @@ namespace com.clusterrr.hakchi_gui
             {
                 tasker.AttachViews(new Tasks.TaskerTaskbar(), new Tasks.TaskerForm());
                 tasker.SetStatusImage(Resources.sign_keyring);
-                tasker.SetTitle(Resources.Membooting);
                 tasker.AddTasks(new MembootTasks(MembootTasks.MembootTaskType.Memboot).Tasks);
                 return tasker.Start() == Tasker.Conclusion.Success;
             }
@@ -1404,12 +1324,12 @@ namespace com.clusterrr.hakchi_gui
 
         bool Uninstall()
         {
+            bool restoreKernel = MessageBox.Show(Resources.UninstallQ2, Resources.AreYouSure, MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes;
             using (var tasker = new Tasker(this))
             {
                 tasker.AttachViews(new Tasks.TaskerTaskbar(), new Tasks.TaskerForm());
                 tasker.SetStatusImage(Resources.sign_trashcan);
-                tasker.SetTitle(Resources.UninstallingHakchi);
-                tasker.AddTasks(new MembootTasks(MembootTasks.MembootTaskType.UninstallHakchi).Tasks);
+                tasker.AddTasks(new MembootTasks(MembootTasks.MembootTaskType.UninstallHakchi, restoreKernel: restoreKernel).Tasks);
                 return tasker.Start() == Tasker.Conclusion.Success;
             }
         }
@@ -1452,18 +1372,9 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        private void uninstallToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.UninstallQ1, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
-            {
-                if (Uninstall())
-                    Tasks.MessageForm.Show(Resources.Done, Resources.UninstallNote, Resources.sign_check);
-            }
-        }
-
         private void normalModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.FlashUbootNormalQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.FlashUbootNormalQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
             {
                 using (var tasker = new Tasker(this))
                 {
@@ -1471,17 +1382,14 @@ namespace com.clusterrr.hakchi_gui
                     tasker.SetTitle(Resources.FlashingUboot);
                     tasker.SetStatusImage(Resources.sign_cogs);
                     tasker.AddTasks(new MembootTasks(MembootTasks.MembootTaskType.FlashNormalUboot).Tasks);
-                    if (tasker.Start() == Tasker.Conclusion.Success)
-                        if (!ConfigIni.Instance.DisablePopups)
-                            Tasks.MessageForm.Show(Resources.FlashingUboot, Resources.Done, Resources.sign_check);
-
+                    tasker.Start();
                 }
             }
         }
 
         private void sDModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.FlashUbootSDQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.FlashUbootSDQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
             {
                 using (var tasker = new Tasker(this))
                 {
@@ -1489,18 +1397,15 @@ namespace com.clusterrr.hakchi_gui
                     tasker.SetTitle(Resources.FlashingUboot);
                     tasker.SetStatusImage(Resources.sign_cogs);
                     tasker.AddTasks(new MembootTasks(MembootTasks.MembootTaskType.FlashSDUboot).Tasks);
-                    if (tasker.Start() == Tasker.Conclusion.Success)
-                        if (!ConfigIni.Instance.DisablePopups)
-                            Tasks.MessageForm.Show(Resources.FlashingUboot, Resources.Done, Resources.sign_check);
+                    tasker.Start();
                 }
             }
         }
 
         private void dumpTheWholeNANDToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DoNand(MembootTasks.NandTasks.DumpNand, ((ToolStripMenuItem)sender).Text))
-                if (!ConfigIni.Instance.DisablePopups)
-                    Tasks.MessageForm.Show(Resources.Done, Resources.NandDumped, Resources.sign_check);
+            if (DoNand(MembootTasks.NandTasks.DumpNand))
+                MessageBox.Show(Resources.NandDumped, Resources.Done, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void toolFlashTheWholeNANDStripMenuItem_Click(object sender, EventArgs e)
@@ -1515,52 +1420,48 @@ namespace com.clusterrr.hakchi_gui
 
         private void dumpNANDBToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DoNand(MembootTasks.NandTasks.DumpNandB, ((ToolStripMenuItem)sender).Text))
-                if (!ConfigIni.Instance.DisablePopups)
-                    Tasks.MessageForm.Show(Resources.Done, Resources.NandDumped, Resources.sign_check);
+            if (DoNand(MembootTasks.NandTasks.DumpNandB))
+                MessageBox.Show(Resources.NandDumped, Resources.Done, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
 
         private void flashNANDBPartitionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DoNand(MembootTasks.NandTasks.FlashNandB, ((ToolStripMenuItem)sender).Text))
-                if (!ConfigIni.Instance.DisablePopups)
-                    Tasks.MessageForm.Show(Resources.Done, Resources.NandFlashed, Resources.sign_check);
+            if (DoNand(MembootTasks.NandTasks.FlashNandB))
+                MessageBox.Show(Resources.NandFlashed, Resources.Done, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void dumpNANDCPartitionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (DoNand(MembootTasks.NandTasks.DumpNandC, ((ToolStripMenuItem)sender).Text))
-                if (!ConfigIni.Instance.DisablePopups)
-                    Tasks.MessageForm.Show(Resources.Done, Resources.NandDumped, Resources.sign_check);
+            if (DoNand(MembootTasks.NandTasks.DumpNandC))
+                MessageBox.Show(Resources.NandDumped, Resources.Done, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void flashNANDCPartitionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.FlashNandCQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.FlashNandCQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
             {
-                if (DoNand(MembootTasks.NandTasks.FlashNandC, ((ToolStripMenuItem)sender).Text))
-                    if (!ConfigIni.Instance.DisablePopups)
-                        Tasks.MessageForm.Show(Resources.Done, Resources.NandFlashed, Resources.sign_check);
+                if (DoNand(MembootTasks.NandTasks.FlashNandC))
+                    MessageBox.Show(Resources.NandFlashed, Resources.Done, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
         private void formatNANDCToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.FormatNandCQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.FormatNandCQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
             {
-                if (DoNand(MembootTasks.NandTasks.FormatNandC, ((ToolStripMenuItem)sender).Text))
-                    if (!ConfigIni.Instance.DisablePopups)
-                        Tasks.MessageForm.Show(Resources.Done, Resources.NandFormatted, Resources.sign_check);
+                DoNand(MembootTasks.NandTasks.FormatNandC);
             }
         }
 
         private void flashCustomKernelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.CustomKernelQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.CustomKernelQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
             {
                 if (InstallHakchi())
-                    Tasks.MessageForm.Show(Resources.CustomKernel, Resources.DoneYouCanUpload, Resources.sign_check);
+                {
+                    Tasks.MessageForm.Show(Resources.Wow, Resources.DoneYouCanUpload, Resources.sign_check);
+                }
             }
         }
 
@@ -1570,7 +1471,6 @@ namespace com.clusterrr.hakchi_gui
             {
                 tasker.AttachViews(new Tasks.TaskerTaskbar(), new Tasks.TaskerForm());
                 tasker.SetStatusImage(Resources.sign_keyring);
-                tasker.SetTitle(((ToolStripMenuItem)sender).Text);
                 tasker.AddTasks(new MembootTasks(MembootTasks.MembootTaskType.MembootOriginal).Tasks);
                 tasker.Start();
             }
@@ -1582,7 +1482,6 @@ namespace com.clusterrr.hakchi_gui
             {
                 tasker.AttachViews(new Tasks.TaskerTaskbar(), new Tasks.TaskerForm());
                 tasker.SetStatusImage(Resources.sign_keyring);
-                tasker.SetTitle(((ToolStripMenuItem)sender).Text);
                 tasker.AddTasks(new MembootTasks(MembootTasks.MembootTaskType.Memboot).Tasks);
                 tasker.Start();
             }
@@ -1593,98 +1492,26 @@ namespace com.clusterrr.hakchi_gui
             using (var tasker = new Tasker(this))
             {
                 tasker.AttachViews(new Tasks.TaskerTaskbar(), new Tasks.TaskerForm());
-                tasker.SetStatusImage(Resources.sign_life_buoy);
-                tasker.SetTitle(((ToolStripMenuItem)sender).Text);
+                tasker.SetStatusImage(Resources.sign_keyring);
                 tasker.AddTasks(new MembootTasks(MembootTasks.MembootTaskType.MembootRecovery).Tasks);
-                if (tasker.Start() == Tasker.Conclusion.Success)
-                    Tasks.MessageForm.Show(Resources.RecoveryKernel, Resources.RecoveryModeMessage, Resources.sign_info);
+                tasker.Start();
             }
         }
 
-        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        private void uninstallToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Tasks.MessageForm.Show(this, Resources.AreYouSure, Resources.ResetQ, Resources.sign_warning, new MessageForm.Button[] { MessageForm.Button.Yes, MessageForm.Button.No }, MessageForm.DefaultButton.Button1) == MessageForm.Button.Yes)
+            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.UninstallQ1, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
             {
-                if (InstallHakchi(true))
-                    if (!ConfigIni.Instance.DisablePopups)
-                        Tasks.MessageForm.Show(Resources.Wow, Resources.Done, Resources.sign_check);
-            }
-        }
-
-        private void factoryResetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (Tasks.MessageForm.Show(this, Resources.Warning, Resources.FactoryResetQ, Resources.sign_warning, new MessageForm.Button[] { MessageForm.Button.Yes, MessageForm.Button.No }, MessageForm.DefaultButton.Button1) == MessageForm.Button.Yes)
-            {
-                using (var tasker = new Tasker(this))
-                {
-                    tasker.AttachViews(new Tasks.TaskerTaskbar(), new Tasks.TaskerForm());
-                    tasker.SetStatusImage(Resources.sign_trashcan);
-                    tasker.SetTitle(((ToolStripMenuItem)sender).Text);
-                    tasker.AddTasks(new MembootTasks(MembootTasks.MembootTaskType.FactoryReset).Tasks);
-                    if (tasker.Start() == Tasker.Conclusion.Success)
-                        if(!ConfigIni.Instance.DisablePopups)
-                            Tasks.MessageForm.Show(Resources.Done, Resources.FactoryResetNote, Resources.sign_check);
-                }
-            }
-        }
-
-        private void installModulesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            installModules();
-        }
-
-        private void installModules(string[] add = null)
-        {
-            using (var form = new SelectModsForm(false, true, add))
-            {
-                form.Text = Resources.SelectModsInstall;
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    List<string> hmods = new List<string>();
-                    foreach (ListViewItem item in form.listViewHmods.CheckedItems)
-                    {
-                        if (((Hmod)item.Tag).isInstalled) continue;
-                        hmods.Add(((Hmod)item.Tag).RawName);
-                    }
-                    if (hmods.Count == 0) return;
-                    if (InstallMods(hmods.ToArray()))
-                    {
-                        if (!ConfigIni.Instance.DisablePopups)
-                            Tasks.MessageForm.Show(Resources.Wow, Resources.Done, Resources.sign_check);
-                    }
-                }
-            }
-        }
-
-        private void uninstallModulesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var form = new SelectModsForm(true, false))
-            {
-                form.Text = Resources.SelectModsUninstall;
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    List<string> hmods = new List<string>();
-                    foreach (ListViewItem item in form.listViewHmods.CheckedItems)
-                    {
-                        hmods.Add(((Hmod)item.Tag).RawName);
-                    }
-                    if (hmods.Count == 0) return;
-                    if (UninstallMods(hmods.ToArray()))
-                    {
-                        if (!ConfigIni.Instance.DisablePopups)
-                            Tasks.MessageForm.Show(Resources.Wow, Resources.Done, Resources.sign_check);
-                    }
-                }
+                if (Uninstall())
+                    Tasks.MessageForm.Show(Resources.Done, Resources.UninstallNote);
             }
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var about = new AboutBox())
-            {
-                about.Text = aboutToolStripMenuItem.Text.Replace("&", "");
-                about.ShowDialog();
-            }
+            var about = new AboutBox();
+            about.Text = aboutToolStripMenuItem.Text.Replace("&", "");
+            about.ShowDialog();
         }
 
         private void gitHubPageWithActualReleasesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1735,8 +1562,8 @@ namespace com.clusterrr.hakchi_gui
                 default:
                 case hakchi.ConsoleType.NES:
                 case hakchi.ConsoleType.Famicom:
-                    using (var form = new SelectNesButtonsForm((SelectNesButtonsForm.NesButtons)ConfigIni.Instance.ResetCombination))
                     {
+                        var form = new SelectNesButtonsForm((SelectNesButtonsForm.NesButtons)ConfigIni.Instance.ResetCombination);
                         if (form.ShowDialog() == DialogResult.OK)
                             ConfigIni.Instance.ResetCombination = (uint)form.SelectedButtons;
                     }
@@ -1744,8 +1571,8 @@ namespace com.clusterrr.hakchi_gui
                 case hakchi.ConsoleType.SNES_EUR:
                 case hakchi.ConsoleType.SNES_USA:
                 case hakchi.ConsoleType.SuperFamicom:
-                    using (var form = new SelectSnesButtonsForm((SelectSnesButtonsForm.SnesButtons)ConfigIni.Instance.ResetCombination))
                     {
+                        var form = new SelectSnesButtonsForm((SelectSnesButtonsForm.SnesButtons)ConfigIni.Instance.ResetCombination);
                         if (form.ShowDialog() == DialogResult.OK)
                             ConfigIni.Instance.ResetCombination = (uint)form.SelectedButtons;
                     }
@@ -1768,7 +1595,7 @@ namespace com.clusterrr.hakchi_gui
                 var conclusion = tasker.Start();
                 if (conclusion == Tasks.Tasker.Conclusion.Success && !ConfigIni.Instance.DisablePopups)
                 {
-                    Tasks.MessageForm.Show(Resources.Default30games, Resources.Done, Resources.sign_check);
+                    Tasks.MessageForm.Show(Resources.Default30games, Resources.Done, Resources.sign_check, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.OK }, Tasks.MessageForm.DefaultButton.Button1);
                 }
             }
             LoadGames();
@@ -1815,7 +1642,7 @@ namespace com.clusterrr.hakchi_gui
 
         private void resetOriginalGamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Tasks.MessageForm.Show(Resources.Default30games, string.Format(Resources.ResetOriginalGamesQ, GetConsoleTypeName(ConfigIni.Instance.ConsoleType)), Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+            if (Tasks.MessageForm.Show(Resources.Default30games, string.Format(Resources.ResetOriginalGamesQ, GetConsoleTypeName(ConfigIni.Instance.ConsoleType)), Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
             {
                 ResetOriginalGamesForCurrentSystem();
             }
@@ -1837,19 +1664,18 @@ namespace com.clusterrr.hakchi_gui
         {
             var menuItem = sender as ToolStripMenuItem;
             var cmdLineType = (ConfigIni.ExtraCmdLineTypes)byte.Parse(menuItem.Tag.ToString());
-            using (var form = new StringInputForm())
-            {
-                form.Text = Resources.ExtraArgsTitle + " (" + menuItem.Text + ")";
-                form.labelComments.Text = Resources.ExtraArgsInfo;
-                form.textBox.Text = ConfigIni.Instance.ExtraCommandLineArguments[cmdLineType];
-                if (form.ShowDialog() == DialogResult.OK)
-                    ConfigIni.Instance.ExtraCommandLineArguments[cmdLineType] = form.textBox.Text;
-            }
+
+            var form = new StringInputForm();
+            form.Text = Resources.ExtraArgsTitle + " (" + menuItem.Text + ")";
+            form.labelComments.Text = Resources.ExtraArgsInfo;
+            form.textBox.Text = ConfigIni.Instance.ExtraCommandLineArguments[cmdLineType];
+            if (form.ShowDialog() == DialogResult.OK)
+                ConfigIni.Instance.ExtraCommandLineArguments[cmdLineType] = form.textBox.Text;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            try // wrap upgrade check in an exception check, to avoid past mistakes
+            try
             {
                 AutoUpdater.Start(UPDATE_XML_URL);
             }
@@ -1862,16 +1688,12 @@ namespace com.clusterrr.hakchi_gui
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            // centralized upgrade actions system
-            new Upgrade(this).Run();
-
-            // welcome message, only run for new new users
-            if (ConfigIni.Instance.RunCount++ == 0)
+            ConfigIni.Instance.RunCount++;
+            if (ConfigIni.Instance.RunCount == 1 || ConfigIni.Instance.LastVersion == "0.0.0.0")
             {
-                Tasks.MessageForm.Show(Resources.Hello, Resources.FirstRun, Resources.sign_paper_plane);
+                ResetOriginalGamesForAllSystems();
+                Tasks.MessageForm.Show(Resources.Hello, Resources.FirstRun);
             }
-
-            // nothing else will call this at the moment, so need to do it
             SyncConsoleType();
 
             // enable timers
@@ -1885,6 +1707,10 @@ namespace com.clusterrr.hakchi_gui
             SaveConfig();
             FtpServer.Stop();
             hakchi.Shutdown();
+        }
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Process.GetCurrentProcess().Kill(); // Suicide! Just easy and dirty way to kill all threads.
         }
 
         private void dragEnter(object sender, DragEventArgs e)
@@ -1966,7 +1792,7 @@ namespace com.clusterrr.hakchi_gui
                 ConfigIni.Instance.UseSFROMTool = enableSFROMToolToolStripMenuItem.Checked = false;
                 usePCMPatchWhenAvailableToolStripMenuItem.Enabled = false;
 
-                if (Tasks.MessageForm.Show(Resources.SfromTool, string.Format(Resources.DownloadSfromTool, Program.BaseDirectoryExternal), Resources.sign_globe, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+                if (Tasks.MessageForm.Show(Resources.SfromTool, string.Format(Resources.DownloadSfromTool, Program.BaseDirectoryExternal), Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
                 {
                     Process.Start(SFROM_TOOL_URL);
                 }
@@ -2029,12 +1855,6 @@ namespace com.clusterrr.hakchi_gui
 
         private void pagesModefoldersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (sender == customToolStripMenuItem && customToolStripMenuItem.Checked)
-            {
-                openFoldersManager();
-                return;
-            }
-
             ConfigIni.Instance.FoldersMode = (NesMenuCollection.SplitStyle)byte.Parse((sender as ToolStripMenuItem).Tag.ToString());
             disablePagefoldersToolStripMenuItem.Checked = (byte)ConfigIni.Instance.FoldersMode == 0;
             automaticToolStripMenuItem.Checked = (byte)ConfigIni.Instance.FoldersMode == 2;
@@ -2048,6 +1868,50 @@ namespace com.clusterrr.hakchi_gui
             customToolStripMenuItem.Checked = (byte)ConfigIni.Instance.FoldersMode == 99;
         }
 
+        private void installModulesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            installModules();
+        }
+
+        private void installModules(string[] add = null)
+        {
+            var form = new SelectModsForm(false, true, add);
+            form.Text = Resources.SelectModsInstall;
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                List<string> hmods = new List<string>();
+                foreach (ListViewItem item in form.listViewHmods.CheckedItems)
+                {
+                    if (((Hmod)item.Tag).isInstalled) continue;
+                    hmods.Add(((Hmod)item.Tag).RawName);
+                }
+                if (InstallMods(hmods.ToArray()))
+                {
+                    if (!ConfigIni.Instance.DisablePopups)
+                        Tasks.MessageForm.Show(Resources.Wow, Resources.Done, Resources.sign_check);
+                }
+            }
+        }
+
+        private void uninstallModulesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new SelectModsForm(true, false);
+            form.Text = Resources.SelectModsUninstall;
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                List<string> hmods = new List<string>();
+                foreach (ListViewItem item in form.listViewHmods.CheckedItems)
+                {
+                    hmods.Add(((Hmod)item.Tag).RawName);
+                }
+                if (UninstallMods(hmods.ToArray()))
+                {
+                    if (!ConfigIni.Instance.DisablePopups)
+                        Tasks.MessageForm.Show(Resources.Wow, Resources.Done, Resources.sign_check);
+                }
+            }
+        }
+
         private void timerConnectionCheck_Tick(object sender, EventArgs e)
         {
             toolStripStatusConnectionIcon.Image = hakchi.Shell.IsOnline ? Resources.green : Resources.red;
@@ -2056,7 +1920,7 @@ namespace com.clusterrr.hakchi_gui
 
         private void saveSettingsToNESMiniNowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (RequirePatchedKernel() == Tasks.MessageForm.Button.No) return;
+            if (RequirePatchedKernel() == DialogResult.No) return;
             try
             {
                 if (WaitingClovershellForm.WaitForDevice(this))
@@ -2075,7 +1939,7 @@ namespace com.clusterrr.hakchi_gui
 
         private void saveStateManagerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (RequirePatchedKernel() == Tasks.MessageForm.Button.No) return;
+            if (RequirePatchedKernel() == DialogResult.No) return;
             var gameNames = new Dictionary<string, string>();
             foreach (var game in NesApplication.AllDefaultGames)
                 gameNames[game.Code] = game.Name;
@@ -2084,10 +1948,8 @@ namespace com.clusterrr.hakchi_gui
                 if (item.Tag is NesApplication)
                     gameNames[(item.Tag as NesApplication).Code] = (item.Tag as NesApplication).Name;
             }
-            using (var form = new SaveStateManager(gameNames))
-            {
-                form.ShowDialog();
-            }
+            var form = new SaveStateManager(gameNames);
+            form.ShowDialog();
         }
 
         private bool changeFTPServerState()
@@ -2103,7 +1965,9 @@ namespace com.clusterrr.hakchi_gui
                             (FtpServer.FileSystemHandler as mooftpserv.NesMiniFileSystemHandler).UpdateShell(hakchi.Shell);
                             FtpServer.Run();
                         }
-                        catch (ThreadAbortException) { }
+                        catch (ThreadAbortException)
+                        {
+                        }
                         catch (Exception ex)
                         {
                             try
@@ -2147,7 +2011,7 @@ namespace com.clusterrr.hakchi_gui
             {
                 ConfigIni.Instance.TelnetServer = shellToolStripMenuItem.Checked;
                 hakchi.Shell.ShellEnabled = shellToolStripMenuItem.Checked;
-                openTelnetToolStripMenuItem.Enabled = shellToolStripMenuItem.Checked && hakchi.Shell.IsOnline;
+                openTelnetToolStripMenuItem.Enabled = hakchi.Shell.ShellEnabled;
             }
             catch (Exception ex)
             {
@@ -2225,12 +2089,13 @@ namespace com.clusterrr.hakchi_gui
 
         private void takeScreenshotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (RequirePatchedKernel() == Tasks.MessageForm.Button.No) return;
+            if (RequirePatchedKernel() == DialogResult.No) return;
             try
             {
                 if (WaitingClovershellForm.WaitForDevice(this))
                 {
-                    Program.FormContext.AddForm(new ScreenshotForm());
+                    var screenForm = new ScreenshotForm();
+                    screenForm.Show();
                 }
             }
             catch (Exception ex)
@@ -2244,18 +2109,16 @@ namespace com.clusterrr.hakchi_gui
         {
             try
             {
-                var selected = GetSelectedGame();
-                if (selected != null)
-                {
-                    checkBoxCompressed.Enabled = false;
-                    if (checkBoxCompressed.Checked)
-                        selected.Compress();
-                    else
-                        selected.Decompress();
-                    selected.Save();
-                    ShowSelected();
-                    timerCalculateGames.Enabled = true;
-                }
+                if (listViewGames.SelectedItems.Count != 1) return;
+                var selected = listViewGames.SelectedItems[0].Tag;
+                checkBoxCompressed.Enabled = false;
+                if (checkBoxCompressed.Checked)
+                    (selected as NesApplication).Compress();
+                else
+                    (selected as NesApplication).Decompress();
+                (selected as NesApplication).Save();
+                timerCalculateGames.Enabled = true;
+                ShowSelected();
             }
             catch (Exception ex)
             {
@@ -2302,7 +2165,7 @@ namespace com.clusterrr.hakchi_gui
                     var conclusion = tasker.Start();
                     ShowSelected();
                     timerCalculateGames.Enabled = true;
-                    return conclusion == Tasker.Conclusion.Success;
+                    return true;
                 }
             }
             return false;
@@ -2310,7 +2173,6 @@ namespace com.clusterrr.hakchi_gui
 
         private void scanForNewBoxArtForSelectedGamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            NesApplication.CachedCoverFiles = null;
             var task = new Tasks.GameTask();
             if (groupTaskWithSelected(task, task.ScanCovers))
                 if (!ConfigIni.Instance.DisablePopups)
@@ -2357,7 +2219,7 @@ namespace com.clusterrr.hakchi_gui
 
         private void deleteSelectedGamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.DeleteSelectedGamesQ, Resources.sign_delete, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.DeleteSelectedGamesQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
             {
                 var task = new Tasks.GameTask();
                 if (groupTaskWithSelected(task, task.DeleteGames))
@@ -2403,7 +2265,7 @@ namespace com.clusterrr.hakchi_gui
 
         private void resetROMHeaderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.ResetROMHeaderSelectedGamesQ, Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.ResetROMHeaderSelectedGamesQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
             {
                 var task = new Tasks.GameTask();
                 if (groupTaskWithSelected(task, task.ResetROMHeaders))
@@ -2414,7 +2276,7 @@ namespace com.clusterrr.hakchi_gui
 
         private void repairGamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.RepairSelectedGamesQ, Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+            if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.RepairSelectedGamesQ, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.Yes)
             {
                 var task = new Tasks.GameTask();
                 if (groupTaskWithSelected(task, task.RepairGames))
@@ -2461,7 +2323,7 @@ namespace com.clusterrr.hakchi_gui
             LoadGames(false);
         }
 
-        private void openFoldersManager()
+        private void foldersManagerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveSelectedGames();
             using (var tasker = new Tasker(this))
@@ -2523,6 +2385,7 @@ namespace com.clusterrr.hakchi_gui
 
         private void disableBootImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (RequirePatchedKernel() == DialogResult.No) return;
             try
             {
                 if (WaitingClovershellForm.WaitForDevice(this))
@@ -2549,6 +2412,7 @@ namespace com.clusterrr.hakchi_gui
 
         private void resetDefaultBootImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (RequirePatchedKernel() == DialogResult.No) return;
             try
             {
                 if (WaitingClovershellForm.WaitForDevice(this))
@@ -2565,6 +2429,11 @@ namespace com.clusterrr.hakchi_gui
                 Debug.WriteLine(ex.Message + ex.StackTrace);
                 Tasks.ErrorForm.Show(null, "Error resetting boot image: " + ex.Message, ex.StackTrace);
             }
+        }
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InstallHakchi(true);
         }
 
         private void selectEmulationCoreToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2620,38 +2489,31 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        private void rebootToolStripMenuItem_Click(object sender, EventArgs e)
+        private void structureButton_Click(object sender, EventArgs e)
         {
-            if (hakchi.Shell.IsOnline)
+            var button = sender as Button;
+            Point ptLowerLeft = button.PointToScreen(new Point(1, button.Height));
+            foldersContextMenuStrip.Show(ptLowerLeft);
+        }
+
+        private void gamesConsoleComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selected = gamesConsoleComboBox.SelectedItem as string;
+            foreach (hakchi.ConsoleType c in Enum.GetValues(typeof(hakchi.ConsoleType)))
             {
-                try
+                if (GetConsoleTypeName(c) == selected)
                 {
-                    hakchi.Shell.ExecuteSimple("sync; umount -ar; reboot -f", 100);
+                    if (ConfigIni.Instance.ConsoleType != c)
+                    {
+                        SaveSelectedGames();
+
+                        ConfigIni.Instance.ConsoleType = c;
+                        SyncConsoleType();
+                        return;
+                    }
                 }
-                catch { }
             }
-        }
 
-        private void leftmostToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            leftmostToolStripMenuItem.Checked = true;
-            rightmostToolStripMenuItem.Checked = false;
-            ConfigIni.Instance.BackFolderPosition = NesMenuFolder.Priority.LeftBack;
-        }
-
-        private void rightmostToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            leftmostToolStripMenuItem.Checked = false;
-            rightmostToolStripMenuItem.Checked = true;
-            ConfigIni.Instance.BackFolderPosition = NesMenuFolder.Priority.Back;
-        }
-
-        private void syncStructureForAllGamesCollectionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (Tasks.MessageForm.Show(this, Resources.SaveSettings, Resources.SaveStructureQ, Resources.sign_sync, new MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }) == Tasks.MessageForm.Button.Yes)
-            {
-                ConfigIni.Instance.SyncGamesCollectionsStructureSettings();
-            }
         }
 
         private void modStoreToolStripMenuItem_Click(object sender, EventArgs e)

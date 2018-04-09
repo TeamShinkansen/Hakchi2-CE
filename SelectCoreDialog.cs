@@ -74,6 +74,7 @@ namespace com.clusterrr.hakchi_gui
             listBoxCore.Items.Clear();
             listBoxCore.Items.Add(Resources.Unassigned);
             var collection = string.IsNullOrEmpty(system) ? CoreCollection.Cores : CoreCollection.GetCoresFromSystem(system);
+            //var collection = firstSelected == null ? CoreCollection.Cores : CoreCollection.GetCoresFromExtension(firstSelected.SubItems[1].Text.ToLower()).ToArray();
             if (collection != null)
             {
                 foreach (var core in collection)
@@ -305,13 +306,25 @@ namespace com.clusterrr.hakchi_gui
 
         private void showAllSystemsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
+            //fillSystems();
             ShowSelected();
         }
 
         private void buttonAccept_Click(object sender, EventArgs e)
         {
             if (buttonApply.Enabled)
-                buttonApply_Click(sender, e);
+            {
+                var result = Tasks.MessageForm.Show(Resources.ApplyChanges, Resources.ApplyChangesQ, Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No, Tasks.MessageForm.Button.Cancel }, Tasks.MessageForm.DefaultButton.Button3);
+                if (result == Tasks.MessageForm.Button.Cancel)
+                    return;
+                if (result == Tasks.MessageForm.Button.Yes)
+                    buttonApply_Click(sender, e);
+                //var result = MessageBox.Show(Resources.ApplyChangesQ, Resources.ApplyChanges, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button3);
+                //if (result == DialogResult.Cancel)
+                //    return;
+                //if (result == DialogResult.Yes)
+                //    buttonApply_Click(sender, e);
+            }
 
             // save game changes
             foreach (var game in Games)
@@ -326,31 +339,16 @@ namespace com.clusterrr.hakchi_gui
 
         private void buttonDiscard_Click(object sender, EventArgs e)
         {
-            var result = Tasks.MessageForm.Show(Resources.DiscardChanges, Resources.DiscardChangesQ, Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1);
-            if (result == Tasks.MessageForm.Button.Yes)
-            {
-                DialogResult = DialogResult.OK;
-                Close();
-            }
+            Close();
         }
 
         private void SelectCoreDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (DialogResult != DialogResult.OK)
+            if (buttonApply.Enabled && DialogResult != DialogResult.OK &&
+                Tasks.MessageForm.Show(Resources.DiscardChanges, Resources.DiscardChangesQ, Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.No)
+            //MessageBox.Show(Resources.DiscardChangesQ, Resources.DiscardChanges, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
             {
-                var result = Tasks.MessageForm.Show(Resources.ApplyChanges, Resources.ApplyChangesQ, Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No, Tasks.MessageForm.Button.Cancel }, Tasks.MessageForm.DefaultButton.Button1);
-                if (result == Tasks.MessageForm.Button.Cancel)
-                {
-                    e.Cancel = true;
-                    return;
-                }
-                if (result == Tasks.MessageForm.Button.Yes)
-                {
-                    buttonAccept_Click(sender, e);
-                    return;
-                }
-                DialogResult = DialogResult.OK;
-                Close();
+                e.Cancel = true;
             }
         }
 

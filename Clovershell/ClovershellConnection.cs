@@ -10,7 +10,6 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using com.clusterrr.hakchi_gui;
-using System.Threading.Tasks;
 
 namespace com.clusterrr.clovershell
 {
@@ -685,22 +684,6 @@ namespace com.clusterrr.clovershell
                         execConnections[c.id] = null;
                 }
             }
-        }
-
-        public Task<string> ExecuteSimpleAsync(string command, int timeout = 2000, bool throwOnNonZero = false)
-        {
-            return new Task<string>(() =>
-            {
-                return ExecuteSimple(command, timeout, throwOnNonZero);
-            });
-        }
-
-        public Task<int> ExecuteAsync(string command, Stream stdin = null, Stream stdout = null, Stream stderr = null, int timeout = 0, bool throwOnNonZero = false)
-        {
-            return new Task<int>(() =>
-            {
-                return Execute(command, stdin, stdout, stderr, timeout, throwOnNonZero);
-            });
         }
     }
 }

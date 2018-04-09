@@ -33,9 +33,9 @@
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.treeView = new System.Windows.Forms.TreeView();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
-            this.buttonNewFolder = new System.Windows.Forms.Button();
             this.comboBoxPosition = new System.Windows.Forms.ComboBox();
-            this.labelPosition1 = new System.Windows.Forms.Label();
+            this.labelPosition = new System.Windows.Forms.Label();
+            this.buttonNewFolder = new System.Windows.Forms.Button();
             this.listViewContent = new System.Windows.Forms.ListView();
             this.groupBoxSplitModes = new System.Windows.Forms.GroupBox();
             this.buttonFoldersApp = new System.Windows.Forms.Button();
@@ -45,8 +45,6 @@
             this.buttonFoldersEqually = new System.Windows.Forms.Button();
             this.groupBoxArt = new System.Windows.Forms.GroupBox();
             this.pictureBoxArt = new System.Windows.Forms.PictureBox();
-            this.comboBoxBackPosition = new System.Windows.Forms.ComboBox();
-            this.labelPosition2 = new System.Windows.Forms.Label();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,10 +54,8 @@
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labelElementCount = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.checkBoxAddHome = new System.Windows.Forms.CheckBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
@@ -81,9 +77,9 @@
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.buttonNewFolder);
             this.splitContainer.Panel2.Controls.Add(this.comboBoxPosition);
-            this.splitContainer.Panel2.Controls.Add(this.labelPosition1);
+            this.splitContainer.Panel2.Controls.Add(this.labelPosition);
+            this.splitContainer.Panel2.Controls.Add(this.buttonNewFolder);
             this.splitContainer.Panel2.Controls.Add(this.listViewContent);
             this.splitContainer.Panel2.Controls.Add(this.groupBoxSplitModes);
             this.splitContainer.Panel2.Controls.Add(this.groupBoxArt);
@@ -149,13 +145,6 @@
             this.imageList.Images.SetKeyName(36, "snes-us_sm.png");
             this.imageList.Images.SetKeyName(37, "snes-us_sm_tr.png");
             // 
-            // buttonNewFolder
-            // 
-            resources.ApplyResources(this.buttonNewFolder, "buttonNewFolder");
-            this.buttonNewFolder.Name = "buttonNewFolder";
-            this.buttonNewFolder.UseVisualStyleBackColor = true;
-            this.buttonNewFolder.Click += new System.EventHandler(this.buttonNewFolder_Click);
-            // 
             // comboBoxPosition
             // 
             this.comboBoxPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -169,10 +158,17 @@
             this.comboBoxPosition.Name = "comboBoxPosition";
             this.comboBoxPosition.SelectionChangeCommitted += new System.EventHandler(this.comboBoxPosition_SelectionChangeCommitted);
             // 
-            // labelPosition1
+            // labelPosition
             // 
-            resources.ApplyResources(this.labelPosition1, "labelPosition1");
-            this.labelPosition1.Name = "labelPosition1";
+            resources.ApplyResources(this.labelPosition, "labelPosition");
+            this.labelPosition.Name = "labelPosition";
+            // 
+            // buttonNewFolder
+            // 
+            resources.ApplyResources(this.buttonNewFolder, "buttonNewFolder");
+            this.buttonNewFolder.Name = "buttonNewFolder";
+            this.buttonNewFolder.UseVisualStyleBackColor = true;
+            this.buttonNewFolder.Click += new System.EventHandler(this.buttonNewFolder_Click);
             // 
             // listViewContent
             // 
@@ -255,21 +251,6 @@
             this.pictureBoxArt.TabStop = false;
             this.pictureBoxArt.Click += new System.EventHandler(this.pictureBoxArt_Click);
             // 
-            // comboBoxBackPosition
-            // 
-            resources.ApplyResources(this.comboBoxBackPosition, "comboBoxBackPosition");
-            this.comboBoxBackPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxBackPosition.FormattingEnabled = true;
-            this.comboBoxBackPosition.Items.AddRange(new object[] {
-            resources.GetString("comboBoxBackPosition.Items"),
-            resources.GetString("comboBoxBackPosition.Items1")});
-            this.comboBoxBackPosition.Name = "comboBoxBackPosition";
-            // 
-            // labelPosition2
-            // 
-            resources.ApplyResources(this.labelPosition2, "labelPosition2");
-            this.labelPosition2.Name = "labelPosition2";
-            // 
             // contextMenuStrip
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -324,20 +305,11 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.checkBoxAddHome);
-            this.panel2.Controls.Add(this.comboBoxBackPosition);
-            this.panel2.Controls.Add(this.labelPosition2);
             this.panel2.Controls.Add(this.buttonCancel);
             this.panel2.Controls.Add(this.buttonOk);
             this.panel2.Controls.Add(this.labelElementCount);
             resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Name = "panel2";
-            // 
-            // checkBoxAddHome
-            // 
-            resources.ApplyResources(this.checkBoxAddHome, "checkBoxAddHome");
-            this.checkBoxAddHome.Name = "checkBoxAddHome";
-            this.checkBoxAddHome.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
@@ -365,7 +337,6 @@
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             this.splitContainer.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
             this.splitContainer.ResumeLayout(false);
             this.groupBoxSplitModes.ResumeLayout(false);
             this.groupBoxArt.ResumeLayout(false);
@@ -400,13 +371,10 @@
         private System.Windows.Forms.ToolStripMenuItem renameToolStripMenuItem;
         private System.Windows.Forms.Button buttonNewFolder;
         private System.Windows.Forms.ComboBox comboBoxPosition;
-        private System.Windows.Forms.Label labelPosition1;
+        private System.Windows.Forms.Label labelPosition;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItemSep;
         private System.Windows.Forms.ToolStripMenuItem cutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
         private System.Windows.Forms.Button buttonFoldersApp;
-        private System.Windows.Forms.ComboBox comboBoxBackPosition;
-        private System.Windows.Forms.Label labelPosition2;
-        private System.Windows.Forms.CheckBox checkBoxAddHome;
     }
 }

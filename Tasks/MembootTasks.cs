@@ -31,8 +31,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
             MembootOriginal,
             MembootRecovery,
             FlashNormalUboot,
-            FlashSDUboot,
-            FactoryReset
+            FlashSDUboot
         }
         public enum HakchiTasks { Install, Reset, Uninstall }
         public enum NandTasks { DumpNand, DumpNandB, FlashNandB, DumpNandC, FlashNandC, FormatNandC }
@@ -47,7 +46,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
 
         public readonly TaskFunc[] Tasks;
 
-        public MembootTasks(MembootTaskType type, string[] hmodsInstall = null, string[] hmodsUninstall = null, string dumpPath = null)
+        public MembootTasks(MembootTaskType type, string[] hmodsInstall = null, string[] hmodsUninstall = null, string dumpPath = null, bool restoreKernel = false)
         {
             fel = new Fel();
             List<TaskFunc> taskList = new List<TaskFunc>();
@@ -77,21 +76,13 @@ namespace com.clusterrr.hakchi_gui.Tasks
                     break;
 
                 case MembootTaskType.UninstallHakchi:
-                    taskList.AddRange(new TaskFunc[] {
-                        GetStockKernel,
-                        FlashStockKernel,
-                        HandleHakchi(HakchiTasks.Uninstall),
-                        ShellTasks.Reboot
-                    });
-                    break;
-
-                case MembootTaskType.FactoryReset:
-                    taskList.AddRange(new TaskFunc[] {
-                        GetStockKernel,
-                        FlashStockKernel,
-                        ProcessNand(null, NandTasks.FormatNandC),
-                        ShellTasks.Reboot
-                    });
+                    taskList.Add(HandleHakchi(HakchiTasks.Uninstall));
+                    if (restoreKernel)
+                    {
+                        taskList.Add(GetStockKernel);
+                        taskList.Add(FlashStockKernel);
+                    }
+                    taskList.Add(ShellTasks.Reboot);
                     break;
 
                 case MembootTaskType.DumpNand:
@@ -258,7 +249,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
 
             if (hakchi.Shell.IsOnline && hakchi.Shell.Execute("[ -f /proc/atags ]") == 0)
             {
-                if (hakchi.MinimalMemboot && stockKernel == null)
+                if (hakchi.MinimalMemboot)
                     return Conclusion.Success;
 
                 hakchi.Shell.ExecuteSimple("mkdir -p /tmp/kexec/", throwOnNonZero: true);
@@ -351,13 +342,13 @@ namespace com.clusterrr.hakchi_gui.Tasks
                             if (matchedKernels.Count() > 0)
                             {
                                 stockKernel = new MemoryStream(kernelBytes);
-                                return Conclusion.Success;
                             }
                         }
                         else
                         {
                             return Conclusion.Abort;
                         }
+
                     }
                 }
             }

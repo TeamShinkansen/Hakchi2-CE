@@ -85,6 +85,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
                     tasker.PopState();
                     if (!result)
                         return false;
+                    // this.uploadPath = hakchi.GetRemoteGameSyncPath(ConfigIni.Instance.ConsoleType);
                 }
                 return true;
             }
@@ -340,8 +341,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
                         Debug.WriteLine($"Upload size: " + Shared.SizeSuffix(gamesTar.Length));
                         if (gamesTar.Length > 0)
                         {
-                            DateTime
-                                startTime = DateTime.Now,
+                            DateTime startTime = DateTime.Now,
                                 lastTime = DateTime.Now;
                             bool done = false;
                             gamesTar.OnReadProgress += delegate (long pos, long len)
@@ -414,50 +414,35 @@ namespace com.clusterrr.hakchi_gui.Tasks
                     "| wc -l | { read wc; test $wc -eq 0 && rm -rf \"$f\"; } } ; done", 0);
                 tasker.SetProgress(125, maxProgress);
 
-                if (originalGames.Any())
+                tasker.SetStatus(Resources.UploadingOriginalGames);
+                int i = 0;
+                foreach (var originalCode in originalGames.Keys)
                 {
-                    using (MemoryStream commandBuilder = new MemoryStream())
+                    string originalSyncCode = "";
+                    switch (ConfigIni.Instance.ConsoleType)
                     {
-                        tasker.SetStatus(Resources.UploadingOriginalGames);
-
-                        string data = $"#!/bin/sh\ncd \"/tmp\"\n";
-                        commandBuilder.Write(Encoding.UTF8.GetBytes(data), 0, data.Length);
-                        int i = 0;
-                        foreach (var originalCode in originalGames.Keys)
-                        {
-                            string originalSyncCode = "";
-                            switch (ConfigIni.Instance.ConsoleType)
-                            {
-                                case hakchi.ConsoleType.NES:
-                                case hakchi.ConsoleType.Famicom:
-                                    originalSyncCode =
-                                        $"src=\"{hakchi.SquashFsPath}{hakchi.GamesSquashFsPath}/{originalCode}\" && " +
-                                        $"dst=\"{uploadPath}/{originalGames[originalCode]}/{originalCode}\" && " +
-                                        $"mkdir -p \"$dst\" && " +
-                                        $"([ -L \"$dst/autoplay\" ] || ln -s \"$src/autoplay\" \"$dst/\") && " +
-                                        $"([ -L \"$dst/pixelart\" ] || ln -s \"$src/pixelart\" \"$dst/\")" +
-                                        "\n";
-                                    break;
-                                case hakchi.ConsoleType.SNES_EUR:
-                                case hakchi.ConsoleType.SNES_USA:
-                                case hakchi.ConsoleType.SuperFamicom:
-                                    originalSyncCode =
-                                        $"src=\"{hakchi.SquashFsPath}{hakchi.GamesSquashFsPath}/{originalCode}\" && " +
-                                        $"dst=\"{uploadPath}/{originalGames[originalCode]}/{originalCode}\" && " +
-                                        $"mkdir -p \"$dst\" && " +
-                                        $"([ -L \"$dst/autoplay\" ] || ln -s \"$src/autoplay\" \"$dst/\")" +
-                                        "\n";
-                                    break;
-                            }
-                            commandBuilder.Write(Encoding.UTF8.GetBytes(originalSyncCode), 0, originalSyncCode.Length);
-                        }
-                        tasker.SetProgress(130, maxProgress);
-
-                        hakchi.RunTemporaryScript(commandBuilder, "originalgamessync.sh");
+                        case hakchi.ConsoleType.NES:
+                        case hakchi.ConsoleType.Famicom:
+                            originalSyncCode =
+                                $"src=\"{hakchi.SquashFsPath}{hakchi.GamesPath}/{originalCode}\" && " +
+                                $"dst=\"{uploadPath}/{originalGames[originalCode]}/{originalCode}\" && " +
+                                $"mkdir -p \"$dst\" && " +
+                                $"([ -L \"$dst/autoplay\" ] || ln -s \"$src/autoplay\" \"$dst/\") && " +
+                                $"([ -L \"$dst/pixelart\" ] || ln -s \"$src/pixelart\" \"$dst/\")";
+                            break;
+                        case hakchi.ConsoleType.SNES_EUR:
+                        case hakchi.ConsoleType.SNES_USA:
+                        case hakchi.ConsoleType.SuperFamicom:
+                            originalSyncCode =
+                                $"src=\"{hakchi.SquashFsPath}{hakchi.GamesPath}/{originalCode}\" && " +
+                                $"dst=\"{uploadPath}/{originalGames[originalCode]}/{originalCode}\" && " +
+                                $"mkdir -p \"$dst\" && " +
+                                $"([ -L \"$dst/autoplay\" ] || ln -s \"$src/autoplay\" \"$dst/\")";
+                            break;
                     }
-
-                    tasker.SetProgress(135, maxProgress);
-                }
+                    shell.ExecuteSimple(originalSyncCode, 2000, true);
+                    tasker.SetProgress(125 + (int)((double)++i / originalGames.Count * 10), maxProgress);
+                };
 
                 tasker.SetStatus(Resources.UploadingConfig);
                 hakchi.SyncConfig(ConfigIni.GetConfigDictionary());
@@ -468,7 +453,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
                 {
                     if (shell.IsOnline)
                     {
-                        shell.ExecuteSimple("hakchi overmount_games; uistart", 2000, true);
+                        shell.ExecuteSimple("hakchi overmount_games; uistart", 1000);
                         MemoryStats.Refresh();
                     }
                 }
@@ -566,19 +551,34 @@ namespace com.clusterrr.hakchi_gui.Tasks
                     data = $"rm \"{appInfo.FilePath}\"\n";
                     commandBuilder.Write(Encoding.UTF8.GetBytes(data), 0, data.Length);
                 }
-                hakchi.RunTemporaryScript(commandBuilder, "cleanup.sh");
+
+                try
+                {
+                    hakchi.Shell.Execute("cat > /tmp/cleanup.sh", commandBuilder, null, null, 5000, true);
+                    hakchi.Shell.ExecuteSimple("chmod +x /tmp/cleanup.sh && /tmp/cleanup.sh", 0, true);
+                }
+                finally
+                {
+                    hakchi.Shell.ExecuteSimple("rm /tmp/cleanup.sh");
+                }
             }
         }
 
         private static void DeleteLocalApplicationFilesFromDirectory(IEnumerable<ApplicationFileInfo> filesToDelete, string rootDirectory)
         {
-            // deleting files
             foreach (ApplicationFileInfo appInfo in filesToDelete)
             {
                 string filepath = rootDirectory + appInfo.FilePath.Substring(1).Replace('/', '\\');
                 File.Delete(filepath);
+
+                // determine if the folder is empty now -- if so, delete the folder also
+                string directory = Path.GetDirectoryName(filepath);
+                var dirInfo = new DirectoryInfo(directory);
+                if (dirInfo.GetFiles().Length == 0 && dirInfo.GetDirectories().Length == 0)
+                {
+                    Directory.Delete(directory);
+                }
             }
-            Shared.DirectoryDeleteEmptyDirectories(rootDirectory);
         }
 
     }

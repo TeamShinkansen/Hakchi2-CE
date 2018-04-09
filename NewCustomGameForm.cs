@@ -56,12 +56,14 @@ namespace com.clusterrr.hakchi_gui
                 }
                 else
                 {
-                    Tasks.MessageForm.Show(Resources.NewCustomGame, Resources.CustomGameCodeAlreadyExists, Resources.sign_warning);
+                    Tasks.MessageForm.Show(Resources.NewCustomGame, Resources.CustomGameCodeAlreadyExists);
+                    //MessageBox.Show(this, Resources.CustomGameCodeAlreadyExists, Resources.NewCustomGame, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
                 }
             }
             else
             {
-                Tasks.MessageForm.Show(Resources.NewCustomGame, Resources.CustomGameNeedValidData, Resources.sign_warning);
+                Tasks.MessageForm.Show(Resources.NewCustomGame, Resources.CustomGameNeedValidData);
+                //MessageBox.Show(this, Resources.CustomGameNeedValidData, Resources.NewCustomGame, MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
             }
         }
 

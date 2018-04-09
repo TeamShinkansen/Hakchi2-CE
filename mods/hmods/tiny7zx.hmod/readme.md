@@ -1,6 +1,5 @@
 ---
 Name: tiny7zx
-Category: System
 Creator: Péter Szabó
 Module Contributors: cluster, madmonkey and KMFDManic
 ---

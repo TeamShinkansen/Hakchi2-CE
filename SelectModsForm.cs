@@ -350,7 +350,6 @@ namespace com.clusterrr.hakchi_gui
                 DialogResult = DialogResult.Cancel;
             Close();
         }
-
         static string getHmodPath(string hmod)
         {
             try
@@ -366,7 +365,9 @@ namespace com.clusterrr.hakchi_gui
                     return dir;
                 }
             }
-            catch { }
+            catch
+            {
+            }
 
             return null;
         }

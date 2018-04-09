@@ -1,6 +1,5 @@
 ---
 Name: Clovercon Hack
-Category: System
 Creator: Cluster
 ---
 This module installs a custom clovercon gamepad driver.

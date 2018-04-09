@@ -45,6 +45,8 @@ namespace com.clusterrr.hakchi_gui
             if (!DeviceExists())
             {
                 if (Tasks.MessageForm.Show(Resources.AreYouSure, Resources.DoYouWantCancel, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button2) == Tasks.MessageForm.Button.No)
+                //if (MessageBox.Show(this, Resources.DoYouWantCancel, Resources.AreYouSure, MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+                //    == System.Windows.Forms.DialogResult.No)
                 {
                     e.Cancel = true;
                 }
@@ -67,6 +69,7 @@ namespace com.clusterrr.hakchi_gui
             catch (Exception ex)
             {
                 Tasks.ErrorForm.Show(this.Text, ex.Message, ex.StackTrace);
+                //MessageBox.Show(this, ex.Message, Resources.Error, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
