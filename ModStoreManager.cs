@@ -16,6 +16,36 @@ namespace com.clusterrr.hakchi_gui.module_library
         public DateTime LastUpdate = new DateTime();
         public string ConfigPath { get { return Path.Combine(Program.BaseDirectoryExternal, "config\\ModStoreConfig.xml"); } }
 
+        public void CheckForDeletedItems()
+        {
+            string userModDir = Path.Combine(Program.BaseDirectoryExternal, "user_mods");
+            for (int i = 0; i < InstalledItems.Count; ++i)
+            {
+                var item = InstalledItems[i];
+                bool removeItem = false;
+                if (item.InstalledFiles.Count == 1 && !item.InstalledFiles[0].EndsWith("\\"))
+                {
+                    removeItem = File.Exists(Path.Combine(userModDir, item.InstalledFiles[0])) == false;
+                }
+                else
+                {
+                    foreach (var file in item.InstalledFiles)
+                    {
+                        if (file.EndsWith("\\") && !Directory.Exists(Path.Combine(userModDir, file)))
+                        {
+                            removeItem = true;
+                            break;
+                        }
+                    }
+                }
+                if (removeItem)
+                {
+                    InstalledItems.RemoveAt(i);
+                    --i;
+                }
+            }
+        }
+
         public void DownloadItem(ModStoreItem item)
         {
             switch(item.Type)
@@ -115,7 +145,7 @@ namespace com.clusterrr.hakchi_gui.module_library
                                             Directory.Delete(localFolder, true);
                                     }
                                 }
-                                else
+                                else if(!file.IsDirectory)
                                     installedModule.InstalledFiles.Add(file.FileName);
                             }
                             szExtractor.ExtractArchive(userModDir);

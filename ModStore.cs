@@ -54,6 +54,9 @@ namespace com.clusterrr.hakchi_gui
                 return;
             }
 
+            //Check if user deleted module
+            config.CheckForDeletedItems();
+
             //Set Control Config
             foreach (TabPage tabPage in tabControl1.Controls)
             {
