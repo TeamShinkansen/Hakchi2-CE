@@ -1380,7 +1380,7 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        void AddGames(IEnumerable<string> files)
+        public void AddGames(IEnumerable<string> files)
         {
             using (var tasker = new Tasks.Tasker(this))
             {
@@ -1414,7 +1414,7 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        bool InstallMods(string[] mods)
+        public bool InstallMods(string[] mods)
         {
             using (var tasker = new Tasker(this))
             {
@@ -2649,6 +2649,13 @@ namespace com.clusterrr.hakchi_gui
             {
                 ConfigIni.Instance.SyncGamesCollectionsStructureSettings();
             }
+        }
+
+        private void modStoreToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var modStore = new ModStore();
+            modStore.Text = modStoreToolStripMenuItem.Text.Replace("&", "");
+            modStore.ShowDialog();
         }
     }
 }

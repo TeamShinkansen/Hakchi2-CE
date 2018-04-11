@@ -169,6 +169,27 @@
     <Compile Include="Ftp\ArxOneFtpWrapper.cs" />
     <None Include="Ftp\FluentFtpWrapper.cs" />
     <Compile Include="hakchi.cs" />
+    <Compile Include="ModStore.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModStore.Designer.cs">
+      <DependentUpon>ModStore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModStoreAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModStoreAbout.Designer.cs">
+      <DependentUpon>ModStoreAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModStoreGame.cs" />
+    <Compile Include="ModStoreItem.cs" />
+    <Compile Include="ModStoreManager.cs" />
+    <Compile Include="ModStoreTabControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ModStoreTabControl.Designer.cs">
+      <DependentUpon>ModStoreTabControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="INetworkShell.cs" />
     <Compile Include="ISystemShell.cs" />
     <Compile Include="MemoryStats.cs" />
@@ -239,6 +260,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Module.cs" />
+    <Compile Include="ProgressBarForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgressBarForm.Designer.cs">
+      <DependentUpon>ProgressBarForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FtpServer\NesMiniFileSystemHandler.cs" />
     <Compile Include="FtpServer\NesMiniAuthHandler.cs" />
@@ -1224,6 +1252,8 @@
     <None Include="images\sign-paper-plane.png" />
     <Content Include="readmeTemplate.css" />
     <Content Include="readmeTemplate.html" />
+    <None Include="Resources\info.png" />
+    <Content Include="retroarch-systems-blacklist.txt" />
     <Content Include="retroarch-whitelist.txt" />
     <None Include="packages.config" />
     <None Include="sfrom_tool\README.TXT">
@@ -1283,8 +1313,20 @@
     <EmbeddedResource Include="MainForm.ro-RO.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ModStore.resx">
+      <DependentUpon>ModStore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModStoreAbout.resx">
+      <DependentUpon>ModStoreAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModStoreTabControl.resx">
+      <DependentUpon>ModStoreTabControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="NewCustomGameForm.resx">
       <DependentUpon>NewCustomGameForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgressBarForm.resx">
+      <DependentUpon>ProgressBarForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.hu-HU.resx" />
     <EmbeddedResource Include="Properties\Resources.ja-JP.resx" />

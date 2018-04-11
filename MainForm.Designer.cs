@@ -222,6 +222,7 @@
             this.toolStripMenuItem20 = new System.Windows.Forms.ToolStripSeparator();
             this.syncStructureForAllGamesCollectionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gamesConsoleComboBox = new System.Windows.Forms.ComboBox();
+            this.modStoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.contextMenuStrip.SuspendLayout();
@@ -240,6 +241,7 @@
             this.modulesToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.settingsToolStripMenuItem,
+            this.modStoreToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.helpToolStripMenuItem});
             resources.ApplyResources(this.menuStrip, "menuStrip");
@@ -505,7 +507,7 @@
             // 
             this.modulesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.installModulesToolStripMenuItem,
-            this.uninstallModulesToolStripMenuItem});
+            this.uninstallModulesToolStripMenuItem });
             this.modulesToolStripMenuItem.Name = "modulesToolStripMenuItem";
             resources.ApplyResources(this.modulesToolStripMenuItem, "modulesToolStripMenuItem");
             // 
@@ -1617,6 +1619,12 @@
             this.gamesConsoleComboBox.Name = "gamesConsoleComboBox";
             this.gamesConsoleComboBox.SelectedIndexChanged += new System.EventHandler(this.gamesConsoleComboBox_SelectedIndexChanged);
             // 
+            // modStoreToolStripMenuItem
+            // 
+            this.modStoreToolStripMenuItem.Name = "modStoreToolStripMenuItem";
+            resources.ApplyResources(this.modStoreToolStripMenuItem, "modStoreToolStripMenuItem");
+            this.modStoreToolStripMenuItem.Click += new System.EventHandler(this.modStoreToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -1833,6 +1841,7 @@
         private System.Windows.Forms.ToolStripMenuItem canoeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem retroarchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flashNANDBPartitionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modStoreToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sortByToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem nameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem coreToolStripMenuItem;
