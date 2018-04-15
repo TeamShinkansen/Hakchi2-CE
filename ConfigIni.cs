@@ -121,6 +121,7 @@ namespace com.clusterrr.hakchi_gui
             public byte AntiArmetLevel = 0;
             public bool AutofireHack = false;
             public bool AutofireXYHack = false;
+            public byte AutofireInterval = 8;
             public bool FcStart = false;
             public bool ResetHack = true;
             public uint ResetCombination = (uint)(SelectNesButtonsForm.NesButtons.Down | SelectNesButtonsForm.NesButtons.Select);
@@ -165,6 +166,12 @@ namespace com.clusterrr.hakchi_gui
         {
             get { return consoleSettings[0].AutofireXYHack; }
             set { consoleSettings[0].AutofireXYHack = value; }
+        }
+        [JsonIgnore]
+        public byte AutofireInterval
+        {
+            get { return consoleSettings[0].AutofireInterval; }
+            set { consoleSettings[0].AutofireInterval = value; }
         }
         [JsonIgnore]
         public bool FcStart
@@ -213,6 +220,8 @@ namespace com.clusterrr.hakchi_gui
         public bool ShowGamesWithoutCoverArt = false;
         public bool ForceSSHTransfers = false;
         public bool UploadToTmp = false;
+        public bool DisableSSHListener = false;
+        public bool DisableClovershellListener = false;
         public bool ExportLinked = true;
         public string ExportDrive = "";
         public FelLib.Fel.UbootType MembootUboot = FelLib.Fel.UbootType.SD;
@@ -309,6 +318,7 @@ namespace com.clusterrr.hakchi_gui
                 config["clovercon_home_combination"] = instance.ResetHack ? string.Format("0x{0:X4}", instance.ResetCombination) : "0x7FFF";
                 config["clovercon_autofire"] = instance.AutofireHack ? "1" : "0";
                 config["clovercon_autofire_xy"] = instance.AutofireXYHack ? "1" : "0";
+                config["clovercon_autofire_interval"] = instance.AutofireInterval.ToString();
                 config["clovercon_fc_start"] = instance.FcStart && (instance.LastConnectedConsoleType == hakchi.ConsoleType.Famicom) ? "1" : "0";
                 config["fontfix_enabled"] = instance.UseFont ? "y" : "n";
                 config["disable_armet"] = instance.AntiArmetLevel > 0 ? "y" : "n";
@@ -337,6 +347,9 @@ namespace com.clusterrr.hakchi_gui
                         break;
                     case "clovercon_autofire_xy":
                         instance.AutofireXYHack = setting.Value == "1";
+                        break;
+                    case "clovercon_autofire_interval":
+                        instance.AutofireInterval = byte.Parse(setting.Value);
                         break;
                     case "clovercon_fc_start":
                         instance.FcStart = setting.Value == "1";

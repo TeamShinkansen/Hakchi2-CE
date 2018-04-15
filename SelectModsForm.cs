@@ -250,8 +250,21 @@ namespace com.clusterrr.hakchi_gui
             usermodsDirectory = Path.Combine(Program.BaseDirectoryExternal, "user_mods");
             var modsList = new List<string>();
 
-            if(hakchi.Shell.IsOnline)
+            if (hakchi.Shell.IsOnline && (hakchi.MinimalMemboot || hakchi.CanInteract))
+            {
+                bool wasMounted = true;
+                if (hakchi.MinimalMemboot)
+                {
+                    if (hakchi.Shell.Execute("hakchi eval 'mountpoint -q \"$mountpoint/var/lib\"'") != 0)
+                    {
+                        wasMounted = false;
+                        hakchi.Shell.ExecuteSimple("hakchi mount_base");
+                    }
+                }
                 installedMods = hakchi.Shell.ExecuteSimple("hakchi pack_list", 0, true).Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                if (!wasMounted)
+                    hakchi.Shell.ExecuteSimple("hakchi umount_base");
+            }
 
             if (loadInstalledMods && hakchi.Shell.IsOnline)
             {
@@ -428,22 +441,49 @@ namespace com.clusterrr.hakchi_gui
                 {
                     var target = Path.Combine(usermodsDirectory, Path.GetFileName(file));
                     if (file != target)
-                        File.Copy(file, target, true);
+                        if (Directory.Exists(file))
+                            Shared.DirectoryCopy(file, target, true, false, true, false);
+                        else
+                            File.Copy(file, target, true);
                     hmods.Add(new Hmod(Path.GetFileNameWithoutExtension(file)));
                 }
                 else if (ext == ".7z" || ext == ".zip" || ext == ".rar")
                 {
                     using (var szExtractor = new SevenZipExtractor(file))
                     {
-                        foreach (var f in szExtractor.ArchiveFileNames)
-                            if (Path.GetExtension(f).ToLower() == ".hmod")
+                        foreach(var f in szExtractor.ArchiveFileData)
+                        {
+                            if (Path.GetExtension(f.FileName).ToLower() == ".hmod")
                             {
-                                using (var outFile = new FileStream(Path.Combine(usermodsDirectory, Path.GetFileName(f)), FileMode.Create))
+                                if (f.IsDirectory)
                                 {
-                                    szExtractor.ExtractFile(f, outFile);
-                                    hmods.Add(new Hmod(Path.GetFileNameWithoutExtension(file)));
+                                    List<int> indices = new List<int>();
+                                    for (int i = 0; i < szExtractor.ArchiveFileData.Count; ++i)
+                                        if (szExtractor.ArchiveFileData[i].FileName.StartsWith(f.FileName))
+                                            indices.Add(i);
+                                    szExtractor.ExtractFiles(usermodsDirectory, indices.ToArray());
+
+                                    if (!Directory.Exists(Path.Combine(usermodsDirectory, Path.GetFileName(f.FileName))))
+                                    {
+                                        Directory.Move(Path.Combine(usermodsDirectory, f.FileName), Path.Combine(usermodsDirectory, Path.GetFileName(f.FileName)));
+
+                                        new DirectoryInfo(usermodsDirectory).Refresh();
+                                        int pos = f.FileName.IndexOfAny(new char[] { '/', '\\' });
+                                        Directory.Delete(Path.Combine(usermodsDirectory, pos > 0 ? f.FileName.Substring(0, pos) : f.FileName), true);
+                                    }
+
+                                    hmods.Add(new Hmod(Path.GetFileNameWithoutExtension(f.FileName)));
+                                }
+                                else
+                                {
+                                    using (var outFile = new FileStream(Path.Combine(usermodsDirectory, Path.GetFileName(f.FileName)), FileMode.Create))
+                                    {
+                                        szExtractor.ExtractFile(f.FileName, outFile);
+                                        hmods.Add(new Hmod(Path.GetFileNameWithoutExtension(f.FileName)));
+                                    }
                                 }
                             }
+                        }
                     }
                 }
             }

@@ -939,7 +939,7 @@ http://darkakuma.z-net.us/p/sfromtool.html</value>
     <value>Super Famicom (Japan)</value>
   </data>
   <data name="FTPServerOn" xml:space="preserve">
-    <value>FTP server on ftp://root@{0}</value>
+    <value>FTP server on ftp://root@{0} (pass:clover)</value>
   </data>
   <data name="TelnetServerOn" xml:space="preserve">
     <value>Telnet server on telnet://{0} (login:root)</value>
@@ -1020,7 +1020,7 @@ http://darkakuma.z-net.us/p/sfromtool.html</value>
     <value>Rebooting...</value>
   </data>
   <data name="ResettingHakchi" xml:space="preserve">
-    <value>Resetting hakchi</value>
+    <value>Resetting hakchi...</value>
   </data>
   <data name="TransferringMods" xml:space="preserve">
     <value>Transferring mods...</value>
@@ -1116,7 +1116,7 @@ Continue?</value>
     <value>Your kernel or scripts are out of date. Please update before synchronizing games</value>
   </data>
   <data name="CannotProceedMinimalMemboot" xml:space="preserve">
-    <value>Your NES/SNES mini is currently in recovery state, cannot proceed</value>
+    <value>Your NES/SNES Mini is currently in recovery state, cannot proceed</value>
   </data>
   <data name="FactoryResetNote" xml:space="preserve">
     <value>Done! All traces of hakchi have been removed and your NES/SNES Mini has been reset to factory settings.</value>
@@ -1128,7 +1128,7 @@ Continue?</value>
     <value>Recovery kernel</value>
   </data>
   <data name="ResetQ" xml:space="preserve">
-    <value>Are you sure you want to reset and repair hakchi2 on your NES/SNES Mini?</value>
+    <value>Are you sure you want to reset and repair hakchi on your NES/SNES Mini?</value>
   </data>
   <data name="sign_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\sign-add.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -1158,10 +1158,10 @@ Continue?</value>
     <value>Update complete!</value>
   </data>
   <data name="SyncMultibootWarning" xml:space="preserve">
-    <value>You have {0} of games already synchronized on your NES/SNES mini (non separated for multiboot). Proceeding will erase those. Are you sure?</value>
+    <value>You have {0} of games already synchronized on your NES/SNES Mini (non separated for multiboot). Proceeding will erase those. Are you sure?</value>
   </data>
   <data name="SyncNonMultibootWarning" xml:space="preserve">
-    <value>You have {0} of games already synchronized on your NES/SNES mini (separated for multiboot). Proceeding will erase those. Are you sure?</value>
+    <value>You have {0} of games already synchronized on your NES/SNES Mini (separated for multiboot). Proceeding will erase those. Are you sure?</value>
   </data>
   <data name="FolderNameHome" xml:space="preserve">
     <value>Home</value>
@@ -1174,5 +1174,35 @@ Continue?</value>
   </data>
   <data name="Nintendo_NES_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\nintendo-nes-icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CannotInteract" xml:space="preserve">
+    <value>Hakchi update required</value>
+  </data>
+  <data name="JustWaitForYourMini" xml:space="preserve">
+    <value>Just wait until it power cycles.</value>
+  </data>
+  <data name="MakeSureYourMiniIsConnected" xml:space="preserve">
+    <value>Make sure your NES/SNES mini is properly connected via USB cable.</value>
+  </data>
+  <data name="RecoveryMode" xml:space="preserve">
+    <value>Recovery mode</value>
+  </data>
+  <data name="SfromToolInstalled" xml:space="preserve">
+    <value>SFROM Tool has been installed. Your games will now be converted with it. You can also drag and drop .CNP patches to add them easily.</value>
+  </data>
+  <data name="ErrorImportingGame" xml:space="preserve">
+    <value>Error importing game "{0}". Please verify that the file is valid and not corrupted.</value>
+  </data>
+  <data name="ImportGames" xml:space="preserve">
+    <value>Import games</value>
+  </data>
+  <data name="UpdatingList" xml:space="preserve">
+    <value>Updating list...</value>
+  </data>
+  <data name="modstore_info" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Extensions\ModStore\Resources\info.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CustomKernelInstalledQ" xml:space="preserve">
+    <value>Did you already flash the custom kernel on your NES/SNES Mini?</value>
   </data>
 </root>

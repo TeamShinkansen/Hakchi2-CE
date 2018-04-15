@@ -72,6 +72,8 @@
             this.modulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.installModulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uninstallModulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem21 = new System.Windows.Forms.ToolStripSeparator();
+            this.modStoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.originalGamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.positionAtTheTopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,6 +93,8 @@
             this.developerToolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.devForceSshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadTotmpforTestingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disableSSHlistenerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disableClovershellListenerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.separateGamesForMultibootToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.useLinkedSyncToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.compressGamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -505,7 +509,9 @@
             // 
             this.modulesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.installModulesToolStripMenuItem,
-            this.uninstallModulesToolStripMenuItem});
+            this.uninstallModulesToolStripMenuItem,
+            this.toolStripMenuItem21,
+            this.modStoreToolStripMenuItem});
             this.modulesToolStripMenuItem.Name = "modulesToolStripMenuItem";
             resources.ApplyResources(this.modulesToolStripMenuItem, "modulesToolStripMenuItem");
             // 
@@ -520,6 +526,17 @@
             this.uninstallModulesToolStripMenuItem.Name = "uninstallModulesToolStripMenuItem";
             resources.ApplyResources(this.uninstallModulesToolStripMenuItem, "uninstallModulesToolStripMenuItem");
             this.uninstallModulesToolStripMenuItem.Click += new System.EventHandler(this.uninstallModulesToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem21
+            // 
+            this.toolStripMenuItem21.Name = "toolStripMenuItem21";
+            resources.ApplyResources(this.toolStripMenuItem21, "toolStripMenuItem21");
+            // 
+            // modStoreToolStripMenuItem
+            // 
+            this.modStoreToolStripMenuItem.Name = "modStoreToolStripMenuItem";
+            resources.ApplyResources(this.modStoreToolStripMenuItem, "modStoreToolStripMenuItem");
+            this.modStoreToolStripMenuItem.Click += new System.EventHandler(this.modStoreToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -661,7 +678,9 @@
             // 
             this.developerToolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.devForceSshToolStripMenuItem,
-            this.uploadTotmpforTestingToolStripMenuItem});
+            this.uploadTotmpforTestingToolStripMenuItem,
+            this.disableSSHlistenerToolStripMenuItem,
+            this.disableClovershellListenerToolStripMenuItem});
             this.developerToolsToolStripMenuItem.Name = "developerToolsToolStripMenuItem";
             resources.ApplyResources(this.developerToolsToolStripMenuItem, "developerToolsToolStripMenuItem");
             // 
@@ -678,6 +697,20 @@
             this.uploadTotmpforTestingToolStripMenuItem.Name = "uploadTotmpforTestingToolStripMenuItem";
             resources.ApplyResources(this.uploadTotmpforTestingToolStripMenuItem, "uploadTotmpforTestingToolStripMenuItem");
             this.uploadTotmpforTestingToolStripMenuItem.Click += new System.EventHandler(this.uploadTotmpforTestingToolStripMenuItem_Click);
+            // 
+            // disableSSHlistenerToolStripMenuItem
+            // 
+            this.disableSSHlistenerToolStripMenuItem.CheckOnClick = true;
+            this.disableSSHlistenerToolStripMenuItem.Name = "disableSSHlistenerToolStripMenuItem";
+            resources.ApplyResources(this.disableSSHlistenerToolStripMenuItem, "disableSSHlistenerToolStripMenuItem");
+            this.disableSSHlistenerToolStripMenuItem.Click += new System.EventHandler(this.disableSSHlistenerToolStripMenuItem_Click);
+            // 
+            // disableClovershellListenerToolStripMenuItem
+            // 
+            this.disableClovershellListenerToolStripMenuItem.CheckOnClick = true;
+            this.disableClovershellListenerToolStripMenuItem.Name = "disableClovershellListenerToolStripMenuItem";
+            resources.ApplyResources(this.disableClovershellListenerToolStripMenuItem, "disableClovershellListenerToolStripMenuItem");
+            this.disableClovershellListenerToolStripMenuItem.Click += new System.EventHandler(this.disableClovershellListenerToolStripMenuItem_Click);
             // 
             // separateGamesForMultibootToolStripMenuItem
             // 
@@ -1854,6 +1887,10 @@
         private System.Windows.Forms.ToolStripMenuItem rightmostToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem20;
         private System.Windows.Forms.ToolStripMenuItem syncStructureForAllGamesCollectionsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem disableSSHlistenerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem disableClovershellListenerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem21;
+        private System.Windows.Forms.ToolStripMenuItem modStoreToolStripMenuItem;
     }
 }
 

@@ -444,6 +444,15 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hakchi update required.
+        /// </summary>
+        internal static string CannotInteract {
+            get {
+                return ResourceManager.GetString("CannotInteract", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your kernel or scripts are out of date. Please update before synchronizing games.
         /// </summary>
         internal static string CannotProceedCannotInteract {
@@ -453,7 +462,7 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your NES/SNES mini is currently in recovery state, cannot proceed.
+        ///   Looks up a localized string similar to Your NES/SNES Mini is currently in recovery state, cannot proceed.
         /// </summary>
         internal static string CannotProceedMinimalMemboot {
             get {
@@ -612,6 +621,15 @@ namespace com.clusterrr.hakchi_gui.Properties {
         internal static string CustomKernel {
             get {
                 return ResourceManager.GetString("CustomKernel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Did you already flash the custom kernel on your NES/SNES Mini?.
+        /// </summary>
+        internal static string CustomKernelInstalledQ {
+            get {
+                return ResourceManager.GetString("CustomKernelInstalledQ", resourceCulture);
             }
         }
         
@@ -909,6 +927,15 @@ namespace com.clusterrr.hakchi_gui.Properties {
         internal static string Error {
             get {
                 return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error importing game &quot;{0}&quot;. Please verify that the file is valid and not corrupted..
+        /// </summary>
+        internal static string ErrorImportingGame {
+            get {
+                return ResourceManager.GetString("ErrorImportingGame", resourceCulture);
             }
         }
         
@@ -1521,7 +1548,7 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FTP server on ftp://root@{0}.
+        ///   Looks up a localized string similar to FTP server on ftp://root@{0} (pass:clover).
         /// </summary>
         internal static string FTPServerOn {
             get {
@@ -1632,7 +1659,7 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 88e7742
+        ///   Looks up a localized string similar to 7747bcc-dirty
         ///.
         /// </summary>
         internal static string gitCommit {
@@ -1724,6 +1751,15 @@ namespace com.clusterrr.hakchi_gui.Properties {
         internal static string ImageTooLarge {
             get {
                 return ResourceManager.GetString("ImageTooLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import games.
+        /// </summary>
+        internal static string ImportGames {
+            get {
+                return ResourceManager.GetString("ImportGames", resourceCulture);
             }
         }
         
@@ -1829,6 +1865,15 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Just wait until it power cycles..
+        /// </summary>
+        internal static string JustWaitForYourMini {
+            get {
+                return ResourceManager.GetString("JustWaitForYourMini", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your original kernel is saved in the &quot;hakchi2\dump&quot; folder. Do not lose it. .
         /// </summary>
         internal static string KernelDumped {
@@ -1928,6 +1973,15 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Make sure your NES/SNES mini is properly connected via USB cable..
+        /// </summary>
+        internal static string MakeSureYourMiniIsConnected {
+            get {
+                return ResourceManager.GetString("MakeSureYourMiniIsConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &quot;{0}&quot; uses mapper #{1} but this mapper is not supported by the NES Mini and the game will probably not start with the default emulator. But it should work if other emulator&apos;s module installed. Do you want to add this game?.
         /// </summary>
         internal static string MapperNotSupported {
@@ -1987,6 +2041,16 @@ namespace com.clusterrr.hakchi_gui.Properties {
         internal static string MemoryStatsExport {
             get {
                 return ResourceManager.GetString("MemoryStatsExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap modstore_info {
+            get {
+                object obj = ResourceManager.GetObject("modstore_info", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -2365,6 +2429,15 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recovery mode.
+        /// </summary>
+        internal static string RecoveryMode {
+            get {
+                return ResourceManager.GetString("RecoveryMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your system is now in recovery mode, here you can telnet into the system to run any command you want, you can also use FTP to transfer files.
         ///
         ///In order to mount your base partitions, you&apos;ll need to run the command &quot;hakchi mount_base&quot;.
@@ -2458,7 +2531,7 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to reset and repair hakchi2 on your NES/SNES Mini?.
+        ///   Looks up a localized string similar to Are you sure you want to reset and repair hakchi on your NES/SNES Mini?.
         /// </summary>
         internal static string ResetQ {
             get {
@@ -2476,7 +2549,7 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resetting hakchi.
+        ///   Looks up a localized string similar to Resetting hakchi....
         /// </summary>
         internal static string ResettingHakchi {
             get {
@@ -2724,6 +2797,15 @@ namespace com.clusterrr.hakchi_gui.Properties {
         internal static string SfromTool {
             get {
                 return ResourceManager.GetString("SfromTool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SFROM Tool has been installed. Your games will now be converted with it. You can also drag and drop .CNP patches to add them easily..
+        /// </summary>
+        internal static string SfromToolInstalled {
+            get {
+                return ResourceManager.GetString("SfromToolInstalled", resourceCulture);
             }
         }
         
@@ -2994,7 +3076,7 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have {0} of games already synchronized on your NES/SNES mini (non separated for multiboot). Proceeding will erase those. Are you sure?.
+        ///   Looks up a localized string similar to You have {0} of games already synchronized on your NES/SNES Mini (non separated for multiboot). Proceeding will erase those. Are you sure?.
         /// </summary>
         internal static string SyncMultibootWarning {
             get {
@@ -3003,7 +3085,7 @@ namespace com.clusterrr.hakchi_gui.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have {0} of games already synchronized on your NES/SNES mini (separated for multiboot). Proceeding will erase those. Are you sure?.
+        ///   Looks up a localized string similar to You have {0} of games already synchronized on your NES/SNES Mini (separated for multiboot). Proceeding will erase those. Are you sure?.
         /// </summary>
         internal static string SyncNonMultibootWarning {
             get {
@@ -3210,6 +3292,15 @@ namespace com.clusterrr.hakchi_gui.Properties {
         internal static string UpdateComplete {
             get {
                 return ResourceManager.GetString("UpdateComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating list....
+        /// </summary>
+        internal static string UpdatingList {
+            get {
+                return ResourceManager.GetString("UpdatingList", resourceCulture);
             }
         }
         

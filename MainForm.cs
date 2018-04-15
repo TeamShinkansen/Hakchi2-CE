@@ -90,35 +90,14 @@ namespace com.clusterrr.hakchi_gui
             FtpServer.LocalPort = 1021;
 
             // setup shell menu items
-            setupShellMenuItems(null);
+            SetupShellMenuItems(null);
         }
 
-        void setWindowTitle()
-        {
-            string title = $"hakchi2 CE v{Shared.AppDisplayVersion}";
-
-#if DEBUG
-            title += " (Debug";
-#if VERY_DEBUG
-            title += ", very verbose mode";
-#endif
-            title += ")"
-#endif
-            ;
-
-            if (hakchi.DetectedConsoleType != null)
-            {
-                title += " - " + GetConsoleTypeName(hakchi.DetectedConsoleType);
-                if (hakchi.CustomFirmwareLoaded) title += " (HSQS)";
-            }
-
-            this.Text = title;
-        }
-
-        void FormInitialize()
+        private void FormInitialize()
         {
             try
             {
+                SetWindowTitle();
 
                 // prepare collections
                 LoadLanguages();
@@ -162,12 +141,52 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        void setupShellMenuItems(ISystemShell caller)
+        private void SetWindowTitle()
         {
             if (Disposing) return;
             if (InvokeRequired)
             {
-                Invoke(new Action(() => { setupShellMenuItems(caller); }));
+                Invoke(new Action(SetWindowTitle));
+                return;
+            }
+
+            string title = $"hakchi2 CE v{Shared.AppDisplayVersion}";
+
+#if DEBUG
+            title += " (Debug";
+#if VERY_DEBUG
+            title += ", very verbose mode";
+#endif
+            title += ")"
+#endif
+            ;
+
+            if (hakchi.MinimalMemboot)
+            {
+                title += " - " + Resources.RecoveryMode;
+            }
+            else if (!hakchi.CanInteract)
+            {
+                if (hakchi.Connected)
+                {
+                    title += " - " + Resources.CannotInteract;
+                }
+            }
+            else if (hakchi.DetectedConsoleType != null)
+            {
+                title += " - " + GetConsoleTypeName(hakchi.DetectedConsoleType);
+                if (hakchi.CustomFirmwareLoaded) title += " (HSQS)";
+            }
+
+            this.Text = title;
+        }
+
+        private void SetupShellMenuItems(ISystemShell caller)
+        {
+            if (Disposing) return;
+            if (InvokeRequired)
+            {
+                Invoke(new Action<ISystemShell>(SetupShellMenuItems), new object[] { caller });
                 return;
             }
 
@@ -210,8 +229,7 @@ namespace com.clusterrr.hakchi_gui
         {
             try
             {
-                // setup shell menu items
-                setupShellMenuItems(caller);
+                SyncConsoleSettings();
 
                 // then skip on if in minimal memboot
                 if (hakchi.MinimalMemboot)
@@ -226,7 +244,7 @@ namespace com.clusterrr.hakchi_gui
                             ConfigIni.Instance.ConsoleType = (hakchi.ConsoleType)hakchi.DetectedConsoleType;
                         ConfigIni.Instance.LastConnectedConsoleType = (hakchi.ConsoleType)hakchi.DetectedConsoleType;
                     }
-                    Invoke(new Action(SyncConsoleType));
+                    SyncConsoleType();
 
                     if (hakchi.SystemEligibleForRootfsUpdate())
                     {
@@ -237,7 +255,7 @@ namespace com.clusterrr.hakchi_gui
                             return;
                         }
                     }
-                    Invoke(new Action(UpdateLocalCache));
+                    UpdateLocalCache();
                 }
                 else
                 {
@@ -272,18 +290,76 @@ namespace com.clusterrr.hakchi_gui
 
         void Shell_OnDisconnected()
         {
-            Invoke(new Action(SyncConsoleType));
-            setupShellMenuItems(hakchi.Shell);
+            SyncConsoleSettings();
+            SyncConsoleType();
         }
 
-        static hakchi.ConsoleType lastConsoleType = hakchi.ConsoleType.Unknown;
-        public void SyncConsoleType()
+        private static bool lastConnected = false;
+        private void SyncConsoleSettings(bool force = false)
         {
-            setWindowTitle();
-            MemoryStats.DebugDisplay();
+            if (Disposing) return;
+            if (InvokeRequired)
+            {
+                Invoke(new Action<bool>(SyncConsoleSettings), new object[] { force });
+                return;
+            }
 
-            // skip the rest if unchanged
-            if (ConfigIni.Instance.ConsoleType == lastConsoleType) return;
+            if (lastConnected == hakchi.Connected && !force)
+            {
+                return;
+            }
+            lastConnected = hakchi.Connected;
+
+            // setup ui items
+            SetupShellMenuItems(hakchi.Shell);
+            SetWindowTitle();
+            MemoryStats.DebugDisplay();
+            timerCalculateGames.Enabled = true;
+
+            // developer settings
+            devForceSshToolStripMenuItem.Checked = ConfigIni.Instance.ForceSSHTransfers;
+            uploadTotmpforTestingToolStripMenuItem.Checked = ConfigIni.Instance.UploadToTmp;
+            disableSSHlistenerToolStripMenuItem.Checked = ConfigIni.Instance.DisableSSHListener;
+            disableClovershellListenerToolStripMenuItem.Checked = ConfigIni.Instance.DisableClovershellListener;
+            developerToolsToolStripMenuItem.Visible =
+                devForceSshToolStripMenuItem.Checked ||
+                uploadTotmpforTestingToolStripMenuItem.Checked ||
+                disableSSHlistenerToolStripMenuItem.Checked ||
+                disableClovershellListenerToolStripMenuItem.Checked;
+
+            // console settings
+            enableUSBHostToolStripMenuItem.Checked = ConfigIni.Instance.UsbHost;
+            useExtendedFontToolStripMenuItem.Checked = ConfigIni.Instance.UseFont;
+            epilepsyProtectionToolStripMenuItem.Checked = ConfigIni.Instance.AntiArmetLevel > 0;
+            selectButtonCombinationToolStripMenuItem.Enabled = resetUsingCombinationOfButtonsToolStripMenuItem.Checked = ConfigIni.Instance.ResetHack;
+            enableAutofireToolStripMenuItem.Checked = ConfigIni.Instance.AutofireHack;
+            useXYOnClassicControllerAsAutofireABToolStripMenuItem.Checked = ConfigIni.Instance.AutofireXYHack;
+            upABStartOnSecondControllerToolStripMenuItem.Enabled = true;
+            upABStartOnSecondControllerToolStripMenuItem.Checked = ConfigIni.Instance.FcStart && upABStartOnSecondControllerToolStripMenuItem.Enabled;
+
+            // enable/disable options based on console being connected and can interact or not
+            enableUSBHostToolStripMenuItem.Enabled =
+                useExtendedFontToolStripMenuItem.Enabled =
+                epilepsyProtectionToolStripMenuItem.Enabled =
+                cloverconHackToolStripMenuItem.Enabled =
+                globalCommandLineArgumentsexpertsOnluToolStripMenuItem.Enabled =
+                saveSettingsToNESMiniNowToolStripMenuItem.Enabled = (hakchi.Connected && hakchi.CanInteract);
+        }
+
+        private static hakchi.ConsoleType lastConsoleType = hakchi.ConsoleType.Unknown;
+        private void SyncConsoleType(bool force = false)
+        {
+            if (Disposing) return;
+            if (InvokeRequired)
+            {
+                Invoke(new Action<bool>(SyncConsoleType), new object[] { force });
+                return;
+            }
+
+            if (lastConsoleType == ConfigIni.Instance.ConsoleType && !force)
+            {
+                return;
+            }
             lastConsoleType = ConfigIni.Instance.ConsoleType;
 
             // select games collection
@@ -295,16 +371,6 @@ namespace com.clusterrr.hakchi_gui
                     break;
                 }
             }
-
-            // console settings
-            enableUSBHostToolStripMenuItem.Checked = ConfigIni.Instance.UsbHost;
-            useExtendedFontToolStripMenuItem.Checked = ConfigIni.Instance.UseFont;
-            epilepsyProtectionToolStripMenuItem.Checked = ConfigIni.Instance.AntiArmetLevel > 0;
-            selectButtonCombinationToolStripMenuItem.Enabled = resetUsingCombinationOfButtonsToolStripMenuItem.Checked = ConfigIni.Instance.ResetHack;
-            enableAutofireToolStripMenuItem.Checked = ConfigIni.Instance.AutofireHack;
-            useXYOnClassicControllerAsAutofireABToolStripMenuItem.Checked = ConfigIni.Instance.AutofireXYHack;
-            upABStartOnSecondControllerToolStripMenuItem.Enabled = true;
-            upABStartOnSecondControllerToolStripMenuItem.Checked = ConfigIni.Instance.FcStart && upABStartOnSecondControllerToolStripMenuItem.Enabled;
 
             // more settings
             compressGamesToolStripMenuItem.Checked = ConfigIni.Instance.Compress;
@@ -336,8 +402,6 @@ namespace com.clusterrr.hakchi_gui
             coreToolStripMenuItem.Checked = ConfigIni.Instance.GamesSorting == GamesSorting.Core;
             systemToolStripMenuItem.Checked = ConfigIni.Instance.GamesSorting == GamesSorting.System;
             showGamesWithoutBoxArtToolStripMenuItem.Checked = ConfigIni.Instance.ShowGamesWithoutCoverArt;
-            devForceSshToolStripMenuItem.Checked = ConfigIni.Instance.ForceSSHTransfers;
-            uploadTotmpforTestingToolStripMenuItem.Checked = ConfigIni.Instance.UploadToTmp;
 
             // folders modes
             disablePagefoldersToolStripMenuItem.Checked = (byte)ConfigIni.Instance.FoldersMode == 0;
@@ -385,8 +449,15 @@ namespace com.clusterrr.hakchi_gui
             LoadGames();
         }
 
-        void UpdateLocalCache()
+        private void UpdateLocalCache()
         {
+            if (Disposing) return;
+            if (InvokeRequired)
+            {
+                Invoke(new Action(UpdateLocalCache));
+                return;
+            }
+
             string cachePath = Path.Combine(Program.BaseDirectoryExternal, "games_cache");
             var games = new NesMenuCollection();
             foreach (NesDefaultGame game in NesApplication.DefaultGames)
@@ -422,6 +493,234 @@ namespace com.clusterrr.hakchi_gui
                 Tasks.Tasker.Conclusion c = tasker.Start();
             }
             new Thread(RecalculateSelectedGamesThread).Start();
+            ShowSelected();
+        }
+
+        private void LoadPresets()
+        {
+            while (presetsToolStripMenuItem.DropDownItems.Count > 3)
+                presetsToolStripMenuItem.DropDownItems.RemoveAt(0);
+            deletePresetToolStripMenuItem.Enabled = false;
+            deletePresetToolStripMenuItem.DropDownItems.Clear();
+            int i = 0;
+            foreach (var preset in ConfigIni.Instance.Presets.Keys.OrderBy(o => o))
+            {
+                presetsToolStripMenuItem.DropDownItems.Insert(i, new ToolStripMenuItem(preset, null,
+                    delegate (object sender, EventArgs e)
+                    {
+                        var presetSelected = ConfigIni.Instance.Presets[preset];
+                        for (int j = 1; j < listViewGames.Items.Count; j++)
+                        {
+                            var code = (listViewGames.Items[j].Tag as NesApplication).Code;
+                            if (presetSelected.Contains(code))
+                            {
+                                listViewGames.Items[j].Checked = true;
+                            }
+                            else
+                            {
+                                listViewGames.Items[j].Checked = false;
+                            }
+                        }
+                        SaveSelectedGames();
+                    }));
+                deletePresetToolStripMenuItem.DropDownItems.Insert(i, new ToolStripMenuItem(preset, null,
+                    delegate (object sender, EventArgs e)
+                    {
+                        if (Tasks.MessageForm.Show(this, Resources.AreYouSure, string.Format(Resources.DeletePreset, preset), Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+                        {
+                            ConfigIni.Instance.Presets.Remove(preset);
+                            LoadPresets();
+                        }
+                    }));
+                deletePresetToolStripMenuItem.Enabled = true;
+                i++;
+            }
+        }
+
+        private void LoadLanguages()
+        {
+            var languages = new List<string>(Directory.GetDirectories(Path.Combine(Program.BaseDirectoryInternal, "languages")));
+            ResourceManager rm = Resources.ResourceManager;
+            languages.Add("en-US"); // default language
+            var langCodes = new Dictionary<string, string>();
+            foreach (var language in languages)
+            {
+                var code = Path.GetFileName(language);
+                langCodes[new CultureInfo(code).DisplayName] = code;
+            }
+            ToolStripMenuItem english = null;
+            bool found = false;
+            foreach (var language in langCodes.Keys.OrderBy<string, string>(o => o))
+            {
+                var item = new ToolStripMenuItem();
+                var displayName = Regex.Replace(language, @" \(.+\)", "");
+                if (langCodes.Keys.Count(o => Regex.Replace(o, @" \(.+\)", "") == displayName) == 1)
+                    item.Text = displayName;
+                else
+                    item.Text = language;
+                var country = langCodes[language];
+                if (langCodes[language] == "zh-CHS" || langCodes[language] == "zh-CHT") // chinese is awkward
+                    country = "cn";
+                else
+                    if (country.Length > 2) country = country.Substring(country.Length - 2).ToLower();
+                // Trying to load flag
+                item.Image = (Image)rm.GetObject(country);
+                if (item.Image == null)
+                    Debug.WriteLine($"There is no flag for \"{country}\"");
+                item.ImageScaling = ToolStripItemImageScaling.None;
+                item.Click += delegate (object sender, EventArgs e)
+                    {
+                        ConfigIni.Instance.Language = langCodes[language];
+                        SaveConfig();
+                        lastConsoleType = hakchi.ConsoleType.Unknown;
+
+                        Thread.CurrentThread.CurrentUICulture = new CultureInfo(langCodes[language]);
+                        this.Hide();
+                        this.Controls.Clear();
+                        this.InitializeComponent();
+                        this.FormInitialize();
+                        this.SyncConsoleSettings(true);
+                        this.SyncConsoleType(true);
+                        this.Show();
+                    };
+                if (Thread.CurrentThread.CurrentUICulture.Name.ToUpper() == langCodes[language].ToUpper())
+                {
+                    item.Checked = true;
+                    if (string.IsNullOrEmpty(ConfigIni.Instance.Language))
+                        ConfigIni.Instance.Language = langCodes[language];
+                }
+                found |= item.Checked;
+                if (langCodes[language] == "en-US")
+                    english = item;
+                languageToolStripMenuItem.DropDownItems.Add(item);
+            }
+            if (!found)
+                english.Checked = true;
+        }
+
+        private void LoadFolderImageSets()
+        {
+            folderImagesSetToolStripMenuItem.DropDownItems.Clear();
+            var newItem = new ToolStripMenuItem(Resources.Default, null, delegate (object sender, EventArgs e)
+            {
+                ConfigIni.Instance.FolderImagesSet = string.Empty;
+
+                folderImagesSetToolStripMenuItem.DropDownItems.OfType<ToolStripMenuItem>().ToList().ForEach(item => item.Checked = false);
+                (sender as ToolStripMenuItem).Checked = true;
+            });
+            if (string.IsNullOrEmpty(ConfigIni.Instance.FolderImagesSet))
+            {
+                newItem.Checked = true;
+            }
+            folderImagesSetToolStripMenuItem.DropDownItems.Add(newItem);
+
+            var folderImagesDirs = Directory.GetDirectories(Path.Combine(Program.BaseDirectoryExternal, "folder_images"), "*.*", SearchOption.TopDirectoryOnly);
+            if (folderImagesDirs.Any())
+            {
+                folderImagesSetToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
+                foreach (var dir in folderImagesDirs)
+                {
+                    string name = Path.GetFileName(dir);
+                    newItem = new ToolStripMenuItem(name, null, delegate (object sender, EventArgs e)
+                    {
+                        ConfigIni.Instance.FolderImagesSet = name;
+
+                        folderImagesSetToolStripMenuItem.DropDownItems.OfType<ToolStripMenuItem>().ToList().ForEach(item => item.Checked = false);
+                        (sender as ToolStripMenuItem).Checked = true;
+                    });
+                    if (ConfigIni.Instance.FolderImagesSet == name)
+                    {
+                        newItem.Checked = true;
+                    }
+                    folderImagesSetToolStripMenuItem.DropDownItems.Add(newItem);
+                }
+            }
+        }
+
+        private void SaveSelectedGames()
+        {
+            Debug.WriteLine("Saving selected games");
+            var selected = ConfigIni.Instance.SelectedGames;
+            var original = ConfigIni.Instance.OriginalGames;
+            selected.Clear();
+            if (ConfigIni.Instance.OriginalGamesPosition != OriginalGamesPosition.Hidden)
+                original.Clear();
+
+            foreach (ListViewItem item in listViewGames.CheckedItems)
+            {
+                if (item.Tag is NesApplication)
+                {
+                    NesApplication game = item.Tag as NesApplication;
+                    (game.IsOriginalGame ? original : selected).Add(game.Code);
+                }
+            }
+        }
+
+        private void SaveGameItem(ListViewItem item)
+        {
+            try
+            {
+                NesApplication game = item.Tag as NesApplication;
+                if (game != null && !game.IsDeleting)
+                {
+                    if (game.Save()) // maybe type was changed? need to reload games
+                    {
+                        item.Tag = NesApplication.FromDirectory(game.BasePath);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message + ex.StackTrace);
+                Tasks.ErrorForm.Show(Resources.Error, ex.Message, ex.StackTrace);
+            }
+        }
+
+        private void SaveConfig()
+        {
+            SaveSelectedGames();
+            ConfigIni.Save();
+            listViewGames.Items.Cast<ListViewItem>().ToList().ForEach(item => SaveGameItem(item));
+        }
+
+        private void AddPreset(object sender, EventArgs e)
+        {
+            var form = new StringInputForm();
+            form.Text = Resources.NewPreset;
+            form.labelComments.Text = Resources.InputPreset;
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                var name = form.textBox.Text.Replace("=", " ");
+                if (!string.IsNullOrEmpty(name))
+                {
+                    SaveSelectedGames();
+                    ConfigIni.Instance.Presets[name] =
+                        Shared.ConcatArrays(ConfigIni.Instance.SelectedGames.ToArray(), ConfigIni.Instance.OriginalGames.ToArray()).ToList();
+                    LoadPresets();
+                }
+            }
+        }
+
+        private void SelectAll(bool selected = true)
+        {
+            listViewGames.SuspendLayout();
+            listViewGames.ItemSelectionChanged -= listViewGames_ItemSelectionChanged;
+            try
+            {
+                for (int i = 0; i < listViewGames.Items.Count; ++i)
+                {
+                    if (!selected && listViewGames.Items[i].Selected)
+                    {
+                        SaveGameItem(listViewGames.Items[i]);
+                    }
+                    listViewGames.Items[i].Selected = selected;
+                }
+            }
+            finally
+            {
+                listViewGames.ItemSelectionChanged += new ListViewItemSelectionChangedEventHandler(listViewGames_ItemSelectionChanged);
+                listViewGames.ResumeLayout();
+            }
             ShowSelected();
         }
 
@@ -508,210 +807,49 @@ namespace com.clusterrr.hakchi_gui
             showingSelected = false;
         }
 
-        void LoadPresets()
-        {
-            while (presetsToolStripMenuItem.DropDownItems.Count > 3)
-                presetsToolStripMenuItem.DropDownItems.RemoveAt(0);
-            deletePresetToolStripMenuItem.Enabled = false;
-            deletePresetToolStripMenuItem.DropDownItems.Clear();
-            int i = 0;
-            foreach (var preset in ConfigIni.Instance.Presets.Keys.OrderBy(o => o))
-            {
-                presetsToolStripMenuItem.DropDownItems.Insert(i, new ToolStripMenuItem(preset, null,
-                    delegate (object sender, EventArgs e)
-                    {
-                        var presetSelected = ConfigIni.Instance.Presets[preset];
-                        for (int j = 1; j < listViewGames.Items.Count; j++)
-                        {
-                            var code = (listViewGames.Items[j].Tag as NesApplication).Code;
-                            if (presetSelected.Contains(code))
-                            {
-                                listViewGames.Items[j].Checked = true;
-                            }
-                            else
-                            {
-                                listViewGames.Items[j].Checked = false;
-                            }
-                        }
-                        SaveSelectedGames();
-                    }));
-                deletePresetToolStripMenuItem.DropDownItems.Insert(i, new ToolStripMenuItem(preset, null,
-                    delegate (object sender, EventArgs e)
-                    {
-                        if (Tasks.MessageForm.Show(this, Resources.AreYouSure, string.Format(Resources.DeletePreset, preset), Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
-                        {
-                            ConfigIni.Instance.Presets.Remove(preset);
-                            LoadPresets();
-                        }
-                    }));
-                deletePresetToolStripMenuItem.Enabled = true;
-                i++;
-            }
-        }
-
-        void LoadLanguages()
-        {
-            var languages = new List<string>(Directory.GetDirectories(Path.Combine(Program.BaseDirectoryInternal, "languages")));
-            ResourceManager rm = Resources.ResourceManager;
-            languages.Add("en-US"); // default language
-            var langCodes = new Dictionary<string, string>();
-            foreach (var language in languages)
-            {
-                var code = Path.GetFileName(language);
-                langCodes[new CultureInfo(code).DisplayName] = code;
-            }
-            ToolStripMenuItem english = null;
-            bool found = false;
-            foreach (var language in langCodes.Keys.OrderBy<string, string>(o => o))
-            {
-                var item = new ToolStripMenuItem();
-                var displayName = Regex.Replace(language, @" \(.+\)", "");
-                if (langCodes.Keys.Count(o => Regex.Replace(o, @" \(.+\)", "") == displayName) == 1)
-                    item.Text = displayName;
-                else
-                    item.Text = language;
-                var country = langCodes[language];
-                if (langCodes[language] == "zh-CHS" || langCodes[language] == "zh-CHT") // chinese is awkward
-                    country = "cn";
-                else
-                    if (country.Length > 2) country = country.Substring(country.Length - 2).ToLower();
-                // Trying to load flag
-                item.Image = (Image)rm.GetObject(country);
-                if (item.Image == null)
-                    Debug.WriteLine($"There is no flag for \"{country}\"");
-                item.ImageScaling = ToolStripItemImageScaling.None;
-                item.Click += delegate (object sender, EventArgs e)
-                    {
-                        ConfigIni.Instance.Language = langCodes[language];
-                        SaveConfig();
-                        lastConsoleType = hakchi.ConsoleType.Unknown;
-
-                        Thread.CurrentThread.CurrentUICulture = new CultureInfo(langCodes[language]);
-                        this.Hide();
-                        this.Controls.Clear();
-                        this.InitializeComponent();
-                        this.FormInitialize();
-                        this.setupShellMenuItems(hakchi.Shell);
-                        this.SyncConsoleType();
-                        this.Show();
-                        //this.Invalidate(true);
-                    };
-                if (Thread.CurrentThread.CurrentUICulture.Name.ToUpper() == langCodes[language].ToUpper())
-                {
-                    item.Checked = true;
-                    if (string.IsNullOrEmpty(ConfigIni.Instance.Language))
-                        ConfigIni.Instance.Language = langCodes[language];
-                }
-                found |= item.Checked;
-                if (langCodes[language] == "en-US")
-                    english = item;
-                languageToolStripMenuItem.DropDownItems.Add(item);
-            }
-            if (!found)
-                english.Checked = true;
-        }
-
-        private void LoadFolderImageSets()
-        {
-            folderImagesSetToolStripMenuItem.DropDownItems.Clear();
-            var newItem = new ToolStripMenuItem(Resources.Default, null, delegate (object sender, EventArgs e)
-            {
-                ConfigIni.Instance.FolderImagesSet = string.Empty;
-
-                folderImagesSetToolStripMenuItem.DropDownItems.OfType<ToolStripMenuItem>().ToList().ForEach(item => item.Checked = false);
-                (sender as ToolStripMenuItem).Checked = true;
-            });
-            if (string.IsNullOrEmpty(ConfigIni.Instance.FolderImagesSet))
-                newItem.Checked = true;
-            folderImagesSetToolStripMenuItem.DropDownItems.Add(newItem);
-            folderImagesSetToolStripMenuItem.DropDownItems.Add(new ToolStripSeparator());
-
-            string imgPath = Path.Combine(Program.BaseDirectoryExternal, "folder_images");
-            foreach (var dir in Directory.GetDirectories(imgPath, "*.*", SearchOption.TopDirectoryOnly))
-            {
-                string name = Path.GetFileName(dir);
-                newItem = new ToolStripMenuItem(name, null, delegate (object sender, EventArgs e)
-                {
-                    ConfigIni.Instance.FolderImagesSet = name;
-
-                    folderImagesSetToolStripMenuItem.DropDownItems.OfType<ToolStripMenuItem>().ToList().ForEach(item => item.Checked = false);
-                    (sender as ToolStripMenuItem).Checked = true;
-                });
-                if (ConfigIni.Instance.FolderImagesSet == name)
-                    newItem.Checked = true;
-                folderImagesSetToolStripMenuItem.DropDownItems.Add(newItem);
-            }
-        }
-
-        private void SaveSelectedGames()
-        {
-            Debug.WriteLine("Saving selected games");
-            var selected = ConfigIni.Instance.SelectedGames;
-            var original = ConfigIni.Instance.OriginalGames;
-            selected.Clear();
-            if (ConfigIni.Instance.OriginalGamesPosition != OriginalGamesPosition.Hidden)
-                original.Clear();
-
-            foreach (ListViewItem item in listViewGames.CheckedItems)
-            {
-                if (item.Tag is NesApplication)
-                {
-                    NesApplication game = item.Tag as NesApplication;
-                    (game.IsOriginalGame ? original : selected).Add(game.Code);
-                }
-            }
-        }
-
-        private void SaveConfig()
-        {
-            SaveSelectedGames();
-            ConfigIni.Save();
-            foreach (ListViewItem game in listViewGames.Items)
-            {
-                try
-                {
-                    if (game.Tag is NesApplication)
-                    {
-                        // Maybe type was changed? Need to reload games
-                        if ((game.Tag as NesApplication).Save())
-                            game.Tag = NesApplication.FromDirectory((game.Tag as NesApplication).BasePath);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message + ex.StackTrace);
-                    Tasks.ErrorForm.Show(Resources.Error, ex.Message, ex.StackTrace);
-                }
-            }
-        }
-
-        void AddPreset(object sender, EventArgs e)
-        {
-            var form = new StringInputForm();
-            form.Text = Resources.NewPreset;
-            form.labelComments.Text = Resources.InputPreset;
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                var name = form.textBox.Text.Replace("=", " ");
-                if (!string.IsNullOrEmpty(name))
-                {
-                    SaveSelectedGames();
-                    ConfigIni.Instance.Presets[name] =
-                        Shared.ConcatArrays(ConfigIni.Instance.SelectedGames.ToArray(), ConfigIni.Instance.OriginalGames.ToArray()).ToList();
-                    LoadPresets();
-                }
-            }
-        }
-
+        private int lastListViewGamesSelectionCount = 0;
         private void listViewGames_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            int c = listViewGames.SelectedItems.Count;
-            ListViewItem item = c == 1 ? listViewGames.SelectedItems[0] : null;
-            if (item != null && item.Tag is NesApplication && (item.Tag as NesApplication).IsDeleting) c = 0;
+            if (!e.IsSelected && e.Item != null)
+                SaveGameItem(e.Item);
+
+            int c = listViewGames.SelectedItems.Count, last = lastListViewGamesSelectionCount;
+            lastListViewGamesSelectionCount = c;
+            if (c == 1)
+            {
+                NesApplication game = e.Item.Tag as NesApplication;
+                if (game == null || game.IsDeleting)
+                {
+                    c = 0;
+                }
+                else
+                {
+                    explorerToolStripMenuItem.Enabled =
+                        downloadBoxArtForSelectedGamesToolStripMenuItem.Enabled =
+                        scanForNewBoxArtForSelectedGamesToolStripMenuItem.Enabled =
+                        deleteSelectedGamesBoxArtToolStripMenuItem.Enabled = true;
+
+                    deleteSelectedGamesToolStripMenuItem.Enabled =
+                        repairGamesToolStripMenuItem.Enabled =
+                        selectEmulationCoreToolStripMenuItem.Enabled = !game.IsOriginalGame;
+
+                    compressSelectedGamesToolStripMenuItem.Enabled = game.CompressPossible().Count() > 0;
+                    decompressSelectedGamesToolStripMenuItem.Enabled = game.DecompressPossible().Count() > 0;
+
+                    sFROMToolToolStripMenuItem1.Enabled =
+                        editROMHeaderToolStripMenuItem.Enabled =
+                        resetROMHeaderToolStripMenuItem.Enabled =
+                            !game.IsOriginalGame && SfromToolWrapper.IsInstalled && game is SnesGame && 
+                            (game.GameFilePath ?? "").ToLower().Contains(".sfrom");
+                }
+            }
 
             if (c == 0)
             {
-                explorerToolStripMenuItem.Enabled = 
+                if (last == 0)
+                    return;
+
+                explorerToolStripMenuItem.Enabled =
                     downloadBoxArtForSelectedGamesToolStripMenuItem.Enabled =
                     scanForNewBoxArtForSelectedGamesToolStripMenuItem.Enabled =
                     deleteSelectedGamesBoxArtToolStripMenuItem.Enabled =
@@ -722,29 +860,11 @@ namespace com.clusterrr.hakchi_gui
                     repairGamesToolStripMenuItem.Enabled =
                     selectEmulationCoreToolStripMenuItem.Enabled = false;
             }
-            else if (c == 1)
+            else if (c > 1)
             {
-                explorerToolStripMenuItem.Enabled =
-                    downloadBoxArtForSelectedGamesToolStripMenuItem.Enabled =
-                    scanForNewBoxArtForSelectedGamesToolStripMenuItem.Enabled =
-                    deleteSelectedGamesBoxArtToolStripMenuItem.Enabled = true;
+                if (last > 1)
+                    return;
 
-                deleteSelectedGamesToolStripMenuItem.Enabled = 
-                    repairGamesToolStripMenuItem.Enabled =
-                    selectEmulationCoreToolStripMenuItem.Enabled = !(item.Tag as NesApplication).IsOriginalGame;
-                compressSelectedGamesToolStripMenuItem.Enabled = (item.Tag as NesApplication).CompressPossible().Count() > 0;
-                decompressSelectedGamesToolStripMenuItem.Enabled = (item.Tag as NesApplication).DecompressPossible().Count() > 0;
-
-                sFROMToolToolStripMenuItem1.Enabled =
-                    editROMHeaderToolStripMenuItem.Enabled =
-                    resetROMHeaderToolStripMenuItem.Enabled =
-                        SfromToolWrapper.IsInstalled &&
-                        (item.Tag is SnesGame &&
-                        !(item.Tag as SnesGame).IsOriginalGame &&
-                        ((item.Tag as SnesGame).GameFilePath ?? "").ToLower().Contains(".sfrom"));
-            }
-            else
-            {
                 explorerToolStripMenuItem.Enabled =
                     editROMHeaderToolStripMenuItem.Enabled = false;
 
@@ -759,11 +879,7 @@ namespace com.clusterrr.hakchi_gui
 
                 sFROMToolToolStripMenuItem1.Enabled =
                     resetROMHeaderToolStripMenuItem.Enabled = SfromToolWrapper.IsInstalled;
-
             }
-
-            if (!e.IsSelected)
-                (e.Item.Tag as NesApplication).Save();
 
             timerShowSelected.Enabled = true;
         }
@@ -776,15 +892,14 @@ namespace com.clusterrr.hakchi_gui
 
         private void listViewGames_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            // Schedule recalculation
             timerCalculateGames.Enabled = false;
             timerCalculateGames.Enabled = true;
         }
 
         private void timerCalculateGames_Tick(object sender, EventArgs e)
         {
-            new Thread(RecalculateSelectedGamesThread).Start(); // Calculate it in background
-            timerCalculateGames.Enabled = false; // We don't need to count games repetedly
+            new Thread(RecalculateSelectedGamesThread).Start();
+            timerCalculateGames.Enabled = false;
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
@@ -800,6 +915,10 @@ namespace com.clusterrr.hakchi_gui
                         editROMHeaderToolStripMenuItem_Click(sender, e);
                     }
                     break;
+                case Keys.F12:
+                    if (e.Modifiers == Keys.Control)
+                        developerToolsToolStripMenuItem.Visible = true;
+                    break;
             }
         }
 
@@ -809,12 +928,15 @@ namespace com.clusterrr.hakchi_gui
             {
                 case Keys.A:
                     if (e.Modifiers == Keys.Control)
-                    {
-                        listViewGames.BeginUpdate();
-                        foreach (ListViewItem item in listViewGames.Items)
-                            item.Selected = true;
-                        listViewGames.EndUpdate();
-                    }
+                        SelectAll();
+                    break;
+                case Keys.Escape:
+                    if (e.Modifiers == 0)
+                        SelectAll(false);
+                    break;
+                case Keys.N:
+                    if (e.Modifiers == Keys.Control)
+                        SelectAll(false);
                     break;
                 case Keys.Delete:
                     if ((listViewGames.SelectedItems.Count > 1) || (listViewGames.SelectedItems.Count == 1 && listViewGames.SelectedItems[0].Tag is NesApplication))
@@ -1121,10 +1243,6 @@ namespace com.clusterrr.hakchi_gui
 
         private void reloadGamesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            listViewGames.BeginUpdate();
-            foreach (ListViewItem item in listViewGames.Items)
-                item.Selected = false;
-            listViewGames.EndUpdate();
             SaveConfig();
             LoadGames();
         }
@@ -1145,7 +1263,7 @@ namespace com.clusterrr.hakchi_gui
                 {
                     if (ConfigIni.Instance.ConsoleType != c)
                     {
-                        SaveSelectedGames();
+                        SaveConfig();
 
                         ConfigIni.Instance.ConsoleType = c;
                         SyncConsoleType();
@@ -1156,20 +1274,25 @@ namespace com.clusterrr.hakchi_gui
 
         }
 
-        Tasks.MessageForm.Button RequirePatchedKernel()
+        bool RequirePatchedKernel()
         {
-            if (hakchi.Shell.IsOnline) return Tasks.MessageForm.Button.OK; // OK - Shell is online
-            if (Tasks.MessageForm.Show(this, Resources.CustomKernel, Resources.CustomWarning, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+            if (hakchi.Connected) return true; // OK - Shell is online
+            var returnVal = Tasks.MessageForm.Show(this, Resources.CustomKernel, Resources.CustomKernelInstalledQ, Resources.sign_question, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No, Tasks.MessageForm.Button.Cancel }, Tasks.MessageForm.DefaultButton.Button1);
+            if (returnVal == MessageForm.Button.Yes)
             {
-                if (InstallHakchi())
-                    return Tasks.MessageForm.Button.Yes; // Succesfully flashed
-                else
-                    return Tasks.MessageForm.Button.No; // Not flashed for some other reason
+                return WaitingClovershellForm.WaitForDevice(this);
             }
-            else
+            else if (returnVal == MessageForm.Button.No)
             {
-                return Tasks.MessageForm.Button.No;
+                if (Tasks.MessageForm.Show(this, Resources.CustomKernel, Resources.CustomWarning, Resources.sign_warning, new Tasks.MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }, Tasks.MessageForm.DefaultButton.Button1) == Tasks.MessageForm.Button.Yes)
+                {
+                    if (InstallHakchi())
+                    {
+                        return WaitingClovershellForm.WaitForDevice(this);
+                    }
+                }
             }
+            return false;
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -1179,18 +1302,18 @@ namespace com.clusterrr.hakchi_gui
                 Tasks.MessageForm.Show(Resources.UploadGames, Resources.SelectAtLeast, Resources.sign_info);
                 return;
             }
-            if (RequirePatchedKernel() == Tasks.MessageForm.Button.No)
+            if (!RequirePatchedKernel())
             {
                 return;
             }
             if (hakchi.MinimalMemboot)
             {
-                Tasks.MessageForm.Show(Resources.UploadGames, Resources.CannotProceedMinimalMemboot, Resources.sign_error);
+                Tasks.MessageForm.Show(Resources.UploadGames, Resources.CannotProceedMinimalMemboot);
                 return;
             }
             if (!hakchi.CanInteract)
             {
-                Tasks.MessageForm.Show(Resources.UploadGames, Resources.CannotProceedCannotInteract, Resources.sign_error);
+                Tasks.MessageForm.Show(Resources.UploadGames, Resources.CannotProceedCannotInteract, Resources.sign_ban);
                 return;
             }
             if (ConfigIni.Instance.SeparateGameStorage)
@@ -1357,7 +1480,7 @@ namespace com.clusterrr.hakchi_gui
             {
                 tasker.AttachViews(new Tasks.TaskerTaskbar(), new Tasks.TaskerForm());
                 tasker.SetTitle(reset ? Resources.ResettingHakchi : Resources.InstallingHakchi);
-                tasker.SetStatusImage(Resources.sign_keyring);
+                tasker.SetStatusImage(reset ? Resources.sign_sync : Resources.sign_keyring);
                 if (reset)
                 {
                     tasker.AddTasks(new MembootTasks(MembootTasks.MembootTaskType.ResetHakchi).Tasks);
@@ -1382,7 +1505,7 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        void AddGames(IEnumerable<string> files)
+        public void AddGames(IEnumerable<string> files)
         {
             using (var tasker = new Tasks.Tasker(this))
             {
@@ -1409,14 +1532,14 @@ namespace com.clusterrr.hakchi_gui
             using (var tasker = new Tasker(this))
             {
                 tasker.AttachViews(new Tasks.TaskerTaskbar(), new Tasks.TaskerForm());
-                tasker.SetStatusImage(Resources.sign_trashcan);
+                tasker.SetStatusImage(Resources.sign_delete);
                 tasker.SetTitle(Resources.UninstallingHakchi);
                 tasker.AddTasks(new MembootTasks(MembootTasks.MembootTaskType.UninstallHakchi).Tasks);
                 return tasker.Start() == Tasker.Conclusion.Success;
             }
         }
 
-        bool InstallMods(string[] mods)
+        public bool InstallMods(string[] mods)
         {
             using (var tasker = new Tasker(this))
             {
@@ -1614,7 +1737,7 @@ namespace com.clusterrr.hakchi_gui
                 using (var tasker = new Tasker(this))
                 {
                     tasker.AttachViews(new Tasks.TaskerTaskbar(), new Tasks.TaskerForm());
-                    tasker.SetStatusImage(Resources.sign_trashcan);
+                    tasker.SetStatusImage(Resources.sign_delete);
                     tasker.SetTitle(((ToolStripMenuItem)sender).Text);
                     tasker.AddTasks(new MembootTasks(MembootTasks.MembootTaskType.FactoryReset).Tasks);
                     if (tasker.Start() == Tasker.Conclusion.Success)
@@ -1751,6 +1874,7 @@ namespace com.clusterrr.hakchi_gui
 
         public void ResetOriginalGamesForCurrentSystem(bool nonDestructiveSync = false)
         {
+            SaveConfig();
             using (var tasker = new Tasks.Tasker(this))
             {
                 tasker.AttachView(new Tasks.TaskerTaskbar());
@@ -1768,7 +1892,6 @@ namespace com.clusterrr.hakchi_gui
                 }
             }
             LoadGames();
-            timerCalculateGames.Enabled = true;
         }
 
         public void ResetOriginalGamesForAllSystems()
@@ -1799,14 +1922,14 @@ namespace com.clusterrr.hakchi_gui
                 }
             }
             LoadGames();
-            timerCalculateGames.Enabled = true;
         }
 
         private void AddDefaultsToSelectedGames(NesDefaultGame[] games, ICollection<string> selectedGames)
         {
             foreach (NesDefaultGame game in games)
-                if (!selectedGames.Contains(game.Code))
-                    selectedGames.Add(game.Code);
+            {
+                if (!selectedGames.Contains(game.Code)) selectedGames.Add(game.Code);
+            }
         }
 
         private void resetOriginalGamesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1868,7 +1991,8 @@ namespace com.clusterrr.hakchi_gui
             }
 
             // nothing else will call this at the moment, so need to do it
-            SyncConsoleType();
+            SyncConsoleSettings(true);
+            SyncConsoleType(true);
 
             // enable timers
             timerConnectionCheck.Enabled = true;
@@ -1894,8 +2018,6 @@ namespace com.clusterrr.hakchi_gui
             var files = (string[])e.Data.GetData(DataFormats.FileDrop);
             if (files == null) return;
 
-            // Need to determine type of files
-            // Maybe it's cover art?
             if (files.Length == 1)
             {
                 var ext = Path.GetExtension(files[0]).ToLower();
@@ -1904,42 +2026,81 @@ namespace com.clusterrr.hakchi_gui
                     SetImageForSelectedGame(files[0]);
                     return;
                 }
-            }
-
-            // Maybe it's some mods?
-            bool mods = false;
-            foreach (var file in files)
-                if (Path.GetExtension(file).ToLower() == ".hmod")
-                    mods = true;
-            // Maybe it's some mods in single archive?
-            if (files.Length == 1)
-            {
-                var ext = Path.GetExtension(files[0]).ToLower();
-                if (ext == ".7z" || ext == ".zip" || ext == ".rar")
+                if (Path.GetFileName(files[0]).ToLower().StartsWith("sfrom_tool") && (ext == ".rar" || ext == ".zip" || ext == ".rar"))
                 {
                     using (var szExtractor = new SevenZipExtractor(files[0]))
                     {
+                        szExtractor.ExtractArchive(Path.Combine(Program.BaseDirectoryExternal, "sfrom_tool"));
+                    }
+                    enableSFROMToolToolStripMenuItem.Checked = true;
+                    enableSFROMToolToolStripMenuItem_Click(sender, e);
+
+                    if (SfromToolWrapper.IsInstalled)
+                    {
+                        Tasks.MessageForm.Show(this, Resources.SfromTool, Resources.SfromToolInstalled, Resources.sign_handshake);
+                    }
+                    return;
+                }
+            }
+
+            string patchesPath = Path.Combine(Program.BaseDirectoryExternal, "sfrom_tool", "patches");
+            if (!Directory.Exists(patchesPath))
+                patchesPath = null;
+
+            var filesToAdd = new List<string>();
+            var modsToInstall = new List<string>();
+            foreach (var file in files)
+            {
+                var ext = Path.GetExtension(file).ToLower();
+                if (ext == ".hmod")
+                {
+                    modsToInstall.Add(file);
+                }
+                else if (Directory.Exists(file))
+                {
+                    // nothing for now (too many potential problems)
+                }
+                else if (ext == ".7z" || ext == ".zip" || ext == ".rar")
+                {
+                    using (var szExtractor = new SevenZipExtractor(file))
+                    {
+                        bool isMod = false;
                         foreach (var f in szExtractor.ArchiveFileNames)
                             if (Path.GetExtension(f).ToLower() == ".hmod")
-                                mods = true;
+                            {
+                                modsToInstall.Add(file);
+                                isMod = true;
+                                break;
+                            }
+
+                        if (!isMod)
+                        {
+                            filesToAdd.Add(file);
+                        }
+                    }
+                }
+                else if (File.Exists(file))
+                {
+                    if (ext == ".cnp")
+                    {
+                        if (patchesPath != null)
+                            File.Copy(file, Path.Combine(patchesPath, Path.GetFileName(file)));
+                    }
+                    else
+                    {
+                        filesToAdd.Add(file);
                     }
                 }
             }
-            if (mods)
-            {
-                installModules(files);
-                return;
-            }
 
-            // All other cases - games or apps
-            var allFilesToAdd = new List<string>();
-            foreach (var file in files)
-                if (Directory.Exists(file))
-                    allFilesToAdd.AddRange(Directory.GetFiles(file, "*.*", SearchOption.AllDirectories));
-                else if (File.Exists(file))
-                    allFilesToAdd.Add(file);
-            if (allFilesToAdd.Count > 0)
-                AddGames(allFilesToAdd);
+            if (modsToInstall.Count > 0)
+            {
+                installModules(modsToInstall.ToArray());
+            }
+            if (filesToAdd.Count > 0)
+            {
+                AddGames(filesToAdd);
+            }
         }
 
         private void searchToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2023,6 +2184,20 @@ namespace com.clusterrr.hakchi_gui
             ConfigIni.Instance.UploadToTmp = uploadTotmpforTestingToolStripMenuItem.Checked;
         }
 
+        private void disableSSHlistenerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigIni.Instance.DisableSSHListener = disableSSHlistenerToolStripMenuItem.Checked;
+            Debug.WriteLine("Recycling system shell listeners");
+            hakchi.Initialize();
+        }
+
+        private void disableClovershellListenerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigIni.Instance.DisableClovershellListener = disableClovershellListenerToolStripMenuItem.Checked;
+            Debug.WriteLine("Recycling system shell listeners");
+            hakchi.Initialize();
+        }
+
         private void pagesModefoldersToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (sender == customToolStripMenuItem && customToolStripMenuItem.Checked)
@@ -2044,15 +2219,36 @@ namespace com.clusterrr.hakchi_gui
             customToolStripMenuItem.Checked = (byte)ConfigIni.Instance.FoldersMode == 99;
         }
 
+        private void leftmostToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            leftmostToolStripMenuItem.Checked = true;
+            rightmostToolStripMenuItem.Checked = false;
+            ConfigIni.Instance.BackFolderPosition = NesMenuFolder.Priority.LeftBack;
+        }
+
+        private void rightmostToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            leftmostToolStripMenuItem.Checked = false;
+            rightmostToolStripMenuItem.Checked = true;
+            ConfigIni.Instance.BackFolderPosition = NesMenuFolder.Priority.Back;
+        }
+
+        private void syncStructureForAllGamesCollectionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Tasks.MessageForm.Show(this, Resources.SaveSettings, Resources.SaveStructureQ, Resources.sign_sync, new MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }) == Tasks.MessageForm.Button.Yes)
+            {
+                ConfigIni.Instance.SyncGamesCollectionsStructureSettings();
+            }
+        }
+
         private void timerConnectionCheck_Tick(object sender, EventArgs e)
         {
-            toolStripStatusConnectionIcon.Image = hakchi.Shell.IsOnline ? Resources.green : Resources.red;
-            toolStripStatusConnectionIcon.ToolTipText = hakchi.Shell.IsOnline ? "Online" : "Offline";
+            toolStripStatusConnectionIcon.Image = hakchi.Connected ? Resources.green : Resources.red;
+            toolStripStatusConnectionIcon.ToolTipText = hakchi.Connected ? "Online" : "Offline";
         }
 
         private void saveSettingsToNESMiniNowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (RequirePatchedKernel() == Tasks.MessageForm.Button.No) return;
             try
             {
                 if (WaitingClovershellForm.WaitForDevice(this))
@@ -2071,18 +2267,38 @@ namespace com.clusterrr.hakchi_gui
 
         private void saveStateManagerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (RequirePatchedKernel() == Tasks.MessageForm.Button.No) return;
-            var gameNames = new Dictionary<string, string>();
-            foreach (var game in NesApplication.AllDefaultGames)
-                gameNames[game.Code] = game.Name;
-            foreach (ListViewItem item in listViewGames.Items)
+            try
             {
-                if (item.Tag is NesApplication)
-                    gameNames[(item.Tag as NesApplication).Code] = (item.Tag as NesApplication).Name;
+                if (WaitingClovershellForm.WaitForDevice(this))
+                {
+                    if (hakchi.MinimalMemboot)
+                    {
+                        Tasks.MessageForm.Show(this, Resources.Warning, Resources.CannotProceedMinimalMemboot);
+                        return;
+                    }
+                    if (!hakchi.CanInteract)
+                    {
+                        Tasks.MessageForm.Show(this, Resources.Warning, Resources.CannotProceedCannotInteract, Resources.sign_ban);
+                        return;
+                    }
+                    var gameNames = new Dictionary<string, string>();
+                    foreach (var game in NesApplication.AllDefaultGames)
+                        gameNames[game.Code] = game.Name;
+                    foreach (ListViewItem item in listViewGames.Items)
+                    {
+                        if (item.Tag is NesApplication)
+                            gameNames[(item.Tag as NesApplication).Code] = (item.Tag as NesApplication).Name;
+                    }
+                    using (var form = new SaveStateManager(gameNames))
+                    {
+                        form.ShowDialog();
+                    }
+                }
             }
-            using (var form = new SaveStateManager(gameNames))
+            catch (Exception ex)
             {
-                form.ShowDialog();
+                Debug.WriteLine(ex.Message + ex.StackTrace);
+                Tasks.ErrorForm.Show(null, ex.Message, ex.StackTrace);
             }
         }
 
@@ -2221,7 +2437,6 @@ namespace com.clusterrr.hakchi_gui
 
         private void takeScreenshotToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (RequirePatchedKernel() == Tasks.MessageForm.Button.No) return;
             try
             {
                 if (WaitingClovershellForm.WaitForDevice(this))
@@ -2284,7 +2499,7 @@ namespace com.clusterrr.hakchi_gui
 
         private bool groupTaskWithSelected(Tasks.GameTask task, Tasks.Tasker.TaskFunc taskFunc)
         {
-            SaveSelectedGames();
+            SaveConfig();
             using (var tasker = new Tasks.Tasker(this))
             {
                 tasker.AttachView(new Tasks.TaskerTaskbar());
@@ -2423,7 +2638,7 @@ namespace com.clusterrr.hakchi_gui
         {
             ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
             if (menuItem.Checked) return;
-            SaveSelectedGames();
+            SaveConfig();
 
             OriginalGamesPosition newPosition = (OriginalGamesPosition)byte.Parse(menuItem.Tag.ToString());
             bool reload = newPosition == OriginalGamesPosition.Hidden || ConfigIni.Instance.OriginalGamesPosition == OriginalGamesPosition.Hidden;
@@ -2440,7 +2655,7 @@ namespace com.clusterrr.hakchi_gui
         {
             ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
             if (menuItem.Checked) return;
-            SaveSelectedGames();
+            SaveConfig();
 
             GamesSorting newSorting = (GamesSorting)byte.Parse(menuItem.Tag.ToString());
             ConfigIni.Instance.GamesSorting = newSorting;
@@ -2453,13 +2668,13 @@ namespace com.clusterrr.hakchi_gui
         private void showGamesWithoutBoxArtToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ConfigIni.Instance.ShowGamesWithoutCoverArt = showGamesWithoutBoxArtToolStripMenuItem.Checked;
-            SaveSelectedGames();
+            SaveConfig();
             LoadGames(false);
         }
 
         private void openFoldersManager()
         {
-            SaveSelectedGames();
+            SaveConfig();
             using (var tasker = new Tasker(this))
             {
                 var task = new Tasks.SyncTask();
@@ -2476,6 +2691,16 @@ namespace com.clusterrr.hakchi_gui
             {
                 if (WaitingClovershellForm.WaitForDevice(this))
                 {
+                    if (hakchi.MinimalMemboot)
+                    {
+                        Tasks.MessageForm.Show(this, Resources.Warning, Resources.CannotProceedMinimalMemboot);
+                        return;
+                    }
+                    if (!hakchi.CanInteract)
+                    {
+                        Tasks.MessageForm.Show(this, Resources.Warning, Resources.CannotProceedCannotInteract, Resources.sign_ban);
+                        return;
+                    }
                     using (OpenFileDialog ofdPng = new OpenFileDialog())
                     {
                         ofdPng.Filter = "Image files|*.bmp;*.gif;*.jpg;*.jpeg;*.png;*.tif;*.tiff";
@@ -2523,6 +2748,16 @@ namespace com.clusterrr.hakchi_gui
             {
                 if (WaitingClovershellForm.WaitForDevice(this))
                 {
+                    if (hakchi.MinimalMemboot)
+                    {
+                        Tasks.MessageForm.Show(this, Resources.Warning, Resources.CannotProceedMinimalMemboot);
+                        return;
+                    }
+                    if (!hakchi.CanInteract)
+                    {
+                        Tasks.MessageForm.Show(this, Resources.Warning, Resources.CannotProceedCannotInteract, Resources.sign_ban);
+                        return;
+                    }
                     var assembly = GetType().Assembly;
 
                     hakchi.Shell.Execute("hakchi unset cfg_boot_logo; cat > \"$(hakchi get rootfs)/etc/boot.png\"", File.OpenRead(Shared.PathCombine(Program.BaseDirectoryInternal, "data", "blankBoot.png")));
@@ -2547,6 +2782,16 @@ namespace com.clusterrr.hakchi_gui
         {
             try
             {
+                if (hakchi.MinimalMemboot)
+                {
+                    Tasks.MessageForm.Show(this, Resources.Warning, Resources.CannotProceedMinimalMemboot);
+                    return;
+                }
+                if (!hakchi.CanInteract)
+                {
+                    Tasks.MessageForm.Show(this, Resources.Warning, Resources.CannotProceedCannotInteract, Resources.sign_ban);
+                    return;
+                }
                 if (WaitingClovershellForm.WaitForDevice(this))
                 {
                     hakchi.Shell.ExecuteSimple("hakchi unset cfg_boot_logo; rm \"$(hakchi get rootfs)/etc/boot.png\"");
@@ -2568,22 +2813,21 @@ namespace com.clusterrr.hakchi_gui
             if (listViewGames.SelectedItems.Count == 0)
                 return;
 
-            SaveSelectedGames();
+            SaveConfig();
             using (SelectCoreDialog selectCoreDialog = new SelectCoreDialog())
             {
-                foreach (ListViewItem item in listViewGames.SelectedItems)
-                {
-                    if (!(item.Tag as NesApplication).IsOriginalGame)
-                    {
-                        selectCoreDialog.Games.Add(item.Tag as NesApplication);
-                        item.Selected = false;
-                    }
-                }
+                selectCoreDialog.Games.AddRange(listViewGames.SelectedItems.Cast<ListViewItem>().
+                    Select(item => item.Tag).
+                    Where(tag => tag != null && tag is NesApplication).
+                    Select(tag => tag as NesApplication).
+                    Where(game => !game.IsOriginalGame));
                 if (selectCoreDialog.Games.Count == 0)
                     return;
-
                 if (selectCoreDialog.ShowDialog(this) == DialogResult.OK)
-                    LoadGames();
+                {
+                    if (selectCoreDialog.Modified)
+                        SaveConfig();
+                }
             }
 
         }
@@ -2594,16 +2838,17 @@ namespace com.clusterrr.hakchi_gui
             {
                 if (customGameForm.ShowDialog(this) == DialogResult.OK)
                 {
+                    SelectAll(false);
+
                     var newGroup = listViewGames.Groups.OfType<ListViewGroup>().Where(group => group.Header == Resources.ListCategoryNew).First();
                     var item = new ListViewItem(customGameForm.NewApp.Name);
                     item.Group = newGroup;
                     item.Tag = customGameForm.NewApp;
-                    item.Selected = true;
                     item.Checked = true;
+                    item.Selected = true;
 
-                    foreach(ListViewItem i in listViewGames.Items)
-                        i.Selected = false;
                     listViewGames.Items.Add(item);
+                    listViewGames.EnsureVisible(item.Index);
                 }
             }
         }
@@ -2628,26 +2873,9 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
-        private void leftmostToolStripMenuItem_Click(object sender, EventArgs e)
+        private void modStoreToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            leftmostToolStripMenuItem.Checked = true;
-            rightmostToolStripMenuItem.Checked = false;
-            ConfigIni.Instance.BackFolderPosition = NesMenuFolder.Priority.LeftBack;
-        }
-
-        private void rightmostToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            leftmostToolStripMenuItem.Checked = false;
-            rightmostToolStripMenuItem.Checked = true;
-            ConfigIni.Instance.BackFolderPosition = NesMenuFolder.Priority.Back;
-        }
-
-        private void syncStructureForAllGamesCollectionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (Tasks.MessageForm.Show(this, Resources.SaveSettings, Resources.SaveStructureQ, Resources.sign_sync, new MessageForm.Button[] { Tasks.MessageForm.Button.Yes, Tasks.MessageForm.Button.No }) == Tasks.MessageForm.Button.Yes)
-            {
-                ConfigIni.Instance.SyncGamesCollectionsStructureSettings();
-            }
+            new ModStore().ShowDialog();
         }
     }
 }
