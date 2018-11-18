@@ -258,58 +258,58 @@
     <value>Oops, {0} utilizza la modalità a quattro-schermi (vale a dire, il gioco ha memoria VRAM aggiuntiva nella cartuccia), e questa caratteristica non è supportata dal Mini NES. Il gioco probabilmente non verrà avviato. Ma dovrebbe funzionare se un modulo di altro emulatore è installato. Vuoi aggiungere questo gioco comunque?</value>
   </data>
   <data name="InputPreset" xml:space="preserve">
-    <value>Please input a preset name for the current games selection.</value>
+    <value>Si prega di inserire un nome predefinito per la selezione di giochi corrente.</value>
   </data>
   <data name="NewPreset" xml:space="preserve">
-    <value>New selection preset</value>
+    <value>Nuova selezione preset</value>
   </data>
   <data name="UninstallFactoryNote" xml:space="preserve">
-    <value>Done! Don't forget to perform a factory reset if you want to delete all Suspend Points.</value>
+    <value>Fatto! Non dimenticate di eseguire un factory reset se si desidera eliminare tutti i punti di sospensione.</value>
   </data>
   <data name="Uninstalling" xml:space="preserve">
-    <value>Uninstalling...</value>
+    <value>Disinstallazione in corso...</value>
   </data>
   <data name="UninstallQ1" xml:space="preserve">
-    <value>Do you really want to remove all traces of hakchi2 and return your NES/SNES Mini to its original state?</value>
+    <value>Vuoi davvero rimuovere tutte le tracce di hakchi2 e ripristinare il tuo Mini NES/SNES al suo stato originale?</value>
   </data>
   <data name="UninstallQ2" xml:space="preserve">
     <value>Do you want to flash the original kernel now?</value>
   </data>
   <data name="GameGenieFormatError" xml:space="preserve">
-    <value>Invalid Game Genie code "{0}" for game "{1}".</value>
+    <value>Codice Game Genie non valido "{0}" per il gioco "{1}".</value>
   </data>
   <data name="GameGenieNotFound" xml:space="preserve">
-    <value>Can't apply Game Genie code "{0}" to game "{1}" - value not found. Maybe this code is for another game?</value>
+    <value>Non è possibile applicare il codice a Game Genie "{0}" al gioco "{1}" - valore non trovato. Forse questo codice è per un altro gioco?</value>
   </data>
   <data name="PatchAvailable" xml:space="preserve">
-    <value>Patch available</value>
+    <value>Patch disponibile</value>
   </data>
   <data name="PatchQ" xml:space="preserve">
-    <value>There is patch for "{0}". Do you want to patch this game?</value>
+    <value>Non esiste una patch per "{0}". Si desidera patchare questo gioco?</value>
   </data>
   <data name="AutofillResult" xml:space="preserve">
-    <value>Data automatically filled for {0} game(s).</value>
+    <value>Dati compilati automaticamente per {0} (giochi).</value>
   </data>
   <data name="SelectAtLeastTwo" xml:space="preserve">
-    <value>Select at least two buttons.</value>
+    <value>Selezionare almeno due pulsanti.</value>
   </data>
   <data name="AutofireHelp1" xml:space="preserve">
-    <value>Hold Select+A/B for a second to enable/disable autofire A/B.</value>
+    <value>Tieni premuto Select + A/B per un secondo per attivare/disattivare autofire A/B.</value>
   </data>
   <data name="ExtraArgsInfo" xml:space="preserve">
-    <value>You can add global command-line arguments which will be appended to all games including the original. This is only for experts!</value>
+    <value>È possibile aggiungere argomenti della riga di comando globali che verranno aggiunti a tutti i giochi tra cui l'originale. Questo è solo per esperti!</value>
   </data>
   <data name="ExtraArgsTitle" xml:space="preserve">
-    <value>Extra command-line arguments</value>
+    <value>Argomenti della riga di comando supplementare</value>
   </data>
   <data name="DownloadAllCoversTitle" xml:space="preserve">
-    <value>Downloading box art for all games (I'm feeling lucky!)</value>
+    <value>Scarica i box art per tutti i giochi (Mi sento fortunato!)</value>
   </data>
   <data name="GooglingFor" xml:space="preserve">
-    <value>Googling for</value>
+    <value>Googling per</value>
   </data>
   <data name="NotFound" xml:space="preserve">
-    <value>Not found:</value>
+    <value>Non trovato:</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="gamepad" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -322,40 +322,40 @@
     <value>..\images\blank_jp.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="LoadingGames" xml:space="preserve">
-    <value>Loading games...</value>
+    <value>Caricamento dei giochi...</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
   </data>
   <data name="NoForAll" xml:space="preserve">
-    <value>No for all</value>
+    <value>No per tutti</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>Si</value>
   </data>
   <data name="YesForAll" xml:space="preserve">
-    <value>Yes for all</value>
+    <value>Si per tutti</value>
   </data>
   <data name="GGCodeDelete" xml:space="preserve">
-    <value>Do you want to delete "{0}" code?</value>
+    <value>Si desidera eliminare "{0}" codice?</value>
   </data>
   <data name="GGCodeEmpty" xml:space="preserve">
-    <value>You must enter a code!</value>
+    <value>È necessario inserire un codice!</value>
   </data>
   <data name="GGCodeExists" xml:space="preserve">
-    <value>This code already exists. Do you want to edit it?</value>
+    <value>Questo codice esiste già. Si desidera modificarlo?</value>
   </data>
   <data name="GGDescriptionEmpty" xml:space="preserve">
-    <value>You must enter a description!</value>
+    <value>È necessario immettere una descrizione!</value>
   </data>
   <data name="FolderNameBack" xml:space="preserve">
-    <value>Back</value>
+    <value>Indietro</value>
   </data>
   <data name="FolderNameMoreGames" xml:space="preserve">
-    <value>More games...</value>
+    <value>Più giochi...</value>
   </data>
   <data name="FolderNameOriginalGames" xml:space="preserve">
-    <value>Original games</value>
+    <value>Giochi originali</value>
   </data>
   <data name="folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\folder_images\folder.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -445,52 +445,52 @@
     <value>..\folder_images\folder_z.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="DeleteElement" xml:space="preserve">
-    <value>Do you really want to delete "{0}"?</value>
+    <value>Vuoi davvero eliminare "{0}"?</value>
   </data>
   <data name="FolderContent" xml:space="preserve">
-    <value>Deleted content will be moved to the Recycle Bin. You can delete this folder permanently or move the games to other folders.</value>
+    <value>Contenuto eliminato verrà spostato nel Cestino. È possibile eliminare definitivamente questa cartella o spostare i giochi in altre cartelle.</value>
   </data>
   <data name="MainMenu" xml:space="preserve">
     <value>HOME Menu</value>
   </data>
   <data name="BuildingFolders" xml:space="preserve">
-    <value>Building the folder structure...</value>
+    <value>Costruzione della struttura delle cartelle in corso...</value>
   </data>
   <data name="FolderNameNewFolder" xml:space="preserve">
-    <value>New folder</value>
+    <value>Nuova cartella</value>
   </data>
   <data name="FolderNameUnsorted" xml:space="preserve">
     <value>Unsorted</value>
   </data>
   <data name="FoldersSaveQ" xml:space="preserve">
-    <value>Do you want to save this folder structure?</value>
+    <value>Si desidera salvare la struttura delle cartelle?</value>
   </data>
   <data name="FolderStatistics" xml:space="preserve">
-    <value>Folder "{0}" contains {1} elements.</value>
+    <value>La cartella "{0}" contiene {1} elemento(i).</value>
   </data>
   <data name="NewGamesUnsorted" xml:space="preserve">
-    <value>New games are moved to the "Unsorted" folder.</value>
+    <value>I nuovi giochi vengono spostati nella cartella "Unsorted".</value>
   </data>
   <data name="AddingGames" xml:space="preserve">
-    <value>Processing games, please wait...</value>
+    <value>Elaborazione dei giochi, si prega di attendere...</value>
   </data>
   <data name="DeleteElements" xml:space="preserve">
-    <value>Do you really want to delete {0} elements?</value>
+    <value>Vuoi davvero eliminare {0} elementi?</value>
   </data>
   <data name="FolderNameTrashBin" xml:space="preserve">
     <value>Recycle Bin</value>
   </data>
   <data name="InstallingMods" xml:space="preserve">
-    <value>Installing mods...</value>
+    <value>Installazione delle mods in corso...</value>
   </data>
   <data name="SelectModsInstall" xml:space="preserve">
-    <value>Select the modules to install on your NES/SNES Mini</value>
+    <value>Seleziona i moduli da installare sul tuo Mini NES/SNES</value>
   </data>
   <data name="SelectModsUninstall" xml:space="preserve">
-    <value>Select the modules to remove from your NES/SNES Mini</value>
+    <value>Seleziona i moduli da rimuovere dal vostro Mini NES/SNES</value>
   </data>
   <data name="UninstallingMods" xml:space="preserve">
-    <value>Uninstalling mods...</value>
+    <value>Disinstallazione di mods in corso...</value>
   </data>
   <data name="blank_app" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\blank_app.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -523,7 +523,7 @@
     <value>..\images\blank_n64.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MemoryFull" xml:space="preserve">
-    <value>Sorry, there are {0} of games, it's too much.</value>
+    <value>Siamo spiacenti, non ci sono {0} di giochi.</value>
   </data>
   <data name="green" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\green.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -553,13 +553,13 @@
     <value>..\images\blank_neogeo.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="MemoryStats" xml:space="preserve">
-    <value>Total writable memory size: {0:F1}MB|Available memory for games: {1:F1}MB|Used by saves: {2:F1}MB|Used by other files: {3:F1}MB</value>
+    <value>Dimensione totale memoria scrivibile: {0:F1}MB|Memoria disponibile per i giochi: {1:F1}MB|Utilizzato dai salvataggi: {2:F1}MB|Utilizzato da altri file: {3:F1}MB</value>
   </data>
   <data name="AllFiles" xml:space="preserve">
-    <value>All files</value>
+    <value>Tutti i file</value>
   </data>
   <data name="GamesAndApps" xml:space="preserve">
-    <value>Games and apps</value>
+    <value>Giochi e app</value>
   </data>
   <data name="DeleteSavesQ" xml:space="preserve">
     <value>Do you really want to delete those save-states?</value>
