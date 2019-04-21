@@ -372,7 +372,7 @@
     <value>52, 20</value>
   </data>
   <data name="kernelToolStripMenuItem.Text" xml:space="preserve">
-    <value>&amp;Kernel</value>
+    <value>Exploit</value>
   </data>
   <data name="installModulesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>209, 22</value>
