@@ -423,8 +423,8 @@
             // flashUbootToolStripMenuItem
             // 
             this.flashUbootToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.normalModeToolStripMenuItem,
-            this.sDModeToolStripMenuItem});
+            this.sDModeToolStripMenuItem,
+            this.normalModeToolStripMenuItem});
             this.flashUbootToolStripMenuItem.Name = "flashUbootToolStripMenuItem";
             resources.ApplyResources(this.flashUbootToolStripMenuItem, "flashUbootToolStripMenuItem");
             // 
