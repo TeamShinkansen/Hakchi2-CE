@@ -240,6 +240,7 @@ namespace com.clusterrr.hakchi_gui
         public UbootType MembootUboot = UbootType.SD;
         public Hmod.ListSort hmodListSort = Hmod.ListSort.Category;
         public RepositoryInfo[] repos = new RepositoryInfo[] {
+            new RepositoryInfo("ModMyClassic Mod Store", "https://classicmods.net/"),
             new RepositoryInfo("KMFD's Mod Hub", "https://hakchi.net/KMFDManic/NESC-SNESC-Modifications/.repo/"),
         };
 
