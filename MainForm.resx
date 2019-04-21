@@ -803,13 +803,7 @@
     <value>246, 22</value>
   </data>
   <data name="gitHubPageWithActualReleasesToolStripMenuItem.Text" xml:space="preserve">
-    <value>GitHub page with actual releases</value>
-  </data>
-  <data name="joinOurDiscordServerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
-    <value>246, 22</value>
-  </data>
-  <data name="joinOurDiscordServerToolStripMenuItem.Text" xml:space="preserve">
-    <value>Join our discord server</value>
+    <value>GitHub Releases Page</value>
   </data>
   <data name="rminisnesmodsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
     <value>246, 22</value>
@@ -2900,12 +2894,6 @@
     <value>gitHubPageWithActualReleasesToolStripMenuItem</value>
   </data>
   <data name="&gt;&gt;gitHubPageWithActualReleasesToolStripMenuItem.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;joinOurDiscordServerToolStripMenuItem.Name" xml:space="preserve">
-    <value>joinOurDiscordServerToolStripMenuItem</value>
-  </data>
-  <data name="&gt;&gt;joinOurDiscordServerToolStripMenuItem.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;rminisnesmodsToolStripMenuItem.Name" xml:space="preserve">
