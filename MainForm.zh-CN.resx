@@ -1,0 +1,3309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <metadata name="menuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="autodetectToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 22</value>
+  </data>
+  <data name="autodetectToolStripMenuItem.Text" xml:space="preserve">
+    <value>自动检测...</value>
+  </data>
+  <data name="asIsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 22</value>
+  </data>
+  <data name="asIsToolStripMenuItem.Text" xml:space="preserve">
+    <value>As-Is...</value>
+  </data>
+  <data name="addMoreGamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="addMoreGamesToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;添加更多游戏</value>
+  </data>
+  <data name="addCustomAppToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="addCustomAppToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;添加自定义应用</value>
+  </data>
+  <data name="toolStripMenuItem2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>139, 6</value>
+  </data>
+  <data name="addPresetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 22</value>
+  </data>
+  <data name="addPresetToolStripMenuItem.Text" xml:space="preserve">
+    <value>添加预设</value>
+  </data>
+  <data name="deletePresetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 22</value>
+  </data>
+  <data name="deletePresetToolStripMenuItem.Text" xml:space="preserve">
+    <value>删除预设</value>
+  </data>
+  <data name="presetsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="presetsToolStripMenuItem.Text" xml:space="preserve">
+    <value>选择预设</value>
+  </data>
+  <data name="toolStripMenuItem13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>191, 6</value>
+  </data>
+  <data name="exportGamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="exportGamesToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;导出游戏...</value>
+  </data>
+  <data name="synchronizeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="synchronizeToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;同步</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="searchToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>F3</value>
+  </data>
+  <data name="searchToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="searchToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;搜索</value>
+  </data>
+  <data name="reloadGamesToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>F5</value>
+  </data>
+  <data name="reloadGamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="reloadGamesToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;刷新</value>
+  </data>
+  <data name="toolStripMenuItem12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>191, 6</value>
+  </data>
+  <data name="resetOriginalGamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="resetOriginalGamesToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;恢复原始游戏</value>
+  </data>
+  <data name="toolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>191, 6</value>
+  </data>
+  <data name="exitToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 22</value>
+  </data>
+  <data name="exitToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;退出</value>
+  </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>37, 20</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;文件</value>
+  </data>
+  <data name="flashCustomKernelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 22</value>
+  </data>
+  <data name="flashCustomKernelToolStripMenuItem.Text" xml:space="preserve">
+    <value>安装/修复</value>
+  </data>
+  <data name="resetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 22</value>
+  </data>
+  <data name="resetToolStripMenuItem.Text" xml:space="preserve">
+    <value>重置</value>
+  </data>
+  <data name="uninstallToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 22</value>
+  </data>
+  <data name="toolStripMenuItem11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>146, 6</value>
+  </data>
+  <data name="normalModeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>148, 22</value>
+  </data>
+  <data name="normalModeToolStripMenuItem.Text" xml:space="preserve">
+    <value>正常模式</value>
+  </data>
+  <data name="sDModeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>148, 22</value>
+  </data>
+  <data name="sDModeToolStripMenuItem.Text" xml:space="preserve">
+    <value>SD 模式</value>
+  </data>
+  <data name="flashUbootToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 22</value>
+  </data>
+  <data name="flashUbootToolStripMenuItem.Text" xml:space="preserve">
+    <value>刷入 uboot</value>
+  </data>
+  <data name="membootOriginalKernelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="membootOriginalKernelToolStripMenuItem.Text" xml:space="preserve">
+    <value>从 RAM 引导原始内核</value>
+  </data>
+  <data name="membootCustomKernelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="membootCustomKernelToolStripMenuItem.Text" xml:space="preserve">
+    <value>从 RAM 引导自定义内核</value>
+  </data>
+  <data name="membootRecoveryKernelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="membootRecoveryKernelToolStripMenuItem.Text" xml:space="preserve">
+    <value>从 RAM 引导恢复内核</value>
+  </data>
+  <data name="toolStripMenuItem10.Size" type="System.Drawing.Size, System.Drawing">
+    <value>267, 6</value>
+  </data>
+  <data name="dumpOriginalKernellegacyToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="dumpOriginalKernellegacyToolStripMenuItem.Text" xml:space="preserve">
+    <value>转储原始内核（旧版）</value>
+  </data>
+  <data name="toolStripMenuItem24.Size" type="System.Drawing.Size, System.Drawing">
+    <value>267, 6</value>
+  </data>
+  <data name="dumpTheWholeNANDToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="dumpTheWholeNANDToolStripMenuItem.Text" xml:space="preserve">
+    <value>转储整个 NAND 闪存</value>
+  </data>
+  <data name="toolFlashTheWholeNANDStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="toolFlashTheWholeNANDStripMenuItem.Text" xml:space="preserve">
+    <value>刷入整个 NAND (仅限专家！)</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="toolFlashTheWholeNANDStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="dumpNANDBToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="dumpNANDBToolStripMenuItem.Text" xml:space="preserve">
+    <value>转储解密的系统软件</value>
+  </data>
+  <data name="flashNANDBPartitionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="flashNANDBPartitionToolStripMenuItem.Text" xml:space="preserve">
+    <value>刷入解密系统软件</value>
+  </data>
+  <data name="dumpNANDCPartitionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="dumpNANDCPartitionToolStripMenuItem.Text" xml:space="preserve">
+    <value>转储用户数据分区</value>
+  </data>
+  <data name="flashNANDCPartitionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="flashNANDCPartitionToolStripMenuItem.Text" xml:space="preserve">
+    <value>刷入用户数据分区</value>
+  </data>
+  <data name="formatNANDCToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="formatNANDCToolStripMenuItem.Text" xml:space="preserve">
+    <value>格式化用户数据分区</value>
+  </data>
+  <data name="toolStripSeparator1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>267, 6</value>
+  </data>
+  <data name="factoryResetToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        wwAADsMBx2+oZAAAAcxJREFUOE+Vk0uL01AAhW8fFEqhUKiBarUaq21SJ9MhQ2lnQtJMqTojLl00i8GF
+        P8KFCLMQdBaR0YUD4x9wI4ig+KK6VHAxgiIjxbULXdw/cMxJ6SPtbBr4yM0957vkhhvBq1ar+QFyQfxQ
+        1jTN13Vdep6HRaBDV1SrVdnr9dDtdkO2Nof349i8OhnToSvK5bLsdDogN70N/Oq3cWt7I3yehtmPt214
+        NyYZXaGqqnRdF9evuRh8dCAPHRy+coKCC84Tjr+8GGbf3zi4cnk4T1eUSiVp2zYOdoeFEXs7NjhPdu/Y
+        x2Z0RbFYlJZlYdCPLvDs8QouqAWo507i5VMzkn17bYMOXVEoFGTbbkUKxNBP4PendRy9X4OhKZHs31cH
+        rVYLdIWiKLLRaGCW06fy4QKD/hrOnlHmckJX5HI5aZomZlm6VMXF8/lgG3ksL2lzOaErstmsrNfrmOXR
+        TnP8yk/uNedyQldkMhlpGAamsdeX8efz5Mv/Dfa81a1HOoSuSKfTPNeY5uBBYyyPeL7fjHQIXZFKpXim
+        MaKma3h4dxVHH6yx/POdhfu3zUCa9AhdkUgk/GQyKSuVChaBDt3wj4zFYn48HpeLQEcIIf4D2MLKI9qj
+        SbwAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="factoryResetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 22</value>
+  </data>
+  <data name="advancedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>149, 22</value>
+  </data>
+  <data name="advancedToolStripMenuItem.Text" xml:space="preserve">
+    <value>高级</value>
+  </data>
+  <data name="kernelToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>52, 20</value>
+  </data>
+  <data name="kernelToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;内核</value>
+  </data>
+  <data name="installModulesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 22</value>
+  </data>
+  <data name="installModulesToolStripMenuItem.Text" xml:space="preserve">
+    <value>安装额外模块</value>
+  </data>
+  <data name="uninstallModulesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 22</value>
+  </data>
+  <data name="uninstallModulesToolStripMenuItem.Text" xml:space="preserve">
+    <value>卸载额外模块</value>
+  </data>
+  <data name="generateModulesReportToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 22</value>
+  </data>
+  <data name="generateModulesReportToolStripMenuItem.Text" xml:space="preserve">
+    <value>生成模块报告</value>
+  </data>
+  <data name="modRepoStartSeparator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 6</value>
+  </data>
+  <data name="modRepoEndSeparator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 6</value>
+  </data>
+  <data name="manageModRepositoriesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>209, 22</value>
+  </data>
+  <data name="manageModRepositoriesToolStripMenuItem.Text" xml:space="preserve">
+    <value>管理模块库</value>
+  </data>
+  <data name="modulesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 20</value>
+  </data>
+  <data name="modulesToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;模块</value>
+  </data>
+  <data name="positionAtTheTopToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="positionAtTheTopToolStripMenuItem.Text" xml:space="preserve">
+    <value>在顶部</value>
+  </data>
+  <data name="positionAtTheBottomToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="positionAtTheBottomToolStripMenuItem.Text" xml:space="preserve">
+    <value>在底部</value>
+  </data>
+  <data name="positionSortedToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="positionSortedToolStripMenuItem.Text" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="positionHiddenToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 22</value>
+  </data>
+  <data name="positionHiddenToolStripMenuItem.Text" xml:space="preserve">
+    <value>隐藏（未选择）</value>
+  </data>
+  <data name="originalGamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 22</value>
+  </data>
+  <data name="originalGamesToolStripMenuItem.Text" xml:space="preserve">
+    <value>原始游戏</value>
+  </data>
+  <data name="nameToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 22</value>
+  </data>
+  <data name="nameToolStripMenuItem.Text" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="coreToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 22</value>
+  </data>
+  <data name="coreToolStripMenuItem.Text" xml:space="preserve">
+    <value>核心</value>
+  </data>
+  <data name="systemToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 22</value>
+  </data>
+  <data name="systemToolStripMenuItem.Text" xml:space="preserve">
+    <value>控制台</value>
+  </data>
+  <data name="sortByToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 22</value>
+  </data>
+  <data name="sortByToolStripMenuItem.Text" xml:space="preserve">
+    <value>排序方式</value>
+  </data>
+  <data name="showGamesWithoutBoxArtToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 22</value>
+  </data>
+  <data name="showGamesWithoutBoxArtToolStripMenuItem.Text" xml:space="preserve">
+    <value>Group games w/o box art</value>
+  </data>
+  <data name="viewToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 20</value>
+  </data>
+  <data name="viewToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;视图</value>
+  </data>
+  <data name="languageToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAA0BJREFUOE91
+        k31Qy3Ecx39TuqPrPPVHqW1cHmZrq8zKsqxpKzYPc+hhbpU8DUMllkxW2M3VnKeIphBOpTuVY51E3HAe
+        SpEreUy1TlQ4lKO3X/O7czivu/d9/nm/Pvf9/PEl/maGTE5LP2BxKbU1zLQ974qva+tNrGl8HWrMyXem
+        Kv9ne36xa3VL185H7T1dj9t7UPumG7Wt79Hc+QGNHb3vbC/f6qnqv2zIq3BVW82X1jYsh/VZB441lSGt
+        xQ5LSztM9+xYfb4FmpNXoLmadjYwVvXna3jhy2izc7NLZ93iI+GBAuWthXjysRKFPZ1YY/+KhJsdiMtr
+        QMyeKujuajHfuOsQpf7CT2FaxLVOHYio94e+WYWHvVbU9nWhrL8fiZ19iKtpQ+zxBij1NiSVmCGJNw34
+        KrVBlE4QvhG7rzHKvcC6yEJs41IYu7tR0Pcd5k/fsOr5B0RWvkJ0bh3m6W5iwbZCHG6KRExx1AmH7M4M
+        d/EJTuv3yVSAv6MEEZevY1H9OywjRXVTD1S3O6AoaoYy6x7CtdegyjYhszYU6qqFrY4Fo7xm0encFEzQ
+        xIC7/gSCcm5AWPQU4osvEVr+AuIzzZDuf4gInQ0zoisRvTcN2utCBJ/i/3AsGOkpcR/LShpg8lPBWWkC
+        b10NhDurMW3PA0zPqkNI5n1INpGyugrc0Avgr0gH+ygDE3VzvjgWDMLg6toYbAPY0kOYsiEJvtuTIdSd
+        wvQV1QiOq4JgodUhTxGeBVtkAUepB0e+4w6lE8SkQIN5PC8Dk4P3w22LJ9wyxsAzzxssQyS4YUXgzCwG
+        R3wavhILuNLD8JPvA0dqTKR0ghBJN3sIZ+/tFskPwCdVANd1YzAseRRGGDzATJWBlZKAgKgcCJbkQ6Qu
+        QJim8MVEsXY4pf9CqsyWixTmfpFaD7ZRCLqBBY/dPvA+yAPvSCRkm0swN70Cyoyyz/QAmWTocDcapf6G
+        MUEiF4RtfSvemIyQgigEnpNBcnwjFmSfgSr3BjlL34wez9aQVX8yIx3SXzjRhjgHuDPZB8fJBPVB8Rp7
+        iDrTLohOqacLwiw0J+fFZCeQjDcZl0Hhfwx+lhFkxpJhUnM0mcG7nchQEMRPy1alIv5O+PUAAAAASUVO
+        RK5CYII=
+</value>
+  </data>
+  <data name="languageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="languageToolStripMenuItem.Text" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="enableSFROMToolToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>236, 22</value>
+  </data>
+  <data name="enableSFROMToolToolStripMenuItem.Text" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="usePCMPatchWhenAvailableToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>236, 22</value>
+  </data>
+  <data name="usePCMPatchWhenAvailableToolStripMenuItem.Text" xml:space="preserve">
+    <value>使用 PCM 补丁（如果可用）</value>
+  </data>
+  <data name="sFROMToolToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="sFROMToolToolStripMenuItem.Text" xml:space="preserve">
+    <value>SFROM 工具</value>
+  </data>
+  <data name="sFROMToolToolStripMenuItem.ToolTipText" xml:space="preserve">
+    <value>如果要使用 SFROM 工具， </value>
+  </data>
+  <data name="convertSNESROMSToSFROMToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="convertSNESROMSToSFROMToolStripMenuItem.Text" xml:space="preserve">
+    <value>将 SNES ROM 转换为 SFROM</value>
+  </data>
+  <data name="separateGamesStorageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="separateGamesStorageToolStripMenuItem.Text" xml:space="preserve">
+    <value>独立的游戏存储</value>
+  </data>
+  <data name="compressGamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="compressGamesToolStripMenuItem.Text" xml:space="preserve">
+    <value>添加时压缩游戏</value>
+  </data>
+  <data name="compressBoxArtToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="compressBoxArtToolStripMenuItem.Text" xml:space="preserve">
+    <value>添加时压缩游戏封面</value>
+  </data>
+  <data name="centerBoxArtThumbnailToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="centerBoxArtThumbnailToolStripMenuItem.Text" xml:space="preserve">
+    <value>游戏封面居中缩略图</value>
+  </data>
+  <data name="disableHakchi2PopupsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="disableHakchi2PopupsToolStripMenuItem.Text" xml:space="preserve">
+    <value>禁用 hakchi2 弹出窗口</value>
+  </data>
+  <data name="toolStripMenuItem25.Size" type="System.Drawing.Size, System.Drawing">
+    <value>273, 6</value>
+  </data>
+  <data name="devForceSshToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 22</value>
+  </data>
+  <data name="devForceSshToolStripMenuItem.Text" xml:space="preserve">
+    <value>强制通过 SSH 传输文件</value>
+  </data>
+  <data name="uploadTotmpforTestingToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 22</value>
+  </data>
+  <data name="uploadTotmpforTestingToolStripMenuItem.Text" xml:space="preserve">
+    <value>上传至 /tmp（用于测试）</value>
+  </data>
+  <data name="toolStripMenuItem23.Size" type="System.Drawing.Size, System.Drawing">
+    <value>222, 6</value>
+  </data>
+  <data name="forceNetworkMembootsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 22</value>
+  </data>
+  <data name="forceNetworkMembootsToolStripMenuItem.Text" xml:space="preserve">
+    <value>强制网络 memboots</value>
+  </data>
+  <data name="forceClovershellMembootsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 22</value>
+  </data>
+  <data name="forceClovershellMembootsToolStripMenuItem.Text" xml:space="preserve">
+    <value>强制 Clovershell memboots</value>
+  </data>
+  <data name="downloadLatestHakchiToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 22</value>
+  </data>
+  <data name="downloadLatestHakchiToolStripMenuItem.Text" xml:space="preserve">
+    <value>下载最新的 Hakchi</value>
+  </data>
+  <data name="&gt;&gt;downloadLatestHakchiToolStripMenuItem.Name" xml:space="preserve">
+    <value>downloadLatestHakchiToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;downloadLatestHakchiToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="developerToolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="developerToolsToolStripMenuItem.Text" xml:space="preserve">
+    <value>开发者工具</value>
+  </data>
+  <data name="developerToolsToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="separateGamesForMultibootToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="separateGamesForMultibootToolStripMenuItem.Text" xml:space="preserve">
+    <value>多引导的独立游戏</value>
+  </data>
+  <data name="alwaysCopyOriginalGamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="alwaysCopyOriginalGamesToolStripMenuItem.Text" xml:space="preserve">
+    <value>始终复制原始游戏</value>
+  </data>
+  <data name="useLinkedSyncToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="useLinkedSyncToolStripMenuItem.Text" xml:space="preserve">
+    <value>使用链接同步</value>
+  </data>
+  <data name="toolStripMenuItem16.Size" type="System.Drawing.Size, System.Drawing">
+    <value>273, 6</value>
+  </data>
+  <data name="resetUsingCombinationOfButtonsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>308, 22</value>
+  </data>
+  <data name="resetUsingCombinationOfButtonsToolStripMenuItem.Text" xml:space="preserve">
+    <value>使用按钮组合重置</value>
+  </data>
+  <data name="selectButtonCombinationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>308, 22</value>
+  </data>
+  <data name="selectButtonCombinationToolStripMenuItem.Text" xml:space="preserve">
+    <value>选择重置按钮组合</value>
+  </data>
+  <data name="enableAutofireToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>308, 22</value>
+  </data>
+  <data name="enableAutofireToolStripMenuItem.Text" xml:space="preserve">
+    <value>使用 "选择+A/B" 在 A/B 上启用自动连发 </value>
+  </data>
+  <data name="useXYOnClassicControllerAsAutofireABToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>308, 22</value>
+  </data>
+  <data name="useXYOnClassicControllerAsAutofireABToolStripMenuItem.Text" xml:space="preserve">
+    <value>使用经典控制器上的 X/Y 作为 A/B 自动连发</value>
+  </data>
+  <data name="upABStartOnSecondControllerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>308, 22</value>
+  </data>
+  <data name="upABStartOnSecondControllerToolStripMenuItem.Text" xml:space="preserve">
+    <value>第二控制器上 "上+A+B = 开始" </value>
+  </data>
+  <data name="cloverconHackToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="cloverconHackToolStripMenuItem.Text" xml:space="preserve">
+    <value>控制器 hacks</value>
+  </data>
+  <data name="kachikachiToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="kachikachiToolStripMenuItem.Text" xml:space="preserve">
+    <value>Kachikachi</value>
+  </data>
+  <data name="canoeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="canoeToolStripMenuItem.Text" xml:space="preserve">
+    <value>	</value>
+  </data>
+  <data name="retroarchToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>131, 22</value>
+  </data>
+  <data name="retroarchToolStripMenuItem.Text" xml:space="preserve">
+    <value>Retroarch</value>
+  </data>
+  <data name="retroarchToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="globalCommandLineArgumentsexpertsOnluToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="globalCommandLineArgumentsexpertsOnluToolStripMenuItem.Text" xml:space="preserve">
+    <value>全局命令行（专家！）</value>
+  </data>
+  <data name="epilepsyProtectionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="epilepsyProtectionToolStripMenuItem.Text" xml:space="preserve">
+    <value>禁用 epilepsy 保护</value>
+  </data>
+  <data name="toolStripMenuItem5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>273, 6</value>
+  </data>
+  <data name="saveSettingsToNESMiniNowToolStripMenuItem.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt, style=Bold</value>
+  </data>
+  <data name="saveSettingsToNESMiniNowToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>276, 22</value>
+  </data>
+  <data name="saveSettingsToNESMiniNowToolStripMenuItem.Text" xml:space="preserve">
+    <value>立即将设置保存到 mini</value>
+  </data>
+  <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 20</value>
+  </data>
+  <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;设置</value>
+  </data>
+  <data name="saveStateManagerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="saveStateManagerToolStripMenuItem.Text" xml:space="preserve">
+    <value>保存状态管理器</value>
+  </data>
+  <data name="takeScreenshotToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="takeScreenshotToolStripMenuItem.Text" xml:space="preserve">
+    <value>截图</value>
+  </data>
+  <data name="saveDmesgOutputToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="saveDmesgOutputToolStripMenuItem.Text" xml:space="preserve">
+    <value>保存 dmesg 输出</value>
+  </data>
+  <data name="toolStripMenuItem6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>201, 6</value>
+  </data>
+  <data name="openFTPInExplorerToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="openFTPInExplorerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="openFTPInExplorerToolStripMenuItem.Text" xml:space="preserve">
+    <value>打开 FTP 客户端</value>
+  </data>
+  <data name="openTelnetToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="openTelnetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="openTelnetToolStripMenuItem.Text" xml:space="preserve">
+    <value>打开 Telnet 客户端</value>
+  </data>
+  <data name="toolStripMenuItem8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>201, 6</value>
+  </data>
+  <data name="changeBootImageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 22</value>
+  </data>
+  <data name="changeBootImageToolStripMenuItem.Text" xml:space="preserve">
+    <value>更改 boot splash</value>
+  </data>
+  <data name="disableBootImageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 22</value>
+  </data>
+  <data name="disableBootImageToolStripMenuItem.Text" xml:space="preserve">
+    <value>禁用 boot splash</value>
+  </data>
+  <data name="resetDefaultBootImageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>179, 22</value>
+  </data>
+  <data name="resetDefaultBootImageToolStripMenuItem.Text" xml:space="preserve">
+    <value>重置为默认值</value>
+  </data>
+  <data name="bootImageToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="bootImageToolStripMenuItem.Text" xml:space="preserve">
+    <value>Boot splash</value>
+  </data>
+  <data name="rebootToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="rebootToolStripMenuItem.Text" xml:space="preserve">
+    <value>重启</value>
+  </data>
+  <data name="switchRunningFirmwareToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="switchRunningFirmwareToolStripMenuItem.Text" xml:space="preserve">
+    <value>切换正在运行的固件</value>
+  </data>
+  <data name="formatSDCardToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHMSURBVDhPlZNLi9NQAIVvHxRKoVCogWq1GqttUifTIUNp
+        Z0LSTKk6Iy5dNIvBhT/ChQizEHQWkdGFA+MfcCOIoPiiulRwMYIiI8W1C13cP3DMSekj7Wwa+MjNPee7
+        5IYbwatWq/kBckH8UNY0zdd1XXqeh0WgQ1dUq1XZ6/XQ7XZDtjaH9+PYvDoZ06EryuWy7HQ6IDe9Dfzq
+        t3FreyN8nobZj7dteDcmGV2hqqp0XRfXr7kYfHQgDx0cvnKCggvOE46/vBhm3984uHJ5OE9XlEolads2
+        DnaHhRF7OzY4T3bv2MdmdEWxWJSWZWHQjy7w7PEKLqgFqOdO4uVTM5J9e22DDl1RKBRk225FCsTQT+D3
+        p3UcvV+DoSmR7N9XB61WC3SFoiiy0WhgltOn8uECg/4azp5R5nJCV+RyOWmaJmZZulTFxfP5YBt5LC9p
+        czmhK7LZrKzX65jl0U5z/MpP7jXnckJXZDIZaRgGprHXl/Hn8+TL/w32vNWtRzqErkin0zzXmObgQWMs
+        j3i+34x0CF2RSqV4pjGipmt4eHcVRx+ssfzznYX7t81AmvQIXZFIJPxkMikrlQoWgQ7d8I+MxWJ+PB6X
+        i0BHCCH+A9jCyiPao0m8AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="formatSDCardToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="formatSDCardToolStripMenuItem.Text" xml:space="preserve">
+    <value>格式化 SD 卡</value>
+  </data>
+  <data name="toolStripMenuItem18.Size" type="System.Drawing.Size, System.Drawing">
+    <value>201, 6</value>
+  </data>
+  <data name="prepareArtDirectoryToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>204, 22</value>
+  </data>
+  <data name="prepareArtDirectoryToolStripMenuItem.Text" xml:space="preserve">
+    <value>准备封面文件夹</value>
+  </data>
+  <data name="toolsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 20</value>
+  </data>
+  <data name="toolsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;工具</value>
+  </data>
+  <data name="gitHubPageWithActualReleasesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
+  </data>
+  <data name="gitHubPageWithActualReleasesToolStripMenuItem.Text" xml:space="preserve">
+    <value>带有实际发行版的 GitHub 页面</value>
+  </data>
+  <data name="joinOurDiscordServerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
+  </data>
+  <data name="joinOurDiscordServerToolStripMenuItem.Text" xml:space="preserve">
+    <value>加入我们的不和谐服务器</value>
+  </data>
+  <data name="rminisnesmodsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
+  </data>
+  <data name="rminisnesmodsToolStripMenuItem.Text" xml:space="preserve">
+    <value>/r/minisnesmods</value>
+  </data>
+  <data name="donateToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
+  </data>
+  <data name="donateToolStripMenuItem.Text" xml:space="preserve">
+    <value>捐赠</value>
+  </data>
+  <data name="donateToolStripMenuItem.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="fAQToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
+  </data>
+  <data name="fAQToolStripMenuItem.Text" xml:space="preserve">
+    <value>常见问题</value>
+  </data>
+  <data name="toolStripMenuItem22.Size" type="System.Drawing.Size, System.Drawing">
+    <value>243, 6</value>
+  </data>
+  <data name="technicalInformationToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
+  </data>
+  <data name="technicalInformationToolStripMenuItem.Text" xml:space="preserve">
+    <value>技术信息...</value>
+  </data>
+  <data name="messageOfTheDayToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
+  </data>
+  <data name="messageOfTheDayToolStripMenuItem.Text" xml:space="preserve">
+    <value>重要信息</value>
+  </data>
+  <data name="aboutToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>246, 22</value>
+  </data>
+  <data name="aboutToolStripMenuItem.Text" xml:space="preserve">
+    <value>关于...</value>
+  </data>
+  <data name="helpToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>44, 20</value>
+  </data>
+  <data name="helpToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;帮助</value>
+  </data>
+  <data name="menuStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>658, 24</value>
+  </data>
+  <data name="menuStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Name" xml:space="preserve">
+    <value>menuStrip</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;menuStrip.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 27</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 13</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>当前游戏合集：</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="buttonAddGames.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonAddGames.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 568</value>
+  </data>
+  <data name="buttonAddGames.Size" type="System.Drawing.Size, System.Drawing">
+    <value>140, 38</value>
+  </data>
+  <data name="buttonAddGames.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
+  </data>
+  <data name="buttonAddGames.Text" xml:space="preserve">
+    <value>添加更多游戏</value>
+  </data>
+  <data name="&gt;&gt;buttonAddGames.Name" xml:space="preserve">
+    <value>buttonAddGames</value>
+  </data>
+  <data name="&gt;&gt;buttonAddGames.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonAddGames.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonAddGames.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <metadata name="statusStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>455, 17</value>
+  </metadata>
+  <data name="toolStripStatusConnectionIcon.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripStatusConnectionIcon.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="toolStripStatusConnectionIcon.Size" type="System.Drawing.Size, System.Drawing">
+    <value>19, 19</value>
+  </data>
+  <data name="toolStripStatusLabelShell.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripStatusLabelShell.Size" type="System.Drawing.Size, System.Drawing">
+    <value>80, 19</value>
+  </data>
+  <data name="toolStripStatusLabelShell.Text" xml:space="preserve">
+    <value>离线</value>
+  </data>
+  <data name="toolStripStatusLabelSelected.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripStatusLabelSelected.Size" type="System.Drawing.Size, System.Drawing">
+    <value>151, 19</value>
+  </data>
+  <data name="toolStripStatusLabelSize.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="toolStripStatusLabelSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>151, 19</value>
+  </data>
+  <data name="toolStripProgressBar.Size" type="System.Drawing.Size, System.Drawing">
+    <value>235, 18</value>
+  </data>
+  <data name="statusStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 611</value>
+  </data>
+  <data name="statusStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>658, 24</value>
+  </data>
+  <data name="statusStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;statusStrip.Name" xml:space="preserve">
+    <value>statusStrip</value>
+  </data>
+  <data name="&gt;&gt;statusStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;statusStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;statusStrip.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <metadata name="openFileDialogNes.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>564, 17</value>
+  </metadata>
+  <data name="openFileDialogNes.Title" xml:space="preserve">
+    <value>选择游戏</value>
+  </data>
+  <metadata name="contextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>718, 17</value>
+  </metadata>
+  <data name="explorerToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="explorerToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>F4</value>
+  </data>
+  <data name="explorerToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 22</value>
+  </data>
+  <data name="explorerToolStripMenuItem.Text" xml:space="preserve">
+    <value>显示在 Windows 资源管理器中</value>
+  </data>
+  <data name="toolStripMenuItem14.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 6</value>
+  </data>
+  <data name="scanForNewBoxArtForSelectedGamesToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="scanForNewBoxArtForSelectedGamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 22</value>
+  </data>
+  <data name="scanForNewBoxArtForSelectedGamesToolStripMenuItem.Text" xml:space="preserve">
+    <value>扫描所选游戏的新游戏封面</value>
+  </data>
+  <data name="downloadBoxArtForSelectedGamesToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="downloadBoxArtForSelectedGamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 22</value>
+  </data>
+  <data name="downloadBoxArtForSelectedGamesToolStripMenuItem.Text" xml:space="preserve">
+    <value>下载所选游戏的游戏封面</value>
+  </data>
+  <data name="deleteSelectedGamesBoxArtToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="deleteSelectedGamesBoxArtToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 22</value>
+  </data>
+  <data name="deleteSelectedGamesBoxArtToolStripMenuItem.Text" xml:space="preserve">
+    <value>删除所选游戏的游戏封面</value>
+  </data>
+  <data name="toolStripMenuItem15.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 6</value>
+  </data>
+  <data name="archiveSelectedGamesToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="archiveSelectedGamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 22</value>
+  </data>
+  <data name="archiveSelectedGamesToolStripMenuItem.Text" xml:space="preserve">
+    <value>存档选定的游戏</value>
+  </data>
+  <data name="compressSelectedGamesToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="compressSelectedGamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 22</value>
+  </data>
+  <data name="compressSelectedGamesToolStripMenuItem.Text" xml:space="preserve">
+    <value>压缩选定的游戏</value>
+  </data>
+  <data name="decompressSelectedGamesToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="decompressSelectedGamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 22</value>
+  </data>
+  <data name="decompressSelectedGamesToolStripMenuItem.Text" xml:space="preserve">
+    <value>解压缩选定的游戏</value>
+  </data>
+  <data name="deleteSelectedGamesToolStripMenuItem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="deleteSelectedGamesToolStripMenuItem.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>Del</value>
+  </data>
+  <data name="deleteSelectedGamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 22</value>
+  </data>
+  <data name="deleteSelectedGamesToolStripMenuItem.Text" xml:space="preserve">
+    <value>删除选定的游戏</value>
+  </data>
+  <data name="toolStripMenuItem17.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 6</value>
+  </data>
+  <data name="editROMHeaderToolStripMenuItem.ShortcutKeys" type="System.Windows.Forms.Keys, System.Windows.Forms">
+    <value>Ctrl+Alt+E</value>
+  </data>
+  <data name="editROMHeaderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>285, 22</value>
+  </data>
+  <data name="editROMHeaderToolStripMenuItem.Text" xml:space="preserve">
+    <value>编辑 SFROM 头</value>
+  </data>
+  <data name="toolStripMenuItem9.Size" type="System.Drawing.Size, System.Drawing">
+    <value>282, 6</value>
+  </data>
+  <data name="resetROMHeaderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>285, 22</value>
+  </data>
+  <data name="resetROMHeaderToolStripMenuItem.Text" xml:space="preserve">
+    <value>重置选定游戏的 SFROM 头</value>
+  </data>
+  <data name="sFROMToolToolStripMenuItem1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 22</value>
+  </data>
+  <data name="sFROMToolToolStripMenuItem1.Text" xml:space="preserve">
+    <value>SFROM 工具</value>
+  </data>
+  <data name="repairGamesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 22</value>
+  </data>
+  <data name="repairGamesToolStripMenuItem.Text" xml:space="preserve">
+    <value>修复游戏</value>
+  </data>
+  <data name="toolStripMenuItem19.Size" type="System.Drawing.Size, System.Drawing">
+    <value>280, 6</value>
+  </data>
+  <data name="selectEmulationCoreToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>283, 22</value>
+  </data>
+  <data name="selectEmulationCoreToolStripMenuItem.Text" xml:space="preserve">
+    <value>选择仿真核心...</value>
+  </data>
+  <data name="contextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>284, 270</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip.Name" xml:space="preserve">
+    <value>contextMenuStrip</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="openFileDialogImage.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>537, 56</value>
+  </metadata>
+  <data name="openFileDialogImage.Filter" xml:space="preserve">
+    <value>Images (*.bmp;*.png;*.jpg;*.jpeg;*.gif)|*.bmp;*.png;*.jpg;*.jpeg;*.gif|All files|*.*</value>
+  </data>
+  <data name="openFileDialogImage.Title" xml:space="preserve">
+    <value>Select cover for game</value>
+  </data>
+  <data name="buttonStart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>306, 568</value>
+  </data>
+  <data name="buttonStart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>341, 38</value>
+  </data>
+  <data name="buttonStart.TabIndex" type="System.Int32, mscorlib">
+    <value>27</value>
+  </data>
+  <data name="buttonStart.Text" xml:space="preserve">
+    <value>将选定的游戏与 mini 同步</value>
+  </data>
+  <data name="&gt;&gt;buttonStart.Name" xml:space="preserve">
+    <value>buttonStart</value>
+  </data>
+  <data name="&gt;&gt;buttonStart.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonStart.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonStart.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <metadata name="timerCalculateGames.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>867, 17</value>
+  </metadata>
+  <metadata name="timerConnectionCheck.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>173, 56</value>
+  </metadata>
+  <metadata name="saveDumpFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>125, 17</value>
+  </metadata>
+  <data name="saveDumpFileDialog.Title" xml:space="preserve">
+    <value>Select dump filename</value>
+  </data>
+  <metadata name="openDumpFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>288, 17</value>
+  </metadata>
+  <data name="openDumpFileDialog.Title" xml:space="preserve">
+    <value>选择转储文件名</value>
+  </data>
+  <data name="gameName.Text" xml:space="preserve">
+    <value>游戏名称</value>
+  </data>
+  <data name="gameName.Width" type="System.Int32, mscorlib">
+    <value>253</value>
+  </data>
+  <data name="listViewGames.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 71</value>
+  </data>
+  <data name="listViewGames.Size" type="System.Drawing.Size, System.Drawing">
+    <value>288, 485</value>
+  </data>
+  <data name="listViewGames.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;listViewGames.Name" xml:space="preserve">
+    <value>listViewGames</value>
+  </data>
+  <data name="&gt;&gt;listViewGames.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listViewGames.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;listViewGames.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <metadata name="timerShowSelected.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 56</value>
+  </metadata>
+  <data name="buttonExport.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonExport.Location" type="System.Drawing.Point, System.Drawing">
+    <value>158, 568</value>
+  </data>
+  <data name="buttonExport.Size" type="System.Drawing.Size, System.Drawing">
+    <value>142, 38</value>
+  </data>
+  <data name="buttonExport.TabIndex" type="System.Int32, mscorlib">
+    <value>26</value>
+  </data>
+  <data name="buttonExport.Text" xml:space="preserve">
+    <value>导出到 USB</value>
+  </data>
+  <data name="&gt;&gt;buttonExport.Name" xml:space="preserve">
+    <value>buttonExport</value>
+  </data>
+  <data name="&gt;&gt;buttonExport.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonExport.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonExport.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="labelID.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelID.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelID.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 21</value>
+  </data>
+  <data name="labelID.Size" type="System.Drawing.Size, System.Drawing">
+    <value>21, 13</value>
+  </data>
+  <data name="labelID.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelID.Text" xml:space="preserve">
+    <value>ID:</value>
+  </data>
+  <data name="&gt;&gt;labelID.Name" xml:space="preserve">
+    <value>labelID</value>
+  </data>
+  <data name="&gt;&gt;labelID.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelID.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;labelID.ZOrder" xml:space="preserve">
+    <value>27</value>
+  </data>
+  <data name="labelName.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 47</value>
+  </data>
+  <data name="labelName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>38, 13</value>
+  </data>
+  <data name="labelName.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelName.Text" xml:space="preserve">
+    <value>名称:</value>
+  </data>
+  <data name="&gt;&gt;labelName.Name" xml:space="preserve">
+    <value>labelName</value>
+  </data>
+  <data name="&gt;&gt;labelName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelName.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;labelName.ZOrder" xml:space="preserve">
+    <value>26</value>
+  </data>
+  <data name="textBoxName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>59, 44</value>
+  </data>
+  <data name="textBoxName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>265, 20</value>
+  </data>
+  <data name="textBoxName.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;textBoxName.Name" xml:space="preserve">
+    <value>textBoxName</value>
+  </data>
+  <data name="&gt;&gt;textBoxName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxName.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;textBoxName.ZOrder" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="radioButtonOne.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonOne.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonOne.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 97</value>
+  </data>
+  <data name="radioButtonOne.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 17</value>
+  </data>
+  <data name="radioButtonOne.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="radioButtonOne.Text" xml:space="preserve">
+    <value>一个玩家</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOne.Name" xml:space="preserve">
+    <value>radioButtonOne</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOne.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOne.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;radioButtonOne.ZOrder" xml:space="preserve">
+    <value>24</value>
+  </data>
+  <data name="radioButtonTwo.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonTwo.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonTwo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 116</value>
+  </data>
+  <data name="radioButtonTwo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 17</value>
+  </data>
+  <data name="radioButtonTwo.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="radioButtonTwo.Text" xml:space="preserve">
+    <value>两个玩家，不是同时</value>
+  </data>
+  <data name="&gt;&gt;radioButtonTwo.Name" xml:space="preserve">
+    <value>radioButtonTwo</value>
+  </data>
+  <data name="&gt;&gt;radioButtonTwo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonTwo.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;radioButtonTwo.ZOrder" xml:space="preserve">
+    <value>23</value>
+  </data>
+  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 198</value>
+  </data>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>53, 13</value>
+  </data>
+  <data name="label2.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>出版商:</value>
+  </data>
+  <data name="&gt;&gt;label2.Name" xml:space="preserve">
+    <value>label2</value>
+  </data>
+  <data name="&gt;&gt;label2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
+    <value>22</value>
+  </data>
+  <data name="textBoxPublisher.Location" type="System.Drawing.Point, System.Drawing">
+    <value>71, 195</value>
+  </data>
+  <data name="textBoxPublisher.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 20</value>
+  </data>
+  <data name="textBoxPublisher.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="&gt;&gt;textBoxPublisher.Name" xml:space="preserve">
+    <value>textBoxPublisher</value>
+  </data>
+  <data name="&gt;&gt;textBoxPublisher.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxPublisher.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;textBoxPublisher.ZOrder" xml:space="preserve">
+    <value>21</value>
+  </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 228</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>201, 13</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>命令行（仅适用于高级用户）：</value>
+  </data>
+  <data name="&gt;&gt;label3.Name" xml:space="preserve">
+    <value>label3</value>
+  </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="textBoxArguments.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 245</value>
+  </data>
+  <data name="textBoxArguments.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 20</value>
+  </data>
+  <data name="textBoxArguments.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="&gt;&gt;textBoxArguments.Name" xml:space="preserve">
+    <value>textBoxArguments</value>
+  </data>
+  <data name="&gt;&gt;textBoxArguments.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxArguments.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;textBoxArguments.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>260, 315</value>
+  </data>
+  <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 37</value>
+  </data>
+  <data name="label4.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>游戏封面</value>
+  </data>
+  <data name="label4.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;label4.Name" xml:space="preserve">
+    <value>label4</value>
+  </data>
+  <data name="&gt;&gt;label4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label4.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="pictureBoxArt.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pictureBoxArt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>17, 315</value>
+  </data>
+  <data name="pictureBoxArt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>228, 204</value>
+  </data>
+  <data name="pictureBoxArt.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>CenterImage</value>
+  </data>
+  <data name="pictureBoxArt.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxArt.Name" xml:space="preserve">
+    <value>pictureBoxArt</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxArt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxArt.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxArt.ZOrder" xml:space="preserve">
+    <value>17</value>
+  </data>
+  <data name="buttonBrowseImage.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonBrowseImage.Location" type="System.Drawing.Point, System.Drawing">
+    <value>263, 384</value>
+  </data>
+  <data name="buttonBrowseImage.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 23</value>
+  </data>
+  <data name="buttonBrowseImage.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="buttonBrowseImage.Text" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowseImage.Name" xml:space="preserve">
+    <value>buttonBrowseImage</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowseImage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowseImage.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowseImage.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="buttonGoogle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonGoogle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>263, 413</value>
+  </data>
+  <data name="buttonGoogle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 23</value>
+  </data>
+  <data name="buttonGoogle.TabIndex" type="System.Int32, mscorlib">
+    <value>22</value>
+  </data>
+  <data name="buttonGoogle.Text" xml:space="preserve">
+    <value>Google</value>
+  </data>
+  <data name="&gt;&gt;buttonGoogle.Name" xml:space="preserve">
+    <value>buttonGoogle</value>
+  </data>
+  <data name="&gt;&gt;buttonGoogle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonGoogle.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;buttonGoogle.ZOrder" xml:space="preserve">
+    <value>15</value>
+  </data>
+  <data name="radioButtonTwoSim.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radioButtonTwoSim.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="radioButtonTwoSim.Location" type="System.Drawing.Point, System.Drawing">
+    <value>103, 135</value>
+  </data>
+  <data name="radioButtonTwoSim.Size" type="System.Drawing.Size, System.Drawing">
+    <value>156, 17</value>
+  </data>
+  <data name="radioButtonTwoSim.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="radioButtonTwoSim.Text" xml:space="preserve">
+    <value>两个玩家，同时</value>
+  </data>
+  <data name="&gt;&gt;radioButtonTwoSim.Name" xml:space="preserve">
+    <value>radioButtonTwoSim</value>
+  </data>
+  <data name="&gt;&gt;radioButtonTwoSim.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radioButtonTwoSim.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;radioButtonTwoSim.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 93</value>
+  </data>
+  <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 63</value>
+  </data>
+  <data name="label6.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label6.Text" xml:space="preserve">
+    <value>最大玩家数：</value>
+  </data>
+  <data name="label6.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;label6.Name" xml:space="preserve">
+    <value>label6</value>
+  </data>
+  <data name="&gt;&gt;label6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label6.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 272</value>
+  </data>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>194, 13</value>
+  </data>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Game Genie 代码（逗号分隔）：</value>
+  </data>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
+  </data>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="textBoxGameGenie.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 289</value>
+  </data>
+  <data name="textBoxGameGenie.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 20</value>
+  </data>
+  <data name="textBoxGameGenie.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="&gt;&gt;textBoxGameGenie.Name" xml:space="preserve">
+    <value>textBoxGameGenie</value>
+  </data>
+  <data name="&gt;&gt;textBoxGameGenie.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxGameGenie.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;textBoxGameGenie.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 166</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>150, 13</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>发布日期 (YYYY-MM-DD):</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="maskedTextBoxReleaseDate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>180, 163</value>
+  </data>
+  <data name="maskedTextBoxReleaseDate.Mask" xml:space="preserve">
+    <value>0000-00-00</value>
+  </data>
+  <data name="maskedTextBoxReleaseDate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 20</value>
+  </data>
+  <data name="maskedTextBoxReleaseDate.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="&gt;&gt;maskedTextBoxReleaseDate.Name" xml:space="preserve">
+    <value>maskedTextBoxReleaseDate</value>
+  </data>
+  <data name="&gt;&gt;maskedTextBoxReleaseDate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.MaskedTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;maskedTextBoxReleaseDate.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;maskedTextBoxReleaseDate.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="buttonShowGameGenieDatabase.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonShowGameGenieDatabase.Location" type="System.Drawing.Point, System.Drawing">
+    <value>299, 289</value>
+  </data>
+  <data name="buttonShowGameGenieDatabase.Size" type="System.Drawing.Size, System.Drawing">
+    <value>25, 20</value>
+  </data>
+  <data name="buttonShowGameGenieDatabase.TabIndex" type="System.Int32, mscorlib">
+    <value>17</value>
+  </data>
+  <data name="buttonShowGameGenieDatabase.Text" xml:space="preserve">
+    <value>+</value>
+  </data>
+  <data name="&gt;&gt;buttonShowGameGenieDatabase.Name" xml:space="preserve">
+    <value>buttonShowGameGenieDatabase</value>
+  </data>
+  <data name="&gt;&gt;buttonShowGameGenieDatabase.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonShowGameGenieDatabase.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;buttonShowGameGenieDatabase.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="checkBoxCompressed.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxCompressed.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxCompressed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>241, 20</value>
+  </data>
+  <data name="checkBoxCompressed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 17</value>
+  </data>
+  <data name="checkBoxCompressed.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="checkBoxCompressed.Text" xml:space="preserve">
+    <value>压缩</value>
+  </data>
+  <data name="checkBoxCompressed.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCompressed.Name" xml:space="preserve">
+    <value>checkBoxCompressed</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCompressed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCompressed.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;checkBoxCompressed.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="labelSize.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>146, 21</value>
+  </data>
+  <data name="labelSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 13</value>
+  </data>
+  <data name="labelSize.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelSize.Text" xml:space="preserve">
+    <value>大小：</value>
+  </data>
+  <data name="&gt;&gt;labelSize.Name" xml:space="preserve">
+    <value>labelSize</value>
+  </data>
+  <data name="&gt;&gt;labelSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSize.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;labelSize.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="buttonDefaultCover.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonDefaultCover.Location" type="System.Drawing.Point, System.Drawing">
+    <value>263, 355</value>
+  </data>
+  <data name="buttonDefaultCover.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 23</value>
+  </data>
+  <data name="buttonDefaultCover.TabIndex" type="System.Int32, mscorlib">
+    <value>20</value>
+  </data>
+  <data name="buttonDefaultCover.Text" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="&gt;&gt;buttonDefaultCover.Name" xml:space="preserve">
+    <value>buttonDefaultCover</value>
+  </data>
+  <data name="&gt;&gt;buttonDefaultCover.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonDefaultCover.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;buttonDefaultCover.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="pictureBoxThumbnail.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="pictureBoxThumbnail.Location" type="System.Drawing.Point, System.Drawing">
+    <value>263, 459</value>
+  </data>
+  <data name="pictureBoxThumbnail.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 60</value>
+  </data>
+  <data name="pictureBoxThumbnail.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>CenterImage</value>
+  </data>
+  <data name="pictureBoxThumbnail.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxThumbnail.Name" xml:space="preserve">
+    <value>pictureBoxThumbnail</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxThumbnail.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxThumbnail.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;pictureBoxThumbnail.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="labelSortName.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelSortName.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="labelSortName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 74</value>
+  </data>
+  <data name="labelSortName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>60, 13</value>
+  </data>
+  <data name="labelSortName.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
+  </data>
+  <data name="labelSortName.Text" xml:space="preserve">
+    <value>排序名称：</value>
+  </data>
+  <data name="&gt;&gt;labelSortName.Name" xml:space="preserve">
+    <value>labelSortName</value>
+  </data>
+  <data name="&gt;&gt;labelSortName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSortName.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;labelSortName.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="textBoxSortName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>81, 71</value>
+  </data>
+  <data name="textBoxSortName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>243, 20</value>
+  </data>
+  <data name="textBoxSortName.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;textBoxSortName.Name" xml:space="preserve">
+    <value>textBoxSortName</value>
+  </data>
+  <data name="&gt;&gt;textBoxSortName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxSortName.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;textBoxSortName.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="label8.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label8.Location" type="System.Drawing.Point, System.Drawing">
+    <value>259, 159</value>
+  </data>
+  <data name="label8.Size" type="System.Drawing.Size, System.Drawing">
+    <value>64, 26</value>
+  </data>
+  <data name="label8.TabIndex" type="System.Int32, mscorlib">
+    <value>21</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>保存计数</value>
+  </data>
+  <data name="label8.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;label8.Name" xml:space="preserve">
+    <value>label8</value>
+  </data>
+  <data name="&gt;&gt;label8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label8.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="numericUpDownSaveCount.Location" type="System.Drawing.Point, System.Drawing">
+    <value>259, 195</value>
+  </data>
+  <data name="numericUpDownSaveCount.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 20</value>
+  </data>
+  <data name="numericUpDownSaveCount.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownSaveCount.Name" xml:space="preserve">
+    <value>numericUpDownSaveCount</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownSaveCount.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownSaveCount.Parent" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;numericUpDownSaveCount.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="groupBoxOptions.Location" type="System.Drawing.Point, System.Drawing">
+    <value>306, 27</value>
+  </data>
+  <data name="groupBoxOptions.Size" type="System.Drawing.Size, System.Drawing">
+    <value>341, 529</value>
+  </data>
+  <data name="groupBoxOptions.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="groupBoxOptions.Text" xml:space="preserve">
+    <value>游戏选项</value>
+  </data>
+  <data name="&gt;&gt;groupBoxOptions.Name" xml:space="preserve">
+    <value>groupBoxOptions</value>
+  </data>
+  <data name="&gt;&gt;groupBoxOptions.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;groupBoxOptions.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxOptions.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="structureButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 44</value>
+  </data>
+  <data name="structureButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>76, 23</value>
+  </data>
+  <data name="structureButton.TabIndex" type="System.Int32, mscorlib">
+    <value>29</value>
+  </data>
+  <data name="structureButton.Text" xml:space="preserve">
+    <value>结构</value>
+  </data>
+  <data name="&gt;&gt;structureButton.Name" xml:space="preserve">
+    <value>structureButton</value>
+  </data>
+  <data name="&gt;&gt;structureButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;structureButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;structureButton.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <metadata name="foldersContextMenuStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>349, 56</value>
+  </metadata>
+  <data name="disablePagefoldersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="disablePagefoldersToolStripMenuItem.Text" xml:space="preserve">
+    <value>禁用页面/文件夹</value>
+  </data>
+  <data name="customToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="customToolStripMenuItem.Text" xml:space="preserve">
+    <value>自定义 - 使用文件夹管理器（再次单击以打开）</value>
+  </data>
+  <data name="toolStripMenuItem3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>353, 6</value>
+  </data>
+  <data name="automaticToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="automaticToolStripMenuItem.Text" xml:space="preserve">
+    <value>自动</value>
+  </data>
+  <data name="automaticOriginalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="automaticOriginalToolStripMenuItem.Text" xml:space="preserve">
+    <value>-&gt; 根目录下的原始游戏自动位于子文件夹中</value>
+  </data>
+  <data name="pagesToolStripMenuItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="pagesToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="pagesToolStripMenuItem.Text" xml:space="preserve">
+    <value>Pages, split games equally</value>
+  </data>
+  <data name="pagesOriginalToolStripMenuItem.ImageScaling" type="System.Windows.Forms.ToolStripItemImageScaling, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="pagesOriginalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="pagesOriginalToolStripMenuItem.Text" xml:space="preserve">
+    <value>-&gt; 根网页中的原始游戏会平均划分游戏</value>
+  </data>
+  <data name="foldersToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="foldersToolStripMenuItem.Text" xml:space="preserve">
+    <value>文件夹，平分游戏</value>
+  </data>
+  <data name="foldersOriginalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="foldersOriginalToolStripMenuItem.Text" xml:space="preserve">
+    <value>-&gt; 根文件夹中的原始游戏，平均拆分游戏</value>
+  </data>
+  <data name="foldersSplitByFirstLetterToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="foldersSplitByFirstLetterToolStripMenuItem.Text" xml:space="preserve">
+    <value>文件夹，按第一个字母拆分</value>
+  </data>
+  <data name="foldersSplitByFirstLetterOriginalToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="foldersSplitByFirstLetterOriginalToolStripMenuItem.Text" xml:space="preserve">
+    <value>-&gt; 根文件夹中的原始游戏，按第一个字母拆分</value>
+  </data>
+  <data name="toolStripMenuItem4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>353, 6</value>
+  </data>
+  <data name="maximumGamesPerFolderToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="maximumGamesPerFolderToolStripMenuItem.Text" xml:space="preserve">
+    <value>每页/文件夹的最大游戏数</value>
+  </data>
+  <data name="leftmostToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 22</value>
+  </data>
+  <data name="leftmostToolStripMenuItem.Text" xml:space="preserve">
+    <value>Leftmost</value>
+  </data>
+  <data name="rightmostToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 22</value>
+  </data>
+  <data name="rightmostToolStripMenuItem.Text" xml:space="preserve">
+    <value>Rightmost</value>
+  </data>
+  <data name="backFolderButtonPositionToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="backFolderButtonPositionToolStripMenuItem.Text" xml:space="preserve">
+    <value>后退文件夹按钮位置</value>
+  </data>
+  <data name="folderImagesSetToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="folderImagesSetToolStripMenuItem.Text" xml:space="preserve">
+    <value>文件夹图像集</value>
+  </data>
+  <data name="toolStripMenuItem20.Size" type="System.Drawing.Size, System.Drawing">
+    <value>353, 6</value>
+  </data>
+  <data name="syncStructureForAllGamesCollectionsToolStripMenuItem.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Segoe UI, 9pt, style=Bold</value>
+  </data>
+  <data name="syncStructureForAllGamesCollectionsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>356, 22</value>
+  </data>
+  <data name="syncStructureForAllGamesCollectionsToolStripMenuItem.Text" xml:space="preserve">
+    <value>同步所有游戏收藏的结构设置</value>
+  </data>
+  <data name="foldersContextMenuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>357, 330</value>
+  </data>
+  <data name="&gt;&gt;foldersContextMenuStrip.Name" xml:space="preserve">
+    <value>foldersContextMenuStrip</value>
+  </data>
+  <data name="&gt;&gt;foldersContextMenuStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="gamesConsoleComboBox.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 45</value>
+  </data>
+  <data name="gamesConsoleComboBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>206, 21</value>
+  </data>
+  <data name="gamesConsoleComboBox.TabIndex" type="System.Int32, mscorlib">
+    <value>30</value>
+  </data>
+  <data name="&gt;&gt;gamesConsoleComboBox.Name" xml:space="preserve">
+    <value>gamesConsoleComboBox</value>
+  </data>
+  <data name="&gt;&gt;gamesConsoleComboBox.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gamesConsoleComboBox.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;gamesConsoleComboBox.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <metadata name="timerUpdate.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1034, 17</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>56</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>658, 635</value>
+  </data>
+  <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
+    <value>674, 674</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>hakchi2</value>
+  </data>
+  <data name="&gt;&gt;fileToolStripMenuItem.Name" xml:space="preserve">
+    <value>fileToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;fileToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addMoreGamesToolStripMenuItem.Name" xml:space="preserve">
+    <value>addMoreGamesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addMoreGamesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;autodetectToolStripMenuItem.Name" xml:space="preserve">
+    <value>autodetectToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;autodetectToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;asIsToolStripMenuItem.Name" xml:space="preserve">
+    <value>asIsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;asIsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addCustomAppToolStripMenuItem.Name" xml:space="preserve">
+    <value>addCustomAppToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addCustomAppToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;presetsToolStripMenuItem.Name" xml:space="preserve">
+    <value>presetsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;presetsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem2.Name" xml:space="preserve">
+    <value>toolStripMenuItem2</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;addPresetToolStripMenuItem.Name" xml:space="preserve">
+    <value>addPresetToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;addPresetToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;deletePresetToolStripMenuItem.Name" xml:space="preserve">
+    <value>deletePresetToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;deletePresetToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem13.Name" xml:space="preserve">
+    <value>toolStripMenuItem13</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exportGamesToolStripMenuItem.Name" xml:space="preserve">
+    <value>exportGamesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;exportGamesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;synchronizeToolStripMenuItem.Name" xml:space="preserve">
+    <value>synchronizeToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;synchronizeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;searchToolStripMenuItem.Name" xml:space="preserve">
+    <value>searchToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;searchToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;reloadGamesToolStripMenuItem.Name" xml:space="preserve">
+    <value>reloadGamesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;reloadGamesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem12.Name" xml:space="preserve">
+    <value>toolStripMenuItem12</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;resetOriginalGamesToolStripMenuItem.Name" xml:space="preserve">
+    <value>resetOriginalGamesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;resetOriginalGamesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Name" xml:space="preserve">
+    <value>toolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;exitToolStripMenuItem.Name" xml:space="preserve">
+    <value>exitToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;exitToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;kernelToolStripMenuItem.Name" xml:space="preserve">
+    <value>kernelToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;kernelToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flashCustomKernelToolStripMenuItem.Name" xml:space="preserve">
+    <value>flashCustomKernelToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;flashCustomKernelToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;resetToolStripMenuItem.Name" xml:space="preserve">
+    <value>resetToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;resetToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;uninstallToolStripMenuItem.Name" xml:space="preserve">
+    <value>uninstallToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;uninstallToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem11.Name" xml:space="preserve">
+    <value>toolStripMenuItem11</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flashUbootToolStripMenuItem.Name" xml:space="preserve">
+    <value>flashUbootToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;flashUbootToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;normalModeToolStripMenuItem.Name" xml:space="preserve">
+    <value>normalModeToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;normalModeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sDModeToolStripMenuItem.Name" xml:space="preserve">
+    <value>sDModeToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;sDModeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;advancedToolStripMenuItem.Name" xml:space="preserve">
+    <value>advancedToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;advancedToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;membootOriginalKernelToolStripMenuItem.Name" xml:space="preserve">
+    <value>membootOriginalKernelToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;membootOriginalKernelToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;membootCustomKernelToolStripMenuItem.Name" xml:space="preserve">
+    <value>membootCustomKernelToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;membootCustomKernelToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;membootRecoveryKernelToolStripMenuItem.Name" xml:space="preserve">
+    <value>membootRecoveryKernelToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;membootRecoveryKernelToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem10.Name" xml:space="preserve">
+    <value>toolStripMenuItem10</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem10.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dumpOriginalKernellegacyToolStripMenuItem.Name" xml:space="preserve">
+    <value>dumpOriginalKernellegacyToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;dumpOriginalKernellegacyToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem24.Name" xml:space="preserve">
+    <value>toolStripMenuItem24</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem24.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dumpTheWholeNANDToolStripMenuItem.Name" xml:space="preserve">
+    <value>dumpTheWholeNANDToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;dumpTheWholeNANDToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolFlashTheWholeNANDStripMenuItem.Name" xml:space="preserve">
+    <value>toolFlashTheWholeNANDStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;toolFlashTheWholeNANDStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dumpNANDBToolStripMenuItem.Name" xml:space="preserve">
+    <value>dumpNANDBToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;dumpNANDBToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flashNANDBPartitionToolStripMenuItem.Name" xml:space="preserve">
+    <value>flashNANDBPartitionToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;flashNANDBPartitionToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dumpNANDCPartitionToolStripMenuItem.Name" xml:space="preserve">
+    <value>dumpNANDCPartitionToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;dumpNANDCPartitionToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;flashNANDCPartitionToolStripMenuItem.Name" xml:space="preserve">
+    <value>flashNANDCPartitionToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;flashNANDCPartitionToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;formatNANDCToolStripMenuItem.Name" xml:space="preserve">
+    <value>formatNANDCToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;formatNANDCToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Name" xml:space="preserve">
+    <value>toolStripSeparator1</value>
+  </data>
+  <data name="&gt;&gt;toolStripSeparator1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;factoryResetToolStripMenuItem.Name" xml:space="preserve">
+    <value>factoryResetToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;factoryResetToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;modulesToolStripMenuItem.Name" xml:space="preserve">
+    <value>modulesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;modulesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;installModulesToolStripMenuItem.Name" xml:space="preserve">
+    <value>installModulesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;installModulesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;uninstallModulesToolStripMenuItem.Name" xml:space="preserve">
+    <value>uninstallModulesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;uninstallModulesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;generateModulesReportToolStripMenuItem.Name" xml:space="preserve">
+    <value>generateModulesReportToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;generateModulesReportToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;modRepoStartSeparator.Name" xml:space="preserve">
+    <value>modRepoStartSeparator</value>
+  </data>
+  <data name="&gt;&gt;modRepoStartSeparator.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;modRepoEndSeparator.Name" xml:space="preserve">
+    <value>modRepoEndSeparator</value>
+  </data>
+  <data name="&gt;&gt;modRepoEndSeparator.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;manageModRepositoriesToolStripMenuItem.Name" xml:space="preserve">
+    <value>manageModRepositoriesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;manageModRepositoriesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;viewToolStripMenuItem.Name" xml:space="preserve">
+    <value>viewToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;viewToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;originalGamesToolStripMenuItem.Name" xml:space="preserve">
+    <value>originalGamesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;originalGamesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;positionAtTheTopToolStripMenuItem.Name" xml:space="preserve">
+    <value>positionAtTheTopToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;positionAtTheTopToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;positionAtTheBottomToolStripMenuItem.Name" xml:space="preserve">
+    <value>positionAtTheBottomToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;positionAtTheBottomToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;positionSortedToolStripMenuItem.Name" xml:space="preserve">
+    <value>positionSortedToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;positionSortedToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;positionHiddenToolStripMenuItem.Name" xml:space="preserve">
+    <value>positionHiddenToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;positionHiddenToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sortByToolStripMenuItem.Name" xml:space="preserve">
+    <value>sortByToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;sortByToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nameToolStripMenuItem.Name" xml:space="preserve">
+    <value>nameToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;nameToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;coreToolStripMenuItem.Name" xml:space="preserve">
+    <value>coreToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;coreToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;systemToolStripMenuItem.Name" xml:space="preserve">
+    <value>systemToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;systemToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;showGamesWithoutBoxArtToolStripMenuItem.Name" xml:space="preserve">
+    <value>showGamesWithoutBoxArtToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;showGamesWithoutBoxArtToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;settingsToolStripMenuItem.Name" xml:space="preserve">
+    <value>settingsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;settingsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;languageToolStripMenuItem.Name" xml:space="preserve">
+    <value>languageToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;languageToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sFROMToolToolStripMenuItem.Name" xml:space="preserve">
+    <value>sFROMToolToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;sFROMToolToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;enableSFROMToolToolStripMenuItem.Name" xml:space="preserve">
+    <value>enableSFROMToolToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;enableSFROMToolToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;usePCMPatchWhenAvailableToolStripMenuItem.Name" xml:space="preserve">
+    <value>usePCMPatchWhenAvailableToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;usePCMPatchWhenAvailableToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;convertSNESROMSToSFROMToolStripMenuItem.Name" xml:space="preserve">
+    <value>convertSNESROMSToSFROMToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;convertSNESROMSToSFROMToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;separateGamesStorageToolStripMenuItem.Name" xml:space="preserve">
+    <value>separateGamesStorageToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;separateGamesStorageToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;compressGamesToolStripMenuItem.Name" xml:space="preserve">
+    <value>compressGamesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;compressGamesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;compressBoxArtToolStripMenuItem.Name" xml:space="preserve">
+    <value>compressBoxArtToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;compressBoxArtToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;centerBoxArtThumbnailToolStripMenuItem.Name" xml:space="preserve">
+    <value>centerBoxArtThumbnailToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;centerBoxArtThumbnailToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;disableHakchi2PopupsToolStripMenuItem.Name" xml:space="preserve">
+    <value>disableHakchi2PopupsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;disableHakchi2PopupsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem25.Name" xml:space="preserve">
+    <value>toolStripMenuItem25</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem25.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;developerToolsToolStripMenuItem.Name" xml:space="preserve">
+    <value>developerToolsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;developerToolsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;devForceSshToolStripMenuItem.Name" xml:space="preserve">
+    <value>devForceSshToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;devForceSshToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;uploadTotmpforTestingToolStripMenuItem.Name" xml:space="preserve">
+    <value>uploadTotmpforTestingToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;uploadTotmpforTestingToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem23.Name" xml:space="preserve">
+    <value>toolStripMenuItem23</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem23.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;forceNetworkMembootsToolStripMenuItem.Name" xml:space="preserve">
+    <value>forceNetworkMembootsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;forceNetworkMembootsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;forceClovershellMembootsToolStripMenuItem.Name" xml:space="preserve">
+    <value>forceClovershellMembootsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;forceClovershellMembootsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;separateGamesForMultibootToolStripMenuItem.Name" xml:space="preserve">
+    <value>separateGamesForMultibootToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;separateGamesForMultibootToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;alwaysCopyOriginalGamesToolStripMenuItem.Name" xml:space="preserve">
+    <value>alwaysCopyOriginalGamesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;alwaysCopyOriginalGamesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;useLinkedSyncToolStripMenuItem.Name" xml:space="preserve">
+    <value>useLinkedSyncToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;useLinkedSyncToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem16.Name" xml:space="preserve">
+    <value>toolStripMenuItem16</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem16.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;cloverconHackToolStripMenuItem.Name" xml:space="preserve">
+    <value>cloverconHackToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;cloverconHackToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;resetUsingCombinationOfButtonsToolStripMenuItem.Name" xml:space="preserve">
+    <value>resetUsingCombinationOfButtonsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;resetUsingCombinationOfButtonsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;selectButtonCombinationToolStripMenuItem.Name" xml:space="preserve">
+    <value>selectButtonCombinationToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;selectButtonCombinationToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;enableAutofireToolStripMenuItem.Name" xml:space="preserve">
+    <value>enableAutofireToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;enableAutofireToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;useXYOnClassicControllerAsAutofireABToolStripMenuItem.Name" xml:space="preserve">
+    <value>useXYOnClassicControllerAsAutofireABToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;useXYOnClassicControllerAsAutofireABToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;upABStartOnSecondControllerToolStripMenuItem.Name" xml:space="preserve">
+    <value>upABStartOnSecondControllerToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;upABStartOnSecondControllerToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;globalCommandLineArgumentsexpertsOnluToolStripMenuItem.Name" xml:space="preserve">
+    <value>globalCommandLineArgumentsexpertsOnluToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;globalCommandLineArgumentsexpertsOnluToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;kachikachiToolStripMenuItem.Name" xml:space="preserve">
+    <value>kachikachiToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;kachikachiToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;canoeToolStripMenuItem.Name" xml:space="preserve">
+    <value>canoeToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;canoeToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;retroarchToolStripMenuItem.Name" xml:space="preserve">
+    <value>retroarchToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;retroarchToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;epilepsyProtectionToolStripMenuItem.Name" xml:space="preserve">
+    <value>epilepsyProtectionToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;epilepsyProtectionToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem5.Name" xml:space="preserve">
+    <value>toolStripMenuItem5</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveSettingsToNESMiniNowToolStripMenuItem.Name" xml:space="preserve">
+    <value>saveSettingsToNESMiniNowToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;saveSettingsToNESMiniNowToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolsToolStripMenuItem.Name" xml:space="preserve">
+    <value>toolsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;toolsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveStateManagerToolStripMenuItem.Name" xml:space="preserve">
+    <value>saveStateManagerToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;saveStateManagerToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;takeScreenshotToolStripMenuItem.Name" xml:space="preserve">
+    <value>takeScreenshotToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;takeScreenshotToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveDmesgOutputToolStripMenuItem.Name" xml:space="preserve">
+    <value>saveDmesgOutputToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;saveDmesgOutputToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem6.Name" xml:space="preserve">
+    <value>toolStripMenuItem6</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem6.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openFTPInExplorerToolStripMenuItem.Name" xml:space="preserve">
+    <value>openFTPInExplorerToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;openFTPInExplorerToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openTelnetToolStripMenuItem.Name" xml:space="preserve">
+    <value>openTelnetToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;openTelnetToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem8.Name" xml:space="preserve">
+    <value>toolStripMenuItem8</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem8.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;bootImageToolStripMenuItem.Name" xml:space="preserve">
+    <value>bootImageToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;bootImageToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;changeBootImageToolStripMenuItem.Name" xml:space="preserve">
+    <value>changeBootImageToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;changeBootImageToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;disableBootImageToolStripMenuItem.Name" xml:space="preserve">
+    <value>disableBootImageToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;disableBootImageToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;resetDefaultBootImageToolStripMenuItem.Name" xml:space="preserve">
+    <value>resetDefaultBootImageToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;resetDefaultBootImageToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rebootToolStripMenuItem.Name" xml:space="preserve">
+    <value>rebootToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;rebootToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;switchRunningFirmwareToolStripMenuItem.Name" xml:space="preserve">
+    <value>switchRunningFirmwareToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;switchRunningFirmwareToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem18.Name" xml:space="preserve">
+    <value>toolStripMenuItem18</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem18.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;prepareArtDirectoryToolStripMenuItem.Name" xml:space="preserve">
+    <value>prepareArtDirectoryToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;prepareArtDirectoryToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;helpToolStripMenuItem.Name" xml:space="preserve">
+    <value>helpToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;helpToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gitHubPageWithActualReleasesToolStripMenuItem.Name" xml:space="preserve">
+    <value>gitHubPageWithActualReleasesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;gitHubPageWithActualReleasesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;joinOurDiscordServerToolStripMenuItem.Name" xml:space="preserve">
+    <value>joinOurDiscordServerToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;joinOurDiscordServerToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rminisnesmodsToolStripMenuItem.Name" xml:space="preserve">
+    <value>rminisnesmodsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;rminisnesmodsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;fAQToolStripMenuItem.Name" xml:space="preserve">
+    <value>fAQToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;fAQToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;donateToolStripMenuItem.Name" xml:space="preserve">
+    <value>donateToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;donateToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem22.Name" xml:space="preserve">
+    <value>toolStripMenuItem22</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem22.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;technicalInformationToolStripMenuItem.Name" xml:space="preserve">
+    <value>technicalInformationToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;technicalInformationToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;messageOfTheDayToolStripMenuItem.Name" xml:space="preserve">
+    <value>messageOfTheDayToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;messageOfTheDayToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;aboutToolStripMenuItem.Name" xml:space="preserve">
+    <value>aboutToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;aboutToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusConnectionIcon.Name" xml:space="preserve">
+    <value>toolStripStatusConnectionIcon</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusConnectionIcon.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabelShell.Name" xml:space="preserve">
+    <value>toolStripStatusLabelShell</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabelShell.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabelSelected.Name" xml:space="preserve">
+    <value>toolStripStatusLabelSelected</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabelSelected.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabelSize.Name" xml:space="preserve">
+    <value>toolStripStatusLabelSize</value>
+  </data>
+  <data name="&gt;&gt;toolStripStatusLabelSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripStatusLabel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripProgressBar.Name" xml:space="preserve">
+    <value>toolStripProgressBar</value>
+  </data>
+  <data name="&gt;&gt;toolStripProgressBar.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openFileDialogNes.Name" xml:space="preserve">
+    <value>openFileDialogNes</value>
+  </data>
+  <data name="&gt;&gt;openFileDialogNes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;explorerToolStripMenuItem.Name" xml:space="preserve">
+    <value>explorerToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;explorerToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem14.Name" xml:space="preserve">
+    <value>toolStripMenuItem14</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem14.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;scanForNewBoxArtForSelectedGamesToolStripMenuItem.Name" xml:space="preserve">
+    <value>scanForNewBoxArtForSelectedGamesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;scanForNewBoxArtForSelectedGamesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;downloadBoxArtForSelectedGamesToolStripMenuItem.Name" xml:space="preserve">
+    <value>downloadBoxArtForSelectedGamesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;downloadBoxArtForSelectedGamesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;deleteSelectedGamesBoxArtToolStripMenuItem.Name" xml:space="preserve">
+    <value>deleteSelectedGamesBoxArtToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;deleteSelectedGamesBoxArtToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem15.Name" xml:space="preserve">
+    <value>toolStripMenuItem15</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem15.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;archiveSelectedGamesToolStripMenuItem.Name" xml:space="preserve">
+    <value>archiveSelectedGamesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;archiveSelectedGamesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;compressSelectedGamesToolStripMenuItem.Name" xml:space="preserve">
+    <value>compressSelectedGamesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;compressSelectedGamesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;decompressSelectedGamesToolStripMenuItem.Name" xml:space="preserve">
+    <value>decompressSelectedGamesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;decompressSelectedGamesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;deleteSelectedGamesToolStripMenuItem.Name" xml:space="preserve">
+    <value>deleteSelectedGamesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;deleteSelectedGamesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem17.Name" xml:space="preserve">
+    <value>toolStripMenuItem17</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem17.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;sFROMToolToolStripMenuItem1.Name" xml:space="preserve">
+    <value>sFROMToolToolStripMenuItem1</value>
+  </data>
+  <data name="&gt;&gt;sFROMToolToolStripMenuItem1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;editROMHeaderToolStripMenuItem.Name" xml:space="preserve">
+    <value>editROMHeaderToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;editROMHeaderToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem9.Name" xml:space="preserve">
+    <value>toolStripMenuItem9</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem9.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;resetROMHeaderToolStripMenuItem.Name" xml:space="preserve">
+    <value>resetROMHeaderToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;resetROMHeaderToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;repairGamesToolStripMenuItem.Name" xml:space="preserve">
+    <value>repairGamesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;repairGamesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem19.Name" xml:space="preserve">
+    <value>toolStripMenuItem19</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem19.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;selectEmulationCoreToolStripMenuItem.Name" xml:space="preserve">
+    <value>selectEmulationCoreToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;selectEmulationCoreToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openFileDialogImage.Name" xml:space="preserve">
+    <value>openFileDialogImage</value>
+  </data>
+  <data name="&gt;&gt;openFileDialogImage.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;timerCalculateGames.Name" xml:space="preserve">
+    <value>timerCalculateGames</value>
+  </data>
+  <data name="&gt;&gt;timerCalculateGames.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;timerConnectionCheck.Name" xml:space="preserve">
+    <value>timerConnectionCheck</value>
+  </data>
+  <data name="&gt;&gt;timerConnectionCheck.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveDumpFileDialog.Name" xml:space="preserve">
+    <value>saveDumpFileDialog</value>
+  </data>
+  <data name="&gt;&gt;saveDumpFileDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;openDumpFileDialog.Name" xml:space="preserve">
+    <value>openDumpFileDialog</value>
+  </data>
+  <data name="&gt;&gt;openDumpFileDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.OpenFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;gameName.Name" xml:space="preserve">
+    <value>gameName</value>
+  </data>
+  <data name="&gt;&gt;gameName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;timerShowSelected.Name" xml:space="preserve">
+    <value>timerShowSelected</value>
+  </data>
+  <data name="&gt;&gt;timerShowSelected.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;disablePagefoldersToolStripMenuItem.Name" xml:space="preserve">
+    <value>disablePagefoldersToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;disablePagefoldersToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;customToolStripMenuItem.Name" xml:space="preserve">
+    <value>customToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;customToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Name" xml:space="preserve">
+    <value>toolStripMenuItem3</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;automaticToolStripMenuItem.Name" xml:space="preserve">
+    <value>automaticToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;automaticToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;automaticOriginalToolStripMenuItem.Name" xml:space="preserve">
+    <value>automaticOriginalToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;automaticOriginalToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pagesToolStripMenuItem.Name" xml:space="preserve">
+    <value>pagesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;pagesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pagesOriginalToolStripMenuItem.Name" xml:space="preserve">
+    <value>pagesOriginalToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;pagesOriginalToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;foldersToolStripMenuItem.Name" xml:space="preserve">
+    <value>foldersToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;foldersToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;foldersOriginalToolStripMenuItem.Name" xml:space="preserve">
+    <value>foldersOriginalToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;foldersOriginalToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;foldersSplitByFirstLetterToolStripMenuItem.Name" xml:space="preserve">
+    <value>foldersSplitByFirstLetterToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;foldersSplitByFirstLetterToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;foldersSplitByFirstLetterOriginalToolStripMenuItem.Name" xml:space="preserve">
+    <value>foldersSplitByFirstLetterOriginalToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;foldersSplitByFirstLetterOriginalToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Name" xml:space="preserve">
+    <value>toolStripMenuItem4</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;maximumGamesPerFolderToolStripMenuItem.Name" xml:space="preserve">
+    <value>maximumGamesPerFolderToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;maximumGamesPerFolderToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;backFolderButtonPositionToolStripMenuItem.Name" xml:space="preserve">
+    <value>backFolderButtonPositionToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;backFolderButtonPositionToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;leftmostToolStripMenuItem.Name" xml:space="preserve">
+    <value>leftmostToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;leftmostToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;rightmostToolStripMenuItem.Name" xml:space="preserve">
+    <value>rightmostToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;rightmostToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;folderImagesSetToolStripMenuItem.Name" xml:space="preserve">
+    <value>folderImagesSetToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;folderImagesSetToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem20.Name" xml:space="preserve">
+    <value>toolStripMenuItem20</value>
+  </data>
+  <data name="&gt;&gt;toolStripMenuItem20.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;syncStructureForAllGamesCollectionsToolStripMenuItem.Name" xml:space="preserve">
+    <value>syncStructureForAllGamesCollectionsToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;syncStructureForAllGamesCollectionsToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;timerUpdate.Name" xml:space="preserve">
+    <value>timerUpdate</value>
+  </data>
+  <data name="&gt;&gt;timerUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Timer, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;formatSDCardToolStripMenuItem.Name" xml:space="preserve">
+    <value>formatSDCardToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;formatSDCardToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;modRepoEndSeparator.Name" xml:space="preserve">
+    <value>modRepoEndSeparator</value>
+  </data>
+  <data name="&gt;&gt;modRepoEndSeparator.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripSeparator, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;manageModRepositoriesToolStripMenuItem.Name" xml:space="preserve">
+    <value>manageModRepositoriesToolStripMenuItem</value>
+  </data>
+  <data name="&gt;&gt;manageModRepositoriesToolStripMenuItem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MainForm</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>
