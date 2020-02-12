@@ -165,7 +165,7 @@ namespace com.clusterrr.hakchi_gui
             }
 
             // header removal
-            if ((rawRomData.Length % 1024) != 0))
+            if ((rawRomData.Length % 1024) != 0)
             {
                 Trace.WriteLine("Removing header");
                 var stripped = new byte[rawRomData.Length - 512];
