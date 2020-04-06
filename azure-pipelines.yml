@@ -6,6 +6,9 @@
 name: $(Build.SourceVersion)-$(date:yyyyMMdd)$(rev:.r)
 
 trigger:
+  tags:
+    include:
+    - v*
   branches:
     include:
     - mainline
