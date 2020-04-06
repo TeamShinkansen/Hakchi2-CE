@@ -3,7 +3,7 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
-name: $(Build.SourceBranch)-$(date:yyyyMMdd)$(rev:.r)
+name: $(Build.SourceVersion)-$(date:yyyyMMdd)$(rev:.r)
 
 trigger:
   branches:
@@ -54,5 +54,5 @@ steps:
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: '$(Build.SourceVersion)'
+    ArtifactName: '$(date:yyyyMMdd) $(Build.SourceVersion)'
     publishLocation: 'Container'
