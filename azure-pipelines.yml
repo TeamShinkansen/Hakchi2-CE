@@ -3,15 +3,19 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
 
-name: $(Build.SourceVersion)-$(date:yyyyMMdd)$(rev:.r)
+name: $(Build.SourceVersion)-$(date:yyyy-MM-dd)$(rev:.r)
 
 trigger:
   tags:
     include:
-    - v*
+    - '*'
   branches:
     include:
-    - mainline
+    - '*'
+pr:
+  branches:
+    include:
+    - '*'  # must quote since "*" is a YAML reserved character; we want a string
 
 pool:
   vmImage: 'windows-latest'
@@ -70,3 +74,4 @@ steps:
     isDraft: true
     changeLogCompareToRelease: 'lastFullRelease'
     changeLogType: 'commitBased'
+
