@@ -43,6 +43,13 @@ steps:
     justInclude: 'yes'
     includeMorePlugins: 'no'
 
+- task: DownloadSecureFile@1
+  name: GamesDBApiKey
+  inputs:
+    secureFile: 'TheGamesDB.txt'
+
+- script: mkdir "$(System.DefaultWorkingDirectory)/ApiKeys" && copy "$(GamesDBApiKey.secureFilePath)" "$(System.DefaultWorkingDirectory)/ApiKeys/TheGamesDB.txt"
+
 - task: VSBuild@1
   inputs:
     solution: 'hakchi_gui.sln'
