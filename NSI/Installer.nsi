@@ -6,6 +6,8 @@
 !include ".\version.nsh"
 !system 'del version.nsh'
 
+!echo '##vso[task.setvariable variable=displayVersion]${DisplayVersion}'
+
 ; Create zip files
 !system '..\Zipper\bin\Release\Zipper.exe ..\bin\Release ..\bin\hakchi2-ce-${DisplayVersion}-release.zip'
 !system '..\Zipper\bin\Release\Zipper.exe ..\bin\Debug ..\bin\hakchi2-ce-${DisplayVersion}-debug.zip'
