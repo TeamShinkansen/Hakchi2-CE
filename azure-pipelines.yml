@@ -56,7 +56,12 @@ steps:
     configuration: 'Installer'
     platform: 'Any CPU'
 
-- script: $(System.DefaultWorkingDirectory)/bin/Debug/hakchi.exe --versionFormat ##vso[task.setvariable variable=displayVersion]{0} --versionFile displayVersion.txt && cat $(System.DefaultWorkingDirectory)/displayVersion.txt && del $(System.DefaultWorkingDirectory)/displayVersion.txt
+- task: CmdLine@2
+  inputs:
+    script: |
+      $(System.DefaultWorkingDirectory)/bin/Debug/hakchi.exe --versionFormat "##vso[task.setvariable variable=displayVersion]{0}" --versionFile displayVersion.txt
+      cat displayVersion.txt
+      del displayVersion.txt
 
 - task: CopyFiles@2
   inputs:
