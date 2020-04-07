@@ -76,18 +76,24 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
+    Parallel: true
+    ParallelCount: 16
     PathtoPublish: '$(System.DefaultWorkingDirectory)/bin/Debug/'
     ArtifactName: 'Debug'
     publishLocation: 'Container'
 
 - task: PublishBuildArtifacts@1
   inputs:
+    Parallel: true
+    ParallelCount: 16
     PathtoPublish: '$(System.DefaultWorkingDirectory)/bin/Release/'
     ArtifactName: 'Release'
     publishLocation: 'Container'
 
 - task: PublishBuildArtifacts@1
   inputs:
+    Parallel: true
+    ParallelCount: 16
     PathtoPublish: '$(System.DefaultWorkingDirectory)/bin/installer/'
     ArtifactName: 'Installer'
     publishLocation: 'Container'
