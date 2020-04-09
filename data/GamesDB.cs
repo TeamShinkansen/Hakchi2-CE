@@ -37,8 +37,8 @@ namespace com.clusterrr.hakchi_gui.data
             [0x290f8e33] = new int[] { }, // [BIOS] X'Eye (USA).md
             [0x2b19972f] = new int[] { }, // [BIOS] WonderMega M2 (Japan).md
             [0xc19ae368] = new int[] { 20367 }, // 10 Super Jogos (Brazil).md
-            [0x36407c82] = new int[] { }, // 16 Zhang Mahjong (Taiwan) (Unl).md
-            [0xb4f4249f] = new int[] { }, // 16 Zhang Mahjong II (Taiwan) (Unl).md
+            [0x36407c82] = new int[] { 70627 }, // 16 Zhang Mahjong (Taiwan) (Unl).md
+            [0xb4f4249f] = new int[] { 70624 }, // 16 Zhang Mahjong II (Taiwan) (Unl).md
             [0x537f04b6] = new int[] { 33439, 46801 }, // 16t (Japan) (SegaNet).md
             [0x98149eaf] = new int[] { 33439, 46801 }, // 16t (Japan) (Game no Kanzume Otokuyou).md
             [0xe5a24999] = new int[] { 3371, 29717 }, // 3 Ninjas Kick Back (USA).md
@@ -127,7 +127,7 @@ namespace com.clusterrr.hakchi_gui.data
             [0x2c6cbd77] = new int[] { 13676 }, // Aq Renkan Awa (Taiwan) (Unl).md
             [0x400f4ba7] = new int[] { 4245, 29637 }, // Aquatic Games Starring James Pond and the Aquabats, The (USA, Europe).md
             [0x8aed2090] = new int[] { 4246, 35164 }, // Arcade Classics (USA, Europe).md
-            [0x2362f1b9] = new int[] { }, // Arcade Legends Sega Mega Drive ~ Arcade Legends Sega Genesis ~ Mega Drive Play TV (World).md
+            [0x2362f1b9] = new int[] { 43178 }, // Arcade Legends Sega Mega Drive ~ Arcade Legends Sega Genesis ~ Mega Drive Play TV (World).md
             [0x12caa444] = new int[] { }, // Arcade Legends Street Fighter II' - Special Champion Edition ~ Mega Drive Play TV 3 (World).md
             [0xe389d7e7] = new int[] { 4247 }, // Arch Rivals - The Arcade Game (USA, Europe).md
             [0x41c5fb4f] = new int[] { 4248, 35493 }, // Arcus Odyssey (Japan).md
@@ -183,7 +183,7 @@ namespace com.clusterrr.hakchi_gui.data
             [0x66a388c3] = new int[] { 20647, 8083 }, // Back to the Future Part III (USA).md
             [0xb1e268da] = new int[] { 20295, 20295 }, // Bahamut Senki (Japan).md
             [0xf5c3c54f] = new int[] { 33933, 20296 }, // Ball Jacks (Japan, Europe).md
-            [0xb362b705] = new int[] { }, // Ballz 3D - Fighting at Its Ballziest ~ Ballz 3D - The Battle of the Ballz (USA, Europe).md
+            [0xb362b705] = new int[] { 451 }, // Ballz 3D - Fighting at Its Ballziest ~ Ballz 3D - The Battle of the Ballz (USA, Europe).md
             [0xc89ad87e] = new int[] { 451 }, // Ballz (USA, Europe) (Beta) (June, 1994).md
             [0xd349ab90] = new int[] { 451 }, // Ballz 3D - Fighting at Its Ballziest ~ Ballz 3D - The Battle of the Ballz (USA, Europe) (Rev A) (Beta) (September, 1994).md
             [0x496eb1d1] = new int[] { }, // Bao Xiao San Guo (Taiwan) (Unl).md
@@ -484,10 +484,10 @@ namespace com.clusterrr.hakchi_gui.data
             [0x0eaa4740] = new int[] { 9740, 29110 }, // Daffy Duck in Hollywood (Europe) (Beta).md
             [0x4602584f] = new int[] { 19421, 50977 }, // Dahna - Megami Tanjou (Japan).md
             [0x10829ea1] = new int[] { 19421, 50977 }, // Dahna (Korea).md
-            [0x4f2561d5] = new int[] { }, // Daimakaimura ~ Ghouls'n Ghosts (World) (Rev B).md
-            [0x5659f379] = new int[] { }, // Daimakaimura (Japan).md
-            [0xd31bd910] = new int[] { }, // Daimakaimura ~ Ghouls'n Ghosts (World) (Rev A).md
-            [0x4552a3de] = new int[] { }, // Daimakaimura ~ Ghouls'n Ghosts (World) (Rev A) (Sega Channel).md
+            [0x4f2561d5] = new int[] { 2592, 24015 }, // Daimakaimura ~ Ghouls'n Ghosts (World) (Rev B).md
+            [0x5659f379] = new int[] { 2592, 24015 }, // Daimakaimura (Japan).md
+            [0xd31bd910] = new int[] { 2592, 24015 }, // Daimakaimura ~ Ghouls'n Ghosts (World) (Rev A).md
+            [0x4552a3de] = new int[] { 2592, 24015 }, // Daimakaimura ~ Ghouls'n Ghosts (World) (Rev A) (Sega Channel).md
             [0xa2ec8c67] = new int[] { 36958 }, // Daisenpuu ~ Twin Hawk (Japan, Europe).md
             [0xdde94356] = new int[] { 36958 }, // Daisenpuu ~ Twin Hawk (Japan, Europe) (Beta) (1990-04-06).md
             [0xa2990031] = new int[] { 33943, 20355 }, // Dangerous Seed (Japan).md
@@ -540,7 +540,7 @@ namespace com.clusterrr.hakchi_gui.data
             [0x4608f53a] = new int[] { 33692, 17354 }, // Dino Dini's Soccer (Europe).md
             [0x5fe351b8] = new int[] { 4338, 52914 }, // Dino Land (USA).md
             [0x81f939de] = new int[] { 4338, 52914 }, // Chou Touryuu Retsuden - Dino Land (Japan).md
-            [0x70155b5b] = new int[] { }, // Dinosaur's Tale, A (USA).md
+            [0x70155b5b] = new int[] { 4721 }, // Dinosaur's Tale, A (USA).md
             [0xadfde883] = new int[] { 27973 }, // Disney Collection, The - QuackShot Starring Donald Duck + Castle of Illusion Starring Mickey Mouse (Europe).md
             [0xca72973c] = new int[] { 33944, 20357 }, // Divine Sealing (Japan) (Unl).md
             [0x860e749a] = new int[] { 4340, 29619 }, // DJ Boy (Europe).md
@@ -550,7 +550,7 @@ namespace com.clusterrr.hakchi_gui.data
             [0xb2dd857f] = new int[] { 18742, 10748 }, // Donald in Maui Mallard (Europe) (Rev A).md
             [0x5f9b9a48] = new int[] { 18742, 10748 }, // Donald in Maui Mallard (Brazil).md
             [0x11194414] = new int[] { 4341 }, // Doom Troopers (USA).md
-            [0xeeed1130] = new int[] { }, // Doraemon - Yume Dorobou to 7 Nin no Gozans (Japan).md
+            [0xeeed1130] = new int[] { 20318 }, // Doraemon - Yume Dorobou to 7 Nin no Gozans (Japan).md
             [0xd98c623c] = new int[] { 34062, 17355 }, // Double Clutch (Europe).md
             [0x054f5d53] = new int[] { 4342, 29111 }, // Double Dragon (USA, Europe) (Unl).md
             [0xb36ab75c] = new int[] { 471 }, // Double Dragon 3 - The Arcade Game (USA, Europe).md
