@@ -184,6 +184,9 @@ namespace com.clusterrr.hakchi_gui
                     extensions += system + "|*" + string.Join(";*", CoreCollection.GetExtensionsFromSystem(system).ToArray()) + "|";
                 }
                 openFileDialogNes.Filter = extensions.Trim('|');
+                
+                // populate mod repository list
+                populateRepos();
 
                 // Loading games database in background
                 new Thread(NesGame.LoadCache).Start();
@@ -322,7 +325,6 @@ namespace com.clusterrr.hakchi_gui
 
             // centralized upgrade actions system
             new Upgrade(this).Run();
-            populateRepos();
 
             // nothing else will call this at the moment, so need to do it
             SyncConsoleSettings(true);
