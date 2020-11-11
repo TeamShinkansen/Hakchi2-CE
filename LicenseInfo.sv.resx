@@ -120,7 +120,4 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Licensinformation</value>
   </data>
-  <data name="textBoxLicenses.Text" xml:space="preserve">
-    <value>--------------------------------------------------------------------------------</value>
-  </data>
 </root>
