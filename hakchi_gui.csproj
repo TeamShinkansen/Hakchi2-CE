@@ -3866,7 +3866,7 @@
     <EmbeddedResource Include="images\flags\pl.png" />
     <EmbeddedResource Include="images\flags\pt.png" />
     <EmbeddedResource Include="images\flags\ru.png" />
-    <EmbeddedResource Include="images\flags\se.png" />
+    <EmbeddedResource Include="images\flags\sv.png" />
     <EmbeddedResource Include="images\flags\sk.png" />
     <EmbeddedResource Include="images\flags\us.png" />
     <EmbeddedResource Include="images\flags\fi.png" />
