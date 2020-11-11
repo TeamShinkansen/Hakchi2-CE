@@ -660,4 +660,10 @@
   <data name="centerBoxArtThumbnailToolStripMenuItem.Text" xml:space="preserve">
     <value>Centrera miniatyrbild för omslagsbild</value>
   </data>
+  <data name="labelID.Text" xml:space="preserve">
+    <value> </value>
+  </data>
+  <data name="labelSize.Text" xml:space="preserve">
+    <value> </value>
+  </data>
 </root>

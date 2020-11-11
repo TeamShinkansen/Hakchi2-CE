@@ -123,4 +123,7 @@
   <data name="$this.Text" xml:space="preserve">
     <value>Spine-generator</value>
   </data>
+  <data name="buttonLoadLogo.Text" xml:space="preserve">
+    <value>Öppna transparent logotyp</value>
+  </data>
 </root>

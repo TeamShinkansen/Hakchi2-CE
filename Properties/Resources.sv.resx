@@ -1283,4 +1283,7 @@ För att montera dina baspartitioner så behöver du köra kommandot "hakchi mou
   <data name="AlreadyInRecoveryQ" xml:space="preserve">
     <value>Du är redan i återhämtningsläge. Vill du läsa om återhämtningsavbildningen?</value>
   </data>
+  <data name="DownloadingClearLogoFor0" xml:space="preserve">
+    <value>Hämtar transparent logotyp för {0}</value>
+  </data>
 </root>
