@@ -3,6 +3,7 @@ using FelLib;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace com.clusterrr.hakchi_gui
@@ -79,6 +80,40 @@ namespace com.clusterrr.hakchi_gui
         {
             if (Fel.DeviceExists())
             {
+                using (Fel fel = new Fel())
+                {
+                    try
+                    {
+                        fel.WriteLine += (string message) => Trace.WriteLine(message);
+                        if (!fel.Open(isFel: false))
+                        {
+                            throw new Exception("USB Device Not Found");
+                        }
+
+                        if (!fel.UsbUpdateProbe())
+                            throw new Exception("Failed to handshake with burn mode");
+                        if (!fel.UsbUpdateEnterFel())
+                            throw new Exception("Failed to enter FEL");
+
+                        timer.Enabled = false;
+
+                        new Thread(() =>
+                        {
+                            Invoke(new Action(() =>
+                            {
+                                Thread.Sleep(1000);
+
+                                DialogResult = DialogResult.OK;
+                                deviceFound = true;
+                                Close();
+                            }));
+                        }).Start();
+
+                        return;
+                    }
+                    catch (Exception) { }
+
+                }
                 DialogResult = DialogResult.OK;
                 timer.Enabled = false;
                 deviceFound = true;
