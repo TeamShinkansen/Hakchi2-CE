@@ -163,9 +163,9 @@ namespace com.clusterrr.hakchi_gui
             }
 
             // header removal
-            if ((ext.ToLower() == ".smc") && ((rawRomData.Length % 1024) != 0))
+            if ((rawRomData.Length % 1024) != 0)
             {
-                Trace.WriteLine("Removing SMC header");
+                Trace.WriteLine("Removing header");
                 var stripped = new byte[rawRomData.Length - 512];
                 Array.Copy(rawRomData, 512, stripped, 0, stripped.Length);
                 rawRomData = stripped;
