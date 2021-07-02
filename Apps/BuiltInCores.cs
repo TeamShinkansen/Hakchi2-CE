@@ -9,7 +9,7 @@
                 Name = "Canoe",
                 DisplayName = "Nintendo - Super Nintendo Entertainment System (Canoe)",
                 SupportedExtensions = new string[] { ".sfrom", ".smc", ".sfc" },
-                Systems = new string[] { "Nintendo - Super Nintendo Entertainment System" },
+                Systems = new string[] { "Nintendo - Super Famicom", "Nintendo - Super Nintendo Entertainment System" },
                 Kind = CoreCollection.CoreKind.BuiltIn
             },
             new CoreCollection.CoreInfo("clover-kachikachi-wr") // kachikachi nes emulator
@@ -18,7 +18,7 @@
                 Name = "Kachikachi",
                 DisplayName = "Nintendo - Nintendo Entertainment System (Kachikachi)",
                 SupportedExtensions = new string[] { ".nes", ".fds", ".qd" },
-                Systems = new string[] { "Nintendo - Nintendo Entertainment System", "Nintendo - Family Computer Disk System" },
+                Systems = new string[] { "Nintendo - Nintendo Entertainment System", "Nintendo - Family Computer", "Nintendo - Family Computer Disk System" },
                 Kind = CoreCollection.CoreKind.BuiltIn
             },
             new CoreCollection.CoreInfo("m2engage") // sega mini emulator

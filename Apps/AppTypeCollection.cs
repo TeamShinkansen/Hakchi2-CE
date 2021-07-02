@@ -70,6 +70,17 @@ namespace com.clusterrr.hakchi_gui
             },
             new AppInfo
             {
+                Name = "Nintendo - Family Computer",
+                Class = typeof(NesGame),
+                DefaultCore = "fceumm",
+                LegacyApps = new string[] {"/bin/nes", "/bin/clover-kachikachi-wr", "/usr/bin/clover-kachikachi" },
+                Extensions = new string[] {".nes" },
+                Prefix = 'H',
+                DefaultCover = Resources.blank_jp,
+                GoogleSuffix = "(fds | nes | famicom)"
+            },
+            new AppInfo
+            {
                 Name = "Nintendo - Family Computer Disk System",
                 Class = typeof(FdsGame),
                 DefaultCore = "nestopia",
@@ -88,6 +99,17 @@ namespace com.clusterrr.hakchi_gui
                 Extensions = new string[] {".sfrom", ".smc", ".sfc", ".fig", ".swc" },
                 Prefix = 'U',
                 DefaultCover = Resources.blank_snes_us,
+                GoogleSuffix = "(snes | super nintendo)"
+            },
+            new AppInfo
+            {
+                Name = "Nintendo - Super Famicom",
+                Class = typeof(SnesGame),
+                DefaultCore = "snes9x",
+                LegacyApps = new string[] {"/bin/snes", "/bin/clover-canoe-shvc-wr -rom", "/usr/bin/clover-canoe-shvc -rom" },
+                Extensions = new string[] {".sfrom", ".smc", ".sfc", ".fig", ".swc" },
+                Prefix = 'U',
+                DefaultCover = Resources.blank_snes_eu_jp,
                 GoogleSuffix = "(snes | super nintendo)"
             },
             new AppInfo
