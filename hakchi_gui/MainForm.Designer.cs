@@ -91,6 +91,7 @@
             this.nameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.coreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.systemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.regionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showGamesWithoutBoxArtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -136,9 +137,9 @@
             this.saveSettingsToNESMiniNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveStateManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importGamesFromMiniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.takeScreenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveDmesgOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importGamesFromMiniToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.openFTPInExplorerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openTelnetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -171,6 +172,8 @@
             this.addPrefixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removePrefixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripSeparator();
+            this.setRegionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.scrapeSelectedGamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scanForNewBoxArtForSelectedGamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadBoxArtForSelectedGamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -712,7 +715,8 @@
             this.sortByToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nameToolStripMenuItem,
             this.coreToolStripMenuItem,
-            this.systemToolStripMenuItem});
+            this.systemToolStripMenuItem,
+            this.regionToolStripMenuItem});
             this.sortByToolStripMenuItem.Name = "sortByToolStripMenuItem";
             resources.ApplyResources(this.sortByToolStripMenuItem, "sortByToolStripMenuItem");
             // 
@@ -736,6 +740,13 @@
             resources.ApplyResources(this.systemToolStripMenuItem, "systemToolStripMenuItem");
             this.systemToolStripMenuItem.Tag = "2";
             this.systemToolStripMenuItem.Click += new System.EventHandler(this.sortByToolStripMenuItem_Click);
+            // 
+            // regionToolStripMenuItem
+            // 
+            this.regionToolStripMenuItem.Name = "regionToolStripMenuItem";
+            resources.ApplyResources(this.regionToolStripMenuItem, "regionToolStripMenuItem");
+            this.regionToolStripMenuItem.Tag = "3";
+            this.regionToolStripMenuItem.Click += new System.EventHandler(this.sortByToolStripMenuItem_Click);
             // 
             // showGamesWithoutBoxArtToolStripMenuItem
             // 
@@ -1111,6 +1122,12 @@
             resources.ApplyResources(this.saveStateManagerToolStripMenuItem, "saveStateManagerToolStripMenuItem");
             this.saveStateManagerToolStripMenuItem.Click += new System.EventHandler(this.saveStateManagerToolStripMenuItem_Click);
             // 
+            // importGamesFromMiniToolStripMenuItem
+            // 
+            this.importGamesFromMiniToolStripMenuItem.Name = "importGamesFromMiniToolStripMenuItem";
+            resources.ApplyResources(this.importGamesFromMiniToolStripMenuItem, "importGamesFromMiniToolStripMenuItem");
+            this.importGamesFromMiniToolStripMenuItem.Click += new System.EventHandler(this.importGamesFromMiniToolStripMenuItem_Click);
+            // 
             // takeScreenshotToolStripMenuItem
             // 
             this.takeScreenshotToolStripMenuItem.Name = "takeScreenshotToolStripMenuItem";
@@ -1122,12 +1139,6 @@
             this.saveDmesgOutputToolStripMenuItem.Name = "saveDmesgOutputToolStripMenuItem";
             resources.ApplyResources(this.saveDmesgOutputToolStripMenuItem, "saveDmesgOutputToolStripMenuItem");
             this.saveDmesgOutputToolStripMenuItem.Click += new System.EventHandler(this.saveDmesgOutputToolStripMenuItem_Click);
-            // 
-            // importGamesFromMiniToolStripMenuItem
-            // 
-            this.importGamesFromMiniToolStripMenuItem.Name = "importGamesFromMiniToolStripMenuItem";
-            resources.ApplyResources(this.importGamesFromMiniToolStripMenuItem, "importGamesFromMiniToolStripMenuItem");
-            this.importGamesFromMiniToolStripMenuItem.Click += new System.EventHandler(this.importGamesFromMiniToolStripMenuItem_Click);
             // 
             // toolStripMenuItem6
             // 
@@ -1311,6 +1322,8 @@
             this.addPrefixToolStripMenuItem,
             this.removePrefixToolStripMenuItem,
             this.toolStripMenuItem14,
+            this.setRegionToolStripMenuItem,
+            this.toolStripSeparator3,
             this.scrapeSelectedGamesToolStripMenuItem,
             this.scanForNewBoxArtForSelectedGamesToolStripMenuItem,
             this.downloadBoxArtForSelectedGamesToolStripMenuItem,
@@ -1355,6 +1368,16 @@
             // 
             this.toolStripMenuItem14.Name = "toolStripMenuItem14";
             resources.ApplyResources(this.toolStripMenuItem14, "toolStripMenuItem14");
+            // 
+            // setRegionToolStripMenuItem
+            // 
+            this.setRegionToolStripMenuItem.Name = "setRegionToolStripMenuItem";
+            resources.ApplyResources(this.setRegionToolStripMenuItem, "setRegionToolStripMenuItem");
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            resources.ApplyResources(this.toolStripSeparator3, "toolStripSeparator3");
             // 
             // scrapeSelectedGamesToolStripMenuItem
             // 
@@ -2483,6 +2506,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem enableInformationScrapeOnImportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importGamesFromMiniToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem regionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem setRegionToolStripMenuItem;
     }
 }
 

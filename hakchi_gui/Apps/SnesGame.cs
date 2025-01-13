@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -696,6 +697,13 @@ namespace com.clusterrr.hakchi_gui
                 }
                 if (!string.IsNullOrEmpty(gameinfo.Publisher))
                     desktop.Publisher = gameinfo.Publisher.ToUpper();
+
+                var match = data.Region.RegionList.Where(r => r.DefaultNames.Contains(gameinfo.Region)).Select(g => g);
+
+                if (match.Count() > 0)
+                {
+                    desktop.Country = match.First().DesktopName;
+                }
 
                 return true;
             }

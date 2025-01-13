@@ -48,7 +48,7 @@ namespace com.clusterrr.hakchi_gui
         }
 
         public enum OriginalGamesPosition { AtTop = 0, AtBottom = 1, Sorted = 2, Hidden = 3 }
-        public enum GamesSorting { Name = 0, Core = 1, System = 2 }
+        public enum GamesSorting { Name = 0, Core = 1, System = 2, Region = 3 }
         public static string GetConsoleTypeName()
         {
             return GetConsoleTypeName(hakchi.DetectedConsoleType);
@@ -134,6 +134,52 @@ namespace com.clusterrr.hakchi_gui
                 comboBoxGenre.Items.Add(new NameValuePair<string>(genre.LocalizedName, genre.DesktopName));
             }
         }
+        public static void PopulateRegionsComboBox(ComboBox comboBoxCountry)
+        {
+            comboBoxCountry.Items.Clear();
+            comboBoxCountry.Items.Add(new NameValuePair<string>("", ""));
+            foreach (var region in data.Region.RegionList)
+            {
+                comboBoxCountry.Items.Add(new NameValuePair<string>(region.LocalizedName, region.DesktopName));
+            }
+        }
+
+        private void PopulateRegionsMenu()
+        {
+            var menuRegions = setRegionToolStripMenuItem.DropDownItems;
+
+            menuRegions.Clear();
+            foreach (var region in data.Region.RegionList)
+            {
+                var menuItem = new System.Windows.Forms.ToolStripMenuItem();
+                menuItem.Text = region.LocalizedName;
+                menuItem.Click += (sender, e) =>
+                {
+                    if (listViewGames.SelectedItems.Count > 0)
+                    {
+                        foreach (var game in listViewGames.SelectedItems.Cast<ListViewItem>())
+                        {
+                            if (game.Tag != null && game.Tag is NesApplication)
+                            {
+                                var tag = (NesApplication)(game.Tag);
+                                tag.Desktop.Country = region.DesktopName;
+                                tag.Save();
+                            }
+                        }
+                        listViewGames.BeginUpdate();
+                        LoadGames(false);
+                        listViewGames.EndUpdate();
+                    }
+                };
+                menuRegions.Add(menuItem);
+            }
+        }
+
+        private static void MenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         private void FormInitialize()
         {
             try
@@ -144,15 +190,8 @@ namespace com.clusterrr.hakchi_gui
                 enableInformationScrapeOnImportToolStripMenuItem.Checked = ConfigIni.Instance.EnableImportScraper;
                 PopulateMaxPlayers(maxPlayersComboBox);
                 PopulateGenres(comboBoxGenre);
-
-                comboBoxCountry.Items.Clear();
-                comboBoxCountry.Items.AddRange(new object[]
-                {
-                    new NameValuePair<string>("", ""),
-                    new NameValuePair<string>(Resources.UnitedStates, "us"),
-                    new NameValuePair<string>(Resources.Europe, "eu"),
-                    new NameValuePair<string>(Resources.Japan, "jp")
-                });
+                PopulateRegionsComboBox(comboBoxCountry);
+                PopulateRegionsMenu();
 
                 // prepare collections
                 LoadLanguages();
@@ -637,6 +676,7 @@ namespace com.clusterrr.hakchi_gui
             nameToolStripMenuItem.Checked = ConfigIni.Instance.GamesSorting == GamesSorting.Name;
             coreToolStripMenuItem.Checked = ConfigIni.Instance.GamesSorting == GamesSorting.Core;
             systemToolStripMenuItem.Checked = ConfigIni.Instance.GamesSorting == GamesSorting.System;
+            regionToolStripMenuItem.Checked = ConfigIni.Instance.GamesSorting == GamesSorting.Region;
             showGamesWithoutBoxArtToolStripMenuItem.Checked = ConfigIni.Instance.ShowGamesWithoutCoverArt;
 
             // folders modes
@@ -3212,6 +3252,7 @@ internal static
             nameToolStripMenuItem.Checked = newSorting == GamesSorting.Name;
             coreToolStripMenuItem.Checked = newSorting == GamesSorting.Core;
             systemToolStripMenuItem.Checked = newSorting == GamesSorting.System;
+            regionToolStripMenuItem.Checked = newSorting == GamesSorting.Region;
             LoadGames(false);
         }
 

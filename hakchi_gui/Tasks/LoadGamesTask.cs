@@ -78,7 +78,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
             normalGroups.Add(ViewGroup.All, new ListViewGroup(Resources.ListCategoryAll, h));
             normalGroups.Add(ViewGroup.Unknown, new ListViewGroup(Resources.ListCategoryUnknown, h));
 
-            // order by system/core groups
+            // order by system/core/region groups
             if (ConfigIni.Instance.GamesSorting == MainForm.GamesSorting.System)
             {
                 foreach (var system in CoreCollection.Systems)
@@ -93,6 +93,11 @@ namespace com.clusterrr.hakchi_gui.Tasks
             {
                 foreach (var core in CoreCollection.Cores)
                     sortedGroups[core.Bin] = new ListViewGroup(core.Name, h);
+            }
+            else if (ConfigIni.Instance.GamesSorting == MainForm.GamesSorting.Region)
+            {
+                foreach (var region in data.Region.RegionList)
+                    sortedGroups[region.DesktopName] = new ListViewGroup(region.LocalizedName, h);
             }
             return Tasker.Conclusion.Success;
         }
@@ -254,6 +259,10 @@ namespace com.clusterrr.hakchi_gui.Tasks
                             }
                             else if (sortedGroups.ContainsKey(game.Metadata.Core))
                                 group = sortedGroups[game.Metadata.Core];
+                            break;
+                        case MainForm.GamesSorting.Region:
+                            if (sortedGroups.ContainsKey(game.Desktop.Country))
+                                group = sortedGroups[game.Desktop.Country];
                             break;
                     }
                 }

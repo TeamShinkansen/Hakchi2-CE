@@ -248,6 +248,7 @@ namespace com.clusterrr.hakchi_gui
         private void buttonFoldersLettersOriginal_Click(object sender, EventArgs e) => DrawSplitTree(NesMenuCollection.SplitStyle.Original_FoldersAlphabetic_FoldersEqual);
         private void buttonFoldersApp_Click(object sender, EventArgs e) => DrawSplitTree(NesMenuCollection.SplitStyle.FoldersGroupByApp);
         private void buttonFoldersGenre_Click(object sender, EventArgs e) => DrawSplitTree(NesMenuCollection.SplitStyle.FoldersGroupByGenre);
+        private void buttonFoldersRegion_Click(object sender, EventArgs e) => DrawSplitTree(NesMenuCollection.SplitStyle.FoldersGroupByRegion);
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             ShowSelected();
