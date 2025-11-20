@@ -1,11 +1,9 @@
-﻿using com.clusterrr.hakchi_gui.ModHub.Repository;
-using com.clusterrr.hakchi_gui.Properties;
+﻿using com.clusterrr.hakchi_gui.Properties;
 using System;
-using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace com.clusterrr.hakchi_gui.ModHub
+namespace com.clusterrr.hakchi_gui.ModHub.Repository
 {
     public partial class RepoManagementForm : Form
     {
@@ -42,7 +40,7 @@ namespace com.clusterrr.hakchi_gui.ModHub
         {
             MoveListViewItems(repoList, MoveDirection.Down);
         }
-        
+
         private void editButton_Click(object sender, EventArgs e)
         {
             if (repoList.SelectedItems.Count > 0)
@@ -51,7 +49,7 @@ namespace com.clusterrr.hakchi_gui.ModHub
                 repoName.Text = tag.Name;
                 repoURL.Text = tag.URL;
                 repoList.Items.Remove(repoList.SelectedItems[0]);
-            } 
+            }
         }
 
         private void deleteButton_Click(object sender, EventArgs e)

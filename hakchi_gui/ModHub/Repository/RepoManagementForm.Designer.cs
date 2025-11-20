@@ -1,4 +1,4 @@
-﻿namespace com.clusterrr.hakchi_gui.ModHub
+﻿namespace com.clusterrr.hakchi_gui.ModHub.Repository
 {
     partial class RepoManagementForm
     {
