@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    마이크로소프트 ResX 스키마 
+    
+    버전 2.0
+    
+    이 형식의 주요 목표는 대부분 사람이 읽을 수 있는 간단한
+    XML 형식을 허용하는 것입니다. 다양한 데이터 유형의 생성
+    및 구문 분석은 데이터 유형과 연결된 TypeConverter
+    클래스를 통해 수행됩니다.
+    
+    예제:
+    
+    ... ado.net/XML 헤더 & 스키마 ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>이것은 나의 긴 문자열입니다</value><comment>코멘트입니다</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 MIME 인코딩 직렬화된 .NET Framework 객체]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[.NET Framework 개체의 바이트 배열 형식을 나타내는 base64 MIME 인코딩 문자열]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    간단한 이름/값 쌍을 포함하는 "resheader" 행은 얼마든지
+    있습니다.
+    
+    각 데이터 행에는 이름과 값이 포함됩니다. 행에는 유형 또는
+    mimetype도 포함됩니다. 유형은 TypeConverter 아키텍처를
+    통하여 텍스트/값 변환을 지원하는 .NET 클래스에 해당합니다.
+    이를 지원하지 않는 클래스는 직렬화되어 mimetype 세트와 함께
+    저장됩니다.
+    
+    mimetype은 직렬화된 개체에 사용되며 ResXResourceReader에게 개체를 depersist하는
+    방법을 알려줍니다. 이것은 현재 확장할 수 없습니다. 지정된 mimetype에 대해 값을
+    적절하게 설정하고 mimetype 세트와 함께 저장해야 합니다:
+    
+    참고 - application/x-microsoft.net.object.binary.base64는
+    ResXResourceWriter가 생성하는 형식이지만 판독기는 아래 나열된
+    형식을 읽을 수 있습니다.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : 개체는 System.Runtime.Serialization.Formatters.Binary.BinaryFormatter로
+            : 직렬화된 다음 base64 인코딩으로
+            : 인코딩되어야 합니다.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : 개체는 System.Runtime.Serialization.Formatters.Soap.SoapFormatter로
+            : 직렬화된 다음 base64 인코딩으로
+            : 인코딩되어야 합니다.
+			
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : 개체는 System.ComponentModel.TypeConverter를 
+            : 사용하여 바이트 배열로 직렬화한 다음 base64 인코딩으로
+            : 인코딩해야 합니다.
+     -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="$this.Text" xml:space="preserve">
+    <value>폴더 관리자</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="buttonFoldersApp.Text" xml:space="preserve">
+    <value>콘솔별 분할</value>
+  </data>
+  <data name="buttonFoldersEqually.Text" xml:space="preserve">
+    <value>균등하게 분할</value>
+  </data>
+  <data name="buttonFoldersGenre.Text" xml:space="preserve">
+    <value>장르별 분할</value>
+  </data>
+  <data name="buttonFoldersLetters.Text" xml:space="preserve">
+    <value>첫 글자로 분할</value>
+  </data>
+  <data name="buttonNewFolder.Text" xml:space="preserve">
+    <value>새 폴더</value>
+  </data>
+  <data name="buttonNoFolders.Text" xml:space="preserve">
+    <value>폴더 없음</value>
+  </data>
+  <data name="buttonNoFoldersOriginal.Text" xml:space="preserve">
+    <value>오리지널 게임 -&gt; 다른 게임</value>
+  </data>
+  <data name="buttonOk.Text" xml:space="preserve">
+    <value>확인</value>
+  </data>
+  <data name="checkBoxAddHome.Text" xml:space="preserve">
+    <value>홈 추가</value>
+  </data>
+  <data name="comboBoxBackPosition.Items" xml:space="preserve">
+    <value>더 왼쪽</value>
+  </data>
+  <data name="comboBoxBackPosition.Items1" xml:space="preserve">
+    <value>더 오른쪽</value>
+  </data>
+  <data name="comboBoxPosition.Items" xml:space="preserve">
+    <value>더 왼쪽</value>
+  </data>
+  <data name="comboBoxPosition.Items1" xml:space="preserve">
+    <value>게임 왼쪽</value>
+  </data>
+  <data name="comboBoxPosition.Items2" xml:space="preserve">
+    <value>게임 오른쪽</value>
+  </data>
+  <data name="comboBoxPosition.Items3" xml:space="preserve">
+    <value>더 오른쪽</value>
+  </data>
+  <data name="cutToolStripMenuItem.Text" xml:space="preserve">
+    <value>잘라내기</value>
+  </data>
+  <data name="deleteToolStripMenuItem.ShortcutKeyDisplayString" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="deleteToolStripMenuItem.Text" xml:space="preserve">
+    <value>삭제</value>
+  </data>
+  <data name="exitToolStripMenuItem.Text" xml:space="preserve">
+    <value>나가기(&amp;X)</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>파일(&amp;F)</value>
+  </data>
+  <data name="groupBoxArt.Text" xml:space="preserve">
+    <value>메뉴 아이콘</value>
+  </data>
+  <data name="groupBoxSplitModes.Text" xml:space="preserve">
+    <value>폴더 구조 자동 만들기</value>
+  </data>
+  <data name="labelElementCount.Text" xml:space="preserve">
+    <value>폴더 통계</value>
+  </data>
+  <data name="labelPosition1.Text" xml:space="preserve">
+    <value>P폴더 위치 우선순위:</value>
+  </data>
+  <data name="labelPosition2.Text" xml:space="preserve">
+    <value>뒤로가기 버튼 위치:</value>
+  </data>
+  <data name="newFolderToolStripMenuItem.Text" xml:space="preserve">
+    <value>새 폴더 만들기</value>
+  </data>
+  <data name="newToolStripMenuItem.Text" xml:space="preserve">
+    <value>새 파일(&amp;N)</value>
+  </data>
+  <data name="openToolStripMenuItem.Text" xml:space="preserve">
+    <value>열기(&amp;O)</value>
+  </data>
+  <data name="pasteToolStripMenuItem.Text" xml:space="preserve">
+    <value>붙여넣기</value>
+  </data>
+  <data name="renameToolStripMenuItem.Text" xml:space="preserve">
+    <value>폴더 이름 바꾸기</value>
+  </data>
+  <data name="saveAsToolStripMenuItem.Text" xml:space="preserve">
+    <value>다른 이름으로 저장(&amp;A)</value>
+  </data>
+  <data name="saveToolStripMenuItem.Text" xml:space="preserve">
+    <value>저장(&amp;S)</value>
+  </data>
+</root>

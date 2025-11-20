@@ -1,0 +1,1307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    마이크로소프트 ResX 스키마 
+    
+    버전 2.0
+    
+    이 형식의 주요 목표는 대부분 사람이 읽을 수 있는 간단한
+    XML 형식을 허용하는 것입니다. 다양한 데이터 유형의 생성
+    및 구문 분석은 데이터 유형과 연결된 TypeConverter
+    클래스를 통해 수행됩니다.
+    
+    예제:
+    
+    ... ado.net/XML 헤더 & 스키마 ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>이것은 나의 긴 문자열입니다</value><comment>코멘트입니다</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 MIME 인코딩 직렬화된 .NET Framework 객체]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[.NET Framework 개체의 바이트 배열 형식을 나타내는 base64 MIME 인코딩 문자열]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    간단한 이름/값 쌍을 포함하는 "resheader" 행은 얼마든지
+    있습니다.
+    
+    각 데이터 행에는 이름과 값이 포함됩니다. 행에는 유형 또는
+    mimetype도 포함됩니다. 유형은 TypeConverter 아키텍처를
+    통하여 텍스트/값 변환을 지원하는 .NET 클래스에 해당합니다.
+    이를 지원하지 않는 클래스는 직렬화되어 mimetype 세트와 함께
+    저장됩니다.
+    
+    mimetype은 직렬화된 개체에 사용되며 ResXResourceReader에게 개체를 depersist하는
+    방법을 알려줍니다. 이것은 현재 확장할 수 없습니다. 지정된 mimetype에 대해 값을
+    적절하게 설정하고 mimetype 세트와 함께 저장해야 합니다:
+    
+    참고 - application/x-microsoft.net.object.binary.base64는
+    ResXResourceWriter가 생성하는 형식이지만 판독기는 아래 나열된
+    형식을 읽을 수 있습니다.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : 개체는 System.Runtime.Serialization.Formatters.Binary.BinaryFormatter로
+            : 직렬화된 다음 base64 인코딩으로
+            : 인코딩되어야 합니다.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : 개체는 System.Runtime.Serialization.Formatters.Soap.SoapFormatter로
+            : 직렬화된 다음 base64 인코딩으로
+            : 인코딩되어야 합니다.
+			
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : 개체는 System.ComponentModel.TypeConverter를 
+            : 사용하여 바이트 배열로 직렬화한 다음 base64 인코딩으로
+            : 인코딩해야 합니다.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AreYouSure" xml:space="preserve">
+    <value>확실한가요?</value>
+  </data>
+  <data name="BuildingCustom" xml:space="preserve">
+    <value>커스텀 커널 이미지 빌드 중...</value>
+  </data>
+  <data name="Congratulations" xml:space="preserve">
+    <value>축하합니다!</value>
+  </data>
+  <data name="CustomKernel" xml:space="preserve">
+    <value>커스텀 커널</value>
+  </data>
+  <data name="CustomKernelQ" xml:space="preserve">
+    <value>커스텀 커널을 플래시할까요?</value>
+  </data>
+  <data name="CustomWarning" xml:space="preserve">
+    <value>커스텀 커널을 미니에 플래시해야 합니다. 이것은 한 번만 필요합니다. 계속할까요?</value>
+  </data>
+  <data name="Default30games" xml:space="preserve">
+    <value>오리지널 게임</value>
+  </data>
+  <data name="DeleteGame" xml:space="preserve">
+    <value>정말 "{0}" 게임을 삭제할까요</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>완료되었습니다!</value>
+  </data>
+  <data name="DoneYouCanUpload" xml:space="preserve">
+    <value>완료! 이제 미니에 게임을 업로드할 수 있습니다.</value>
+  </data>
+  <data name="DoYouWantCancel" xml:space="preserve">
+    <value>현재 작업을 취소할까요?</value>
+  </data>
+  <data name="DoYouWantToContinue" xml:space="preserve">
+    <value>계속할까요?</value>
+  </data>
+  <data name="DumpingKernel" xml:space="preserve">
+    <value>터널 덤프 중...</value>
+  </data>
+  <data name="DumpKernelQ" xml:space="preserve">
+    <value>커널을 덤프할까요?</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>오류</value>
+  </data>
+  <data name="ExecutingCommand" xml:space="preserve">
+    <value>실행 명령:</value>
+  </data>
+  <data name="FlasingCustom" xml:space="preserve">
+    <value>커스텀 커널 플래싱 중...</value>
+  </data>
+  <data name="FlasingOriginal" xml:space="preserve">
+    <value>오리지널 커널 플래싱 중...</value>
+  </data>
+  <data name="GamesSelected" xml:space="preserve">
+    <value>선택한 게임</value>
+  </data>
+  <data name="InvalidKernelHeader" xml:space="preserve">
+    <value>잘못된 커널 헤더입니다.</value>
+  </data>
+  <data name="InvalidKernelSize" xml:space="preserve">
+    <value>잘못된 커널 크기:</value>
+  </data>
+  <data name="MapperNotSupported" xml:space="preserve">
+    <value>"{0}"은(는) 매퍼 #{1}을(를) 사용하지만 이 매퍼는 NES 미니에서 지원되지 않으며 게임은 아마도 기본 에뮬레이터로 시작되지 않을 것입니다. 그러나 다른 에뮬레이터의 모듈이 설치되어 있으면 작동합니다. 이 게임을 추가할까요?</value>
+  </data>
+  <data name="MD5Failed" xml:space="preserve">
+    <value>커널이 덤프되었지만 MD5 체크섬을 알 수 없습니다:</value>
+  </data>
+  <data name="MD5Failed2" xml:space="preserve">
+    <value>커널이 이미 패치되었거나 알 수 없는 버전입니다. 이 메시지를 나에게 보내주세요 (Ctrl+C를 누름). 자신의 책임하에 계속하세요.</value>
+  </data>
+  <data name="NoKernel" xml:space="preserve">
+    <value>커널 덤프가 없음</value>
+  </data>
+  <data name="NoKernelWarning" xml:space="preserve">
+    <value>먼저 미니의 커널 이미지를 덤프합니다. 이 작업은 한 번만 수행하면 됩니다. 계속할까요?</value>
+  </data>
+  <data name="NoKernelYouNeed" xml:space="preserve">
+    <value>커널 덤프가 없습니다. 먼저 커널을 덤프해야 합니다.</value>
+  </data>
+  <data name="OriginalKernelQ" xml:space="preserve">
+    <value>오리지널 커널을 플래시할까요?</value>
+  </data>
+  <data name="PressOkToContinue" xml:space="preserve">
+    <value>계속하려면 확인을 누르세요.</value>
+  </data>
+  <data name="ReplaceKernelQ" xml:space="preserve">
+    <value>이미 커널 덤프가 있습니다. 정말로 커널 백업을 교체하고 싶고 무엇을 하고 있는지 정말로 이해하고 있다면 "hakchi2/dump" 폴더를 수동으로 삭제하세요.</value>
+  </data>
+  <data name="SelectAtLeast" xml:space="preserve">
+    <value>게임을 하나 이상 선택하세요.</value>
+  </data>
+  <data name="UploadingFes1" xml:space="preserve">
+    <value>FES-1 업로드 및 실행 중...</value>
+  </data>
+  <data name="UploadingGames" xml:space="preserve">
+    <value>게임 업로드 중...</value>
+  </data>
+  <data name="UploadingKernel" xml:space="preserve">
+    <value>커널 업로드 중...</value>
+  </data>
+  <data name="VerifyFailed" xml:space="preserve">
+    <value>확인 실패 :O 좋지 않습니다.</value>
+  </data>
+  <data name="Verifying" xml:space="preserve">
+    <value>확인 중...</value>
+  </data>
+  <data name="WaitingForDevice" xml:space="preserve">
+    <value>장치를 기다리는 중...</value>
+  </data>
+  <data name="Warning" xml:space="preserve">
+    <value>경고!</value>
+  </data>
+  <data name="Wow" xml:space="preserve">
+    <value>와우~</value>
+  </data>
+  <data name="PleaseTryAgainUSB" xml:space="preserve">
+    <value>이 문제가 지속되면 다른 USB 포트나 케이블을 사용해 보세요</value>
+  </data>
+  <data name="Donate" xml:space="preserve">
+    <value>이 앱이 마음에 들면 저에게 기부할 수 있습니다. "정보" 상자에서 내 페이팔을 찾을 수 있습니다.</value>
+  </data>
+  <data name="FirstRun" xml:space="preserve">
+    <value>안녕하세요! Hakchi2를 이용해 주셔서 정말 기쁩니다!
+
+사용법은 매우 간단합니다. "게임 추가"를 클릭하고 일부 ROM을 선택하고 "동기화"를 눌러 게임을 콘솔 내부 메모리에 업로드하거나 "내보내기"를 눌러 USB 호스트 모드를 사용하고 지침을 따르십시오. 행운을 빌어요!</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>안녕하세요</value>
+  </data>
+  <data name="KernelDumped" xml:space="preserve">
+    <value>오리지널 커널은 콘솔의 특수 영역에 저장되었습니다.</value>
+  </data>
+  <data name="DeletePreset" xml:space="preserve">
+    <value>"{0}" 사전 설정을 삭제할까요?</value>
+  </data>
+  <data name="FourScreenNotSupported" xml:space="preserve">
+    <value>앗... {0}은(는) 4화면 모드(즉, 게임 카트리지에 추가 VRAM 메모리가 있음)를 사용하며 이 기능은 NES 미니에서 지원되지 않습니다. 게임이 시작되지 않을 수 있습니다. 그러나 다른 에뮬레이터의 모듈이 설치되어 있으면 작동합니다. 그래도 이 게임을 추가할까요?</value>
+  </data>
+  <data name="InputPreset" xml:space="preserve">
+    <value>현재 게임 선택에 대한 프리셋 이름을 입력하세요.</value>
+  </data>
+  <data name="NewPreset" xml:space="preserve">
+    <value>새 선택 사전 설정</value>
+  </data>
+  <data name="UninstallFactoryNote" xml:space="preserve">
+    <value>완료하였습니다! 모든 정지 지점을 삭제하려면 공장 초기화를 수행하는 것을 잊지 마세요.</value>
+  </data>
+  <data name="Uninstalling" xml:space="preserve">
+    <value>설치 제거 중...</value>
+  </data>
+  <data name="UninstallQ1" xml:space="preserve">
+    <value>Hakchi2의 모든 기록을 제거하고 미니를 원래 상태로 되돌릴까요?</value>
+  </data>
+  <data name="UninstallQ2" xml:space="preserve">
+    <value>지금 오리지널 커널을 플래시할까요?</value>
+  </data>
+  <data name="GameGenieFormatError" xml:space="preserve">
+    <value>게임 "{1}"에 대한 게임 지니 코드 "{0}"이(가) 잘못되었습니다.</value>
+  </data>
+  <data name="GameGenieNotFound" xml:space="preserve">
+    <value>게임 지니 코드 "{0}"을(를) 게임 "{1}"에 적용할 수 없음 - 값을 찾을 수 없습니다. 이 코드는 다른 게임을 위한 것 인가요?</value>
+  </data>
+  <data name="PatchAvailable" xml:space="preserve">
+    <value>패치 가능</value>
+  </data>
+  <data name="PatchQ" xml:space="preserve">
+    <value>"{0}"에 대한 패치가 있습니다. 이 게임을 패치할까요?</value>
+  </data>
+  <data name="AutofillResult" xml:space="preserve">
+    <value>{0} 게임에 대한 데이터가 자동으로 채워졌습니다.</value>
+  </data>
+  <data name="SelectAtLeastTwo" xml:space="preserve">
+    <value>두 개 이상의 저튼을 선택하세요.</value>
+  </data>
+  <data name="AutofireHelp1" xml:space="preserve">
+    <value>자동 발사 A/B를 활성화/비활성화하려면 Select+A/B를 1초 동안 누르세요.</value>
+  </data>
+  <data name="ExtraArgsInfo" xml:space="preserve">
+    <value>오리지널을 포함한 모든 게임에 추가될 글로벌 명령줄 인수를 추가할 수 있습니다. 이것은 전문가에게만 해당됩니다!</value>
+  </data>
+  <data name="ExtraArgsTitle" xml:space="preserve">
+    <value>추가 명령줄 인수</value>
+  </data>
+  <data name="DownloadAllCoversTitle" xml:space="preserve">
+    <value>모든 게임의 박스 아트 다운로드 (운이 좋은 것 같아요!)</value>
+  </data>
+  <data name="GooglingFor" xml:space="preserve">
+    <value>구글 검색</value>
+  </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>찾을 수 없음:</value>
+  </data>
+  <data name="LoadingGames" xml:space="preserve">
+    <value>게임 불러오기 중...</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>아니오</value>
+  </data>
+  <data name="NoForAll" xml:space="preserve">
+    <value>모두 아니오</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>예</value>
+  </data>
+  <data name="YesForAll" xml:space="preserve">
+    <value>모두 예</value>
+  </data>
+  <data name="GGCodeDelete" xml:space="preserve">
+    <value>"{0}" 코드를 삭제할까요?</value>
+  </data>
+  <data name="GGCodeEmpty" xml:space="preserve">
+    <value>코드를 입력해야 합니다!</value>
+  </data>
+  <data name="GGCodeExists" xml:space="preserve">
+    <value>이 코드는 이미 존재합니다. 편집할까요?</value>
+  </data>
+  <data name="GGDescriptionEmpty" xml:space="preserve">
+    <value>설명을 입력해야 합니다!</value>
+  </data>
+  <data name="FolderNameBack" xml:space="preserve">
+    <value>뒤로가기</value>
+  </data>
+  <data name="FolderNameMoreGames" xml:space="preserve">
+    <value>더 많은 게임...</value>
+  </data>
+  <data name="FolderNameOriginalGames" xml:space="preserve">
+    <value>오리지널 게임</value>
+  </data>
+  <data name="DeleteElement" xml:space="preserve">
+    <value>정말 "{0}"을(를) 삭제할까요?</value>
+  </data>
+  <data name="FolderContent" xml:space="preserve">
+    <value>삭제된 콘텐츠는 휴지통으로 이동됩니다. 이 폴더를 영구적으로 삭제하거나 게임을 다른 폴더로 이동할 수 있습니다.</value>
+  </data>
+  <data name="MainMenu" xml:space="preserve">
+    <value>홈 메뉴</value>
+  </data>
+  <data name="BuildingFolders" xml:space="preserve">
+    <value>폴더 구조 빌드 중...</value>
+  </data>
+  <data name="FolderNameNewFolder" xml:space="preserve">
+    <value>새 폴더</value>
+  </data>
+  <data name="FolderNameUnsorted" xml:space="preserve">
+    <value>정렬되지 않음</value>
+  </data>
+  <data name="FoldersSaveQ" xml:space="preserve">
+    <value>이 폴더 구조를 저장할까요?</value>
+  </data>
+  <data name="FolderStatistics" xml:space="preserve">
+    <value>폴더 "{0}"에는 {1} 요소가 포함되어 있습니다.</value>
+  </data>
+  <data name="NewGamesUnsorted" xml:space="preserve">
+    <value>새 게임은 "정렬되지 않음" 폴더로 이동됩니다.</value>
+  </data>
+  <data name="AddingGames" xml:space="preserve">
+    <value>게임을 처리 중입니다. 잠시만 기다려 주세요...</value>
+  </data>
+  <data name="DeleteElements" xml:space="preserve">
+    <value>{0} 요소를 삭제하겠습니까?</value>
+  </data>
+  <data name="FolderNameTrashBin" xml:space="preserve">
+    <value>휴지통</value>
+  </data>
+  <data name="InstallingMods" xml:space="preserve">
+    <value>Mod 설치 중...</value>
+  </data>
+  <data name="SelectModsInstall" xml:space="preserve">
+    <value>미니에 설치할 모듈을 선택</value>
+  </data>
+  <data name="SelectModsUninstall" xml:space="preserve">
+    <value>미니에서 제거할 모듈을 선택</value>
+  </data>
+  <data name="UninstallingMods" xml:space="preserve">
+    <value>Mod 설치 제거 중...</value>
+  </data>
+  <data name="MemoryFull" xml:space="preserve">
+    <value>죄송합니다, {0}개의 게임이 있습니다. 너무 많습니다.</value>
+  </data>
+  <data name="UploadingConfig" xml:space="preserve">
+    <value>새 구성 업로드 중...</value>
+  </data>
+  <data name="UploadingOriginalGames" xml:space="preserve">
+    <value>오리지널 게임 처리 중...</value>
+  </data>
+  <data name="MemoryStats" xml:space="preserve">
+    <value>쓰기 가능한 총 메모리 크기: {0:F1}MB|게임에 사용 가능한 메모리: {1:F1}MB|저장에 사용: {2:F1}MB|다른 파일에 사용: {3:F1}MB</value>
+  </data>
+  <data name="AllFiles" xml:space="preserve">
+    <value>모든 파일</value>
+  </data>
+  <data name="GamesAndApps" xml:space="preserve">
+    <value>게임과 앱</value>
+  </data>
+  <data name="DeleteSavesQ" xml:space="preserve">
+    <value>해당 저장 상태를 정말로 삭제할까요?</value>
+  </data>
+  <data name="SavesFlterName" xml:space="preserve">
+    <value>저장 상태 백업</value>
+  </data>
+  <data name="SizeOfSaves" xml:space="preserve">
+    <value>선택한 저장 상태의 크기:</value>
+  </data>
+  <data name="UnknownGame" xml:space="preserve">
+    <value>알 수 없는 게임</value>
+  </data>
+  <data name="NoTelnet" xml:space="preserve">
+    <value>텔넷 클라이언트를 시작할 수 없습니다. 비활성화된 것 같습니다. 먼저 활성화해야 합니다. “제어판“ -&gt; “프로그램“ -&gt; "윈도우즈 기능 켜기 또는 끄기".</value>
+  </data>
+  <data name="Images" xml:space="preserve">
+    <value>이미지</value>
+  </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>잠시만 기다려주세요...</value>
+  </data>
+  <data name="DumpingNand" xml:space="preserve">
+    <value>NAND 덤프 중...</value>
+  </data>
+  <data name="NandDumped" xml:space="preserve">
+    <value>NAND 메모리가 성공적으로 덤프되었습니다.</value>
+  </data>
+  <data name="Membooting" xml:space="preserve">
+    <value>RAM에서 커널 부팅 중...</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>크기:</value>
+  </data>
+  <data name="Compressing" xml:space="preserve">
+    <value>{0} 압축 중...</value>
+  </data>
+  <data name="CompressingGames" xml:space="preserve">
+    <value>게임 압축 중...</value>
+  </data>
+  <data name="Decompressing" xml:space="preserve">
+    <value>{0} 압축 해제 중...</value>
+  </data>
+  <data name="DecompressingGames" xml:space="preserve">
+    <value>게임 압축 해제 중...</value>
+  </data>
+  <data name="DeleteSelectedGamesQ" xml:space="preserve">
+    <value>선택한 게임을 삭제할까요?</value>
+  </data>
+  <data name="Removing" xml:space="preserve">
+    <value>{0} 제거 중...</value>
+  </data>
+  <data name="RemovingGames" xml:space="preserve">
+    <value>게임 제거 중...</value>
+  </data>
+  <data name="InvalidConsoleSelected" xml:space="preserve">
+    <value>잘못된 콘솔이 선택되었습니다! 감지된 콘솔:</value>
+  </data>
+  <data name="Cover" xml:space="preserve">
+    <value>Box Art</value>
+  </data>
+  <data name="DownloadCoverQ" xml:space="preserve">
+    <value>"{0}"의 Box Art를 다운로드할까요?</value>
+  </data>
+  <data name="Need3rdPartyEmulator" xml:space="preserve">
+    <value>앗, "{0}"이(가) 원래 에뮬레이터에서 제대로 작동하지 않는 것 같습니다. 이 게임에 타사 에뮬레이터를 사용할까요 (설치해야 함)?</value>
+  </data>
+  <data name="FlashingNand" xml:space="preserve">
+    <value>NAND 메모리 플래싱 중...</value>
+  </data>
+  <data name="FlashNandCQ" xml:space="preserve">
+    <value>사용자 데이터를 플래시할까요? 모든 사용자 데이터를 대체합니다.</value>
+  </data>
+  <data name="NandFlashed" xml:space="preserve">
+    <value>NAND 메모리가 플래시되었습니다.</value>
+  </data>
+  <data name="NotRecommended" xml:space="preserve">
+    <value>권장하지 않음</value>
+  </data>
+  <data name="TooManyPerFolder" xml:space="preserve">
+    <value>경고! 폴더당 너무 많은 게임을 저장하는 것은 권장하지 않습니다.</value>
+  </data>
+  <data name="FolderNotEmpty" xml:space="preserve">
+    <value>선택한 폴더가 비어 있지 않음</value>
+  </data>
+  <data name="RemovingCovers" xml:space="preserve">
+    <value>커버 Art 삭제 중...</value>
+  </data>
+  <data name="UpdatingLocalCache" xml:space="preserve">
+    <value>로컬 오리지널 게임 캐시 업데이트 중...</value>
+  </data>
+  <data name="ResetOriginalGamesQ" xml:space="preserve">
+    <value>{0}의 원래 게임에 대한 모든 커스텀을 취소할까요?</value>
+  </data>
+  <data name="CannotDeleteTempFolder" xml:space="preserve">
+    <value>임시 폴더를 삭제하는 중에 오류가 발생했습니다. 다시 시도해 주세요.</value>
+  </data>
+  <data name="CleaningUp" xml:space="preserve">
+    <value>이전 작업 정리 중...</value>
+  </data>
+  <data name="BuildingMenu" xml:space="preserve">
+    <value>메뉴 빌드 중...</value>
+  </data>
+  <data name="Aborting" xml:space="preserve">
+    <value>중단 중...</value>
+  </data>
+  <data name="ExportGames" xml:space="preserve">
+    <value>USB로 내보내기</value>
+  </data>
+  <data name="LinkedGamesQ" xml:space="preserve">
+    <value>연결된 게임을 만들까요?</value>
+  </data>
+  <data name="PermanentlyDeleteQ" xml:space="preserve">
+    <value>다음 내용을 영구적으로 삭제하겠습니까:
+
+{0}
+
+Qu이 과정은 취소할 수 없습니다!</value>
+  </data>
+  <data name="ScanningCovers" xml:space="preserve">
+    <value>Box Art용 art 폴더 스캔 중...</value>
+  </data>
+  <data name="ResettingOriginalGames" xml:space="preserve">
+    <value>오리지널 게임 복원 중...</value>
+  </data>
+  <data name="DetectedConsole" xml:space="preserve">
+    <value>감지된 콘솔: {0}</value>
+  </data>
+  <data name="VersionRevisionNotice" xml:space="preserve">
+    <value>테스트 목적으로만 사용되는 내부 버전</value>
+  </data>
+  <data name="InvalidUbootSize" xml:space="preserve">
+    <value>잘못된 uboot.bin 파일 크기입니다.</value>
+  </data>
+  <data name="FlashingUboot" xml:space="preserve">
+    <value>uboot 플래싱 중...</value>
+  </data>
+  <data name="FlashUbootNormalQ" xml:space="preserve">
+    <value>보통 모드 uboot를 플래시할까요?</value>
+  </data>
+  <data name="FlashUbootSDQ" xml:space="preserve">
+    <value>SD 모드 uboot를 플래시할까요?</value>
+  </data>
+  <data name="UbootFlashed" xml:space="preserve">
+    <value>Uboot가 성공적으로 플래시하였습니다.</value>
+  </data>
+  <data name="NoDriveSelected" xml:space="preserve">
+    <value>선택한 드라이브 없음</value>
+  </data>
+  <data name="SelectRegion" xml:space="preserve">
+    <value>지역을 선택하세요</value>
+  </data>
+  <data name="InvalidImageResolution" xml:space="preserve">
+    <value>이미지 해상도는 {0}x{1}여야 함</value>
+  </data>
+  <data name="ResetROMHeaderSelectedGamesQ" xml:space="preserve">
+    <value>선택한 게임의 SFROM 헤더를 재설정/복원할까요?</value>
+  </data>
+  <data name="ResettingHeader" xml:space="preserve">
+    <value>{0}에서 SFROM 헤더 재설정 중</value>
+  </data>
+  <data name="ResettingHeaders" xml:space="preserve">
+    <value>SFROM 헤더 재설정 중...</value>
+  </data>
+  <data name="Skipping" xml:space="preserve">
+    <value>{0} 건너뛰기</value>
+  </data>
+  <data name="DownloadSfromTool" xml:space="preserve">
+    <value>Hakchi2 CE에서 SFROM 도구를 사용하려면 다음을 수행해야 합니다:
+- /u/DarkAkuma의 웹사이트 방문하기
+- 최신 버전의 도구 다운로드
+- {0}\sfrom_tool에 패키지를 설치
+
+도구를 다운로드할까요?
+
+http://darkakuma.z-net.us/p/sfromtool.html</value>
+  </data>
+  <data name="SfromTool" xml:space="preserve">
+    <value>SFROM 도구</value>
+  </data>
+  <data name="LoadingHmods" xml:space="preserve">
+    <value>Mod 불러오기 중...</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>알 수 없음</value>
+  </data>
+  <data name="ApplyChanges" xml:space="preserve">
+    <value>변경 사항 적용</value>
+  </data>
+  <data name="ApplyChangesQ" xml:space="preserve">
+    <value>변경 사항을 적용할까요?</value>
+  </data>
+  <data name="CustomGameCodeAlreadyExists" xml:space="preserve">
+    <value>앱 코드가 이미 존재합니다. 다른 코드를 사용하세요!</value>
+  </data>
+  <data name="CustomGameNeedValidData" xml:space="preserve">
+    <value>유효한 앱 코드와 이름을 입력해야 합니다!</value>
+  </data>
+  <data name="DiscardChanges" xml:space="preserve">
+    <value>변경 사항 취소</value>
+  </data>
+  <data name="DiscardChangesQ" xml:space="preserve">
+    <value>변경사항을 취소할까요?</value>
+  </data>
+  <data name="ListCategoryAll" xml:space="preserve">
+    <value>모든 게임</value>
+  </data>
+  <data name="ListCategoryCustom" xml:space="preserve">
+    <value>커스텀 게임</value>
+  </data>
+  <data name="ListCategoryNew" xml:space="preserve">
+    <value>새 탭</value>
+  </data>
+  <data name="ListCategoryOriginal" xml:space="preserve">
+    <value>오리지널 게임</value>
+  </data>
+  <data name="ListCategoryUnknown" xml:space="preserve">
+    <value>알 수 없는 앱</value>
+  </data>
+  <data name="NewCustomGame" xml:space="preserve">
+    <value>새 커스텀 게임</value>
+  </data>
+  <data name="OutdatedKernel" xml:space="preserve">
+    <value>오래된 커널</value>
+  </data>
+  <data name="OutdatedScripts" xml:space="preserve">
+    <value>오래된 스크립트</value>
+  </data>
+  <data name="PleaseUpdate" xml:space="preserve">
+    <value>필요한 업데이트를 설치할 때까지 이 프로그램을 사용하려고 하면 오류가 발생할 수 있습니다. 전체 호환성을 받으려면 업데이트하세요.</value>
+  </data>
+  <data name="SystemEligibleForRootfsUpdate" xml:space="preserve">
+    <value>시스템의 커널 스크립트가 오래되어 업데이트할 수 있습니다. 지금 커스텀 커널 스크립트를 업데이트하겠습니까?</value>
+  </data>
+  <data name="SystemRequiresReflash" xml:space="preserve">
+    <value>시스템의 커스텀 커널이 오래되어 이 프로그램을 사용하려면 다시 플래시해야 합니다. 지금 커스텀 커널을 플래시하겠습니까?</value>
+  </data>
+  <data name="SystemRequiresRootfsUpdate" xml:space="preserve">
+    <value>시스템의 커널 스크립트가 오래되었으며 이 프로그램을 사용하려면 memboot가 필요합니다. 지금 커스텀 커널을 memboot하겠습니까?</value>
+  </data>
+  <data name="Unassigned" xml:space="preserve">
+    <value>할당되지 않음</value>
+  </data>
+  <data name="CalculatingDiff" xml:space="preserve">
+    <value>차이 계산 중...</value>
+  </data>
+  <data name="FormatNandCQ" xml:space="preserve">
+    <value>사용자 데이터 파티션을 포맷하시겠습니까? 모든 사용자 데이터가 지워집니다.</value>
+  </data>
+  <data name="ScanningCover" xml:space="preserve">
+    <value>{0}의 Box Art 스캔 중</value>
+  </data>
+  <data name="ErrorRestoringAllOriginalGames" xml:space="preserve">
+    <value>원래 게임을 복원하는 동안 오류가 발생했습니다. 언제든지 파일 -&gt; 오리지널 게임 복원을 사용하여 사용하려는 게임 컬렉션에 대해 다시 시도할 수 있습니다.</
+  </data>
+  <data name="UninstallNote" xml:space="preserve">
+    <value>완료되었습니다. 모든 것이 잘 되었다면 미니는 기본 커널을 실행해야 합니다.</value>
+  </data>
+  <data name="ImageTooLarge" xml:space="preserve">
+    <value>이미지가 너무 큼</value>
+  </data>
+  <data name="InvalidHsqs" xml:space="preserve">
+    <value>잘못된 hsqs 이미지</value>
+  </data>
+  <data name="consoleTypeFamicom" xml:space="preserve">
+    <value>패미컴 (일본)</value>
+  </data>
+  <data name="consoleTypeNes" xml:space="preserve">
+    <value>NES (미국/유럽)</value>
+  </data>
+  <data name="consoleTypeSnes" xml:space="preserve">
+    <value>SNES (미국/유럽)</value>
+  </data>
+  <data name="consoleTypeSuperFamicom" xml:space="preserve">
+    <value>슈퍼 패미컴 (일본)</value>
+  </data>
+  <data name="FTPServerOn" xml:space="preserve">
+    <value>ftp://root@{0}의 FTP 서버 (비밀번호:clover)</value>
+  </data>
+  <data name="TelnetServerOn" xml:space="preserve">
+    <value>telnet://{0}의 텔넷 서버 (로그인:root)</value>
+  </data>
+  <data name="ListCategoryNoCoverArt" xml:space="preserve">
+    <value>커스텀 Box Art 없음</value>
+  </data>
+  <data name="CopyingGames" xml:space="preserve">
+    <value>게임 복사 중...</value>
+  </data>
+  <data name="MemoryStatsExport" xml:space="preserve">
+    <value>드라이브에서 사용 가능한 총 공간: {0}</value>
+  </data>
+  <data name="SelectDrive" xml:space="preserve">
+    <value>내보내기 드라이브 선택...</value>
+  </data>
+  <data name="UploadGames" xml:space="preserve">
+    <value>게임 업로드</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>{0} 업로드 중</value>
+  </data>
+  <data name="DefaultNoChange" xml:space="preserve">
+    <value>기본 / 변경 없음</value>
+  </data>
+  <data name="BootingHakchi" xml:space="preserve">
+    <value>Hakchi 부팅 중...</value>
+  </data>
+  <data name="InstallingHakchi" xml:space="preserve">
+    <value>IHakchi 설치 중...</value>
+  </data>
+  <data name="PoweringOff" xml:space="preserve">
+    <value>전원 끄기 중...</value>
+  </data>
+  <data name="Rebooting" xml:space="preserve">
+    <value>재부팅 중...</value>
+  </data>
+  <data name="ResettingHakchi" xml:space="preserve">
+    <value>Hakchi 재설정 중...</value>
+  </data>
+  <data name="TransferringMods" xml:space="preserve">
+    <value>Mod 전송 중...</value>
+  </data>
+  <data name="UninstallingHakchi" xml:space="preserve">
+    <value>Hakchi 설치 제거 중...</value>
+  </data>
+  <data name="DisableAutoRefresh" xml:space="preserve">
+    <value>자동 새로 고침 비활성화</value>
+  </data>
+  <data name="EnableAutoRefresh" xml:space="preserve">
+    <value>동 새로 고침 활성화</value>
+  </data>
+  <data name="RepairGames" xml:space="preserve">
+    <value>게임 수리</value>
+  </data>
+  <data name="RepairingGame" xml:space="preserve">
+    <value>{0} 수리 중</value>
+  </data>
+  <data name="Abort" xml:space="preserve">
+    <value>중단</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>취소</value>
+  </data>
+  <data name="YesToAll" xml:space="preserve">
+    <value>모두 예</value>
+  </data>
+  <data name="SelectFileFor" xml:space="preserve">
+    <value>{0}에 대한 파일 선택</value>
+  </data>
+  <data name="CannotSyncToNonMultiBoot" xml:space="preserve">
+    <value>{0} 게임 컬렉션을 현재 실행 중인 미니({1})에 동기화할 수 없습니다. 계속 진행하려면 일치하는 게임 컬렉션으로 전환하거나 "멀티부팅을 위한 별도의 게임" 모드를 사용하도록 전환하세요.</value>
+  </data>
+  <data name="PleaseConnectYourDevice" xml:space="preserve">
+    <value>계속하려면 미니를 연결하세오. 커널 메뉴의 옵션을 사용하여 사용자 지정 커널도 설치해야 합니다.</value>
+  </data>
+  <data name="Starting" xml:space="preserve">
+    <value>시작 중...</value>
+  </data>
+  <data name="AddingGame" xml:space="preserve">
+    <value>게임 {0} 처리 중</value>
+  </data>
+  <data name="RepairSelectedGamesQ" xml:space="preserve">
+    <value>선택한 게임을 복원하겠습니까? (특히 Hakchi2로 가져오지 않은 경우 일부 게임이 손상될 수 있습니다. 손상된 게임만 시도하세요.)</value>
+  </data>
+  <data name="RunningFoldersManager" xml:space="preserve">
+    <value>폴더 관리자 실행 중...</value>
+  </data>
+  <data name="consoleTypeSnesEur" xml:space="preserve">
+    <value>슈퍼 NES (유럽)</value>
+  </data>
+  <data name="consoleTypeSnesUsa" xml:space="preserve">
+    <value>슈퍼 NES (미국)</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>기본</value>
+  </data>
+  <data name="RecoveryModeMessage" xml:space="preserve">
+    <value>이제 시스템이 복원 모드에 있습니다. 여기에서 시스템에 텔넷으로 연결하여 원하는 명령을 실행할 수 있으며 FTP를 사용하여 파일을 전송할 수도 있습니다.
+	
+기본 파티션을 마운트하려면 "hakchi mount_base" 명령을 실행해야 합니다.</value>
+  </data>
+  <data name="FactoryResetQ" xml:space="preserve">
+    <value>공장 초기화 설정을 복원할까요?
+
+모든 데이터가 지워지고 스톡 커널이 플래시됩니다.
+
+계속할까요?</value>
+  </data>
+  <data name="CannotProceedCannotInteract" xml:space="preserve">
+    <value>커널 또는 스크립트가 오래되었습니다. 게임을 동기화하기 전에 업데이트하세요</value>
+  </data>
+  <data name="CannotProceedMinimalMemboot" xml:space="preserve">
+    <value>미니가 현재 복원 상태이므로 계속 진행할 수 없습니다. 이 상태를 종료하려면 도구 -&gt; 재부팅을 사용하세요</value>
+  </data>
+  <data name="FactoryResetNote" xml:space="preserve">
+    <value>Hakchi의 모든 기록이 제거되었으며 미니가 공장 초기화 설정으로 재설정되었습니다.</value>
+  </data>
+  <data name="NandFormatted" xml:space="preserve">
+    <value>NAND 메모리가 성공적으로 포맷되었습니다.</value>
+  </data>
+  <data name="RecoveryKernel" xml:space="preserve">
+    <value>복원 커널</value>
+  </data>
+  <data name="ResetQ" xml:space="preserve">
+    <value>미니에서 hakchi를 재설정하고 수리할까요</value>
+  </data>
+  <data name="UpdateComplete" xml:space="preserve">
+    <value>업데이트 완료되었습니다!</value>
+  </data>
+  <data name="SyncMultibootWarning" xml:space="preserve">
+    <value>미니에 이미 동기화된 게임이 {0}개 있습니다 (멀티부팅을 위해 분리되지 않음). 계속하면 그것들이 지워집니다. 확실한가요?</value>
+  </data>
+  <data name="SyncNonMultibootWarning" xml:space="preserve">
+    <value>미니에 이미 동기화된 {0}개의 게임이 있습니다 (멀티부팅을 위해 분리됨). 계속하면 그것들이 지워집니다. 확실한가요?</value>
+  </data>
+  <data name="FolderNameHome" xml:space="preserve">
+    <value>홈</value>
+  </data>
+  <data name="SaveSettings" xml:space="preserve">
+    <value>설정 저장</value>
+  </data>
+  <data name="SaveStructureQ" xml:space="preserve">
+    <value>모든 게임 컬렉션의 구조 설정을 현재 표시된 설정과 동기화할까요?</value>
+  </data>
+  <data name="CannotInteract" xml:space="preserve">
+    <value>Hakchi 업데이트 필요</value>
+  </data>
+  <data name="JustWaitForYourMini" xml:space="preserve">
+    <value>전원이 켜질 때까지 기다리세요.</value>
+  </data>
+  <data name="MakeSureYourMiniIsConnected" xml:space="preserve">
+    <value>미니가 USB 케이블을 통해 제대로 연결되어 있는지 확인하세요.</value>
+  </data>
+  <data name="RecoveryMode" xml:space="preserve">
+    <value>복원 모드</value>
+  </data>
+  <data name="SfromToolInstalled" xml:space="preserve">
+    <value>SFROM 도구가 설치되었습니다. 이제 게임이 변환됩니다. 또한 .CNP 패치를 드래그 앤 드롭하여 쉽게 추가할 수 있습니다.</value>
+  </data>
+  <data name="ErrorImportingGame" xml:space="preserve">
+    <value>게임 "{0}"을(를) 가져오는 중 오류가 발생했습니다. 파일이 유효하고 손상되지 않았는지 확인하세요.</value>
+  </data>
+  <data name="ImportGames" xml:space="preserve">
+    <value>게임 가져오기</value>
+  </data>
+  <data name="UpdatingList" xml:space="preserve">
+    <value>목록 업데이트 중...</value>
+  </data>
+  <data name="CustomKernelInstalledQ" xml:space="preserve">
+    <value>미니에서 커스텀 커널을 이미 플래싱했나요?</value>
+  </data>
+  <data name="DisableUSBWarning" xml:space="preserve">
+    <value>미니에 연결된 모든 OTG USB 장치가 비활성화됩니다. USB-HOST를 비활성화하겠습니까?</value>
+  </data>
+  <data name="CalculatingFreeSpace" xml:space="preserve">
+    <value>여유 공간 계산 중...</value>
+  </data>
+  <data name="InvalidUserDataBackup" xml:space="preserve">
+    <value>사용자 데이터 백업이 잘못되었습니다.</value>
+  </data>
+  <data name="CriticalError" xml:space="preserve">
+    <value>치명적 오류</value>
+  </data>
+  <data name="FinishBootSequenceQ" xml:space="preserve">
+    <value>현재 복원 모드에서 실행 중입니다. 재부팅하는 대신 정상적인 부팅 절차를 마칠까요?</value>
+  </data>
+  <data name="DumpOriginalKernelCompleteMessage" xml:space="preserve">
+    <value>이 덤프 파일은 레거시 Hakchi2 또는 Hakchi2 CE 버전에만 유용하며 현재 버전에는 유용하지 않습니다.</value>
+  </data>
+  <data name="DumpOriginalKernelCompleteTitle" xml:space="preserve">
+    <value>오리지널 커널 덤프 완료</value>
+  </data>
+  <data name="DumpOriginalKernelNotFound" xml:space="preserve">
+    <value>오리지널 커널을 시스템에서 찾을 수 없습니다.</value>
+  </data>
+  <data name="KernelDump" xml:space="preserve">
+    <value>커널 덤프</value>
+  </data>
+  <data name="SystemSoftwareBackup" xml:space="preserve">
+    <value>시스템 소프트웨어 백업</value>
+  </data>
+  <data name="UserDataBackup" xml:space="preserve">
+    <value>사용자 데이터 백업</value>
+  </data>
+  <data name="DumpOriginalKernelInvalid" xml:space="preserve">
+    <value>제공한 오리지널 커널 파일은 검증된 오리지널 커널이 아닙니다.</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>없음</value>
+  </data>
+  <data name="WaitingForDeviceTakingALongTime" xml:space="preserve">
+    <value>기기를 재부팅하는 데 시간이 오래 걸립니다.
+
+좀 더 기다리다가 다시 온라인 상태가 되면 제목 표시줄에 "복원 모드"가 표시됩니다. 이 경우 동일한 작업을 다시 시도하거나 "도구 &gt; 재부팅"을 사용하여 정상 작동으로 돌아갈 수 있습니다.
+
+콘솔을 재부팅하는 데 너무 오래 걸리는 가장 일반적인 이유는 윈도우즈 방화벽과 같은 방화벽입니다. Hakchi2 CE에 대한 예외를 추가하여 이 문제를 해결할 수 있습니다.
+
+다른 이유로는 로컬 네트워크에 대한 트래픽을 차단하는 VPN과 RNDIS 드라이버를 올바르게 감지하지 못하는 윈도우즈가 포함될 수 있습니다.</value>
+  </data>
+  <data name="RecoveryModeCloseWarning" xml:space="preserve">
+    <value>미니가 현재 복원 모드에 있습니다. 정상적으로 끌 수 없습니다. 나중에 정상으로 돌아가도록 부팅 순서를 끝내겠습니까?</value>
+  </data>
+  <data name="consoleTypeShonenJump" xml:space="preserve">
+    <value>패미컴 (소년 점프)</value>
+  </data>
+  <data name="LinkingGames" xml:space="preserve">
+    <value>상징적 연결 처리 중...</value>
+  </data>
+  <data name="Firmware" xml:space="preserve">
+    <value>펌웨어</value>
+  </data>
+  <data name="FirmwareSwitched" xml:space="preserve">
+    <value>재부팅하면 실행 중인 미니가 선택한 펌웨어 "{0}"을(를) 실행해야 합니다!</value>
+  </data>
+  <data name="FirmwareDefault" xml:space="preserve">
+    <value>NAND의 기본 펌웨어</value>
+  </data>
+  <data name="FirmwareCurrent" xml:space="preserve">
+    <value>현재</value>
+  </data>
+  <data name="AlreadyInRecovery" xml:space="preserve">
+    <value>이미 복원 모드에 있음</value>
+  </data>
+  <data name="AlreadyInRecoveryQ" xml:space="preserve">
+    <value>이미 복원 모드에 있습니다. 복원 이미지를 다시 불러올까요?</value>
+  </data>
+  <data name="CannotProceedCannotSync" xml:space="preserve">
+    <value>Hakchi 설치가 클로버쉘 데몬을 실행 중입니다. 클로버쉘과 게임을 동기화하는 것은 안전하지 않습니다. 게임을 안전하게 동기화하려면 이 모듈을 제거하세요!</value>
+  </data>
+  <data name="DownloadingEllipsis" xml:space="preserve">
+    <value>다운로드 중...</value>
+  </data>
+  <data name="DownloadingProgress" xml:space="preserve">
+    <value>다운로드 중: {0} / {1}</value>
+  </data>
+  <data name="KernelCheckFailed" xml:space="preserve">
+    <value>커널 체크섬 실패</value>
+  </data>
+  <data name="Archiving" xml:space="preserve">
+    <value>파일 보관 중: {0}</value>
+  </data>
+  <data name="ArchivingGame" xml:space="preserve">
+    <value>게임 파일 보관 중</value>
+  </data>
+  <data name="ArchivingGames" xml:space="preserve">
+    <value>게임 파일 보관 중</value>
+  </data>
+  <data name="ReplaceFileQ" xml:space="preserve">
+    <value>파일을 바꿀까요?</value>
+  </data>
+  <data name="ReplaceFollowingFileQ" xml:space="preserve">
+    <value>다음 파일을 바꿀까요?
+
+{0}</value>
+  </data>
+  <data name="ShowExperimentalQuestion" xml:space="preserve">
+    <value>실험적 Mod를 표시할까요?</value>
+  </data>
+  <data name="Processing" xml:space="preserve">
+    <value>처리 중...</value>
+  </data>
+  <data name="UnsavedChanges" xml:space="preserve">
+    <value>저장되지 않은 변경 사항</value>
+  </data>
+  <data name="UnsavedChangesQ" xml:space="preserve">
+    <value>저장하지 않은 변경 사항이 있습니다. 저장할까요?</value>
+  </data>
+  <data name="NoRepositoriesConfigured" xml:space="preserve">
+    <value>구성된 저장소 없음</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>환영합니다</value>
+  </data>
+  <data name="Hakchi2CEGames0" xml:space="preserve">
+    <value>Hakchi2 CE 게임 - {0}</value>
+  </data>
+  <data name="HTMLFiles" xml:space="preserve">
+    <value>HTML 파일</value>
+  </data>
+  <data name="XMLFiles" xml:space="preserve">
+    <value>XML 파일</value>
+  </data>
+  <data name="ArchiveFiles" xml:space="preserve">
+    <value>파일 보관</value>
+  </data>
+  <data name="GameArchive" xml:space="preserve">
+    <value>게임 보관</value>
+  </data>
+  <data name="SupportedFiles" xml:space="preserve">
+    <value>지원되는 파일</value>
+  </data>
+  <data name="AddingHakchiMBR" xml:space="preserve">
+    <value>Hakchi MBR 추가</value>
+  </data>
+  <data name="ClearingTheFirst32MBOfSDCard" xml:space="preserve">
+    <value>처음 32MB의 SD 카드 지우기</value>
+  </data>
+  <data name="CopyFilesFromNandQ" xml:space="preserve">
+    <value>NAND에서 파일을 복사할까요?</value>
+  </data>
+  <data name="CopyFilesFromNandQ2" xml:space="preserve">
+    <value>저장된 게임과 게임을 NAND에서 SD 카드로 복사할까요?</value>
+  </data>
+  <data name="CopyingHakchiToSDCard" xml:space="preserve">
+    <value>Hakchi를 SD 카드에 복사하기</value>
+  </data>
+  <data name="CopyingNandDataToSDCard" xml:space="preserve">
+    <value>NAND 데이터를 SD 카드에 복사</value>
+  </data>
+  <data name="ExtractingHakchiToTemporaryFolder" xml:space="preserve">
+    <value>임시 폴더에 Hakchi 추출하기</value>
+  </data>
+  <data name="FormatSD" xml:space="preserve">
+    <value>SD 포맷</value>
+  </data>
+  <data name="FormatSDQ" xml:space="preserve">
+    <value>클래식에 삽입된 SD 카드를 포맷할까요?
+
+이렇게 하면 카드에 있는 모든 데이터가 지워집니다!</value>
+  </data>
+  <data name="FormattingSDCard" xml:space="preserve">
+    <value>SD 카드 포맷하기</value>
+  </data>
+  <data name="FormattingTheSDCard" xml:space="preserve">
+    <value>SD 카드 포맷하기</value>
+  </data>
+  <data name="MountingSDCard" xml:space="preserve">
+    <value>SD 카드 장착</value>
+  </data>
+  <data name="MountingSquashFS" xml:space="preserve">
+    <value>SquashFS 장착</value>
+  </data>
+  <data name="NoSDCard" xml:space="preserve">
+    <value>클래식에는 SD 카드가 삽입되지 않습니다.</value>
+  </data>
+  <data name="UnmountingSDCard" xml:space="preserve">
+    <value>SD 카드 장착 해제</value>
+  </data>
+  <data name="WritingBoot0" xml:space="preserve">
+    <value>boot0 쓰는 중</value>
+  </data>
+  <data name="WritingFATFilesystem" xml:space="preserve">
+    <value>FAT 파일시스템 쓰는 중</value>
+  </data>
+  <data name="WritingKernel" xml:space="preserve">
+    <value>커널 쓰는 중</value>
+  </data>
+  <data name="WritingSquashFS" xml:space="preserve">
+    <value>SquashFS 쓰는 중</value>
+  </data>
+  <data name="WritingUboot" xml:space="preserve">
+    <value>uboot 쓰는 중</value>
+  </data>
+  <data name="FactoryReset" xml:space="preserve">
+    <value>공장 초기화 재설정</value>
+  </data>
+  <data name="FactoryResetWithKernelFile" xml:space="preserve">
+    <value>커널 파일로 공장 초기화 재설정</value>
+  </data>
+  <data name="Uninstall" xml:space="preserve">
+    <value>설치 제거</value>
+  </data>
+  <data name="UninstallWithKernelFile" xml:space="preserve">
+    <value>설치 제거 및 플래시 커널 파일</value>
+  </data>
+  <data name="consoleTypeMdAsia" xml:space="preserve">
+    <value>세가 메가드라이브 (아시아)</value>
+  </data>
+  <data name="consoleTypeMdEur" xml:space="preserve">
+    <value>세가 메가드라이브 (유럽)</value>
+  </data>
+  <data name="consoleTypeMdJpn" xml:space="preserve">
+    <value>세가 메가드라이브 (일본)</value>
+  </data>
+  <data name="consoleTypeMdUsa" xml:space="preserve">
+    <value>세가 제네시스 (미국)</value>
+  </data>
+  <data name="NotSupportedOnThisPlatform" xml:space="preserve">
+    <value>이 플랫폼에서는 지원되지 않음</value>
+  </data>
+  <data name="BluetoothAdapters" xml:space="preserve">
+    <value>블루투스 어댑터</value>
+  </data>
+  <data name="PairedDevicesClickToUnpair" xml:space="preserve">
+    <value>페어링된 장치 (클릭하여 페어링 해제)</value>
+  </data>
+  <data name="DetectedDevicesClickToPair" xml:space="preserve">
+    <value>감지된 장치 (클릭하여 페어링)</value>
+  </data>
+  <data name="NoDevicesDetected" xml:space="preserve">
+    <value>감지된 장치 없음</value>
+  </data>
+  <data name="TrustedNotPairedClickToRemove" xml:space="preserve">
+    <value>신뢰할 수 있음 / 페어링되지 않음 (제거하려면 클릭)</value>
+  </data>
+  <data name="GenreAction" xml:space="preserve">
+    <value>액션</value>
+  </data>
+  <data name="GenreAdventure" xml:space="preserve">
+    <value>어드벤쳐</value>
+  </data>
+  <data name="GenreEducational" xml:space="preserve">
+    <value>교육</value>
+  </data>
+  <data name="GenrePuzzle" xml:space="preserve">
+    <value>퍼즐</value>
+  </data>
+  <data name="GenreRacing" xml:space="preserve">
+    <value>레이싱</value>
+  </data>
+  <data name="GenreRPG" xml:space="preserve">
+    <value>롤플레잉</value>
+  </data>
+  <data name="GenreShootEmUp" xml:space="preserve">
+    <value>슛 뎀 업</value>
+  </data>
+  <data name="GenreSports" xml:space="preserve">
+    <value>스포츠</value>
+  </data>
+  <data name="GenreSimulation" xml:space="preserve">
+    <value>시뮬레이션</value>
+  </data>
+  <data name="GenreTable" xml:space="preserve">
+    <value>테이블</value>
+  </data>
+  <data name="One" xml:space="preserve">
+    <value>하나</value>
+  </data>
+  <data name="TwoNotSimultaneously" xml:space="preserve">
+    <value>둘, 동시에 아님</value>
+  </data>
+  <data name="TwoSimultaneously" xml:space="preserve">
+    <value>둘, 동시에</value>
+  </data>
+  <data name="UnitedStates" xml:space="preserve">
+    <value>미국</value>
+  </data>
+  <data name="Europe" xml:space="preserve">
+    <value>유럽</value>
+  </data>
+  <data name="Japan" xml:space="preserve">
+    <value>일본</value>
+  </data>
+  <data name="Five" xml:space="preserve">
+    <value>다섯</value>
+  </data>
+  <data name="Four" xml:space="preserve">
+    <value>넷</value>
+  </data>
+  <data name="Three" xml:space="preserve">
+    <value>셋</value>
+  </data>
+  <data name="SystemFilesModifiedMessage" xml:space="preserve">
+    <value>시스템 파일이 수정된 것으로 보입니다:
+
+버전: {0}
+해시: {1}
+
+계속할까요?</value>
+  </data>
+  <data name="SystemFilesUnknownMessage" xml:space="preserve">
+    <value>시스템 파일이 알 수 없는 버전입니다:
+
+버전: {0}
+해시: {1}
+
+계속할까요?</value>
+  </data>
+  <data name="UnknownSystemVersionDetected" xml:space="preserve">
+    <value>알 수 없는 시스템 버전 감지됨</value>
+  </data>
+  <data name="SystemModificationDetected" xml:space="preserve">
+    <value>시스템 수정이 감지됨</value>
+  </data>
+  <data name="ProjectLunarHasBeenDetected" xml:space="preserve">
+    <value>프로젝트 루나가 감지되었습니다. 제거할 때까지 설치를 계속할 수 없습니다.</value>
+  </data>
+  <data name="PartitionExpandQMd" xml:space="preserve">
+    <value>데이터 파티션을 확장하겠습니까? 이렇게 하면 약 {0}의 추가 여유 공간이 제공됩니다.
+
+약간의 데이터 손실 가능성이 있으므로 세이브를 백업했는지 확인하세요.
+
+이것은 다른 해킹의 호환성에 영향을 줄 수 있습니다.</value>
+  </data>
+  <data name="PartitionExpandQ" xml:space="preserve">
+    <value>데이터 파티션을 확장하겠습니까? 이렇게 하면 약 {0}의 추가 여유 공간이 제공됩니다.
+	
+약간의 데이터 손실 가능성이 있으므로 세이브를 백업했는지 확인하세요.</value>
+  </data>
+  <data name="GenreRacingSports" xml:space="preserve">
+    <value>레이싱 / 스포츠</value>
+  </data>
+  <data name="GenreFighting" xml:space="preserve">
+    <value>파이팅</value>
+  </data>
+  <data name="GenreActionShooting" xml:space="preserve">
+    <value>액션 / 슈팅</value>
+  </data>
+  <data name="Paste" xml:space="preserve">
+    <value>붙여넣기</value>
+  </data>
+  <data name="PasteStretchToFit" xml:space="preserve">
+    <value>붙여넣기 (늘려서 맞춤)</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>파일 선택</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>불러오기 중...</value>
+  </data>
+  <data name="ApplyingChanges" xml:space="preserve">
+    <value>변경 사항 적용</value>
+  </data>
+  <data name="DownloadingLatestHakchi" xml:space="preserve">
+    <value>최신 Hakchi 다운로드</value>
+  </data>
+  <data name="EnterAPrefix" xml:space="preserve">
+    <value>접두사 입력</value>
+  </data>
+  <data name="AddPrefixMessage" xml:space="preserve">
+    <value>선택한 모든 게임의 이름 앞에 추가할 접두사를 입력하면 접두사 끝에 콜론과 공백이 자동으로 추가됩니다.</value>
+  </data>
+  <data name="RemovePrefixMessage" xml:space="preserve">
+    <value>선택한 모든 게임의 시작 부분에서 제거할 접두사를 입력하면 접두사 끝에 콜론과 공백이 자동으로 추가됩니다.</value>
+  </data>
+  <data name="RemoveAllDevices" xml:space="preserve">
+    <value>모든 장치 제거</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>온라인</value>
+  </data>
+  <data name="Offline" xml:space="preserve">
+    <value>오프라인</value>
+  </data>
+  <data name="PoweredBy0" xml:space="preserve">
+    <value>{0} 제공</value>
+  </data>
+  <data name="Scraping0" xml:space="preserve">
+    <value>{0} 스크랩 중</value>
+  </data>
+  <data name="DownloadingFrontArtFor0" xml:space="preserve">
+    <value>{0}의 앞면 Art 다운로드 중</value>
+  </data>
+  <data name="DownloadingClearLogoFor0" xml:space="preserve">
+    <value>{0}의 투명 로고 다운로드 중</value>
+  </data>
+  <data name="GeneratingSpineFor0" xml:space="preserve">
+    <value>{0}의 회전 생성 중</value>
+  </data>
+  <data name="Artwork" xml:space="preserve">
+    <value>삽화</value>
+  </data>
+  <data name="AutoScrapeKnownGames" xml:space="preserve">
+    <value>알려진 게임 자동 스크랩</value>
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value>둘 다</value>
+  </data>
+  <data name="ChooseWhatYouWouldLikeToScrape" xml:space="preserve">
+    <value>스크랩할 항목을 선택하면 기존 정보가 대체됩니다.</value>
+  </data>
+  <data name="Metadata" xml:space="preserve">
+    <value>메타데이터</value>
+  </data>
+  <data name="ThisWillReplaceAnyCustomInformationAndArtworkFromScraper" xml:space="preserve">
+    <value>이렇게 하면 모든 커스텀 정보와 삽화가 스크래퍼의 삽화로 대체됩니다.
+
+확실한가요?</value>
+  </data>
+  <data name="RunningAsAdministrator" xml:space="preserve">
+    <value>관리자 권한으로 실행</value>
+  </data>
+  <data name="RunningAsAdministratorMessage" xml:space="preserve">
+    <value>관리자 권한으로 실행하면 --allowAdministrator 인수를 사용하여 hakchi.exe를 관리자 권한으로 실행하려는 경우 문제가 발생할 수 있습니다.</value>
+  </data>
+  <data name="Scanning" xml:space="preserve">
+    <value>스캔 중...</value>
+  </data>
+  <data name="NoItemsSelected" xml:space="preserve">
+    <value>선택한 항목 없음</value>
+  </data>
+  <data name="_0ItemSelected1" xml:space="preserve">
+    <value>{0} 항목 선택됨, {1}</value>
+  </data>
+  <data name="_0ItemsSelected1" xml:space="preserve">
+    <value>{0} 항목 선택됨, {1}</value>
+  </data>
+  <data name="LicenseInformation" xml:space="preserve">
+    <value>라이센스 정보</value>
+  </data>
+  <data name="ExtractingToTemporaryFolder" xml:space="preserve">
+    <value>임시 폴더로 추출</value>
+  </data>
+</root>
