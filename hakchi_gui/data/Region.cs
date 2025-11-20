@@ -12,7 +12,7 @@ namespace com.clusterrr.hakchi_gui.data
         public string LocalizedNameKey { get; set; }
         public string[] DefaultNames { get; set; } = new string[] { };  //Considered from database when importing (and possible scraping?).
 
-        //DefaulNames have been populated with ones seen in the database but really this should be properly data driven...
+        //DefaultNames have been populated with ones seen in the database but really this should be properly data driven...
         public static IReadOnlyList<Region> RegionList = new List<Region>()
         {
             new Region(){
