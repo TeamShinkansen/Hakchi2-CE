@@ -261,7 +261,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
                                 group = sortedGroups[game.Metadata.Core];
                             break;
                         case MainForm.GamesSorting.Region:
-                            if (sortedGroups.ContainsKey(game.Desktop.Country))
+                            if (!string.IsNullOrEmpty(game.Desktop.Country) && sortedGroups.ContainsKey(game.Desktop.Country))
                                 group = sortedGroups[game.Desktop.Country];
                             break;
                     }

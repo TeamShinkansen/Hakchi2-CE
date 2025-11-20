@@ -698,11 +698,11 @@ namespace com.clusterrr.hakchi_gui
                 if (!string.IsNullOrEmpty(gameinfo.Publisher))
                     desktop.Publisher = gameinfo.Publisher.ToUpper();
 
-                var match = data.Region.RegionList.Where(r => r.DefaultNames.Contains(gameinfo.Region)).Select(g => g);
+                var match = data.Region.RegionList.FirstOrDefault(r => r.DefaultNames.Contains(gameinfo.Region));
 
-                if (match.Count() > 0)
+                if (match != null)
                 {
-                    desktop.Country = match.First().DesktopName;
+                    desktop.Country = match.DesktopName;
                 }
 
                 return true;
