@@ -27,6 +27,7 @@ namespace com.clusterrr.hakchi_gui
             Original_FoldersAlphabetic_PagesEqual = 11,
             FoldersGroupByApp = 12,
             FoldersGroupByGenre = 13,
+            FoldersGroupByRegion = 14,
             Custom = 99
         }
 
@@ -268,6 +269,45 @@ namespace com.clusterrr.hakchi_gui
 
                     var folder = new NesMenuFolder() { ChildMenuCollection = app.Value, Name = folderName, Position = NesMenuFolder.Priority.Right, ImageId = folderImageId };
                     
+                    folder.ChildMenuCollection.Add(new NesMenuFolder() { Name = Resources.FolderNameBack, ImageId = "folder_back", Position = ConfigIni.Instance.BackFolderPosition, ChildMenuCollection = root });
+                    root.Add(folder);
+                }
+            }
+            else if (style == SplitStyle.FoldersGroupByRegion)
+            {
+                var apps = new SortedDictionary<string, NesMenuCollection>();
+
+                foreach (var game in root.Where(e => e is NesApplication))
+                {
+                    NesApplication app = game as NesApplication;
+
+                    var region = app.Desktop.Country;
+                    if ((region ?? "") == "") region = "Unknown Region";
+
+                    if (!apps.ContainsKey(region))
+                    {
+                        apps[region] = new NesMenuCollection();
+                    }
+
+                    apps[region].Add(game);
+                }
+
+                root.Clear();
+
+                foreach (var app in apps.Where(e => e.Value.Count > 0))
+                {
+                    string folderImageId = "folder";
+                    string folderName = app.Key;
+
+                    data.Region regionInfo = null;
+                    if (data.Region.RegionDictionary.TryGetValue(app.Key, out regionInfo))
+                    {
+                        //Presumably we want the folder names to be localised. Not sure why genre folders forces the English name...
+                        folderName = regionInfo.LocalizedName;
+                    }
+
+                    var folder = new NesMenuFolder() { ChildMenuCollection = app.Value, Name = folderName, Position = NesMenuFolder.Priority.Right, ImageId = folderImageId };
+
                     folder.ChildMenuCollection.Add(new NesMenuFolder() { Name = Resources.FolderNameBack, ImageId = "folder_back", Position = ConfigIni.Instance.BackFolderPosition, ChildMenuCollection = root });
                     root.Add(folder);
                 }

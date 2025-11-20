@@ -73,6 +73,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonFoldersRegion = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -228,6 +229,7 @@
             this.tableLayoutPanelSplit.Controls.Add(this.buttonNoFoldersOriginal, 1, 0);
             this.tableLayoutPanelSplit.Controls.Add(this.buttonFoldersEqually, 0, 2);
             this.tableLayoutPanelSplit.Controls.Add(this.buttonFoldersGenre, 0, 5);
+            this.tableLayoutPanelSplit.Controls.Add(this.buttonFoldersRegion, 0, 6);
             this.tableLayoutPanelSplit.Name = "tableLayoutPanelSplit";
             // 
             // buttonFoldersApp
@@ -277,6 +279,14 @@
             this.buttonFoldersGenre.Name = "buttonFoldersGenre";
             this.buttonFoldersGenre.UseVisualStyleBackColor = true;
             this.buttonFoldersGenre.Click += new System.EventHandler(this.buttonFoldersGenre_Click);
+            // 
+            // buttonFoldersRegion
+            // 
+            this.tableLayoutPanelSplit.SetColumnSpan(this.buttonFoldersRegion, 2);
+            resources.ApplyResources(this.buttonFoldersRegion, "buttonFoldersRegion");
+            this.buttonFoldersRegion.Name = "buttonFoldersRegion";
+            this.buttonFoldersRegion.UseVisualStyleBackColor = true;
+            this.buttonFoldersRegion.Click += new System.EventHandler(this.buttonFoldersRegion_Click);
             // 
             // groupBoxArt
             // 
@@ -540,5 +550,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSplit;
         private System.Windows.Forms.Button buttonFoldersGenre;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button buttonFoldersRegion;
     }
 }

@@ -105,6 +105,14 @@ namespace com.clusterrr.hakchi_gui
                     if (releaseDate.Length == 7) releaseDate += "-01";
                 desktop.ReleaseDate = releaseDate;
                 desktop.Publisher = gameinfo.Publisher.ToUpper();
+
+                var match = data.Region.RegionList.FirstOrDefault(r => r.DefaultNames.Contains(gameinfo.Region));
+
+                if (match != null)
+                {
+                    desktop.Country = match.DesktopName;
+                }
+
                 return true;
             }
             return false;
