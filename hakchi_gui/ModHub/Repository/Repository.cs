@@ -64,14 +64,15 @@ namespace com.clusterrr.hakchi_gui.ModHub.Repository
 
             foreach (ItemKind kind in Enum.GetValues(typeof(ItemKind)))
             {
-                if (kind == ItemKind.Unknown) continue;
+                if (kind == ItemKind.Unknown)
+                    continue;
                 if (lowerFilename.EndsWith(kind.GetFileExtension()))
                     return kind;
             }
 
             return ItemKind.Unknown;
         }
-        
+
         public class Item
         {
             public string FileName { get; private set; }
@@ -184,7 +185,8 @@ namespace com.clusterrr.hakchi_gui.ModHub.Repository
                 // Start pack processing
                 var tempDict = new Dictionary<string, Item>();
                 var trackableStream = new TrackableStream(repoResponse.Result.Stream);
-                trackableStream.OnProgress += (long current, long total) => {
+                trackableStream.OnProgress += (long current, long total) =>
+                {
                     RepositoryProgress?.Invoke(current, repoResponse.Result.Length);
                 };
                 using (var reader = ReaderFactory.Open(trackableStream))
@@ -200,7 +202,7 @@ namespace com.clusterrr.hakchi_gui.ModHub.Repository
                         {
                             Readme = StreamToString(reader.OpenEntryStream());
                         }
-                        
+
                         var match = Regex.Match(reader.Entry.Key, @"^(?:\./)?([^/]+)/(extract|link|md5|sha1|readme(?:\.(?:md|txt)?)?)$", RegexOptions.IgnoreCase);
                         if (match.Success)
                         {
@@ -266,13 +268,13 @@ namespace com.clusterrr.hakchi_gui.ModHub.Repository
             {
                 throw new Exception($"HTTP request returned status {repoResponse.Result.Status}");
             }
-            
+
             var taskList = HTTPHelpers.GetHTTPResponseStringAsync(RepositoryListURL);
 
             taskList.Wait();
 
             list = (taskList.Result ?? "").Split("\n"[0]);
-            
+
             for (int i = 0; i < list.Length; i++)
             {
                 var mod = list[i];

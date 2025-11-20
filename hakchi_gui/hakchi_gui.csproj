@@ -94,7 +94,7 @@ Gert Driesen for SSH.NET.</Description>
     <PackageReference Include="LibUsbDotNet" Version="2.2.29" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="nQuant" Version="1.0.3" />
-    <PackageReference Include="SharpCompress" Version="0.38.0" />
+    <PackageReference Include="SharpCompress" Version="0.41.0" />
     <PackageReference Include="Tmds.MDns" Version="0.8.0" />
   </ItemGroup>
 
