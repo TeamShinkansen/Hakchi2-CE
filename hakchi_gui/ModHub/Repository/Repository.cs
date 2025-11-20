@@ -189,7 +189,9 @@ namespace com.clusterrr.hakchi_gui.ModHub.Repository
                 {
                     RepositoryProgress?.Invoke(current, repoResponse.Result.Length);
                 };
-                using (var reader = ReaderFactory.Open(trackableStream))
+
+                using (var decompressedStream = new System.IO.Compression.GZipStream(trackableStream, System.IO.Compression.CompressionMode.Decompress))
+                using (var reader = ReaderFactory.Open(decompressedStream))
                 {
                     while (reader.MoveToNextEntry())
                     {
