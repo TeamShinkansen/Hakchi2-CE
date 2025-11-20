@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
@@ -30,7 +31,7 @@ namespace com.clusterrr.hakchi_gui.Controls
 
         public void Deselect()
         {
-            
+
             foreach (var item in listView.Items.Cast<ListViewItem>())
             {
                 if (item.Selected)
@@ -47,7 +48,7 @@ namespace com.clusterrr.hakchi_gui.Controls
             {
                 if (searchThread.IsAlive)
                 {
-                    #warning Refactor this to get rid of Thread.Abort!
+#warning Refactor this to get rid of Thread.Abort!
                     searchThread.Abort();
                     searchThread = null;
                 }
@@ -76,7 +77,7 @@ namespace com.clusterrr.hakchi_gui.Controls
                 Trace.WriteLine("Web request: " + url);
                 var request = WebRequest.Create(url);
                 request.Credentials = CredentialCache.DefaultCredentials;
-                (request as HttpWebRequest).UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0";
+                (request as HttpWebRequest).UserAgent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/118 Safari/537.36";
                 request.Timeout = 10000;
                 var response = request.GetResponse();
                 Stream dataStream = response.GetResponseStream();
@@ -117,6 +118,23 @@ namespace com.clusterrr.hakchi_gui.Controls
                     }
                 }
 
+                // This is alternative method #3
+                matches = Regex.Matches(
+                    responseFromServer,
+                    @"\[""[^""]+gstatic[^\[]+\[""(https?:\/\/[^""]+)"", *\d+, *\d+]",
+                    RegexOptions.Multiline
+                );
+
+                foreach (Match m in matches)
+                {
+                    string urlFound = JsonSerializer.Deserialize<string>($"\"{m.Groups[1].Value}\"");
+
+                    if (!urls.Contains(urlFound))
+                    {
+                        urls.Add(urlFound);
+                    }
+                }
+
                 if (urls.Count == 0)
                 {
                     Trace.WriteLine("No results found");
@@ -124,7 +142,7 @@ namespace com.clusterrr.hakchi_gui.Controls
 
                 return urls.ToArray();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (tryCount < 5)
                 {
@@ -139,7 +157,7 @@ namespace com.clusterrr.hakchi_gui.Controls
                     return new string[] { };
                 }
             }
-            
+
         }
 
         private void SearchThread(string query, string additionalVariables)
@@ -169,14 +187,15 @@ namespace com.clusterrr.hakchi_gui.Controls
         {
             try
             {
-                if (this.Disposing) return;
+                if (this.Disposing)
+                    return;
                 if (InvokeRequired)
                 {
                     Invoke(new Action<Image>(ShowImage), new object[] { image });
                     return;
                 }
 
-                
+
                 int i = imageList.Images.Count;
                 const int side = 256;
                 var imageRect = new Bitmap(side, side, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
@@ -223,7 +242,8 @@ namespace com.clusterrr.hakchi_gui.Controls
 
         private Image GetSelectedImage()
         {
-            if (listView.SelectedItems.Count == 0) return null;
+            if (listView.SelectedItems.Count == 0)
+                return null;
             return listView.SelectedItems[0].Tag as Image;
         }
 
