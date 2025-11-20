@@ -665,7 +665,7 @@ http://darkakuma.z-net.us/p/sfromtool.html</value>
     <value>{0}의 Box Art 스캔 중</value>
   </data>
   <data name="ErrorRestoringAllOriginalGames" xml:space="preserve">
-    <value>원래 게임을 복원하는 동안 오류가 발생했습니다. 언제든지 파일 -&gt; 오리지널 게임 복원을 사용하여 사용하려는 게임 컬렉션에 대해 다시 시도할 수 있습니다.</
+    <value>원래 게임을 복원하는 동안 오류가 발생했습니다. 언제든지 파일 -&gt; 오리지널 게임 복원을 사용하여 사용하려는 게임 컬렉션에 대해 다시 시도할 수 있습니다.</value>
   </data>
   <data name="UninstallNote" xml:space="preserve">
     <value>완료되었습니다. 모든 것이 잘 되었다면 미니는 기본 커널을 실행해야 합니다.</value>
