@@ -56,6 +56,7 @@ Gert Driesen for SSH.NET.</Description>
     <BuildDependsOn>$(BuildDependsOn);MoveLanguageResourceFiles;</BuildDependsOn>
     <CleanDependsOn>$(CleanDependsOn); CustomAfterClean </CleanDependsOn>
     <Configurations>Debug;Release;Dumper</Configurations>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -78,6 +79,10 @@ Gert Driesen for SSH.NET.</Description>
     <EmbeddedResource Remove="Scrapers.Test\**" />
     <EmbeddedResource Remove="Scrapers\**" />
     <EmbeddedResource Remove="Zipper\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Remove="Properties\app.manifest" />
   </ItemGroup>
 
   <ItemGroup>
