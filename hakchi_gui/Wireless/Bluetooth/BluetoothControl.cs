@@ -125,8 +125,8 @@ namespace com.clusterrr.hakchi_gui.Wireless.Bluetooth
         {
             if (cmdThread?.IsAlive ?? false)
             {
-                #warning Refactor this to get rid of Thread.Abort!
-                cmdThread.Abort();
+                cmdConnection?.Close();
+                cmdThread.Interrupt();
             }
             cmdThread = null;
             _cmdQueue.Clear();
@@ -390,7 +390,7 @@ namespace com.clusterrr.hakchi_gui.Wireless.Bluetooth
                 cmdWriter = null;
                 cmdStream = null;
             }
-            catch (ThreadAbortException)
+            catch (ThreadInterruptedException)
             {
                 if (cmdConnection?.Connected ?? false)
                 {

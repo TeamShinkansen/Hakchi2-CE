@@ -296,8 +296,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
         {
             if (thread != null)
             {
-                #warning Refactor this to get rid of Thread.Abort!
-                thread.Abort();
+                thread.Interrupt();
             }
         }
 
@@ -421,7 +420,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
                     ++doneTasks;
                 }
             }
-            catch (ThreadAbortException)
+            catch (ThreadInterruptedException)
             {
                 Trace.WriteLine("Thread aborted");
                 if (TaskConclusion == Conclusion.Undefined)
