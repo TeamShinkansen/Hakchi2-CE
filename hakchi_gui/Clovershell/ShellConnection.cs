@@ -77,7 +77,7 @@ namespace com.clusterrr.clovershell
                         break;
                 }
             }
-            catch (ThreadAbortException)
+            catch (ThreadInterruptedException)
             {
             }
             catch (Exception ex)
@@ -98,12 +98,11 @@ namespace com.clusterrr.clovershell
 
         public void Dispose()
         {
-            #warning Refactor this to get rid of Thread.Abort!
-            if (shellConnectionThread != null)
-                shellConnectionThread.Abort();
             if (socket != null)
                 socket.Close();
             socket = null;
+            if (shellConnectionThread != null)
+                shellConnectionThread.Interrupt();
             if (id > 0)
                 connection.shellConnections[id] = null;
         }

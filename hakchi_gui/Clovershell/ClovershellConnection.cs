@@ -74,9 +74,8 @@ namespace com.clusterrr.clovershell
                 }
                 else
                 {
-                    #warning Refactor this to get rid of Thread.Abort!
                     if (mainThread != null)
-                        mainThread.Abort();
+                        mainThread.Interrupt();
                     mainThread = null;
                     online = false;
                     if (device != null)
@@ -128,8 +127,7 @@ namespace com.clusterrr.clovershell
                 }
                 else
                 {
-                    #warning Refactor this to get rid of Thread.Abort!
-                    shellListenerThread.Abort();
+                    shellListenerThread.Interrupt();
                     shellListenerThread = null;
                 }
                 for (var i = 0; i < shellConnections.Length; i++)
@@ -268,7 +266,7 @@ namespace com.clusterrr.clovershell
                             }
                             break;
                         }
-                        catch (ThreadAbortException)
+                        catch (ThreadInterruptedException)
                         {
                             return;
                         }
@@ -298,7 +296,7 @@ namespace com.clusterrr.clovershell
                     Thread.Sleep(1000);
                 }
             }
-            catch (ThreadAbortException)
+            catch (ThreadInterruptedException)
             {
                 return;
             }
@@ -474,7 +472,7 @@ namespace com.clusterrr.clovershell
                                 throw new ClovershellException("shell request timeout");
                         }
                     }
-                    catch (ThreadAbortException)
+                    catch (ThreadInterruptedException)
                     {
                         return;
                     }
@@ -487,7 +485,7 @@ namespace com.clusterrr.clovershell
                     }
                 }
             }
-            catch (ThreadAbortException)
+            catch (ThreadInterruptedException)
             {
                 return;
             }

@@ -21,3 +21,5 @@ GeneratedData/
 Installer/**/
 Web Installer/**/
 ZIP Files/**/
+Build
+tools/busybox.exe

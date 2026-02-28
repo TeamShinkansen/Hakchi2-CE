@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <AssemblyName>hakchi</AssemblyName>
     <RootNamespace>com.clusterrr.hakchi_gui</RootNamespace>
 	  <UseWindowsForms>true</UseWindowsForms>
@@ -114,10 +114,6 @@ Gert Driesen for SSH.NET.</Description>
     <ProjectReference Include="..\Libraries\SSH.NET\src\Renci.SshNet\Renci.SshNet.csproj" />
     <ProjectReference Include="..\Libraries\tiny7z\tiny7z\tiny7z.csproj" />
     <ProjectReference Include="..\Scrapers\Scrapers.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.Web" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)|$(Platform)'!='Dumper|AnyCPU'">

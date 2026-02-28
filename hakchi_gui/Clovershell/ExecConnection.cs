@@ -76,7 +76,7 @@ namespace com.clusterrr.clovershell
                 }
                 stdinFinished = true;
             }
-            catch (ThreadAbortException) { }
+            catch (ThreadInterruptedException) { }
             catch (ClovershellException ex)
             {
                 Trace.WriteLine("stdin error: " + ex.Message + ex.StackTrace);
@@ -89,9 +89,8 @@ namespace com.clusterrr.clovershell
 
         public void Dispose()
         {
-            #warning Refactor this to get rid of Thread.Abort!
             if (stdinThread != null)
-                stdinThread.Abort();            
+                stdinThread.Interrupt();            
         }
     }
 

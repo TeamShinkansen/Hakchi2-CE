@@ -60,8 +60,7 @@ namespace com.clusterrr.ssh
                 {
                     if (connectThread != null)
                     {
-                        #warning Refactor this to get rid of Thread.Abort!
-                        connectThread.Abort();
+                        connectThread.Interrupt();
                         connectThread = null;
                     }
                     if (listeners != null)
@@ -206,7 +205,7 @@ namespace com.clusterrr.ssh
                         }
                         Thread.Sleep(500);
                     }
-                    catch (ThreadAbortException)
+                    catch (ThreadInterruptedException)
                     {
                         return;
                     }
@@ -216,7 +215,7 @@ namespace com.clusterrr.ssh
                     }
                 }
             }
-            catch (ThreadAbortException)
+            catch (ThreadInterruptedException)
             {
                 return;
             }

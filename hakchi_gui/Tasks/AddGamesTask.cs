@@ -229,7 +229,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
                 }
                 catch (Exception ex)
                 {
-                    if (ex is ThreadAbortException) return Tasker.Conclusion.Abort;
+                    if (ex is ThreadInterruptedException) return Tasker.Conclusion.Abort;
                     if (ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message))
                     {
                         Trace.WriteLine(ex.InnerException.Message + ex.InnerException.StackTrace);
