@@ -18,6 +18,7 @@ namespace com.clusterrr.hakchi_gui.Wireless.Bluetooth
         public event OnDataHandler OnData;
 
         private Thread cmdThread;
+        private CancellationTokenSource _cmdCts;
         private TcpClient cmdConnection;
         private NetworkStream cmdStream;
         private StreamReader cmdReader;
@@ -105,6 +106,7 @@ namespace com.clusterrr.hakchi_gui.Wireless.Bluetooth
 
             Address = address;
             Port = port;
+            _cmdCts = new CancellationTokenSource();
             cmdThread = new Thread(ListenerThread);
             cmdThread.Start();
 
@@ -125,8 +127,8 @@ namespace com.clusterrr.hakchi_gui.Wireless.Bluetooth
         {
             if (cmdThread?.IsAlive ?? false)
             {
-                #warning Refactor this to get rid of Thread.Abort!
-                cmdThread.Abort();
+                _cmdCts?.Cancel();
+                cmdConnection?.Close();
             }
             cmdThread = null;
             _cmdQueue.Clear();
@@ -390,7 +392,7 @@ namespace com.clusterrr.hakchi_gui.Wireless.Bluetooth
                 cmdWriter = null;
                 cmdStream = null;
             }
-            catch (ThreadAbortException)
+            catch (OperationCanceledException)
             {
                 if (cmdConnection?.Connected ?? false)
                 {

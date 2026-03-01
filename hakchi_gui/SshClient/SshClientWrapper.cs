@@ -19,6 +19,7 @@ namespace com.clusterrr.ssh
 
         private SshClient sshClient;
         private Thread connectThread;
+        private CancellationTokenSource _connectCts;
         private List<IListener> listeners;
 
         private bool enabled;
@@ -52,6 +53,7 @@ namespace com.clusterrr.ssh
                     // start connection watching thread
                     if (connectThread == null)
                     {
+                        _connectCts = new CancellationTokenSource();
                         connectThread = new Thread(connectThreadLoop);
                         connectThread.Start();
                     }
@@ -60,8 +62,7 @@ namespace com.clusterrr.ssh
                 {
                     if (connectThread != null)
                     {
-                        #warning Refactor this to get rid of Thread.Abort!
-                        connectThread.Abort();
+                        _connectCts?.Cancel();
                         connectThread = null;
                     }
                     if (listeners != null)
@@ -111,6 +112,7 @@ namespace com.clusterrr.ssh
         {
             sshClient = null;
             connectThread = null;
+            _connectCts = new CancellationTokenSource();
             listeners = null;
             enabled = false;
             hasConnected = false;
@@ -177,7 +179,7 @@ namespace com.clusterrr.ssh
         {
             try
             {
-                while (true)
+                while (!_connectCts.IsCancellationRequested)
                 {
                     try
                     {
@@ -206,7 +208,7 @@ namespace com.clusterrr.ssh
                         }
                         Thread.Sleep(500);
                     }
-                    catch (ThreadAbortException)
+                    catch (OperationCanceledException)
                     {
                         return;
                     }
@@ -216,7 +218,7 @@ namespace com.clusterrr.ssh
                     }
                 }
             }
-            catch (ThreadAbortException)
+            catch (OperationCanceledException)
             {
                 return;
             }

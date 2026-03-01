@@ -661,11 +661,13 @@ namespace com.clusterrr.hakchi_gui
 
             var stdErr = new MemoryStream();
             SplitterStream splitStream = new SplitterStream(stdErr).AddStreams(Program.debugStreams);
+            var transferCts = new CancellationTokenSource();
             var transferThread = new Thread(() =>
             {
                 try
                 {
                     Thread.Sleep(1000);
+                    transferCts.Token.ThrowIfCancellationRequested();
                     stdErr.Seek(0, SeekOrigin.Begin);
                     using (var sr = new StreamReader(stdErr))
                     {
@@ -673,18 +675,19 @@ namespace com.clusterrr.hakchi_gui
                         var match = Regex.Match(line, "^listening on (\\d+\\.\\d+\\.\\d+\\.\\d+):(\\d+)");
                         stdErr.Close();
                         splitStream.RemoveStream(stdErr).AddStreams(stderr);
+                        transferCts.Token.ThrowIfCancellationRequested();
                         if (match.Success)
                         {
                             SocketTransfer((hakchi.Shell as INetworkShell).IPAddress, int.Parse(match.Groups[2].Value), stdin, stdout);
                         }
                     }
                 }
-                catch (ThreadAbortException) { }
+                catch (OperationCanceledException) { }
             });
+            transferThread.IsBackground = true;
             transferThread.Start();
             int returnValue = hakchi.Shell.Execute($"nc -lv -w 60 -i 60 -s 0.0.0.0 -e {command}", null, null, splitStream, timeout, throwOnNonZero);
-            #warning Refactor this to get rid of Thread.Abort!
-            transferThread.Abort();
+            transferCts.Cancel();
             return returnValue;
         }
 

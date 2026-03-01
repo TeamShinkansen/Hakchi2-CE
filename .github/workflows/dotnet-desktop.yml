@@ -35,10 +35,10 @@ jobs:
         with:
           nsis-version: '3.10'
 
-      - name: Set up .NET Core SDK 3.0
+      - name: Set up .NET Core SDK 9.0
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '3.0.x'
+          dotnet-version: '9.0.x'
 
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
@@ -63,7 +63,7 @@ jobs:
 
       - name: Run Hakchi Version Script
         run: |
-          $exePath = "${{ github.workspace }}\hakchi_gui\bin\Debug\net48\hakchi.exe"
+          $exePath = "${{ github.workspace }}\hakchi_gui\bin\Debug\net9.0-windows\hakchi.exe"
           $versionPath = "${{ github.workspace }}\displayVersion.txt"
           Start-Process -FilePath $exePath -ArgumentList @("--versionFormat", "{0}", "--versionFile", $versionPath) -Wait
           $version = Get-Content -Path $versionPath | Out-String
@@ -75,7 +75,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: hakchi2-ce-${{ env.displayVersion }}-portable
-          path: ${{ github.workspace }}\hakchi_gui\bin\Debug\net48\
+          path: ${{ github.workspace }}\hakchi_gui\bin\Debug\net9.0-windows\
 
       - name: Upload Artifacts (Installer)
         uses: actions/upload-artifact@v4

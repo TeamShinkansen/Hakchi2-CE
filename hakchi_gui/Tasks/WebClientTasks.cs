@@ -80,7 +80,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
                         }
                     }
                 }
-                catch (ThreadAbortException) { }
+                catch (OperationCanceledException) { }
                 catch (Exception e)
                 {
                     if (!successOnError)

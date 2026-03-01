@@ -122,7 +122,7 @@ namespace com.clusterrr.hakchi_gui
                     buttonImport.Enabled = true;
                 }));
             }
-            catch (ThreadAbortException) { }
+            catch (OperationCanceledException) { }
             catch (ObjectDisposedException) { }
             catch (Exception ex)
             {
@@ -164,7 +164,7 @@ namespace com.clusterrr.hakchi_gui
                     }));
                 }
             }
-            catch (ThreadAbortException) { }
+            catch (OperationCanceledException) { }
             catch (ObjectDisposedException) { }
             catch (Exception ex)
             {
@@ -245,7 +245,7 @@ namespace com.clusterrr.hakchi_gui
                     }
                 }
             }
-            catch (ThreadAbortException) { }
+            catch (OperationCanceledException) { }
             catch (ObjectDisposedException) { }
             catch (Exception ex)
             {
