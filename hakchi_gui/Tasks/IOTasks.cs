@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Security.AccessControl;
 using static com.clusterrr.hakchi_gui.Tasks.Tasker;
 
 namespace com.clusterrr.hakchi_gui.Tasks
@@ -37,14 +36,6 @@ namespace com.clusterrr.hakchi_gui.Tasks
             return (Tasker tasker, Object sync) =>
             {
                 Directory.CreateDirectory(path);
-                return Conclusion.Success;
-            };
-        }
-        public static TaskFunc DirectoryCreate(string path, DirectorySecurity directorySecurity)
-        {
-            return (Tasker tasker, Object sync) =>
-            {
-                Directory.CreateDirectory(path, directorySecurity);
                 return Conclusion.Success;
             };
         }

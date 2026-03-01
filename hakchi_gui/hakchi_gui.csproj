@@ -53,6 +53,7 @@ Gert Driesen for SSH.NET.</Description>
 	  <RepositoryUrl>https://github.com/TeamShinkansen/Hakchi2-CE</RepositoryUrl>
 	  <RepositoryType>git</RepositoryType>
 	  <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <NoWarn>$(NoWarn);WFO1000</NoWarn>
     <BuildDependsOn>$(BuildDependsOn);MoveLanguageResourceFiles;</BuildDependsOn>
     <CleanDependsOn>$(CleanDependsOn); CustomAfterClean </CleanDependsOn>
     <Configurations>Debug;Release;Dumper</Configurations>
