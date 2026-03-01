@@ -32,7 +32,9 @@ namespace com.clusterrr.hakchi_gui
             public IScraper SelectedScraper { get; set; } = null;
             public Thread ScraperFetchThread { get; set; } = null;
             public Thread ScraperImageFetchThread { get; set; } = null;
+            public CancellationTokenSource ScraperImageFetchCts { get; set; } = null;
             public Thread ScraperSpineFetchThread { get; set; } = null;
+            public CancellationTokenSource ScraperSpineFetchCts { get; set; } = null;
             public override string ToString() => Result.Game.Name;
         }
         public class Result
@@ -85,6 +87,7 @@ namespace com.clusterrr.hakchi_gui
         }
 
         private List<Thread> Threads = new List<Thread>();
+        private CancellationTokenSource _formCts = new CancellationTokenSource();
 
         private static Dictionary<IScraper, List<Task>> GetScraperTaskDictionary()
         {
@@ -302,9 +305,9 @@ namespace com.clusterrr.hakchi_gui
                         item.ScraperTasks[scraper].Add(resultsTask);
                         try
                         {
-                            resultsTask.Wait();
+                            resultsTask.Wait(_formCts.Token);
                         } 
-                        catch (ThreadAbortException ex)
+                        catch (OperationCanceledException)
                         {
                             Threads.Remove(Thread.CurrentThread);
                             item.ScraperTasks[scraper].Remove(resultsTask);
@@ -580,13 +583,14 @@ namespace com.clusterrr.hakchi_gui
                         textBoxDescription.Text = result.Description;
                     }
 
-                    #warning Refactor this to get rid of Thread.Abort!
-                    SelectedItem.ScraperImageFetchThread?.Abort();
+                    SelectedItem.ScraperImageFetchCts?.Cancel();
+                    SelectedItem.ScraperImageFetchCts = new CancellationTokenSource();
                     SelectedItem.ScraperImageFetchThread = new Thread(() =>
                     {
                         Threads.Add(Thread.CurrentThread);
                         var item = SelectedItem;
                         var innerResult = result;
+                        var token = item.ScraperImageFetchCts?.Token ?? CancellationToken.None;
                         try
                         {
                             var frontImages = innerResult.Images.Where(i => i.Type == TeamShinkansen.Scrapers.Enums.ArtType.Front);
@@ -602,6 +606,7 @@ namespace com.clusterrr.hakchi_gui
 
                                 using (var wc = new HakchiWebClient())
                                 {
+                                    token.ThrowIfCancellationRequested();
                                     var imageData = wc.DownloadData(frontUrl);
                                     using (var ms = new MemoryStream(imageData)) 
                                     {
@@ -624,7 +629,7 @@ namespace com.clusterrr.hakchi_gui
                             }
 
                         }
-                        catch (ThreadAbortException ex) { }
+                        catch (OperationCanceledException) { }
                         catch (WebException ex) { }
                         finally
                         {
@@ -634,13 +639,14 @@ namespace com.clusterrr.hakchi_gui
                     });
                     SelectedItem.ScraperImageFetchThread.Start();
 
-                    #warning Refactor this to get rid of Thread.Abort!
-                    SelectedItem.ScraperSpineFetchThread?.Abort();
+                    SelectedItem.ScraperSpineFetchCts?.Cancel();
+                    SelectedItem.ScraperSpineFetchCts = new CancellationTokenSource();
                     SelectedItem.ScraperSpineFetchThread = new Thread(() =>
                     {
                         Threads.Add(Thread.CurrentThread);
                         var item = SelectedItem;
                         var innerResult = result;
+                        var token = item.ScraperSpineFetchCts?.Token ?? CancellationToken.None;
                         try
                         {
                             if (innerResult is TeamShinkansen.Scrapers.TheGamesDB.ScraperData)
@@ -650,6 +656,7 @@ namespace com.clusterrr.hakchi_gui
                                 {
                                     try
                                     {
+                                        token.ThrowIfCancellationRequested();
                                         var imageData = wc.DownloadData($"https://cdn.thegamesdb.net/images/original/clearlogo/{tgdbResult.ID}.png");
 
                                         using (var ms = new MemoryStream(imageData))
@@ -674,7 +681,7 @@ namespace com.clusterrr.hakchi_gui
                                 }
                             }
                         }
-                        catch (ThreadAbortException ex) { }
+                        catch (OperationCanceledException) { }
                         finally
                         {
                             item.ScraperSpineFetchThread = null;
@@ -770,9 +777,9 @@ namespace com.clusterrr.hakchi_gui
                                 item.ScraperTasks[scraper].Add(resultsTask);
                                 try
                                 {
-                                    resultsTask.Wait();
+                                    resultsTask.Wait(_formCts.Token);
                                 }
-                                catch (ThreadAbortException ex)
+                                catch (OperationCanceledException)
                                 {
                                     Threads.Remove(Thread.CurrentThread);
                                     item.ScraperTasks[scraper].Remove(resultsTask);
@@ -827,12 +834,7 @@ namespace com.clusterrr.hakchi_gui
 
         private void ScraperForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            foreach (var thread in Threads.ToArray())
-            {             
-                #warning Refactor this to get rid of Thread.Abort!
-                if (thread != null && thread.IsAlive)
-                    thread.Abort();
-            }
+            _formCts.Cancel();
         }
 
         private void ScraperForm_Shown(object sender, EventArgs e)
@@ -899,9 +901,9 @@ namespace com.clusterrr.hakchi_gui
                     item.ScraperTasks[scraper].Add(resultsTask);
                     try
                     {
-                        resultsTask.Wait();
+                        resultsTask.Wait(_formCts.Token);
                     }
-                    catch (ThreadAbortException ex)
+                    catch (OperationCanceledException)
                     {
                         Threads.Remove(Thread.CurrentThread);
                         item.ScraperTasks[scraper].Remove(resultsTask);

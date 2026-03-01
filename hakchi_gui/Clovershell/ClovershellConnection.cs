@@ -23,6 +23,8 @@ namespace com.clusterrr.clovershell
         UsbEndpointWriter epWriter = null;
         Thread mainThread = null;
         Thread shellListenerThread = null;
+        CancellationTokenSource _mainCts = null;
+        CancellationTokenSource _shellCts = null;
         bool online = false;
         ushort shellPort = 1023;
         Queue<ShellConnection> pendingShellConnections = new Queue<ShellConnection>();
@@ -70,13 +72,16 @@ namespace com.clusterrr.clovershell
                 if (value)
                 {
                     mainThread = new Thread(mainThreadLoop);
+                    _mainCts = new CancellationTokenSource();
                     mainThread.Start();
                 }
                 else
                 {
-                    #warning Refactor this to get rid of Thread.Abort!
+                    _mainCts?.Cancel();
                     if (mainThread != null)
-                        mainThread.Abort();
+                    {
+                        if (device != null) device.Close();
+                    }
                     mainThread = null;
                     online = false;
                     if (device != null)
@@ -123,13 +128,13 @@ namespace com.clusterrr.clovershell
                     var server = new TcpListener(IPAddress.Any, shellPort);
                     Trace.WriteLine(string.Format("Listening port {0}", shellPort));
                     server.Start();
+                    _shellCts = new CancellationTokenSource();
                     shellListenerThread = new Thread(shellListenerThreadLoop);
                     shellListenerThread.Start(server);
                 }
                 else
                 {
-                    #warning Refactor this to get rid of Thread.Abort!
-                    shellListenerThread.Abort();
+                    _shellCts?.Cancel();
                     shellListenerThread = null;
                 }
                 for (var i = 0; i < shellConnections.Length; i++)
@@ -268,7 +273,7 @@ namespace com.clusterrr.clovershell
                             }
                             break;
                         }
-                        catch (ThreadAbortException)
+                        catch (OperationCanceledException)
                         {
                             return;
                         }
@@ -295,10 +300,11 @@ namespace com.clusterrr.clovershell
                         epWriter.Dispose();
                     epWriter = null;
                     if (!autoreconnect) Enabled = false;
+                    if (_mainCts?.IsCancellationRequested ?? false) return;
                     Thread.Sleep(1000);
                 }
             }
-            catch (ThreadAbortException)
+            catch (OperationCanceledException)
             {
                 return;
             }
@@ -455,9 +461,13 @@ namespace com.clusterrr.clovershell
             var server = o as TcpListener;
             try
             {
-                while (true)
+                while (!(_shellCts?.IsCancellationRequested ?? false))
                 {
-                    while (!server.Pending()) Thread.Sleep(100);
+                    while (!server.Pending())
+                    {
+                        if (_shellCts?.IsCancellationRequested ?? false) return;
+                        Thread.Sleep(100);
+                    }
                     var connection = new ShellConnection(this, server.AcceptSocket());
                     Trace.WriteLine("Shell client connected");
                     try
@@ -468,13 +478,14 @@ namespace com.clusterrr.clovershell
                         int t = 0;
                         while (connection.id < 0)
                         {
+                            if (_shellCts?.IsCancellationRequested ?? false) return;
                             Thread.Sleep(50);
                             t++;
                             if (t >= 50)
                                 throw new ClovershellException("shell request timeout");
                         }
                     }
-                    catch (ThreadAbortException)
+                    catch (OperationCanceledException)
                     {
                         return;
                     }
@@ -487,7 +498,7 @@ namespace com.clusterrr.clovershell
                     }
                 }
             }
-            catch (ThreadAbortException)
+            catch (OperationCanceledException)
             {
                 return;
             }
@@ -531,6 +542,7 @@ namespace com.clusterrr.clovershell
                 execConnections[arg] = connection;
                 if (connection.stdin != null)
                 {
+                    connection.stdinCts = new CancellationTokenSource();
                     connection.stdinThread = new Thread(connection.stdinLoop);
                     connection.stdinThread.Start();
                 }

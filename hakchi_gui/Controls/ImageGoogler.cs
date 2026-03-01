@@ -27,6 +27,7 @@ namespace com.clusterrr.hakchi_gui.Controls
         public event ImageDeselected OnImageDeselected;
         public List<SearchQuery> Queries { get; } = new List<SearchQuery>();
         private Thread searchThread;
+        private CancellationTokenSource _searchCts;
         private List<string> downloadedUrls = new List<string>();
 
         public void Deselect()
@@ -48,18 +49,18 @@ namespace com.clusterrr.hakchi_gui.Controls
             {
                 if (searchThread.IsAlive)
                 {
-#warning Refactor this to get rid of Thread.Abort!
-                    searchThread.Abort();
+                    _searchCts?.Cancel();
                     searchThread = null;
                 }
             }
+            _searchCts = new CancellationTokenSource();
             searchThread = new Thread(() =>
             {
                 foreach (var image in customResults)
                     ShowImage(image);
 
                 foreach (var query in Queries)
-                    SearchThread(query.Query, query.AdditionalVariables);
+                    SearchThread(query.Query, query.AdditionalVariables, _searchCts.Token);
             });
             searchThread.Start();
         }
@@ -160,7 +161,7 @@ namespace com.clusterrr.hakchi_gui.Controls
 
         }
 
-        private void SearchThread(string query, string additionalVariables)
+        private void SearchThread(string query, string additionalVariables, CancellationToken token = default)
         {
             try
             {
@@ -169,6 +170,7 @@ namespace com.clusterrr.hakchi_gui.Controls
                 {
                     try
                     {
+                        token.ThrowIfCancellationRequested();
                         if (!downloadedUrls.Contains(url))
                         {
                             downloadedUrls.Add(url);
@@ -180,7 +182,7 @@ namespace com.clusterrr.hakchi_gui.Controls
                     catch { }
                 }
             }
-            catch (ThreadAbortException) { }
+            catch (OperationCanceledException) { }
         }
 
         protected void ShowImage(Image image)

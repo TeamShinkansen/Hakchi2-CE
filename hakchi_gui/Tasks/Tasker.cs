@@ -292,13 +292,11 @@ namespace com.clusterrr.hakchi_gui.Tasks
             return this;
         }
 
+        public CancellationToken CancellationToken => _cts.Token;
+
         public void Abort()
         {
-            if (thread != null)
-            {
-                #warning Refactor this to get rid of Thread.Abort!
-                thread.Abort();
-            }
+            _cts.Cancel();
         }
 
         // Views-related methods
@@ -333,6 +331,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
             this.TaskConclusion = Conclusion.Undefined;
             this.doneTasks = 0;
             this.doneWeight = 0;
+            this._cts = new CancellationTokenSource();
 
             // set up thread
             thread = new Thread(startThread);
@@ -367,6 +366,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
             this.tasks = new Queue<Task>();
             this.finalTask = null;
             this.thread = null;
+            this._cts = new CancellationTokenSource();
             this.titleSet = false;
             this.doneTasks = 0;
             this.doneWeight = 0;
@@ -379,6 +379,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
         private Queue<Task> tasks;
         private Task finalTask;
         private Thread thread;
+        private CancellationTokenSource _cts;
         private bool titleSet;
         private int doneTasks;
         private int doneWeight;
@@ -396,6 +397,9 @@ namespace com.clusterrr.hakchi_gui.Tasks
                 bool firstTask = true;
                 while (tasks.Any())
                 {
+                    // check for cancellation between tasks
+                    _cts.Token.ThrowIfCancellationRequested();
+
                     // pop out next task
                     CurrentTask = tasks.Dequeue();
                     Trace.WriteLine("Executing task: " + CurrentTask.displayName);
@@ -421,9 +425,9 @@ namespace com.clusterrr.hakchi_gui.Tasks
                     ++doneTasks;
                 }
             }
-            catch (ThreadAbortException)
+            catch (OperationCanceledException)
             {
-                Trace.WriteLine("Thread aborted");
+                Trace.WriteLine("Thread cancelled");
                 if (TaskConclusion == Conclusion.Undefined)
                 {
                     TaskConclusion = Conclusion.Abort;
@@ -467,6 +471,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
         public void Dispose()
         {
             this.views.ForEach(view => { if (view is IDisposable) (view as IDisposable).Dispose(); });
+            _cts?.Dispose();
             GC.Collect();
         }
 

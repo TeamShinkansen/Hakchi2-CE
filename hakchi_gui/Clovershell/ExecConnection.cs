@@ -20,6 +20,7 @@ namespace com.clusterrr.clovershell
         internal bool stdinFinished;
         internal bool stdoutFinished;
         internal bool stderrFinished;
+        internal CancellationTokenSource stdinCts;
         internal Thread stdinThread;
         internal DateTime LastDataTime;
 
@@ -51,6 +52,7 @@ namespace com.clusterrr.clovershell
                 int l;
                 while (connection.IsOnline)
                 {
+                    stdinCts?.Token.ThrowIfCancellationRequested();
                     l = stdin.Read(buffer, 0, buffer.Length);
                     if (l > 0)
                         connection.writeUsb(ClovershellConnection.ClovershellCommand.CMD_EXEC_STDIN, (byte)id, buffer, 0, l);
@@ -76,7 +78,7 @@ namespace com.clusterrr.clovershell
                 }
                 stdinFinished = true;
             }
-            catch (ThreadAbortException) { }
+            catch (OperationCanceledException) { }
             catch (ClovershellException ex)
             {
                 Trace.WriteLine("stdin error: " + ex.Message + ex.StackTrace);
@@ -89,9 +91,7 @@ namespace com.clusterrr.clovershell
 
         public void Dispose()
         {
-            #warning Refactor this to get rid of Thread.Abort!
-            if (stdinThread != null)
-                stdinThread.Abort();            
+            stdinCts?.Cancel();
         }
     }
 

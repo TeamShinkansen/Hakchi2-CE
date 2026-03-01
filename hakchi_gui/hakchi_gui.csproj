@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <AssemblyName>hakchi</AssemblyName>
     <RootNamespace>com.clusterrr.hakchi_gui</RootNamespace>
 	  <UseWindowsForms>true</UseWindowsForms>
