@@ -33,6 +33,8 @@ namespace com.clusterrr.hakchi_gui
             public Thread ScraperFetchThread { get; set; } = null;
             public Thread ScraperImageFetchThread { get; set; } = null;
             public Thread ScraperSpineFetchThread { get; set; } = null;
+            public CancellationTokenSource ScraperImageFetchCancellationTokenSource { get; set; } = null;
+            public CancellationTokenSource ScraperSpineFetchCancellationTokenSource { get; set; } = null;
             public override string ToString() => Result.Game.Name;
         }
         public class Result
@@ -580,10 +582,14 @@ namespace com.clusterrr.hakchi_gui
                         textBoxDescription.Text = result.Description;
                     }
 
-                    #warning Refactor this to get rid of Thread.Abort!
-                    SelectedItem.ScraperImageFetchThread?.Abort();
+                    SelectedItem.ScraperImageFetchCancellationTokenSource?.Cancel();
+                    SelectedItem.ScraperImageFetchCancellationTokenSource?.Dispose();
+                    SelectedItem.ScraperImageFetchCancellationTokenSource = new CancellationTokenSource();
+                    var imageFetchTokenSource = SelectedItem.ScraperImageFetchCancellationTokenSource;
+                    var imageFetchToken = imageFetchTokenSource.Token;
                     SelectedItem.ScraperImageFetchThread = new Thread(() =>
                     {
+                        if (imageFetchToken.IsCancellationRequested) return;
                         Threads.Add(Thread.CurrentThread);
                         var item = SelectedItem;
                         var innerResult = result;
@@ -594,6 +600,7 @@ namespace com.clusterrr.hakchi_gui
                             if (frontImages.Count() > 0)
                             {
                                 var frontUrl = frontImages.First().Url;
+                                if (imageFetchToken.IsCancellationRequested) return;
 
                                 Invoke(new Action(() =>
                                 {
@@ -605,6 +612,7 @@ namespace com.clusterrr.hakchi_gui
                                     var imageData = wc.DownloadData(frontUrl);
                                     using (var ms = new MemoryStream(imageData)) 
                                     {
+                                        if (imageFetchToken.IsCancellationRequested) return;
                                         ms.Seek(0, SeekOrigin.Begin);
                                         var bitmap = new Bitmap(ms);
                                         item.Result.FrontArt = bitmap;
@@ -624,20 +632,29 @@ namespace com.clusterrr.hakchi_gui
                             }
 
                         }
-                        catch (ThreadAbortException ex) { }
+                        catch (OperationCanceledException ex) { }
                         catch (WebException ex) { }
                         finally
                         {
                             item.ScraperImageFetchThread = null;
+                            if (item.ScraperImageFetchCancellationTokenSource == imageFetchTokenSource)
+                            {
+                                item.ScraperImageFetchCancellationTokenSource?.Dispose();
+                                item.ScraperImageFetchCancellationTokenSource = null;
+                            }
                         }
                         Threads.Remove(Thread.CurrentThread);
                     });
                     SelectedItem.ScraperImageFetchThread.Start();
 
-                    #warning Refactor this to get rid of Thread.Abort!
-                    SelectedItem.ScraperSpineFetchThread?.Abort();
+                    SelectedItem.ScraperSpineFetchCancellationTokenSource?.Cancel();
+                    SelectedItem.ScraperSpineFetchCancellationTokenSource?.Dispose();
+                    SelectedItem.ScraperSpineFetchCancellationTokenSource = new CancellationTokenSource();
+                    var spineFetchTokenSource = SelectedItem.ScraperSpineFetchCancellationTokenSource;
+                    var spineFetchToken = spineFetchTokenSource.Token;
                     SelectedItem.ScraperSpineFetchThread = new Thread(() =>
                     {
+                        if (spineFetchToken.IsCancellationRequested) return;
                         Threads.Add(Thread.CurrentThread);
                         var item = SelectedItem;
                         var innerResult = result;
@@ -650,10 +667,12 @@ namespace com.clusterrr.hakchi_gui
                                 {
                                     try
                                     {
+                                        if (spineFetchToken.IsCancellationRequested) return;
                                         var imageData = wc.DownloadData($"https://cdn.thegamesdb.net/images/original/clearlogo/{tgdbResult.ID}.png");
 
                                         using (var ms = new MemoryStream(imageData))
                                         {
+                                            if (spineFetchToken.IsCancellationRequested) return;
                                             ms.Seek(0, SeekOrigin.Begin);
                                             item.Result.ClearLogo = new Bitmap(ms);
                                             if (item == SelectedItem)
@@ -674,10 +693,15 @@ namespace com.clusterrr.hakchi_gui
                                 }
                             }
                         }
-                        catch (ThreadAbortException ex) { }
+                        catch (OperationCanceledException ex) { }
                         finally
                         {
                             item.ScraperSpineFetchThread = null;
+                            if (item.ScraperSpineFetchCancellationTokenSource == spineFetchTokenSource)
+                            {
+                                item.ScraperSpineFetchCancellationTokenSource?.Dispose();
+                                item.ScraperSpineFetchCancellationTokenSource = null;
+                            }
                         }
                         Threads.Remove(Thread.CurrentThread);
                     });
@@ -827,11 +851,17 @@ namespace com.clusterrr.hakchi_gui
 
         private void ScraperForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            foreach (var listViewItem in listViewGames.Items.Cast<ListViewItem>())
+            {
+                if (!(listViewItem.Tag is ItemWrapper item)) continue;
+                item.ScraperImageFetchCancellationTokenSource?.Cancel();
+                item.ScraperSpineFetchCancellationTokenSource?.Cancel();
+            }
+
             foreach (var thread in Threads.ToArray())
             {             
-                #warning Refactor this to get rid of Thread.Abort!
                 if (thread != null && thread.IsAlive)
-                    thread.Abort();
+                    thread.Join(1000);
             }
         }
 

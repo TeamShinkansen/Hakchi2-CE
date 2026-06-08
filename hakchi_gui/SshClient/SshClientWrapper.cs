@@ -19,6 +19,7 @@ namespace com.clusterrr.ssh
 
         private SshClient sshClient;
         private Thread connectThread;
+        private CancellationTokenSource connectThreadCancellationTokenSource;
         private List<IListener> listeners;
 
         private bool enabled;
@@ -52,7 +53,8 @@ namespace com.clusterrr.ssh
                     // start connection watching thread
                     if (connectThread == null)
                     {
-                        connectThread = new Thread(connectThreadLoop);
+                        connectThreadCancellationTokenSource = new CancellationTokenSource();
+                        connectThread = new Thread(() => connectThreadLoop(connectThreadCancellationTokenSource.Token));
                         connectThread.Start();
                     }
                 }
@@ -60,10 +62,15 @@ namespace com.clusterrr.ssh
                 {
                     if (connectThread != null)
                     {
-                        #warning Refactor this to get rid of Thread.Abort!
-                        connectThread.Abort();
+                        connectThreadCancellationTokenSource?.Cancel();
+                        if (connectThread.IsAlive)
+                        {
+                            connectThread.Join(1000);
+                        }
                         connectThread = null;
                     }
+                    connectThreadCancellationTokenSource?.Dispose();
+                    connectThreadCancellationTokenSource = null;
                     if (listeners != null)
                     {
                         listeners.ForEach(l => l.Dispose());
@@ -111,6 +118,7 @@ namespace com.clusterrr.ssh
         {
             sshClient = null;
             connectThread = null;
+            connectThreadCancellationTokenSource = null;
             listeners = null;
             enabled = false;
             hasConnected = false;
@@ -173,11 +181,11 @@ namespace com.clusterrr.ssh
             }
         }
 
-        private void connectThreadLoop()
+        private void connectThreadLoop(CancellationToken cancellationToken)
         {
             try
             {
-                while (true)
+                while (!cancellationToken.IsCancellationRequested)
                 {
                     try
                     {
@@ -204,21 +212,16 @@ namespace com.clusterrr.ssh
                                 }
                             }
                         }
-                        Thread.Sleep(500);
-                    }
-                    catch (ThreadAbortException)
-                    {
-                        return;
+                        if (cancellationToken.WaitHandle.WaitOne(500))
+                        {
+                            return;
+                        }
                     }
                     catch (Exception ex)
                     {
                         Trace.WriteLine("Error during connect loop: " + ex.Message + ex.StackTrace);
                     }
                 }
-            }
-            catch (ThreadAbortException)
-            {
-                return;
             }
             catch (Exception ex)
             {

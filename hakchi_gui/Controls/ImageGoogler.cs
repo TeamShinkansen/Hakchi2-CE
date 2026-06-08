@@ -27,6 +27,7 @@ namespace com.clusterrr.hakchi_gui.Controls
         public event ImageDeselected OnImageDeselected;
         public List<SearchQuery> Queries { get; } = new List<SearchQuery>();
         private Thread searchThread;
+        private CancellationTokenSource searchCancellationTokenSource;
         private List<string> downloadedUrls = new List<string>();
 
         public void Deselect()
@@ -44,22 +45,23 @@ namespace com.clusterrr.hakchi_gui.Controls
             listView.Items.Clear();
             downloadedUrls.Clear();
 
-            if (searchThread != null)
-            {
-                if (searchThread.IsAlive)
-                {
-#warning Refactor this to get rid of Thread.Abort!
-                    searchThread.Abort();
-                    searchThread = null;
-                }
-            }
+            CancelSearchThread();
+            searchCancellationTokenSource = new CancellationTokenSource();
+            var cancellationToken = searchCancellationTokenSource.Token;
             searchThread = new Thread(() =>
             {
+                if (cancellationToken.IsCancellationRequested) return;
                 foreach (var image in customResults)
+                {
+                    if (cancellationToken.IsCancellationRequested) return;
                     ShowImage(image);
+                }
 
                 foreach (var query in Queries)
-                    SearchThread(query.Query, query.AdditionalVariables);
+                {
+                    if (cancellationToken.IsCancellationRequested) return;
+                    SearchThread(query.Query, query.AdditionalVariables, cancellationToken);
+                }
             });
             searchThread.Start();
         }
@@ -160,13 +162,14 @@ namespace com.clusterrr.hakchi_gui.Controls
 
         }
 
-        private void SearchThread(string query, string additionalVariables)
+        private void SearchThread(string query, string additionalVariables, CancellationToken cancellationToken)
         {
             try
             {
                 var urls = GetImageUrls(query, additionalVariables);
                 foreach (var url in urls)
                 {
+                    if (cancellationToken.IsCancellationRequested) return;
                     try
                     {
                         if (!downloadedUrls.Contains(url))
@@ -180,7 +183,19 @@ namespace com.clusterrr.hakchi_gui.Controls
                     catch { }
                 }
             }
-            catch (ThreadAbortException) { }
+            catch { }
+        }
+
+        private void CancelSearchThread()
+        {
+            searchCancellationTokenSource?.Cancel();
+            if (searchThread != null && searchThread.IsAlive)
+            {
+                searchThread.Join(1000);
+            }
+            searchThread = null;
+            searchCancellationTokenSource?.Dispose();
+            searchCancellationTokenSource = null;
         }
 
         protected void ShowImage(Image image)

@@ -19,6 +19,7 @@ namespace com.clusterrr.hakchi_gui.Wireless.Bluetooth
         public event OnDataHandler OnData;
 
         private Thread cmdThread;
+        private CancellationTokenSource cmdThreadCancellationTokenSource;
         private TcpClient cmdConnection;
         private NetworkStream cmdStream;
         private StreamReader cmdReader;
@@ -106,7 +107,9 @@ namespace com.clusterrr.hakchi_gui.Wireless.Bluetooth
 
             Address = address;
             Port = port;
-            cmdThread = new Thread(ListenerThread);
+            cmdThreadCancellationTokenSource?.Dispose();
+            cmdThreadCancellationTokenSource = new CancellationTokenSource();
+            cmdThread = new Thread(() => ListenerThread(cmdThreadCancellationTokenSource.Token));
             cmdThread.Start();
 
             new Thread(() =>
@@ -126,10 +129,13 @@ namespace com.clusterrr.hakchi_gui.Wireless.Bluetooth
         {
             if (cmdThread?.IsAlive ?? false)
             {
-                #warning Refactor this to get rid of Thread.Abort!
-                cmdThread.Abort();
+                cmdThreadCancellationTokenSource?.Cancel();
+                cmdConnection?.Close();
+                cmdThread.Join(1000);
             }
             cmdThread = null;
+            cmdThreadCancellationTokenSource?.Dispose();
+            cmdThreadCancellationTokenSource = null;
             _cmdQueue.Clear();
             _Devices.Clear();
         }
@@ -336,7 +342,7 @@ namespace com.clusterrr.hakchi_gui.Wireless.Bluetooth
 
         }
 
-        private void ListenerThread()
+        private void ListenerThread(CancellationToken cancellationToken)
         {
             try
             {
@@ -353,7 +359,7 @@ namespace com.clusterrr.hakchi_gui.Wireless.Bluetooth
                 string trimmedLine;
                 var escapeRegex = new Regex(@"(\x1b\[[0-9;]*[a-zA-Z]|\u0001|\u0002)", RegexOptions.Compiled);
 
-                while (cmdConnection.Connected && (line = cmdReader?.ReadLine()) != null)
+                while (!cancellationToken.IsCancellationRequested && cmdConnection.Connected && (line = cmdReader?.ReadLine()) != null)
                 {
                     cleanedLine = escapeRegex.Replace(line, "");
                     trimmedLine = cleanedLine.Trim();
@@ -382,17 +388,6 @@ namespace com.clusterrr.hakchi_gui.Wireless.Bluetooth
                     OnCmdData?.Invoke(trimmedLine, cleanedLine);
                 }
 
-                if (cmdConnection?.Connected ?? false)
-                {
-                    cmdConnection?.Close();
-                }
-                cmdConnection = null;
-                cmdReader = null;
-                cmdWriter = null;
-                cmdStream = null;
-            }
-            catch (ThreadAbortException)
-            {
                 if (cmdConnection?.Connected ?? false)
                 {
                     cmdConnection?.Close();

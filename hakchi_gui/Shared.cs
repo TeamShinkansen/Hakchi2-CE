@@ -661,11 +661,14 @@ namespace com.clusterrr.hakchi_gui
 
             var stdErr = new MemoryStream();
             SplitterStream splitStream = new SplitterStream(stdErr).AddStreams(Program.debugStreams);
+            using var transferThreadCancellationTokenSource = new CancellationTokenSource();
             var transferThread = new Thread(() =>
             {
                 try
                 {
-                    Thread.Sleep(1000);
+                    if (transferThreadCancellationTokenSource.Token.WaitHandle.WaitOne(1000))
+                        return;
+
                     stdErr.Seek(0, SeekOrigin.Begin);
                     using (var sr = new StreamReader(stdErr))
                     {
@@ -679,12 +682,15 @@ namespace com.clusterrr.hakchi_gui
                         }
                     }
                 }
-                catch (ThreadAbortException) { }
+                catch (OperationCanceledException) { }
             });
             transferThread.Start();
             int returnValue = hakchi.Shell.Execute($"nc -lv -w 60 -i 60 -s 0.0.0.0 -e {command}", null, null, splitStream, timeout, throwOnNonZero);
-            #warning Refactor this to get rid of Thread.Abort!
-            transferThread.Abort();
+            transferThreadCancellationTokenSource.Cancel();
+            if (transferThread.IsAlive)
+            {
+                transferThread.Join(1000);
+            }
             return returnValue;
         }
 
