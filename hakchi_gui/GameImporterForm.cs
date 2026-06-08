@@ -1,5 +1,4 @@
 ﻿using ArxOne.Ftp;
-using com.clusterrr.clovershell;
 using com.clusterrr.hakchi_gui.Properties;
 using com.clusterrr.hakchi_gui.Tasks;
 using com.clusterrr.util;
@@ -60,8 +59,8 @@ namespace com.clusterrr.hakchi_gui
                 tasker.SetStatus(Resources.Scanning);
                 if (hakchi.Shell.IsOnline)
                 {
-                    var mountpoint = hakchi.Shell is ClovershellConnection ? "" : hakchi.Shell.ExecuteSimple("hakchi get mountpoint", throwOnNonZero: true);
-                    var rootfs = hakchi.Shell is ClovershellConnection ? "/var/lib/hakchi/rootfs" : hakchi.Shell.ExecuteSimple("hakchi get rootfs", throwOnNonZero: true);
+                    var mountpoint = hakchi.Shell.ExecuteSimple("hakchi get mountpoint", throwOnNonZero: true);
+                    var rootfs = hakchi.Shell.ExecuteSimple("hakchi get rootfs", throwOnNonZero: true);
                     var searchPaths = new string[]
                     {
                         $"{rootfs}/usr/share/games",

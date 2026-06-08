@@ -135,7 +135,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.modInfo.Author = null;
             this.modInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(3)))), ((int)(((byte)(3)))), ((int)(((byte)(3)))));
-            this.modInfo.infoStrips = global::com.clusterrr.hakchi_gui.Properties.Resources.snes_dots;
+            this.modInfo.InfoStrips = global::com.clusterrr.hakchi_gui.Properties.Resources.snes_dots;
             this.modInfo.InstalledVersion = null;
             this.modInfo.LatestVersion = null;
             this.modInfo.Location = new System.Drawing.Point(0, 0);
@@ -143,7 +143,7 @@
             this.modInfo.Name = "modInfo";
             this.modInfo.Size = new System.Drawing.Size(206, 408);
             this.modInfo.TabIndex = 1;
-            this.modInfo.textColor = System.Drawing.Color.White;
+            this.modInfo.TextColor = System.Drawing.Color.White;
             // 
             // ModHubTabControl
             // 

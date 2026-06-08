@@ -503,7 +503,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
             tasker.AddTask(CheckRemoteStorageRequirements, 1);
             tasker.AddTask(PrepareRemoteTransfer, 1);
             tasker.AddTask(CalculateRemoteDiff, 1);
-            if (ConfigIni.Instance.ForceSSHTransfers || hakchi.Shell is clovershell.ClovershellConnection)
+            if (ConfigIni.Instance.ForceSSHTransfers)
             {
                 tasker.AddTask(SyncRemoteGamesShell, 28);
             }

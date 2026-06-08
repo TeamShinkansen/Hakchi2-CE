@@ -27,7 +27,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
                 }
 
                 var wr = HttpWebRequest.Create(url) as HttpWebRequest;
-                wr.UserAgent = HakchiWebClient.UserAgent;
+                wr.Headers.Add(HttpRequestHeader.UserAgent, HakchiWebClient.UserAgent);
 
                 try
                 {

@@ -2972,12 +2972,6 @@ internal static
                 ip = (hakchi.Shell as INetworkShell).IPAddress;
                 port = hakchi.Shell.ShellPort.ToString();
             }
-            else if (hakchi.Shell is clovershell.ClovershellConnection)
-            {
-                (hakchi.Shell as clovershell.ClovershellConnection).ShellEnabled = true;
-                ip = "127.0.0.1";
-                port = "1023";
-            }
             else
             {
                 return;

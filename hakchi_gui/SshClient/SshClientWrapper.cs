@@ -306,11 +306,12 @@ namespace com.clusterrr.ssh
 
         public int Execute(string command, Stream stdin = null, Stream stdout = null, Stream stderr = null, int timeout = 0, bool throwOnNonZero = false)
         {
-            SshCommand sshCommand = sshClient.CreateCommand(command);
+            SshCommand sshCommand = sshClient.CreateCommand(command, stdout, stderr);
+            using var inputStream = sshCommand.CreateInputStream();
             if (timeout > 0)
                 sshCommand.CommandTimeout = new TimeSpan(0, 0, 0, 0, timeout);
 
-            IAsyncResult execResult = sshCommand.BeginExecute(null, null, stdout, stderr);
+            IAsyncResult execResult = sshCommand.BeginExecute(null, null);
 
             if (stdin != null)
             {
@@ -335,7 +336,7 @@ namespace com.clusterrr.ssh
 
             Trace.WriteLine(string.Format("{0} # exit code {1}", command, sshCommand.ExitStatus));
 
-            return sshCommand.ExitStatus;
+            return sshCommand.ExitStatus ?? int.MinValue;
         }
 
         public Task<string> ExecuteSimpleAsync(string command, int timeout = 2000, bool throwOnNonZero = false)

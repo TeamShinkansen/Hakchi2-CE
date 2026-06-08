@@ -13,6 +13,11 @@ namespace com.clusterrr.hakchi_gui.Tasks
             get; set;
         }
 
+        private bool ContainsState(Tasker.State state, params Tasker.State[] states)
+        {
+            return states.Contains(state);
+        }
+
         public ITaskerView SetState(Tasker.State state)
         {
             if (state == taskState) return this;
@@ -27,7 +32,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
                     case Tasker.State.Starting:
                     case Tasker.State.Finishing:
                     case Tasker.State.Waiting:
-                        if (!(new Tasker.State[] { Tasker.State.Starting, Tasker.State.Finishing, Tasker.State.Waiting }).Contains(taskState))
+                        if (!ContainsState(taskState, Tasker.State.Starting, Tasker.State.Finishing, Tasker.State.Waiting))
                         {
                             TaskbarProgress.SetState(Tasker.HostForm, TaskbarProgress.TaskbarStates.NoProgress);
                             Thread.Sleep(20); // workaround to make it work
@@ -63,7 +68,8 @@ namespace com.clusterrr.hakchi_gui.Tasks
                 {
                     return (ITaskerView)Tasker.HostForm.Invoke(new Func<long, long, ITaskerView>(SetProgress), new object[] { value, maximum });
                 }
-                if ((new Tasker.State[] { Tasker.State.Running, Tasker.State.Paused, Tasker.State.Error }).Contains(taskState))
+
+                if (ContainsState(taskState, Tasker.State.Running, Tasker.State.Paused, Tasker.State.Error))
                 {
                     TaskbarProgress.SetValue(Tasker.HostForm, value, maximum);
                 }

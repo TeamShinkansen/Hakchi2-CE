@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace com.clusterrr.hakchi_gui.Tasks
 {
@@ -12,6 +13,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
         private const int SpeedSampleFreq = 500;
         private const int SpeedSampleNum = 5;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Tasker Tasker
         {
             get; set;

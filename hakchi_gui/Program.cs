@@ -110,7 +110,7 @@ namespace com.clusterrr.hakchi_gui
                 return;
             }
 
-            Trace.Listeners.Add(new TextWriterTraceListener(stdout));
+            System.Diagnostics.Trace.Listeners.Add(new TextWriterTraceListener(stdout));
             
 #if !DUMPER
             if (Debugger.IsAttached || Array.IndexOf(args, "/debug") != -1)
@@ -127,7 +127,7 @@ namespace com.clusterrr.hakchi_gui
                     standardOutput.AutoFlush = true;
                     Console.SetOut(standardOutput);
                     debugStreams.Add(consoleFileStream);
-                    Trace.Listeners.Add(new TextWriterTraceListener(System.Console.Out));
+                    System.Diagnostics.Trace.Listeners.Add(new TextWriterTraceListener(System.Console.Out));
                     ConsoleVisible = true;
                 }
                 catch { }
@@ -135,7 +135,7 @@ namespace com.clusterrr.hakchi_gui
                 {
                     Stream logFile = File.Create("debuglog.txt");
                     debugStreams.Add(logFile);
-                    Trace.Listeners.Add(new TextWriterTraceListener(logFile));
+                    System.Diagnostics.Trace.Listeners.Add(new TextWriterTraceListener(logFile));
                 }
                 catch (Exception ex)
                 {
@@ -148,7 +148,7 @@ namespace com.clusterrr.hakchi_gui
             {
                 MemoryStream inMemoryLog = new MemoryStream();
                 debugStreams.Add(inMemoryLog);
-                Trace.Listeners.Add(new TextWriterTraceListener(new StreamWriter(inMemoryLog, System.Text.Encoding.GetEncoding(MY_CODE_PAGE))));
+                System.Diagnostics.Trace.Listeners.Add(new TextWriterTraceListener(new StreamWriter(inMemoryLog, System.Text.Encoding.GetEncoding(MY_CODE_PAGE))));
             }
             catch (Exception ex)
             {
@@ -267,7 +267,6 @@ namespace com.clusterrr.hakchi_gui
 
                         Trace.WriteLine("Starting, version: " + Shared.AppDisplayVersion);
 
-                        System.Net.ServicePointManager.SecurityProtocol = (System.Net.SecurityProtocolType)4080; // set default security protocol
                         Application.EnableVisualStyles();
                         Application.SetCompatibleTextRenderingDefault(false);
 

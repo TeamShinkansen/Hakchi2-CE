@@ -2,11 +2,13 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace com.clusterrr.hakchi_gui.Tasks
 {
     public partial class TaskerForm : Form, ITaskerView
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Tasker Tasker
         {
             get; set;

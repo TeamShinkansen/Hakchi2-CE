@@ -1,5 +1,4 @@
-﻿using com.clusterrr.clovershell;
-using com.clusterrr.hakchi_gui.Properties;
+﻿using com.clusterrr.hakchi_gui.Properties;
 using com.clusterrr.hakchi_gui.Tasks;
 using com.clusterrr.ssh;
 using SharpCompress.Archives;
@@ -402,13 +401,6 @@ namespace com.clusterrr.hakchi_gui
             shells.Add(new UnknownShell());
             Shell = shells.First();
 
-            // clovershell (for legacy compatibility)
-            var clovershell = new ClovershellConnection() { AutoReconnect = true };
-            clovershell.OnConnected += Shell_OnConnected;
-            clovershell.OnDisconnected += Shell_OnDisconnected;
-            shells.Add(clovershell);
-            clovershell.Enabled = true;
-
             // new high-tech but slow SSH connection
             var ssh = new SshClientWrapper(SERVICE_NAME, SERVICE_TYPE, null, null, USERNAME, PASSWORD) { AutoReconnect = true };
             ssh.OnConnected += Shell_OnConnected;
@@ -482,7 +474,7 @@ namespace com.clusterrr.hakchi_gui
                     if (CanInteract)
                     {
                         // disable sync on legacy clovershell
-                        CanSync = !(caller is ClovershellConnection);
+                        CanSync = true;
 
                         // detect console firmware/type
                         SystemCode = Shell.ExecuteSimple("hakchi eval 'echo \"$sftype-$sfregion\"'", 2000, true).Trim();

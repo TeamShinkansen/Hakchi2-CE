@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 using System.Threading;
+using Microsoft.AspNetCore.Mvc;
 
 namespace com.clusterrr.hakchi_gui.Wireless.Bluetooth
 {
