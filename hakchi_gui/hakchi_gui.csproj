@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <AssemblyName>hakchi</AssemblyName>
     <RootNamespace>com.clusterrr.hakchi_gui</RootNamespace>
 	  <UseWindowsForms>true</UseWindowsForms>
@@ -97,6 +98,7 @@ Gert Driesen for SSH.NET.</Description>
     <PackageReference Include="nQuant" Version="1.0.3" />
     <PackageReference Include="SharpCompress" Version="0.40.0" />
     <PackageReference Include="System.Text.Json" Version="10.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.0" />
     <PackageReference Include="Tmds.MDns" Version="0.8.0" />
   </ItemGroup>
 
@@ -114,10 +116,6 @@ Gert Driesen for SSH.NET.</Description>
     <ProjectReference Include="..\Libraries\SSH.NET\src\Renci.SshNet\Renci.SshNet.csproj" />
     <ProjectReference Include="..\Libraries\tiny7z\tiny7z\tiny7z.csproj" />
     <ProjectReference Include="..\Scrapers\Scrapers.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.Web" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)|$(Platform)'!='Dumper|AnyCPU'">

@@ -8,7 +8,6 @@ using System.Net;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Web;
 using System.Windows.Forms;
 
 namespace com.clusterrr.hakchi_gui.Controls
@@ -73,7 +72,7 @@ namespace com.clusterrr.hakchi_gui.Controls
                     Trace.WriteLine($"Retry #{tryCount}");
                 }
 
-                var url = string.Format("https://www.google.com/search?q={0}&source=lnms&tbm=isch{1}", HttpUtility.UrlEncode(query), additionalVariables.Length > 0 ? $"&{additionalVariables}" : "");
+                var url = string.Format("https://www.google.com/search?q={0}&source=lnms&tbm=isch{1}", WebUtility.UrlEncode(query), additionalVariables.Length > 0 ? $"&{additionalVariables}" : "");
                 Trace.WriteLine("Web request: " + url);
                 var request = WebRequest.Create(url);
                 request.Credentials = CredentialCache.DefaultCredentials;
@@ -92,7 +91,7 @@ namespace com.clusterrr.hakchi_gui.Controls
                 MatchCollection matches = Regex.Matches(responseFromServer, search);
                 foreach (Match match in matches)
                 {
-                    urls.Add(HttpUtility.UrlDecode(match.Groups[1].Value.Replace("\\u00", "%")));
+                    urls.Add(WebUtility.UrlDecode(match.Groups[1].Value.Replace("\\u00", "%")));
                 }
 
                 // For some reason Google returns different data for different users (IPs?)
@@ -102,7 +101,7 @@ namespace com.clusterrr.hakchi_gui.Controls
                 foreach (Match match in matches)
                 {
                     // Not sure about it.
-                    urls.Add(HttpUtility.UrlDecode(match.Groups[1].Value.Replace("\\u00", "%")));
+                    urls.Add(WebUtility.UrlDecode(match.Groups[1].Value.Replace("\\u00", "%")));
                 }
 
                 // For some reason Google returns different data for different users (IPs?)
@@ -114,7 +113,7 @@ namespace com.clusterrr.hakchi_gui.Controls
                     // Not sure about it.
                     if (Uri.IsWellFormedUriString(match.Groups[1].Value, UriKind.Absolute))
                     {
-                        urls.Add(HttpUtility.UrlDecode(match.Groups[1].Value.Replace("\\u00", "%")));
+                        urls.Add(WebUtility.UrlDecode(match.Groups[1].Value.Replace("\\u00", "%")));
                     }
                 }
 

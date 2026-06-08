@@ -222,7 +222,6 @@ namespace com.clusterrr.hakchi_gui
 
                         string languagesDirectory = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "languages");
                         const string langFileNames = "hakchi.resources.dll";
-                        AppDomain.CurrentDomain.AppendPrivatePath(languagesDirectory);
                         // For updates
                         var oldFiles = Directory.GetFiles(Path.GetDirectoryName(Application.ExecutablePath), langFileNames, SearchOption.AllDirectories);
                         foreach (var d in oldFiles)
