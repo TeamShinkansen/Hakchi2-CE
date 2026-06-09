@@ -104,6 +104,7 @@ Gert Driesen for SSH.NET.</Description>
       <Private>False</Private>
       <CopyLocalSatelliteAssemblies>False</CopyLocalSatelliteAssemblies>
     </ProjectReference>
+    <ProjectReference Include="..\Hakchi.Core\Hakchi.Core.csproj" />
     <ProjectReference Include="..\Libraries\CueSharp\CueSharp\CueSharp.csproj" />
     <ProjectReference Include="..\Libraries\FelLib\FelLib\FelLib.csproj" />
     <ProjectReference Include="..\Libraries\ProgressODoom\ProgressODoom.csproj" />
