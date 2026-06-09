@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Hakchi.Core.Services
 {
-    public class LaunchArguments: ILaunchArguments
+    internal class LaunchArguments: ILaunchArguments
     {
         public string[] Arguments { get; init; }
 
