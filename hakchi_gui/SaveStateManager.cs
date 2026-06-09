@@ -123,6 +123,7 @@ namespace com.clusterrr.hakchi_gui
                 }));
             }
             catch (ThreadAbortException) { }
+            catch (ThreadInterruptedException) { }
             catch (ObjectDisposedException) { }
             catch (Exception ex)
             {
@@ -165,6 +166,7 @@ namespace com.clusterrr.hakchi_gui
                 }
             }
             catch (ThreadAbortException) { }
+            catch (ThreadInterruptedException) { }
             catch (ObjectDisposedException) { }
             catch (Exception ex)
             {
@@ -246,6 +248,7 @@ namespace com.clusterrr.hakchi_gui
                 }
             }
             catch (ThreadAbortException) { }
+            catch (ThreadInterruptedException) { }
             catch (ObjectDisposedException) { }
             catch (Exception ex)
             {

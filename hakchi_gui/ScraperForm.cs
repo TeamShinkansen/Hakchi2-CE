@@ -305,8 +305,14 @@ namespace com.clusterrr.hakchi_gui
                         try
                         {
                             resultsTask.Wait();
-                        } 
-                        catch (ThreadAbortException ex)
+                        }
+                        catch (ThreadAbortException)
+                        {
+                            Threads.Remove(Thread.CurrentThread);
+                            item.ScraperTasks[scraper].Remove(resultsTask);
+                            return;
+                        }
+                        catch (ThreadInterruptedException)
                         {
                             Threads.Remove(Thread.CurrentThread);
                             item.ScraperTasks[scraper].Remove(resultsTask);
@@ -802,6 +808,12 @@ namespace com.clusterrr.hakchi_gui
                                     item.ScraperTasks[scraper].Remove(resultsTask);
                                     return;
                                 }
+                                catch (ThreadInterruptedException ex)
+                                {
+                                    Threads.Remove(Thread.CurrentThread);
+                                    item.ScraperTasks[scraper].Remove(resultsTask);
+                                    return;
+                                }
                                 catch (Exception ex)
                                 {
                                     var error = ex.InnerException?.Message ?? ex.Message;
@@ -932,6 +944,12 @@ namespace com.clusterrr.hakchi_gui
                         resultsTask.Wait();
                     }
                     catch (ThreadAbortException ex)
+                    {
+                        Threads.Remove(Thread.CurrentThread);
+                        item.ScraperTasks[scraper].Remove(resultsTask);
+                        return;
+                    }
+                    catch (ThreadInterruptedException ex)
                     {
                         Threads.Remove(Thread.CurrentThread);
                         item.ScraperTasks[scraper].Remove(resultsTask);
