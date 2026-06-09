@@ -294,7 +294,7 @@ namespace com.clusterrr.hakchi_gui
         // load
         public static bool Load()
         {
-            string configPath = Shared.PathCombine(Program.BaseDirectoryExternal, ConfigDir, ConfigFile);
+            string configPath = Path.Combine(Program.BaseDirectoryExternal, ConfigDir, ConfigFile);
             if (File.Exists(configPath))
             {
                 Trace.WriteLine("Loading configuration");
@@ -320,11 +320,11 @@ namespace com.clusterrr.hakchi_gui
                 Trace.WriteLine("Saving configuration");
                 try
                 {
-                    string configPath = Shared.PathCombine(Program.BaseDirectoryExternal, ConfigDir, ConfigFile);
+                    string configPath = Path.Combine(Program.BaseDirectoryExternal, ConfigDir, ConfigFile);
                     Directory.CreateDirectory(Path.GetDirectoryName(configPath));
                     File.WriteAllText(configPath, JsonConvert.SerializeObject(instance, Formatting.Indented));
 
-                    string legacyConfigPath = Shared.PathCombine(Program.BaseDirectoryExternal, ConfigDir, LegacyConfigFile);
+                    string legacyConfigPath = Path.Combine(Program.BaseDirectoryExternal, ConfigDir, LegacyConfigFile);
                     if (File.Exists(legacyConfigPath))
                     {
                         Trace.WriteLine("Legacy configuration file will be removed");
@@ -403,7 +403,7 @@ namespace com.clusterrr.hakchi_gui
         // legacy loading code for transition
         public static bool LoadLegacy()
         {
-            var fileName = Shared.PathCombine(Program.BaseDirectoryExternal, ConfigDir, LegacyConfigFile);
+            var fileName = Path.Combine(Program.BaseDirectoryExternal, ConfigDir, LegacyConfigFile);
             if (File.Exists(fileName))
             {
                 try

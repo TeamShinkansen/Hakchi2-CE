@@ -709,7 +709,7 @@ namespace com.clusterrr.hakchi_gui
                 fullgamepath = path + fullfilename;
                 filename = Path.GetFileNameWithoutExtension(fullfilename);
                 extension = Path.GetExtension(fullfilename);
-                gameFile = Shared.PathCombine(basePath, fullfilename);
+                gameFile = Path.Combine(basePath, fullfilename);
             }
 
             // if we didn't find a match, attempt to detect a game file
@@ -841,7 +841,7 @@ namespace com.clusterrr.hakchi_gui
                     Image i = base.Image;
                     if (IsOriginalGame && i == null)
                     {
-                        string cachedIconPath = Shared.PathCombine(OriginalGamesCacheDirectory, Code, Code + ".png");
+                        string cachedIconPath = Path.Combine(OriginalGamesCacheDirectory, Code, Code + ".png");
                         return File.Exists(cachedIconPath) ? Shared.LoadBitmapCopy(cachedIconPath) : AppTypeCollection.GetAppBySystem(Metadata.System).DefaultCover;
                     }
                     return i;
@@ -863,7 +863,7 @@ namespace com.clusterrr.hakchi_gui
                     Image i = base.Thumbnail;
                     if (IsOriginalGame && i == null)
                     {
-                        string cachedIconPath = Shared.PathCombine(OriginalGamesCacheDirectory, Code, Code + "_small.png");
+                        string cachedIconPath = Path.Combine(OriginalGamesCacheDirectory, Code, Code + "_small.png");
                         return File.Exists(cachedIconPath) ? Image.FromFile(cachedIconPath) : Shared.ResizeImage(AppTypeCollection.GetAppBySystem(Metadata.System).DefaultCover, null, null, 40, 40, false, true, false, false);
                     }
                     return i;

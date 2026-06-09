@@ -22,8 +22,8 @@ namespace com.clusterrr.hakchi_gui
             {
                 return new string[]
                 {
-                    Shared.PathCombine(Program.BaseDirectoryExternal, "user_mods"),
-                    Shared.PathCombine(Program.BaseDirectoryInternal, "mods", "hmods")
+                    Path.Combine(Program.BaseDirectoryExternal, "user_mods"),
+                    Path.Combine(Program.BaseDirectoryInternal, "mods", "hmods")
                 };
             }
         }
@@ -168,19 +168,6 @@ namespace com.clusterrr.hakchi_gui
             writer.Flush();
             stream.Position = 0;
             return stream;
-        }
-
-        public static string PathCombine(params string[] pathSegments)
-        {
-            if (pathSegments.Length == 1) return pathSegments[0];
-            if (pathSegments.Length < 1) throw new ArgumentOutOfRangeException("Not enough path segments");
-
-            string output = pathSegments[0];
-            for(int i = 1; i < pathSegments.Length; i++)
-            {
-                output = Path.Combine(output, pathSegments[i]);
-            }
-            return output;
         }
         
         public static bool isFirstRun()

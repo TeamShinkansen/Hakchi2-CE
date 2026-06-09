@@ -3297,7 +3297,7 @@ internal static
                             if (Path.GetExtension(imageFile) != ".png" || image.Height != 720 || image.Width != 1280)
                             {
                                 var outImage = Shared.ResizeImage(image, PixelFormat.Format24bppRgb, null, 1280, 720, true, false, true, true);
-                                imageFile = Shared.PathCombine(Path.GetTempPath(), "hakchi-temp", "tempBootImage.png");
+                                imageFile = Path.Combine(Path.GetTempPath(), "hakchi-temp", "tempBootImage.png");
                                 try
                                 {
                                     Directory.CreateDirectory(Path.GetDirectoryName(imageFile));
@@ -3344,11 +3344,11 @@ internal static
                     }
                     var assembly = GetType().Assembly;
 
-                    hakchi.Shell.Execute("hakchi unset cfg_boot_logo; cat > \"$(hakchi get rootfs)/etc/boot.png\"", File.OpenRead(Shared.PathCombine(Program.BaseDirectoryInternal, "data", "blankBoot.png")));
+                    hakchi.Shell.Execute("hakchi unset cfg_boot_logo; cat > \"$(hakchi get rootfs)/etc/boot.png\"", File.OpenRead(Path.Combine(Program.BaseDirectoryInternal, "data", "blankBoot.png")));
                     bool usbHost = hakchi.Shell.ExecuteSimple("if [ -d /media/hakchi/ ]; then echo 1; else echo 0; fi;").Equals("1");
                     if (usbHost)
                     {
-                        hakchi.Shell.Execute("cat > \"/media/hakchi/boot.png\"", File.OpenRead(Shared.PathCombine(Program.BaseDirectoryInternal, "data", "blankBoot.png")));
+                        hakchi.Shell.Execute("cat > \"/media/hakchi/boot.png\"", File.OpenRead(Path.Combine(Program.BaseDirectoryInternal, "data", "blankBoot.png")));
                     }
 
                     if (!ConfigIni.Instance.DisablePopups)

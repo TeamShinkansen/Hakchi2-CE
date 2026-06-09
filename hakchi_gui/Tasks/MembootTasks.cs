@@ -602,7 +602,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
                 using (OpenFileDialog ofd = new OpenFileDialog())
                 {
                     ofd.Filter = $"{Resources.KernelDump}|*.img";
-                    ofd.InitialDirectory = Shared.PathCombine(Program.BaseDirectoryExternal, "dump");
+                    ofd.InitialDirectory = Path.Combine(Program.BaseDirectoryExternal, "dump");
                     if (ofd.ShowDialog(hostForm) == DialogResult.OK)
                     {
                         if (File.OpenRead(ofd.FileName).Length <= Fel.kernel_max_size)

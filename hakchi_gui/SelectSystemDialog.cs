@@ -13,7 +13,7 @@ namespace com.clusterrr.hakchi_gui
             foreach (var system in CoreCollection.Systems)
             {
                 checkedListBox.Items.Add(system);
-                if(Directory.Exists(Shared.PathCombine(Program.BaseDirectoryExternal, "art", system)))
+                if(Directory.Exists(Path.Combine(Program.BaseDirectoryExternal, "art", system)))
                 {
                     checkedListBox.SetItemChecked(i, true);
                 }
@@ -55,7 +55,7 @@ namespace com.clusterrr.hakchi_gui
             {
                 for (int i = 0; i < checkedListBox.Items.Count; ++i)
                 {
-                    var path = Shared.PathCombine(Program.BaseDirectoryExternal, "art", checkedListBox.Items[i] as string);
+                    var path = Path.Combine(Program.BaseDirectoryExternal, "art", checkedListBox.Items[i] as string);
                     if (checkedListBox.GetItemChecked(i))
                     {
                         Directory.CreateDirectory(path);
