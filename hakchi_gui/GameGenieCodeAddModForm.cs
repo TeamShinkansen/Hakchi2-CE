@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace com.clusterrr.hakchi_gui
 {
@@ -15,6 +16,7 @@ namespace com.clusterrr.hakchi_gui
             FGame = game;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Code
         {
             get
@@ -26,6 +28,7 @@ namespace com.clusterrr.hakchi_gui
                 textBoxCode.Text = value;
             }
         }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Description
         {
             get

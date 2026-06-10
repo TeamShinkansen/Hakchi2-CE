@@ -1,4 +1,5 @@
 ﻿using com.clusterrr.hakchi_gui.Properties;
+using Hakchi.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,13 +18,14 @@ namespace com.clusterrr.hakchi_gui
 {
     public static class Shared
     {
+        public static IAssemblyInfo AssemblyInfo => field ??= Program.GetRequiredService<IAssemblyInfo>() ?? throw new InvalidOperationException("Unable to retrieve IAssemblyInfo service");
         public static string[] hmodDirectories {
             get
             {
                 return new string[]
                 {
-                    Shared.PathCombine(Program.BaseDirectoryExternal, "user_mods"),
-                    Shared.PathCombine(Program.BaseDirectoryInternal, "mods", "hmods")
+                    Path.Combine(Program.BaseDirectoryExternal, "user_mods"),
+                    Path.Combine(Program.BaseDirectoryInternal, "mods", "hmods")
                 };
             }
         }
@@ -169,44 +171,23 @@ namespace com.clusterrr.hakchi_gui
             stream.Position = 0;
             return stream;
         }
-
-        public static string PathCombine(params string[] pathSegments)
-        {
-            if (pathSegments.Length == 1) return pathSegments[0];
-            if (pathSegments.Length < 1) throw new ArgumentOutOfRangeException("Not enough path segments");
-
-            string output = pathSegments[0];
-            for(int i = 1; i < pathSegments.Length; i++)
-            {
-                output = Path.Combine(output, pathSegments[i]);
-            }
-            return output;
-        }
         
         public static bool isFirstRun()
         {
-            if (AppVersion > (new Version(Settings.Default.LastNonPortableVersion)))
+            if (AssemblyInfo.EntryAssemblyVersion > (new Version(Settings.Default.LastNonPortableVersion)))
             {
-                Settings.Default.LastNonPortableVersion = AppVersion.ToString();
+                Settings.Default.LastNonPortableVersion = AssemblyInfo.EntryAssemblyVersion.ToString();
                 Settings.Default.Save();
                 return true;
             }
             return false;
         }
 
-        public static Version AppVersion
-        {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version;
-            }
-        }
-
         public static string AppDisplayVersion
         {
             get
             {
-                Version version = AppVersion;
+                Version version = AssemblyInfo.EntryAssemblyVersion;
                 var gitInfo = GitTag == null ? $"-{GitCommit}" : "";
                 if (version.Revision > 2000)
                 {
@@ -661,11 +642,14 @@ namespace com.clusterrr.hakchi_gui
 
             var stdErr = new MemoryStream();
             SplitterStream splitStream = new SplitterStream(stdErr).AddStreams(Program.debugStreams);
+            using var transferThreadCancellationTokenSource = new CancellationTokenSource();
             var transferThread = new Thread(() =>
             {
                 try
                 {
-                    Thread.Sleep(1000);
+                    if (transferThreadCancellationTokenSource.Token.WaitHandle.WaitOne(1000))
+                        return;
+
                     stdErr.Seek(0, SeekOrigin.Begin);
                     using (var sr = new StreamReader(stdErr))
                     {
@@ -679,12 +663,15 @@ namespace com.clusterrr.hakchi_gui
                         }
                     }
                 }
-                catch (ThreadAbortException) { }
+                catch (OperationCanceledException) { }
             });
             transferThread.Start();
             int returnValue = hakchi.Shell.Execute($"nc -lv -w 60 -i 60 -s 0.0.0.0 -e {command}", null, null, splitStream, timeout, throwOnNonZero);
-            #warning Refactor this to get rid of Thread.Abort!
-            transferThread.Abort();
+            transferThreadCancellationTokenSource.Cancel();
+            if (transferThread.IsAlive)
+            {
+                transferThread.Join(1000);
+            }
             return returnValue;
         }
 

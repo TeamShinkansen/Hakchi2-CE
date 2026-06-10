@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace com.clusterrr.hakchi_gui
 {
@@ -19,6 +20,7 @@ namespace com.clusterrr.hakchi_gui
 
     class Int8HexTextBox : HexTextBox
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public sbyte SignedValue
         {
             get
@@ -31,6 +33,7 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public byte UnsignedValue
         {
             get
@@ -51,6 +54,7 @@ namespace com.clusterrr.hakchi_gui
 
     class Int16HexTextBox : HexTextBox
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Int16 SignedValue
         {
             get
@@ -63,6 +67,7 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public UInt16 UnsignedValue
         {
             get
@@ -83,6 +88,7 @@ namespace com.clusterrr.hakchi_gui
 
     class Int32HexTextBox : HexTextBox
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Int32 SignedValue
         {
             get
@@ -95,6 +101,7 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public UInt32 UnsignedValue
         {
             get
@@ -115,6 +122,7 @@ namespace com.clusterrr.hakchi_gui
 
     class Int64HexTextBox : HexTextBox
     {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Int64 SignedValue
         {
             get
@@ -127,6 +135,7 @@ namespace com.clusterrr.hakchi_gui
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public UInt64 UnsignedValue
         {
             get

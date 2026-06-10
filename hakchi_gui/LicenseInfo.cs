@@ -1,10 +1,13 @@
 ﻿using com.clusterrr.hakchi_gui.Properties;
+using Hakchi.Core;
+using Microsoft.Extensions.DependencyInjection;
 using SharpCompress.Archives;
 using System.Collections.Generic;
 using System.IO;
 
 namespace com.clusterrr.hakchi_gui
 {
+    [RegisterService(ServiceLifetime.Transient)]
     public class LicenseInfo: TextInfo
     {
         public LicenseInfo(): base()

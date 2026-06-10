@@ -1,6 +1,7 @@
 ﻿using com.clusterrr.hakchi_gui.Properties;
 using com.clusterrr.util;
 using com.clusterrr.util.arxoneftp;
+using Hakchi.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -503,7 +504,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
             tasker.AddTask(CheckRemoteStorageRequirements, 1);
             tasker.AddTask(PrepareRemoteTransfer, 1);
             tasker.AddTask(CalculateRemoteDiff, 1);
-            if (ConfigIni.Instance.ForceSSHTransfers || hakchi.Shell is clovershell.ClovershellConnection)
+            if (ConfigIni.Instance.ForceSSHTransfers)
             {
                 tasker.AddTask(SyncRemoteGamesShell, 28);
             }

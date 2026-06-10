@@ -1,4 +1,5 @@
 ﻿using com.clusterrr.hakchi_gui.Properties;
+using Hakchi.Core.Interfaces;
 using SharpCompress.Archives;
 using System;
 using System.Collections;
@@ -123,6 +124,7 @@ namespace com.clusterrr.hakchi_gui
                 }));
             }
             catch (ThreadAbortException) { }
+            catch (ThreadInterruptedException) { }
             catch (ObjectDisposedException) { }
             catch (Exception ex)
             {
@@ -165,6 +167,7 @@ namespace com.clusterrr.hakchi_gui
                 }
             }
             catch (ThreadAbortException) { }
+            catch (ThreadInterruptedException) { }
             catch (ObjectDisposedException) { }
             catch (Exception ex)
             {
@@ -246,6 +249,7 @@ namespace com.clusterrr.hakchi_gui
                 }
             }
             catch (ThreadAbortException) { }
+            catch (ThreadInterruptedException) { }
             catch (ObjectDisposedException) { }
             catch (Exception ex)
             {

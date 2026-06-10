@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Hakchi.Core.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace com.clusterrr.hakchi_gui.Wireless.Bluetooth
 {

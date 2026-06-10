@@ -1,5 +1,6 @@
 ﻿using com.clusterrr.hakchi_gui.data;
 using com.clusterrr.hakchi_gui.Properties;
+using Hakchi.Core.Services;
 using SharpCompress.Archives;
 using SharpCompress.Common;
 using SharpCompress.Readers;
@@ -230,6 +231,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
                 catch (Exception ex)
                 {
                     if (ex is ThreadAbortException) return Tasker.Conclusion.Abort;
+                    if (ex is ThreadInterruptedException) return Tasker.Conclusion.Abort;
                     if (ex.InnerException != null && !string.IsNullOrEmpty(ex.InnerException.Message))
                     {
                         Trace.WriteLine(ex.InnerException.Message + ex.InnerException.StackTrace);
@@ -384,7 +386,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
                                 }
                             }
 
-                            using (var wc = new HakchiWebClient())
+                            using (var wc = Program.GetRequiredService<HakchiWebClient>())
                             {
 
                                 try

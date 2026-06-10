@@ -40,7 +40,12 @@ namespace com.clusterrr.hakchi_gui
                         
                     }
                 }
-                catch(ThreadAbortException)
+                catch (ThreadAbortException)
+                {
+                    if (hakchi.Shell.IsOnline)
+                        hakchi.Shell.Execute("hakchi uiresume");
+                }
+                catch (ThreadInterruptedException)
                 {
                     if (hakchi.Shell.IsOnline)
                         hakchi.Shell.Execute("hakchi uiresume");

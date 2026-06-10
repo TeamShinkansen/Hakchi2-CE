@@ -1,12 +1,14 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace com.clusterrr.hakchi_gui.ModHub.Controls
 {
     public partial class ModInfoControl : UserControl
     {
         private Bitmap _infoStrips = null;
-        public Bitmap infoStrips {
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Bitmap InfoStrips {
             get
             {
                 return _infoStrips;
@@ -19,7 +21,8 @@ namespace com.clusterrr.hakchi_gui.ModHub.Controls
         }
 
         private Color _textColor = Color.White;
-        public Color textColor
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public Color TextColor
         {
             get
             {
@@ -38,6 +41,7 @@ namespace com.clusterrr.hakchi_gui.ModHub.Controls
         private const int padding = 8;
 
         private string _ModuleName;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string ModuleName
         {
             get
@@ -52,6 +56,7 @@ namespace com.clusterrr.hakchi_gui.ModHub.Controls
         }
 
         private string _Author;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Author
         {
             get
@@ -66,6 +71,7 @@ namespace com.clusterrr.hakchi_gui.ModHub.Controls
         }
 
         private string _LatestVersion;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string LatestVersion
         {
             get
@@ -80,6 +86,7 @@ namespace com.clusterrr.hakchi_gui.ModHub.Controls
         }
 
         private string _InstalledVersion;
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string InstalledVersion
         {
             get

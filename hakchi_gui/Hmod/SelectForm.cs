@@ -119,7 +119,7 @@ namespace com.clusterrr.hakchi_gui.Hmod
             try
             {
                 Dictionary<string, string> readmeData = new Dictionary<string, string>();
-                var dir = Shared.PathCombine(Program.BaseDirectoryExternal, "user_mods", hmod + ".hmod");
+                var dir = Path.Combine(Program.BaseDirectoryExternal, "user_mods", hmod + ".hmod");
                 if (Directory.Exists(dir))
                 {
                     return dir + Path.DirectorySeparatorChar;

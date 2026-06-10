@@ -44,7 +44,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
         {
             return (Tasker tasker, Object sync) =>
             {
-                Directory.CreateDirectory(path, directorySecurity);
+                Directory.CreateDirectory(path);
                 return Conclusion.Success;
             };
         }

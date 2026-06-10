@@ -6,12 +6,14 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace com.clusterrr.hakchi_gui
 {
     public partial class SpineForm : Form
     {
         public Image Spine { get => pictureBoxSpine.Image; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Image ClearLogo { get; set; }
         private NesApplication App { get; set; }
         public SpineForm(NesApplication app)

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Hakchi.Core.SshClient;
 
-namespace com.clusterrr.ssh
+namespace Hakchi.Core.Interfaces
 {
     public interface IListener : IDisposable
     {

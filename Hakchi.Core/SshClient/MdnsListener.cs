@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Hakchi.Core.Interfaces;
 using System.Diagnostics;
-using System.Linq;
 using Tmds.MDns;
 
-namespace com.clusterrr.ssh
+namespace Hakchi.Core.SshClient
 {
     public class MdnsListener : IListener
     {

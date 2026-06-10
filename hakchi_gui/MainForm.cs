@@ -1,9 +1,12 @@
 ﻿using AutoUpdaterDotNET;
 using com.clusterrr.hakchi_gui.data;
-using com.clusterrr.hakchi_gui.ModHub;
 using com.clusterrr.hakchi_gui.ModHub.Repository;
 using com.clusterrr.hakchi_gui.Properties;
 using com.clusterrr.hakchi_gui.Tasks;
+using Hakchi.Core;
+using Hakchi.Core.Interfaces;
+using Hakchi.Core.Services;
+using Microsoft.Extensions.DependencyInjection;
 using SharpCompress.Archives;
 using SpineGen.DrawingBitmaps;
 using System;
@@ -25,6 +28,7 @@ using static com.clusterrr.hakchi_gui.Tasks.Tasker;
 
 namespace com.clusterrr.hakchi_gui
 {
+    [RegisterService(ServiceLifetime.Singleton)]
     public partial class MainForm : Form
     {
         /// <summary>
@@ -290,7 +294,7 @@ namespace com.clusterrr.hakchi_gui
                     }
                 }
 
-                var client = new HakchiWebClient();
+                var client = Program.GetRequiredService<HakchiWebClient>();
 
                 Trace.WriteLine("Downloading motd file, URL: " + MOTD_URL);
                 string motd = client.DownloadString(MOTD_URL);
@@ -360,7 +364,7 @@ namespace com.clusterrr.hakchi_gui
             SetWindowTitle();
 
             // centralized upgrade actions system
-            new Upgrade(this).Run();
+            Program.GetRequiredService<Upgrade>().Run();
             
             // populate mod repository list
             populateRepos();
@@ -2972,12 +2976,6 @@ internal static
                 ip = (hakchi.Shell as INetworkShell).IPAddress;
                 port = hakchi.Shell.ShellPort.ToString();
             }
-            else if (hakchi.Shell is clovershell.ClovershellConnection)
-            {
-                (hakchi.Shell as clovershell.ClovershellConnection).ShellEnabled = true;
-                ip = "127.0.0.1";
-                port = "1023";
-            }
             else
             {
                 return;
@@ -3303,7 +3301,7 @@ internal static
                             if (Path.GetExtension(imageFile) != ".png" || image.Height != 720 || image.Width != 1280)
                             {
                                 var outImage = Shared.ResizeImage(image, PixelFormat.Format24bppRgb, null, 1280, 720, true, false, true, true);
-                                imageFile = Shared.PathCombine(Path.GetTempPath(), "hakchi-temp", "tempBootImage.png");
+                                imageFile = Path.Combine(Path.GetTempPath(), "hakchi-temp", "tempBootImage.png");
                                 try
                                 {
                                     Directory.CreateDirectory(Path.GetDirectoryName(imageFile));
@@ -3350,11 +3348,11 @@ internal static
                     }
                     var assembly = GetType().Assembly;
 
-                    hakchi.Shell.Execute("hakchi unset cfg_boot_logo; cat > \"$(hakchi get rootfs)/etc/boot.png\"", File.OpenRead(Shared.PathCombine(Program.BaseDirectoryInternal, "data", "blankBoot.png")));
+                    hakchi.Shell.Execute("hakchi unset cfg_boot_logo; cat > \"$(hakchi get rootfs)/etc/boot.png\"", File.OpenRead(Path.Combine(Program.BaseDirectoryInternal, "data", "blankBoot.png")));
                     bool usbHost = hakchi.Shell.ExecuteSimple("if [ -d /media/hakchi/ ]; then echo 1; else echo 0; fi;").Equals("1");
                     if (usbHost)
                     {
-                        hakchi.Shell.Execute("cat > \"/media/hakchi/boot.png\"", File.OpenRead(Shared.PathCombine(Program.BaseDirectoryInternal, "data", "blankBoot.png")));
+                        hakchi.Shell.Execute("cat > \"/media/hakchi/boot.png\"", File.OpenRead(Path.Combine(Program.BaseDirectoryInternal, "data", "blankBoot.png")));
                     }
 
                     if (!ConfigIni.Instance.DisablePopups)

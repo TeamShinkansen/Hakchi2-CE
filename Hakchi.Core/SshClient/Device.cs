@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 
-namespace com.clusterrr.ssh
+namespace Hakchi.Core.SshClient
 {
     public class Device
     {

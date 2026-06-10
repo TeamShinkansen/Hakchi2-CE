@@ -1,4 +1,5 @@
 ﻿using com.clusterrr.hakchi_gui.Properties;
+using Hakchi.Core.Interfaces;
 using System;
 using System.Data;
 using System.Diagnostics;
@@ -84,8 +85,6 @@ namespace com.clusterrr.hakchi_gui
                     string shell = Resources.Unknown;
                     if (hakchi.Shell is INetworkShell)
                         shell = "SSH";
-                    else if (hakchi.Shell is clovershell.ClovershellConnection)
-                        shell = "Clovershell";
 
                     listView1.Items.AddRange(new ListViewItem[] {
                         // shell info

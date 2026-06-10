@@ -1,5 +1,9 @@
 ﻿#pragma warning disable 0618
 using com.clusterrr.hakchi_gui.Properties;
+using Hakchi.Core;
+using Hakchi.Core.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Win32.SafeHandles;
 using SpineGen.DrawingBitmaps;
 using SpineGen.JSON;
@@ -11,11 +15,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using System.Xml;
 using TeamShinkansen.Scrapers.Interfaces;
 
 namespace com.clusterrr.hakchi_gui
@@ -41,8 +43,8 @@ namespace com.clusterrr.hakchi_gui
         private const uint GENERIC_WRITE = 0x40000000;
         private const uint FILE_SHARE_WRITE = 0x2;
         private const uint OPEN_EXISTING = 0x3;
-        public static readonly string BaseDirectoryInternal = Path.GetDirectoryName(Application.ExecutablePath);
-        public static string BaseDirectoryExternal;
+        public static string BaseDirectoryInternal { get; private set; }
+        public static string BaseDirectoryExternal { get; private set; }
         public static bool ConsoleVisible { get; private set; } = false;
         public static bool isPortable = false;
         public static List<Stream> debugStreams = new List<Stream>();
@@ -58,7 +60,7 @@ namespace com.clusterrr.hakchi_gui
             get => _Scrapers;
         }
 
-        public static MultiFormContext FormContext = new MultiFormContext();
+        public static MultiFormContext FormContext;
         internal static TeamShinkansen.Scrapers.TheGamesDB.Scraper TheGamesDBAPI = null;
         static void SetupScrapers()
         {
@@ -75,6 +77,26 @@ namespace com.clusterrr.hakchi_gui
                 TeamShinkansen.Scrapers.TheGamesDB.API.TraceURLs = true;
             }
         }
+        
+        public static IServiceProvider ServiceProvider { get; private set; }
+        static IHostBuilder CreateHostBuilder(string[] args)
+        {
+            return Host.CreateDefaultBuilder()
+                .ConfigureServices((context, services) =>
+                {
+                    services
+                        .AddHakchiServices(args)
+                        .AddSingleton(new MultiFormContext())
+                        .AddAttributedServices(typeof(Program).Assembly);
+                });
+        }
+
+        private static IServiceProvider _services;
+
+        public static T GetRequiredService<T>()
+        {
+            return _services.GetRequiredService<T>();
+        }
 
         /// <summary>
         /// The main entry point for the application.
@@ -82,18 +104,28 @@ namespace com.clusterrr.hakchi_gui
         [STAThread]
         static void Main(string[] args)
         {
+            var host = CreateHostBuilder(args).Build();
+            host.Start();
+            _services = host.Services;
+            var formContext = FormContext = GetRequiredService<MultiFormContext>();
+            var launchFlags = GetRequiredService<ILaunchFlags>();
+            var launchArguments = GetRequiredService<ILaunchArguments>();
+            var hakchiPaths = GetRequiredService<IHakchiPaths>();
+
+            BaseDirectoryExternal = hakchiPaths.BaseDirectoryExternal;
+            BaseDirectoryInternal = hakchiPaths.BaseDirectoryInternal;
+            isPortable = launchFlags.IsPortable;
+
             var stdout = Console.OpenStandardOutput();
 
             int versionFormatArgIndex;
-            if (args != null && (versionFormatArgIndex = Array.IndexOf(args, "--versionFormat")) != -1)
+            if (!string.IsNullOrEmpty(launchFlags.VersionFormat))
             {
                 Stream versionStream = null;
-                string versionFormat;
 
-                var versionFileArgIndex = -1;
-                if (args != null && (versionFileArgIndex = Array.IndexOf(args, "--versionFile")) != -1)
+                if (!string.IsNullOrEmpty(launchFlags.VersionFile))
                 {
-                    versionStream = File.Create(args[versionFileArgIndex + 1]);
+                    versionStream = File.Create(launchFlags.VersionFile);
                 } 
                 else
                 {
@@ -102,18 +134,17 @@ namespace com.clusterrr.hakchi_gui
 
                 using (var writer = new StreamWriter(versionStream))
                 {
-                    versionFormat = args[versionFormatArgIndex + 1];
-                    writer.Write(String.Format(versionFormat, Shared.AppDisplayVersion));
+                    writer.Write(String.Format(launchFlags.VersionFormat, Shared.AppDisplayVersion));
                     writer.Flush();
                 }
                 
                 return;
             }
 
-            Trace.Listeners.Add(new TextWriterTraceListener(stdout));
+            System.Diagnostics.Trace.Listeners.Add(new TextWriterTraceListener(stdout));
             
 #if !DUMPER
-            if (Debugger.IsAttached || Array.IndexOf(args, "/debug") != -1)
+            if (launchFlags.IsDebug)
 #endif
             {
                 try
@@ -127,7 +158,7 @@ namespace com.clusterrr.hakchi_gui
                     standardOutput.AutoFlush = true;
                     Console.SetOut(standardOutput);
                     debugStreams.Add(consoleFileStream);
-                    Trace.Listeners.Add(new TextWriterTraceListener(System.Console.Out));
+                    System.Diagnostics.Trace.Listeners.Add(new TextWriterTraceListener(System.Console.Out));
                     ConsoleVisible = true;
                 }
                 catch { }
@@ -135,7 +166,7 @@ namespace com.clusterrr.hakchi_gui
                 {
                     Stream logFile = File.Create("debuglog.txt");
                     debugStreams.Add(logFile);
-                    Trace.Listeners.Add(new TextWriterTraceListener(logFile));
+                    System.Diagnostics.Trace.Listeners.Add(new TextWriterTraceListener(logFile));
                 }
                 catch (Exception ex)
                 {
@@ -148,7 +179,7 @@ namespace com.clusterrr.hakchi_gui
             {
                 MemoryStream inMemoryLog = new MemoryStream();
                 debugStreams.Add(inMemoryLog);
-                Trace.Listeners.Add(new TextWriterTraceListener(new StreamWriter(inMemoryLog, System.Text.Encoding.GetEncoding(MY_CODE_PAGE))));
+                System.Diagnostics.Trace.Listeners.Add(new TextWriterTraceListener(new StreamWriter(inMemoryLog, System.Text.Encoding.GetEncoding(MY_CODE_PAGE))));
             }
             catch (Exception ex)
             {
@@ -156,10 +187,6 @@ namespace com.clusterrr.hakchi_gui
             }
             Trace.AutoFlush = true;
 #endif
-            isPortable = !args.Contains("/nonportable") || args.Contains("/portable");
-
-            if (File.Exists(Path.Combine(BaseDirectoryInternal, "nonportable.flag")))
-                isPortable = false;
 
             bool isFirstRun = false;
             
@@ -178,7 +205,6 @@ namespace com.clusterrr.hakchi_gui
 #if !DUMPER
                         if (!isPortable)
                         {
-                            BaseDirectoryExternal = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "hakchi2");
                             try
                             {
                                 if (!Directory.Exists(BaseDirectoryExternal))
@@ -206,8 +232,6 @@ namespace com.clusterrr.hakchi_gui
                                 Trace.WriteLine(ex.Message);
                             }
                         }
-                        else
-                            BaseDirectoryExternal = BaseDirectoryInternal;
 
                         Directory.SetCurrentDirectory(BaseDirectoryInternal);
 
@@ -267,18 +291,17 @@ namespace com.clusterrr.hakchi_gui
 
                         Trace.WriteLine("Starting, version: " + Shared.AppDisplayVersion);
 
-                        System.Net.ServicePointManager.SecurityProtocol = (System.Net.SecurityProtocolType)4080; // set default security protocol
                         Application.EnableVisualStyles();
                         Application.SetCompatibleTextRenderingDefault(false);
 
-                        FormContext.AllFormsClosed += Process.GetCurrentProcess().Kill; // Suicide! Just easy and dirty way to kill all threads.
+                        formContext.AllFormsClosed += Process.GetCurrentProcess().Kill; // Suicide! Just easy and dirty way to kill all threads.
 
 #if !DUMPER
-                        FormContext.AddForm(new MainForm());
+                        formContext.AddForm(GetRequiredService<MainForm>());
 #else
-                        FormContext.AddForm(new DumperForm());
+                        formContext.AddForm(GetRequiredService<DumperForm>());
 #endif
-                        Application.Run(FormContext);
+                        Application.Run(formContext);
                         Trace.WriteLine("Done.");
                     }
                     else
@@ -312,34 +335,5 @@ namespace com.clusterrr.hakchi_gui
             }
             return "";
         }
-
-        [DllImport("Shell32.dll")]
-        private static extern int SHGetKnownFolderPath([MarshalAs(UnmanagedType.LPStruct)]Guid rfid, uint dwFlags,
-            IntPtr hToken, out IntPtr ppszPath);
-        private static string GetDocumentsLibraryPath()
-        {
-            IntPtr outPath;
-            var documentsLibraryGuid = new Guid("7B0DB17D-9CD2-4A93-9733-46CC89022E7C");
-            int result = SHGetKnownFolderPath(documentsLibraryGuid, 0, WindowsIdentity.GetCurrent().Token, out outPath);
-            if (result >= 0)
-            {
-                var libConfigPath = Marshal.PtrToStringUni(outPath);
-                var libConfig = new XmlDocument();
-                libConfig.LoadXml(File.ReadAllText(libConfigPath));
-                var nsmgr = new XmlNamespaceManager(libConfig.NameTable);
-                nsmgr.AddNamespace("ns", libConfig.LastChild.NamespaceURI);
-                var docs = libConfig.SelectSingleNode("//ns:searchConnectorDescription[ns:isDefaultSaveLocation='true']/ns:simpleLocation/ns:url/text()", nsmgr);
-                if (Directory.Exists(docs.Value))
-                    return docs.Value;
-                else
-                    throw new Exception("Invalid Documents directory: " + docs.Value);
-            }
-            else
-            {
-                throw new ExternalException("Cannot get the known folder path. It may not be available on this system.",
-                    result);
-            }
-        }
-
     }
 }

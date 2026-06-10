@@ -1,14 +1,9 @@
-﻿using com.clusterrr.hakchi_gui;
+﻿using Hakchi.Core.Interfaces;
 using Renci.SshNet;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Net.NetworkInformation;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace com.clusterrr.ssh
+namespace Hakchi.Core.SshClient
 {
     public class SshClientWrapper : ISystemShell, INetworkShell
     {
@@ -17,11 +12,11 @@ namespace com.clusterrr.ssh
         public event OnConnectedEventHandler OnConnected = delegate { };
         public event OnDisconnectedEventHandler OnDisconnected = delegate { };
 
-        private SshClient sshClient;
+        private Renci.SshNet.SshClient sshClient;
         private Thread connectThread;
+        private CancellationTokenSource connectThreadCancellationTokenSource;
         private List<IListener> listeners;
 
-        private bool enabled;
         private bool hasConnected;
         DateTime lastDisconnected;
 
@@ -34,11 +29,13 @@ namespace com.clusterrr.ssh
         public bool AutoReconnect { set; get; }
         public bool Enabled
         {
-            get { return enabled; }
+            get => field;
             set
             {
-                if (enabled == value) return;
-                enabled = value;
+                if (field == value) return;
+
+                field = value;
+
                 if (value)
                 {
                     // start devices listener
@@ -52,7 +49,8 @@ namespace com.clusterrr.ssh
                     // start connection watching thread
                     if (connectThread == null)
                     {
-                        connectThread = new Thread(connectThreadLoop);
+                        connectThreadCancellationTokenSource = new CancellationTokenSource();
+                        connectThread = new Thread(() => connectThreadLoop(connectThreadCancellationTokenSource.Token));
                         connectThread.Start();
                     }
                 }
@@ -60,10 +58,15 @@ namespace com.clusterrr.ssh
                 {
                     if (connectThread != null)
                     {
-                        #warning Refactor this to get rid of Thread.Abort!
-                        connectThread.Abort();
+                        connectThreadCancellationTokenSource?.Cancel();
+                        if (connectThread.IsAlive)
+                        {
+                            connectThread.Join(1000);
+                        }
                         connectThread = null;
                     }
+                    connectThreadCancellationTokenSource?.Dispose();
+                    connectThreadCancellationTokenSource = null;
                     if (listeners != null)
                     {
                         listeners.ForEach(l => l.Dispose());
@@ -111,8 +114,9 @@ namespace com.clusterrr.ssh
         {
             sshClient = null;
             connectThread = null;
+            connectThreadCancellationTokenSource = null;
             listeners = null;
-            enabled = false;
+            Enabled = false;
             hasConnected = false;
             lastDisconnected = DateTime.Now.Subtract(TimeSpan.FromMilliseconds(3000));
 
@@ -139,7 +143,7 @@ namespace com.clusterrr.ssh
             {
                 if (sshClient == null)
                 {
-                    sshClient = new SshClient(IPAddress, port.Value, username, password);
+                    sshClient = new Renci.SshNet.SshClient(IPAddress, port.Value, username, password);
                     sshClient.ErrorOccurred += SshClient_OnError;
                 }
                 if (!sshClient.IsConnected)
@@ -173,11 +177,11 @@ namespace com.clusterrr.ssh
             }
         }
 
-        private void connectThreadLoop()
+        private void connectThreadLoop(CancellationToken cancellationToken)
         {
             try
             {
-                while (true)
+                while (!cancellationToken.IsCancellationRequested)
                 {
                     try
                     {
@@ -204,21 +208,16 @@ namespace com.clusterrr.ssh
                                 }
                             }
                         }
-                        Thread.Sleep(500);
-                    }
-                    catch (ThreadAbortException)
-                    {
-                        return;
+                        if (cancellationToken.WaitHandle.WaitOne(500))
+                        {
+                            return;
+                        }
                     }
                     catch (Exception ex)
                     {
                         Trace.WriteLine("Error during connect loop: " + ex.Message + ex.StackTrace);
                     }
                 }
-            }
-            catch (ThreadAbortException)
-            {
-                return;
             }
             catch (Exception ex)
             {
@@ -306,11 +305,12 @@ namespace com.clusterrr.ssh
 
         public int Execute(string command, Stream stdin = null, Stream stdout = null, Stream stderr = null, int timeout = 0, bool throwOnNonZero = false)
         {
-            SshCommand sshCommand = sshClient.CreateCommand(command);
+            SshCommand sshCommand = sshClient.CreateCommand(command, stdout, stderr);
+            using var inputStream = sshCommand.CreateInputStream();
             if (timeout > 0)
                 sshCommand.CommandTimeout = new TimeSpan(0, 0, 0, 0, timeout);
 
-            IAsyncResult execResult = sshCommand.BeginExecute(null, null, stdout, stderr);
+            IAsyncResult execResult = sshCommand.BeginExecute(null, null);
 
             if (stdin != null)
             {
@@ -335,7 +335,7 @@ namespace com.clusterrr.ssh
 
             Trace.WriteLine(string.Format("{0} # exit code {1}", command, sshCommand.ExitStatus));
 
-            return sshCommand.ExitStatus;
+            return sshCommand.ExitStatus ?? int.MinValue;
         }
 
         public Task<string> ExecuteSimpleAsync(string command, int timeout = 2000, bool throwOnNonZero = false)

@@ -12,7 +12,7 @@ namespace com.clusterrr.hakchi_gui
 {
     public static class CoreCollection
     {
-        private static readonly string CollectionFilename = Shared.PathCombine(Program.BaseDirectoryExternal, "config", "cores{0}.json");
+        private static readonly string CollectionFilename = Path.Combine(Program.BaseDirectoryExternal, "config", "cores{0}.json");
         public static Hmod.Hmod[] HmodInfo = new Hmod.Hmod[] { };
         public enum CoreKind { Unknown, BuiltIn, Libretro };
         public class CoreInfo : IEquatable<CoreInfo>
@@ -109,7 +109,7 @@ namespace com.clusterrr.hakchi_gui
 
             // list base info files present in "libretro_cores.tgz"
             cores = new Dictionary<string, CoreInfo>();
-            using (var extractor = ArchiveFactory.Open(Shared.PathCombine(Program.BaseDirectoryInternal, "data", "libretro_cores.tar")))
+            using (var extractor = ArchiveFactory.Open(Path.Combine(Program.BaseDirectoryInternal, "data", "libretro_cores.tar")))
             using (var reader = extractor.ExtractAllEntries())
             {
                 while (reader.MoveToNextEntry())

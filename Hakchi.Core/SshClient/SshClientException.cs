@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace com.clusterrr.ssh
+﻿namespace Hakchi.Core.SshClient
 {
     public class SshClientException : Exception
     {

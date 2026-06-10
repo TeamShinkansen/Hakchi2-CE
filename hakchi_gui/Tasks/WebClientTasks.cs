@@ -1,4 +1,5 @@
 ﻿using com.clusterrr.util;
+using Hakchi.Core.Services;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -25,9 +26,10 @@ namespace com.clusterrr.hakchi_gui.Tasks
                 {
                     comparisonDate = File.GetLastWriteTime(fileName);
                 }
+                var wrInfo = Program.GetRequiredService<WebRequestInfo>();
 
                 var wr = HttpWebRequest.Create(url) as HttpWebRequest;
-                wr.UserAgent = HakchiWebClient.UserAgent;
+                wr.Headers.Add(HttpRequestHeader.UserAgent, wrInfo.UserAgent);
 
                 try
                 {
@@ -81,6 +83,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
                     }
                 }
                 catch (ThreadAbortException) { }
+                catch (ThreadInterruptedException) { }
                 catch (Exception e)
                 {
                     if (!successOnError)
