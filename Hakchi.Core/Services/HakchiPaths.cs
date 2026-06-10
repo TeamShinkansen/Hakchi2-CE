@@ -1,11 +1,9 @@
 ﻿using Hakchi.Core.Interfaces;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Security.Principal;
-using System.Xml;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Hakchi.Core.Services
 {
+    [RegisterService(ServiceLifetime.Singleton, typeof(IHakchiPaths))]
     internal class HakchiPaths : IHakchiPaths
     {
         public string BaseDirectoryInternal { get; private set; }

@@ -1,9 +1,10 @@
 ﻿using AutoUpdaterDotNET;
 using com.clusterrr.hakchi_gui.data;
-using com.clusterrr.hakchi_gui.ModHub;
 using com.clusterrr.hakchi_gui.ModHub.Repository;
 using com.clusterrr.hakchi_gui.Properties;
 using com.clusterrr.hakchi_gui.Tasks;
+using Hakchi.Core;
+using Microsoft.Extensions.DependencyInjection;
 using SharpCompress.Archives;
 using SpineGen.DrawingBitmaps;
 using System;
@@ -25,6 +26,7 @@ using static com.clusterrr.hakchi_gui.Tasks.Tasker;
 
 namespace com.clusterrr.hakchi_gui
 {
+    [RegisterService(ServiceLifetime.Singleton)]
     public partial class MainForm : Form
     {
         /// <summary>

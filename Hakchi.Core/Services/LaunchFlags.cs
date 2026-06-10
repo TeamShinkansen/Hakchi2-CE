@@ -1,10 +1,9 @@
 ﻿using Hakchi.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Hakchi.Core.Services
 {
+    [RegisterService(ServiceLifetime.Singleton, typeof(ILaunchFlags))]
     internal class LaunchFlags : ILaunchFlags
     {
         public bool IsPortable { get; private set; }

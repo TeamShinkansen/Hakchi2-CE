@@ -18,9 +18,9 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
 using TeamShinkansen.Scrapers.Interfaces;
-using Hakchi.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Hakchi.Core.Interfaces;
+using Hakchi.Core;
 
 namespace com.clusterrr.hakchi_gui
 {
@@ -89,13 +89,15 @@ namespace com.clusterrr.hakchi_gui
                     services
                         .AddHakchiServices(args)
                         .AddSingleton(new MultiFormContext())
-#if DUMPER
-                        .AddSingleton<DumperForm, DumperForm>()
-#else
-                        .AddSingleton<MainForm, MainForm>()
-#endif
-                        ;
+                        .AddAttributedServices(typeof(Program).Assembly);
                 });
+        }
+
+        private static IServiceProvider _services;
+
+        public static T GetRequiredService<T>()
+        {
+            return _services.GetRequiredService<T>();
         }
 
         /// <summary>
@@ -106,11 +108,11 @@ namespace com.clusterrr.hakchi_gui
         {
             var host = CreateHostBuilder(args).Build();
             host.Start();
-            var services = host.Services;
-            var formContext = FormContext = services.GetRequiredService<MultiFormContext>();
-            var launchFlags = services.GetRequiredService<ILaunchFlags>();
-            var launchArguments = services.GetRequiredService<ILaunchArguments>();
-            var hakchiPaths = services.GetRequiredService<IHakchiPaths>();
+            _services = host.Services;
+            var formContext = FormContext = GetRequiredService<MultiFormContext>();
+            var launchFlags = GetRequiredService<ILaunchFlags>();
+            var launchArguments = GetRequiredService<ILaunchArguments>();
+            var hakchiPaths = GetRequiredService<IHakchiPaths>();
 
             BaseDirectoryExternal = hakchiPaths.BaseDirectoryExternal;
             BaseDirectoryInternal = hakchiPaths.BaseDirectoryInternal;
@@ -297,9 +299,9 @@ namespace com.clusterrr.hakchi_gui
                         formContext.AllFormsClosed += Process.GetCurrentProcess().Kill; // Suicide! Just easy and dirty way to kill all threads.
 
 #if !DUMPER
-                        formContext.AddForm(services.GetRequiredService<MainForm>());
+                        formContext.AddForm(GetRequiredService<MainForm>());
 #else
-                        formContext.AddForm(services.GetRequiredService<DumperForm>());
+                        formContext.AddForm(GetRequiredService<DumperForm>());
 #endif
                         Application.Run(formContext);
                         Trace.WriteLine("Done.");

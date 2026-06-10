@@ -108,7 +108,7 @@ namespace com.clusterrr.hakchi_gui
 
         private void licenseInfo_Click(object sender, EventArgs e)
         {
-            using (var info = new LicenseInfo())
+            using (var info = Program.GetRequiredService<LicenseInfo>())
             {
                 info.ShowDialog();
             }
