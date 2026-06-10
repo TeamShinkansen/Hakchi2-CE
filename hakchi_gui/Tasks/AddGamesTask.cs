@@ -1,5 +1,6 @@
 ﻿using com.clusterrr.hakchi_gui.data;
 using com.clusterrr.hakchi_gui.Properties;
+using Hakchi.Core.Services;
 using SharpCompress.Archives;
 using SharpCompress.Common;
 using SharpCompress.Readers;
@@ -385,7 +386,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
                                 }
                             }
 
-                            using (var wc = new HakchiWebClient())
+                            using (var wc = Program.GetRequiredService<HakchiWebClient>())
                             {
 
                                 try

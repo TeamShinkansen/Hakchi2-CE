@@ -1,7 +1,4 @@
 ﻿using Hakchi.Core.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Hakchi.Core.Services
 {

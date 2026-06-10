@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Hakchi.Core.Interfaces
+﻿namespace Hakchi.Core.Interfaces
 {
     public interface ILaunchFlags
     {

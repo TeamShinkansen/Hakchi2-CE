@@ -4,6 +4,8 @@ using com.clusterrr.hakchi_gui.ModHub.Repository;
 using com.clusterrr.hakchi_gui.Properties;
 using com.clusterrr.hakchi_gui.Tasks;
 using Hakchi.Core;
+using Hakchi.Core.Interfaces;
+using Hakchi.Core.Services;
 using Microsoft.Extensions.DependencyInjection;
 using SharpCompress.Archives;
 using SpineGen.DrawingBitmaps;
@@ -292,7 +294,7 @@ namespace com.clusterrr.hakchi_gui
                     }
                 }
 
-                var client = new HakchiWebClient();
+                var client = Program.GetRequiredService<HakchiWebClient>();
 
                 Trace.WriteLine("Downloading motd file, URL: " + MOTD_URL);
                 string motd = client.DownloadString(MOTD_URL);
@@ -362,7 +364,7 @@ namespace com.clusterrr.hakchi_gui
             SetWindowTitle();
 
             // centralized upgrade actions system
-            new Upgrade(this).Run();
+            Program.GetRequiredService<Upgrade>().Run();
             
             // populate mod repository list
             populateRepos();

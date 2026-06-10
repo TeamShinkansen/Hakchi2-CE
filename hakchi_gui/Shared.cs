@@ -1,4 +1,5 @@
 ﻿using com.clusterrr.hakchi_gui.Properties;
+using Hakchi.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,6 +18,7 @@ namespace com.clusterrr.hakchi_gui
 {
     public static class Shared
     {
+        public static IAssemblyInfo AssemblyInfo => field ??= Program.GetRequiredService<IAssemblyInfo>() ?? throw new InvalidOperationException("Unable to retrieve IAssemblyInfo service");
         public static string[] hmodDirectories {
             get
             {
@@ -172,28 +174,20 @@ namespace com.clusterrr.hakchi_gui
         
         public static bool isFirstRun()
         {
-            if (AppVersion > (new Version(Settings.Default.LastNonPortableVersion)))
+            if (AssemblyInfo.EntryAssemblyVersion > (new Version(Settings.Default.LastNonPortableVersion)))
             {
-                Settings.Default.LastNonPortableVersion = AppVersion.ToString();
+                Settings.Default.LastNonPortableVersion = AssemblyInfo.EntryAssemblyVersion.ToString();
                 Settings.Default.Save();
                 return true;
             }
             return false;
         }
 
-        public static Version AppVersion
-        {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version;
-            }
-        }
-
         public static string AppDisplayVersion
         {
             get
             {
-                Version version = AppVersion;
+                Version version = AssemblyInfo.EntryAssemblyVersion;
                 var gitInfo = GitTag == null ? $"-{GitCommit}" : "";
                 if (version.Revision > 2000)
                 {

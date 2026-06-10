@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Hakchi.Core;
+using Hakchi.Core.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -6,6 +9,7 @@ using System.Linq;
 
 namespace com.clusterrr.hakchi_gui
 {
+    [RegisterService(ServiceLifetime.Transient)]
     public class Upgrade
     {
         public delegate bool ActionFunc();
@@ -18,18 +22,22 @@ namespace com.clusterrr.hakchi_gui
 
         private MainForm mainForm;
         private List<Action> actions;
+        private Version appVersion;
+        private IHakchiPaths paths;
 
-        public Upgrade(MainForm mainForm)
+        public Upgrade(MainForm mainForm, IAssemblyInfo assemblyInfo, IHakchiPaths paths)
         {
             this.mainForm = mainForm;
+            this.appVersion = assemblyInfo.EntryAssemblyVersion;
+            this.paths = paths;
             actions = new List<Action>();
-            fillActions(new Version(ConfigIni.Instance.LastVersion), Shared.AppVersion);
+            fillActions(new Version(ConfigIni.Instance.LastVersion), appVersion);
         }
 
         public bool Run()
         {
             var lastVersion = new Version(ConfigIni.Instance.LastVersion);
-            var currentVersion = Shared.AppVersion;
+            var currentVersion = appVersion;
 
             if (lastVersion.CompareTo(currentVersion) > 0)
             {
@@ -90,9 +98,9 @@ namespace com.clusterrr.hakchi_gui
                     startingVersion = new Version("3.0.0.0"),
                     targetVersion = new Version("3.1.0.5"),
                     action = new ActionFunc(() => {
-                        string f = Path.Combine(Program.BaseDirectoryExternal, ConfigIni.ConfigDir, "folders_snes.xml");
-                        string f1 = Path.Combine(Program.BaseDirectoryExternal, ConfigIni.ConfigDir, "folders_snes_eur.xml");
-                        string f2 = Path.Combine(Program.BaseDirectoryExternal, ConfigIni.ConfigDir, "folders_snes_usa.xml");
+                        string f = Path.Combine(paths.BaseDirectoryExternal, ConfigIni.ConfigDir, "folders_snes.xml");
+                        string f1 = Path.Combine(paths.BaseDirectoryExternal, ConfigIni.ConfigDir, "folders_snes_eur.xml");
+                        string f2 = Path.Combine(paths.BaseDirectoryExternal, ConfigIni.ConfigDir, "folders_snes_usa.xml");
                         if (File.Exists(f))
                         {
                             Trace.WriteLine("Converting folders_snes.xml file into eur and usa counterparts.");
@@ -109,8 +117,8 @@ namespace com.clusterrr.hakchi_gui
                     targetVersion = new Version("3.2.2.0"),
                     action = new ActionFunc(() => {
 
-                        string i = Program.BaseDirectoryInternal;
-                        string e = Program.BaseDirectoryExternal;
+                        string i = paths.BaseDirectoryInternal;
+                        string e = paths.BaseDirectoryExternal;
                         string[] unusedFiles = new string[]
                         {
                             Path.Combine(i, "data", "fes1.bin"),

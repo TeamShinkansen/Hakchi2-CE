@@ -1,5 +1,8 @@
 ﻿#pragma warning disable 0618
 using com.clusterrr.hakchi_gui.Properties;
+using Hakchi.Core;
+using Hakchi.Core.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Win32.SafeHandles;
 using SpineGen.DrawingBitmaps;
@@ -12,15 +15,10 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using System.Xml;
 using TeamShinkansen.Scrapers.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
-using Hakchi.Core.Interfaces;
-using Hakchi.Core;
 
 namespace com.clusterrr.hakchi_gui
 {

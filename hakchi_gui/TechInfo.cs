@@ -1,4 +1,5 @@
 ﻿using com.clusterrr.hakchi_gui.Properties;
+using Hakchi.Core.Interfaces;
 using System;
 using System.Data;
 using System.Diagnostics;

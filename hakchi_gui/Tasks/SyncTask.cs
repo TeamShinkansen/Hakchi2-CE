@@ -1,6 +1,7 @@
 ﻿using com.clusterrr.hakchi_gui.Properties;
 using com.clusterrr.util;
 using com.clusterrr.util.arxoneftp;
+using Hakchi.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

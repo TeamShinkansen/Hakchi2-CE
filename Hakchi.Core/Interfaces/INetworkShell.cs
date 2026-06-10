@@ -1,4 +1,4 @@
-﻿namespace com.clusterrr.hakchi_gui
+﻿namespace Hakchi.Core.Interfaces
 {
     public interface INetworkShell
     {

@@ -90,7 +90,6 @@ Gert Driesen for SSH.NET.</Description>
     <PackageReference Include="nQuant" Version="1.0.3" />
     <PackageReference Include="SharpCompress" Version="0.40.0" />
     <PackageReference Include="System.Text.Json" Version="10.0.8" />
-    <PackageReference Include="Tmds.MDns" Version="0.8.0" />
     <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters.CoreServices" Version="2.3.0" />
   </ItemGroup>
@@ -111,7 +110,6 @@ Gert Driesen for SSH.NET.</Description>
     <ProjectReference Include="..\Libraries\SpineGen\SpineGen.Drawing.System.Drawing\SpineGen.Drawing.System.Drawing.csproj" />
     <ProjectReference Include="..\Libraries\SpineGen\SpineGen.JSON\SpineGen.JSON.csproj" />
     <ProjectReference Include="..\Libraries\SpineGen\SpineGen\SpineGen.csproj" />
-    <ProjectReference Include="..\Libraries\SSH.NET\src\Renci.SshNet\Renci.SshNet.csproj" />
     <ProjectReference Include="..\Libraries\tiny7z\tiny7z\tiny7z.csproj" />
     <ProjectReference Include="..\Scrapers\Scrapers.csproj" />
   </ItemGroup>

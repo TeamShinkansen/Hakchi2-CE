@@ -1,5 +1,6 @@
 ﻿using com.clusterrr.hakchi_gui.data;
 using com.clusterrr.hakchi_gui.Properties;
+using Hakchi.Core.Services;
 using SpineGen.DrawingBitmaps;
 using SpineGen.JSON;
 using System;
@@ -613,7 +614,7 @@ namespace com.clusterrr.hakchi_gui
                                     pictureBoxM2Front.Image = new Bitmap(Resources.LoadingFront);
                                 }));
 
-                                using (var wc = new HakchiWebClient())
+                                using (var wc = Program.GetRequiredService<HakchiWebClient>())
                                 {
                                     var imageData = wc.DownloadData(frontUrl);
                                     using (var ms = new MemoryStream(imageData)) 
@@ -669,7 +670,7 @@ namespace com.clusterrr.hakchi_gui
                             if (innerResult is TeamShinkansen.Scrapers.TheGamesDB.ScraperData)
                             {
                                 var tgdbResult = innerResult as TeamShinkansen.Scrapers.TheGamesDB.ScraperData;
-                                using (var wc = new HakchiWebClient())
+                                using (var wc = Program.GetRequiredService<HakchiWebClient>())
                                 {
                                     try
                                     {

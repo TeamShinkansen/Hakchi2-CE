@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace com.clusterrr.hakchi_gui
+﻿namespace Hakchi.Core.Interfaces
 {
     public delegate void OnConnectedEventHandler(ISystemShell caller);
     public delegate void OnDisconnectedEventHandler();

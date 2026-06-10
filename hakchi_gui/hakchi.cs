@@ -1,6 +1,7 @@
 ﻿using com.clusterrr.hakchi_gui.Properties;
 using com.clusterrr.hakchi_gui.Tasks;
-using com.clusterrr.ssh;
+using Hakchi.Core.Interfaces;
+using Hakchi.Core.SshClient;
 using SharpCompress.Archives;
 using System;
 using System.Collections.Generic;

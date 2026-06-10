@@ -1,14 +1,9 @@
-﻿using com.clusterrr.hakchi_gui;
+﻿using Hakchi.Core.Interfaces;
 using Renci.SshNet;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Net.NetworkInformation;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace com.clusterrr.ssh
+namespace Hakchi.Core.SshClient
 {
     public class SshClientWrapper : ISystemShell, INetworkShell
     {
@@ -17,12 +12,11 @@ namespace com.clusterrr.ssh
         public event OnConnectedEventHandler OnConnected = delegate { };
         public event OnDisconnectedEventHandler OnDisconnected = delegate { };
 
-        private SshClient sshClient;
+        private Renci.SshNet.SshClient sshClient;
         private Thread connectThread;
         private CancellationTokenSource connectThreadCancellationTokenSource;
         private List<IListener> listeners;
 
-        private bool enabled;
         private bool hasConnected;
         DateTime lastDisconnected;
 
@@ -35,11 +29,13 @@ namespace com.clusterrr.ssh
         public bool AutoReconnect { set; get; }
         public bool Enabled
         {
-            get { return enabled; }
+            get => field;
             set
             {
-                if (enabled == value) return;
-                enabled = value;
+                if (field == value) return;
+
+                field = value;
+
                 if (value)
                 {
                     // start devices listener
@@ -120,7 +116,7 @@ namespace com.clusterrr.ssh
             connectThread = null;
             connectThreadCancellationTokenSource = null;
             listeners = null;
-            enabled = false;
+            Enabled = false;
             hasConnected = false;
             lastDisconnected = DateTime.Now.Subtract(TimeSpan.FromMilliseconds(3000));
 
@@ -147,7 +143,7 @@ namespace com.clusterrr.ssh
             {
                 if (sshClient == null)
                 {
-                    sshClient = new SshClient(IPAddress, port.Value, username, password);
+                    sshClient = new Renci.SshNet.SshClient(IPAddress, port.Value, username, password);
                     sshClient.ErrorOccurred += SshClient_OnError;
                 }
                 if (!sshClient.IsConnected)

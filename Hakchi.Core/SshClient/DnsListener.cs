@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Hakchi.Core.Interfaces;
 using System.Diagnostics;
 using System.Net;
 
-namespace com.clusterrr.ssh
+namespace Hakchi.Core.SshClient
 {
     public class DnsListener : IListener
     {

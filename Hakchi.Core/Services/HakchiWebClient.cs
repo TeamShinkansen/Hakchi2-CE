@@ -1,12 +1,13 @@
-﻿using System;
-using System.Net;
+﻿using Hakchi.Core.Interfaces;
 using System.ComponentModel;
+using System.Net;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace com.clusterrr.hakchi_gui
+namespace Hakchi.Core.Services
 {
-    class HakchiWebClient : WebClient
+    [RegisterService(ServiceLifetime.Transient, typeof(WebClient))]
+    public class HakchiWebClient : WebClient
     {
-        public static readonly string UserAgent = $"Hakchi2 CE/{Shared.AppVersion.ToString()} (https://github.com/TeamShinkansen/Hakchi2-CE)";
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string Method
         {
@@ -14,8 +15,9 @@ namespace com.clusterrr.hakchi_gui
             set;
         }
 
-        public HakchiWebClient() {
-            Headers.Add(HttpRequestHeader.UserAgent, UserAgent);
+        public HakchiWebClient(WebRequestInfo webRequestInfo)
+        {
+            Headers.Add(HttpRequestHeader.UserAgent, webRequestInfo.UserAgent);
         }
 
         protected override WebRequest GetWebRequest(Uri address)

@@ -2,6 +2,7 @@
 using com.clusterrr.hakchi_gui.Properties;
 using com.clusterrr.hakchi_gui.Tasks;
 using com.clusterrr.util;
+using Hakchi.Core.Interfaces;
 using SharpCompress.Archives;
 using System;
 using System.Collections.Generic;
