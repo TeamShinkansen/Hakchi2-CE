@@ -65,6 +65,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
             userRecovery = (hakchi.Shell.IsOnline && hakchi.MinimalMemboot && hakchi.UserMinimalMemboot);
 
             fel = new Fel();
+            fel.WriteLine += (string message) => Trace.WriteLine("[FEL] " + message);
             List<TaskFunc> taskList = new List<TaskFunc>();
             if (!hakchi.MinimalMemboot || forceRecoveryReload)
             {
@@ -315,7 +316,12 @@ namespace com.clusterrr.hakchi_gui.Tasks
             fel.Fes1Bin = Resources.fes1;
             fel.UBootBin = hakchi.Hmod.GetUboot(UbootType.SD).ToArray();
             if (!fel.Open())
-                throw new FelException("Can't open device");
+            {
+                // Linux: the console is there but can't be opened, almost always missing USB permissions
+                if (!(LinuxSetup.Offer(hostForm, "Your console was found in FEL mode, but this PC doesn't allow hakchi to open it over USB.")
+                    && WaitingFelForm.WaitForDevice(hostForm) && fel.Open()))
+                    throw new FelException("Can't open device");
+            }
             tasker.SetStatus(Resources.UploadingFes1);
             fel.InitDram(true);
             return Conclusion.Success;

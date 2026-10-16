@@ -33,21 +33,70 @@ namespace com.clusterrr.ssh
             if (DateTime.Now.Subtract(lastUpdated) > TimeSpan.FromSeconds(TTL))
             {
                 devices.Clear();
-                try
+                // Linux resolvers usually only answer mDNS names (avahi/systemd-resolved) with the .local suffix
+                var names = com.clusterrr.hakchi_gui.Shared.isWindows ? new[] { serviceName } : new[] { serviceName, serviceName + ".local" };
+                foreach (var name in names)
                 {
-                    IPHostEntry ihe = Dns.GetHostEntry(serviceName);
-                    if (ihe.AddressList != null && ihe.AddressList.Length > 0)
+                    try
                     {
-                        Trace.WriteLine($"DNS Resolution returned IPs: " + string.Join(", ", (IEnumerable<IPAddress>)ihe.AddressList));
+                        IPHostEntry ihe = Dns.GetHostEntry(name);
+                        if (ihe.AddressList != null && ihe.AddressList.Length > 0)
+                        {
+                            Trace.WriteLine($"DNS Resolution returned IPs: " + string.Join(", ", (IEnumerable<IPAddress>)ihe.AddressList));
+                            lastUpdated = DateTime.Now;
+                            foreach (var address in ihe.AddressList)
+                                devices.Add(new Device() { Addresses = new List<IPAddress>() { address }, Port = SshClientWrapper.DEFAULT_SSH_PORT });
+                            break;
+                        }
+                    }
+                    catch
+                    {
+                        // no-op (dns resolution fail causes exception)
+                    }
+                }
+
+                // No system mDNS resolver (avahi/nss-mdns, systemd-resolved): ask the network directly
+                if (devices.Count == 0 && !com.clusterrr.hakchi_gui.Shared.isWindows)
+                {
+                    var addresses = MdnsHostResolver.Resolve(serviceName + ".local");
+                    if (addresses.Count > 0)
+                    {
+                        Trace.WriteLine("mDNS lookup returned IPs: " + string.Join(", ", addresses));
                         lastUpdated = DateTime.Now;
-                        foreach (var address in ihe.AddressList)
+                        foreach (var address in addresses)
                             devices.Add(new Device() { Addresses = new List<IPAddress>() { address }, Port = SshClientWrapper.DEFAULT_SSH_PORT });
                     }
                 }
-                catch
+
+                // hakchi's USB gadget always uses this link-local address (S92rndis), and its tinysvcmdns responder
+                // may not answer direct queries, so probe it as a last resort.
+                if (devices.Count == 0 && !com.clusterrr.hakchi_gui.Shared.isWindows && sshPortOpen(hakchiUsbAddress))
                 {
-                    // no-op (dns resolution fail causes exception)
+                    Trace.WriteLine("Found hakchi at its default USB address " + hakchiUsbAddress);
+                    lastUpdated = DateTime.Now;
+                    devices.Add(new Device() { Addresses = new List<IPAddress>() { hakchiUsbAddress }, Port = SshClientWrapper.DEFAULT_SSH_PORT });
                 }
+            }
+        }
+
+        private static readonly IPAddress hakchiUsbAddress = IPAddress.Parse("169.254.13.37");
+
+        private static bool sshPortOpen(IPAddress address)
+        {
+            try
+            {
+                using (var client = new System.Net.Sockets.TcpClient())
+                {
+                    var connect = client.BeginConnect(address, SshClientWrapper.DEFAULT_SSH_PORT, null, null);
+                    if (!connect.AsyncWaitHandle.WaitOne(TimeSpan.FromMilliseconds(500)))
+                        return false;
+                    client.EndConnect(connect);
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
 

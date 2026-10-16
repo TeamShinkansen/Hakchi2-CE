@@ -18,6 +18,8 @@ permissions:
 jobs:
   build:
     runs-on: windows-latest
+    # the release created below also carries the Linux build
+    needs: build-linux
 
     env:
       solution: 'hakchi_gui.sln'
@@ -30,10 +32,10 @@ jobs:
         with:
           submodules: true
 
+      # repolevedavaj/install-nsis pulls from a single SourceForge mirror that serves runners a corrupt installer;
+      # Chocolatey is preinstalled on Windows runners and installs to C:\Program Files (x86)\NSIS, where the installer build looks.
       - name: Install NSIS
-        uses: repolevedavaj/install-nsis@v1.0.2
-        with:
-          nsis-version: '3.10'
+        run: choco install nsis -y --no-progress
 
       - name: Set up .NET Core SDK 3.0
         uses: actions/setup-dotnet@v4
@@ -83,6 +85,20 @@ jobs:
           name: hakchi2-ce-${{ env.displayVersion }}-installer
           path: ${{ github.workspace }}\hakchi_gui\bin\hakchi2-ce-${{ env.displayVersion }}-installer.exe
 
+      - name: Download Linux build for the release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/download-artifact@v4
+        with:
+          name: hakchi2-ce-linux
+          path: hakchi_gui/bin
+
+      - name: Download AppImage for the release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/download-artifact@v4
+        with:
+          name: hakchi2-ce-appimage
+          path: hakchi_gui/bin
+
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v1
@@ -95,6 +111,8 @@ jobs:
           files: |
             hakchi_gui/bin/hakchi2-ce-${{ env.displayVersion }}-installer.exe
             hakchi_gui/bin/hakchi2-ce-${{ env.displayVersion }}-portable.zip
+            hakchi_gui/bin/hakchi2-ce-linux.tar.gz
+            hakchi_gui/bin/Hakchi2_CE-x86_64.AppImage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -102,3 +120,63 @@ jobs:
         if: always()
         with:
           webhook: ${{ secrets.DISCORD_WORKFLOW_STATUS_WEBHOOK }}
+
+  build-linux:
+    # oldest supported Ubuntu: the AppImage bundles libraries from here, so they must not be newer than users' systems
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Set up .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # resgen comes from Mono (see the MonoResGen target in hakchi_gui.csproj); the full runtime is bundled into the AppImage
+      - name: Install Mono
+        run: sudo apt-get update && sudo apt-get install -y mono-complete libgdiplus libusb-1.0-0
+
+      - name: Prepare GamesDB API Key File
+        run: |
+          mkdir -p hakchi_gui/ApiKeys
+          printf '%s' "$GamesDBApiKey" > hakchi_gui/ApiKeys/TheGamesDB.txt
+        env:
+          GamesDBApiKey: ${{ secrets.GAMESDB_API_KEY }}
+
+      - name: Build
+        run: dotnet build hakchi_gui/hakchi_gui.csproj -c Release
+
+      - name: Package
+        run: |
+          out=hakchi_gui/bin/Release/net48
+          cp linux/hakchi.sh linux/hakchi-setup.sh linux/hakchi2-ce.png linux/70-hakchi.rules linux/README-linux.md "$out/"
+          rm -f "$out"/*.bat
+          mkdir -p dist
+          tar -czf dist/hakchi2-ce-linux.tar.gz --transform 's,^net48,hakchi2-ce,' -C hakchi_gui/bin/Release net48
+
+      - name: Build AppImage
+        env:
+          APPIMAGE_EXTRACT_AND_RUN: 1
+        run: |
+          curl -sSLo /tmp/linuxdeploy https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+          curl -sSLo /tmp/appimagetool https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
+          chmod +x /tmp/linuxdeploy /tmp/appimagetool
+          LINUXDEPLOY=/tmp/linuxdeploy APPIMAGETOOL=/tmp/appimagetool \
+            sh linux/appimage/build-appimage.sh hakchi_gui/bin/Release/net48 dist/Hakchi2_CE-x86_64.AppImage
+
+      # Uploaded as a tarball inside the artifact zip so the launcher keeps its executable bit
+      - name: Upload Artifact (Linux)
+        uses: actions/upload-artifact@v4
+        with:
+          name: hakchi2-ce-linux
+          path: dist/hakchi2-ce-linux.tar.gz
+
+      - name: Upload Artifact (AppImage)
+        uses: actions/upload-artifact@v4
+        with:
+          name: hakchi2-ce-appimage
+          path: dist/Hakchi2_CE-x86_64.AppImage

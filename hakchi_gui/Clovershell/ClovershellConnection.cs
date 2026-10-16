@@ -306,6 +306,11 @@ namespace com.clusterrr.clovershell
             {
                 Trace.WriteLine("Critical error: " + ex.Message + ex.StackTrace);
             }
+            catch (DllNotFoundException ex)
+            {
+                // Unhandled, this would take down the whole app (seen on Linux without libusb-1.0.so).
+                Trace.WriteLine("libusb not available, clovershell disabled: " + ex.Message);
+            }
         }
 
         public void Connect()

@@ -1,0 +1,4 @@
+# Hakchi2 CE: let the logged-in user talk to the NES/SNES Classic over USB.
+# Must sort before systemd's 73-seat-late.rules, which is what applies TAG+="uaccess".
+# (FEL mode and clovershell both use Allwinner's 1f3a:efe8).
+SUBSYSTEM=="usb", ATTRS{idVendor}=="1f3a", ATTRS{idProduct}=="efe8", MODE="0660", TAG+="uaccess"

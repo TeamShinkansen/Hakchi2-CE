@@ -1,6 +1,7 @@
 ﻿using com.clusterrr.hakchi_gui.Properties;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -698,6 +699,16 @@ namespace com.clusterrr.hakchi_gui
                 output = output.Replace(c.ToString(), replacement);
             }
             return output;
+        }
+
+        /// <summary>
+        /// Opens a file, folder or URL with the desktop's default handler (Explorer on Windows, xdg-open elsewhere).
+        /// </summary>
+        public static Process OpenWithShell(string target)
+        {
+            if (isWindows)
+                return Process.Start(new ProcessStartInfo(target) { UseShellExecute = true });
+            return Process.Start(new ProcessStartInfo("xdg-open", "\"" + target.Replace("\"", "\\\"") + "\"") { UseShellExecute = false });
         }
 
         private static bool _isWindows()

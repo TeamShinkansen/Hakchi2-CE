@@ -230,14 +230,7 @@ namespace com.clusterrr.hakchi_gui.Tasks
 
             // show resulting games directory
             tasker.SetStatus(Resources.PleaseWait);
-            var process = new Process()
-            {
-                StartInfo = new ProcessStartInfo()
-                {
-                    FileName = exportDirectory
-                }
-            };
-            process.Start();
+            Shared.OpenWithShell(exportDirectory);
 
             return Tasker.Conclusion.Success;
         }

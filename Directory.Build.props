@@ -1,0 +1,11 @@
+<Project>
+  <!-- Lets single projects build outside the solution (e.g. `dotnet build hakchi_gui/hakchi_gui.csproj` on Linux). -->
+  <PropertyGroup Condition="'$(SolutionDir)' == '' Or '$(SolutionDir)' == '*Undefined*'">
+    <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+  </PropertyGroup>
+
+  <!-- .NET Framework reference assemblies for building net4x projects without the Windows targeting packs. -->
+  <ItemGroup Condition="'$(OS)' != 'Windows_NT'">
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

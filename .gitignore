@@ -21,3 +21,5 @@ GeneratedData/
 Installer/**/
 Web Installer/**/
 ZIP Files/**/
+# Linux build: symlink to busyboxs created by the PreBuild targets
+tools/busybox

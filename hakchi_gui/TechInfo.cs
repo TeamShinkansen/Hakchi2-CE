@@ -177,13 +177,7 @@ namespace com.clusterrr.hakchi_gui
                     }
                     try
                     {
-                        new Process()
-                        {
-                            StartInfo = new ProcessStartInfo()
-                            {
-                                FileName = saveFileDialog1.FileName
-                            }
-                        }.Start();
+                        Shared.OpenWithShell(saveFileDialog1.FileName);
                     }
                     catch { }
                 }

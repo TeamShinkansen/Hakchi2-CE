@@ -1,0 +1,38 @@
+# Maintainer: YOUR NAME <your@email>
+pkgname=hakchi2-ce-bin
+pkgver=3.9.3
+pkgrel=1
+pkgdesc="Add more games to your NES/SNES Classic Mini (Hakchi2 CE, runs on Mono)"
+arch=('any')
+url="https://github.com/TeamShinkansen/Hakchi2-CE"
+license=('GPL-3.0-only')
+depends=('mono' 'libgdiplus' 'libusb')
+optdepends=('polkit: one-click USB/network setup from inside the app'
+            'networkmanager: automatic network setup for the console')
+provides=('hakchi2-ce')
+conflicts=('hakchi2-ce')
+options=('!strip' '!debug')
+source=("hakchi2-ce-linux-$pkgver.tar.gz::$url/releases/download/v$pkgver/hakchi2-ce-linux.tar.gz"
+        'hakchi2-ce.sh'
+        'hakchi2-ce.desktop')
+sha256sums=('SKIP'
+            '156f5c9939c316cdae142809c1269da19f286030880301dd4db18cc21f3131dc'
+            '951915ba7e6d25487f8d4801f6b7ef1fbb2658ff8c013612b6cebd01eae14884')
+
+package() {
+  cd "$srcdir/hakchi2-ce"
+
+  # The app itself, read-only under /opt. nonportable.flag makes it keep settings and games in ~/hakchi2.
+  install -d "$pkgdir/opt/hakchi2-ce"
+  cp -a . "$pkgdir/opt/hakchi2-ce/"
+  rm -f "$pkgdir/opt/hakchi2-ce/"*.bat
+  touch "$pkgdir/opt/hakchi2-ce/nonportable.flag"
+
+  # USB access for the logged-in user (FEL mode and clovershell)
+  install -Dm644 70-hakchi.rules "$pkgdir/usr/lib/udev/rules.d/70-hakchi.rules"
+
+  install -Dm755 "$srcdir/hakchi2-ce.sh" "$pkgdir/usr/bin/hakchi2-ce"
+  install -Dm644 "$srcdir/hakchi2-ce.desktop" "$pkgdir/usr/share/applications/hakchi2-ce.desktop"
+  install -Dm644 hakchi2-ce.png "$pkgdir/usr/share/icons/hicolor/256x256/apps/hakchi2-ce.png"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

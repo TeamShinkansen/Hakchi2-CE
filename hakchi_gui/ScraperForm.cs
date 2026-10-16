@@ -951,14 +951,7 @@ namespace com.clusterrr.hakchi_gui
         {
             if (linkLabelPoweredBy.Tag != null && linkLabelPoweredBy.Tag is string && isUrl((string)linkLabelPoweredBy.Tag))
             {
-                (new Process()
-                {
-                    StartInfo = new ProcessStartInfo()
-                    {
-                        UseShellExecute = true,
-                        FileName = (string)linkLabelPoweredBy.Tag
-                    }
-                }).Start();
+                Shared.OpenWithShell((string)linkLabelPoweredBy.Tag);
             }
         }
     }

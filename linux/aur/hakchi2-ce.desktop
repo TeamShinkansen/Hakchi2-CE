@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Hakchi2 CE
+GenericName=NES/SNES Classic game manager
+Comment=Add more games to your NES/SNES Classic Mini
+Exec=hakchi2-ce
+Icon=hakchi2-ce
+Terminal=false
+Categories=Game;
+Keywords=nes;snes;famicom;classic;mini;hakchi;

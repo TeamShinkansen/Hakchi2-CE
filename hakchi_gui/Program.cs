@@ -116,6 +116,8 @@ namespace com.clusterrr.hakchi_gui
             if (Debugger.IsAttached || Array.IndexOf(args, "/debug") != -1)
 #endif
             {
+                // Off Windows the log already goes to stdout; there is no console to allocate.
+                if (Shared.isWindows)
                 try
                 {
                     AllocConsole();
@@ -281,7 +283,7 @@ namespace com.clusterrr.hakchi_gui
                         Application.Run(FormContext);
                         Trace.WriteLine("Done.");
                     }
-                    else
+                    else if (Shared.isWindows)
                     {
                         Process current = Process.GetCurrentProcess();
                         foreach (Process process in Process.GetProcessesByName("hakchi"))

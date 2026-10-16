@@ -130,14 +130,10 @@ namespace com.clusterrr.hakchi_gui
         {
             var screenshotPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName() + ".png");
             SaveScreenshot(screenshotPath);
-            var showProcess = new Process()
-            {
-                StartInfo = new ProcessStartInfo()
-                {
-                    FileName = screenshotPath
-                }
-            };
-            showProcess.Start();
+            var showProcess = Shared.OpenWithShell(screenshotPath);
+            // xdg-open returns immediately, so the viewer's lifetime is unknown; leave the temp file for the OS to clean up.
+            if (!Shared.isWindows)
+                return;
             new Thread(delegate ()
             {
                 try

@@ -1,0 +1,24 @@
+pkgbase = hakchi2-ce-bin
+	pkgdesc = Add more games to your NES/SNES Classic Mini (Hakchi2 CE, runs on Mono)
+	pkgver = 3.9.3
+	pkgrel = 1
+	url = https://github.com/TeamShinkansen/Hakchi2-CE
+	arch = any
+	license = GPL-3.0-only
+	depends = mono
+	depends = libgdiplus
+	depends = libusb
+	optdepends = polkit: one-click USB/network setup from inside the app
+	optdepends = networkmanager: automatic network setup for the console
+	provides = hakchi2-ce
+	conflicts = hakchi2-ce
+	options = !strip
+	options = !debug
+	source = hakchi2-ce-linux-3.9.3.tar.gz::https://github.com/TeamShinkansen/Hakchi2-CE/releases/download/v3.9.3/hakchi2-ce-linux.tar.gz
+	source = hakchi2-ce.sh
+	source = hakchi2-ce.desktop
+	sha256sums = SKIP
+	sha256sums = 156f5c9939c316cdae142809c1269da19f286030880301dd4db18cc21f3131dc
+	sha256sums = 951915ba7e6d25487f8d4801f6b7ef1fbb2658ff8c013612b6cebd01eae14884
+
+pkgname = hakchi2-ce-bin

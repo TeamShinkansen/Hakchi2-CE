@@ -1,6 +1,7 @@
 ﻿using com.clusterrr.hakchi_gui.Properties;
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -31,13 +32,24 @@ namespace com.clusterrr.hakchi_gui.Tasks
             {
                 return (Button)hostForm.Invoke(new Func<Form, string, string, Image, Button[], DefaultButton, Button>(Show), new object[] { hostForm, title, message, icon, buttons, defaultButton });
             }
-            return Show(title, message, icon, buttons, defaultButton);
+            return ShowWithOwner(hostForm, title, message, icon, buttons, defaultButton);
         }
 
         public static Button Show(string title, string message, Image icon = null, Button[] buttons = null, DefaultButton defaultButton = DefaultButton.Button1)
         {
+            var owner = Form.ActiveForm ?? Application.OpenForms.Cast<Form>().LastOrDefault(f => f.Visible);
+            return ShowWithOwner(owner, title, message, icon, buttons, defaultButton);
+        }
+
+        // An explicit owner makes Mono mark the dialog as transient for it; without one, tiling window managers
+        // (e.g. Hyprland) can tile or hide the dialog while its modal loop blocks the main window.
+        private static Button ShowWithOwner(Form owner, string title, string message, Image icon, Button[] buttons, DefaultButton defaultButton)
+        {
             var form = Get(title, message, icon, buttons, defaultButton);
-            form.ShowDialog();
+            if (owner != null && owner.Visible && !owner.IsDisposed)
+                form.ShowDialog(owner);
+            else
+                form.ShowDialog();
             return form.result;
         }
 
@@ -76,6 +88,22 @@ namespace com.clusterrr.hakchi_gui.Tasks
                     break;
             }
             formButtons[(int)defaultButton].Select();
+
+            if (!Shared.isWindows)
+            {
+                // Mono neither wraps an auto-sized label nor grows the AutoSize form around it, and it lays the Fill
+                // panel out over the docked button strip, so long messages get clipped. Let the label wrap, dock the
+                // Fill panel last (front of the z-order), and size the window to the measured text plus the buttons.
+                var label = form.messageLabel;
+                label.AutoSize = false;
+                form.panel.BringToFront();
+                var textSize = TextRenderer.MeasureText(message ?? "", label.Font,
+                    new Size(form.panel3.Width - label.Padding.Horizontal, int.MaxValue), TextFormatFlags.WordBreak);
+                int textHeight = Math.Max(textSize.Height + label.Padding.Vertical + 12,
+                    form.pictureBox1.Bottom + form.pictureBox1.Top);
+                form.AutoSize = false;
+                form.ClientSize = new Size(form.ClientSize.Width, textHeight + form.panel1.Height);
+            }
 
             return form;
         }

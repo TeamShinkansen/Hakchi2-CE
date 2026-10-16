@@ -5,7 +5,7 @@
     <TargetFramework>net48</TargetFramework>
     <AssemblyName>hakchi</AssemblyName>
     <RootNamespace>com.clusterrr.hakchi_gui</RootNamespace>
-	  <UseWindowsForms>true</UseWindowsForms>
+	  <UseWindowsForms Condition="'$(OS)' == 'Windows_NT'">true</UseWindowsForms>
 	  <StartupObject>com.clusterrr.hakchi_gui.Program</StartupObject>
 	  <ApplicationIcon>icon_app.ico</ApplicationIcon>
 	  <Description>Based on hakchi by madmonkey.
@@ -118,6 +118,17 @@ Gert Driesen for SSH.NET.</Description>
 
   <ItemGroup>
     <Reference Include="System.Web" />
+  </ItemGroup>
+
+  <!-- Linux build: the SDK requires preserialized resources off Windows (rewritten by the MonoResGen target below). -->
+  <PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
+  <!-- The WindowsDesktop SDK behind UseWindowsForms is not shipped with .NET on Linux; reference the assemblies directly there. -->
+  <ItemGroup Condition="'$(OS)' != 'Windows_NT'">
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <PackageReference Include="System.Resources.Extensions" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)|$(Platform)'!='Dumper|AnyCPU'">
@@ -242,6 +253,15 @@ Gert Driesen for SSH.NET.</Description>
     <Delete Files="@(UnwantedFiles)" />
   </Target>
 
+  <!--
+    Linux: the .NET SDK can only write "preserialized" resources, which Mono's WinForms cannot apply
+    (e.g. TableLayoutPanel.LayoutSettings). Regenerate every .resources file with Mono's resgen so the
+    output uses the classic format that Mono reads natively.
+  -->
+  <Target Name="MonoResGen" AfterTargets="CoreResGen" Condition="'$(OS)' != 'Windows_NT'">
+    <Exec Condition="'%(EmbeddedResource.Extension)' == '.resx'" Command="resgen /useSourcePath &quot;%(EmbeddedResource.FullPath)&quot; &quot;$(IntermediateOutputPath)%(EmbeddedResource.ManifestResourceName).resources&quot;" StandardOutputImportance="low" />
+  </Target>
+
   <Target Name="MoveLanguageResourceFiles" AfterTargets="PostBuildEvent">
     <ItemGroup>
       <LanguageResourceFiles Include="$(OutDir)**\hakchi.resources.dll;" Exclude="$(OutDir)languages\**\*.*" />
@@ -251,11 +271,12 @@ Gert Driesen for SSH.NET.</Description>
   </Target>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Condition="'$(Configuration)|$(Platform)'!='Dumper|AnyCPU'" Command="cd /D &quot;$(SolutionDir)tools/&quot; || cd &quot;$(SolutionDir)tools/&quot;&#xD;&#xA;&quot;./busybox&quot; tar -cf - -C ../GeneratedData . | &quot;busybox&quot; tar -xvf - -C &quot;../hakchi_gui/bin/$(Configuration)/$(TargetFramework)&quot;" />
-    <Exec Condition="'$(Configuration)|$(Platform)'=='Dumper|AnyCPU'" Command="cd /D &quot;$(SolutionDir)tools/&quot; || cd &quot;$(SolutionDir)tools/&quot;&#xD;&#xA;&quot;./busybox&quot; tar -cf - -C ../GeneratedData basehmods.tar driver tools/arm/detached-fallback | &quot;busybox&quot; tar -xvf - -C &quot;../hakchi_gui/bin/$(Configuration)/$(TargetFramework)&quot;" />
+    <Exec Condition="'$(Configuration)|$(Platform)'!='Dumper|AnyCPU'" Command="cd /D &quot;$(SolutionDir)tools/&quot; || cd &quot;$(SolutionDir)tools/&quot;&#xD;&#xA;&quot;./busybox&quot; tar -cf - -C ../GeneratedData . | &quot;./busybox&quot; tar -xvf - -C &quot;../hakchi_gui/bin/$(Configuration)/$(TargetFramework)&quot;" />
+    <Exec Condition="'$(Configuration)|$(Platform)'=='Dumper|AnyCPU'" Command="cd /D &quot;$(SolutionDir)tools/&quot; || cd &quot;$(SolutionDir)tools/&quot;&#xD;&#xA;&quot;./busybox&quot; tar -cf - -C ../GeneratedData basehmods.tar driver tools/arm/detached-fallback | &quot;./busybox&quot; tar -xvf - -C &quot;../hakchi_gui/bin/$(Configuration)/$(TargetFramework)&quot;" />
   </Target>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Condition="'$(OS)' != 'Windows_NT'" Command="ln -sf busyboxs &quot;$(SolutionDir)tools/busybox&quot;" />
     <Exec Command="cd /D &quot;$(SolutionDir)tools/&quot; || cd &quot;$(SolutionDir)tools/&quot;&#xD;&#xA;&quot;./busybox&quot; mkdir -p &quot;../hakchi_gui/ApiKeys&quot;&#xD;&#xA;&quot;./busybox&quot; touch &quot;../hakchi_gui/ApiKeys/TheGamesDB.txt&quot;&#xD;&#xA;&quot;./busybox&quot; sh -e &quot;./gitcommit&quot; &gt; &quot;../hakchi_gui/commit.txt&quot;&#xD;&#xA;&quot;./busybox&quot; sh -e &quot;./git-commits-since-last-tag&quot; &gt; &quot;../hakchi_gui/git-commits-since-last-tag.txt&quot;&#xD;&#xA;&quot;./busybox&quot; sh -e &quot;./gittag&quot; &gt; &quot;../hakchi_gui/tag.txt&quot;&#xD;&#xA;" />
   </Target>
 </Project>
